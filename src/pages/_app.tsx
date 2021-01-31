@@ -10,6 +10,9 @@ const App = ({ Component }) => {
           href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+          rel="stylesheet"></link>
         <meta charSet="utf-8" />
         <title>댕댕로드</title>
       </Head>

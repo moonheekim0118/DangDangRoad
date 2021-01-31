@@ -7,7 +7,9 @@ const GlobalStyle = () => {
         * {
           box-sizing: border-box;
           font-family: 'Nanum Gothic', sans-serif;
-          color: black;
+          margin: 0;
+          padding: 0;
+          position: relative;
         }
       `}
     />
