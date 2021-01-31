@@ -1,10 +1,11 @@
 import React from 'react';
 
-const App =({Component})=>{
-    return(
+const App = ({ Component }) => {
+  return (
     <>
-        <Component/>
-    </>);
+      <Component />
+    </>
+  );
 };
 
 export default App;

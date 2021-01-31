@@ -1,11 +1,11 @@
 {
-    "presets": ["next/babel"],
-    "plugins":[
-        [
-            "@emotion/babel-plugin",
-            {
-                "displayName":true
-            }
-        ]
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "@emotion/babel-plugin",
+      {
+        "displayName": true
+      }
     ]
+  ]
 }
