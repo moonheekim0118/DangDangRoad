@@ -1,10 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import Button from '../atoms/Button';
+import ModalProvider from '../components/ModalProvider';
 import Logo from '../components/Logo';
+import useToggle from '../hooks/useToggle';
 import styled from '@emotion/styled';
 
 const Index = () => {
+  const [modalOpen, modalOpenHanlder] = useToggle();
+
   return (
     <Container>
       <LogoContainer>
@@ -19,10 +23,15 @@ const Index = () => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Button color="white">로그인하고 산책로 리뷰하기</Button>
+          <Button onClick={modalOpenHanlder} color="white">
+            로그인하고 산책로 리뷰하기
+          </Button>
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
+      <ModalProvider opend={modalOpen}>
+        <div>Just a test</div>
+      </ModalProvider>
     </Container>
   );
 };

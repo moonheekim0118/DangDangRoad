@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
       <Html lang="ko=KR">
         <Head />
         <body>
+          <div id="modal-root" />
           <Main />
           <script src="https://polyfill.io/v3/polyfill.min.js?features=es6,es7,es8,es9,NodeList.prototype.forEach&flags=gated" />
           <NextScript />
