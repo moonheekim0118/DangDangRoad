@@ -7,6 +7,12 @@ const useModal = (opend) => {
     setShowModal(opend);
   }, [opend]);
 
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden'; // modal open 시 overflow 감추기
+    }
+  }, [showModal]);
+
   const modalHandler = useCallback(() => {
     setShowModal(!showModal);
   }, [showModal]);

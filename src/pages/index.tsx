@@ -1,13 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Button from '../atoms/Button';
-import ModalProvider from '../components/ModalProvider';
+import Modal from '../components/Modal';
 import Logo from '../components/Logo';
-import useToggle from '../hooks/useToggle';
+import useModal from '../hooks/useModal';
 import styled from '@emotion/styled';
 
 const Index = () => {
-  const [modalOpen, modalOpenHanlder] = useToggle();
+  const [showModal, modalHandler] = useModal(false);
 
   return (
     <Container>
@@ -23,22 +23,22 @@ const Index = () => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Button onClick={modalOpenHanlder} color="white">
+          <Button onClick={modalHandler} color="white">
             로그인하고 산책로 리뷰하기
           </Button>
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
-      <ModalProvider opend={modalOpen}>
+      <Modal showModal={showModal} modalHandler={modalHandler}>
         <div>Just a test</div>
-      </ModalProvider>
+      </Modal>
     </Container>
   );
 };
 
 const Container = styled.main`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #0277bc;
 
   display: flex;
