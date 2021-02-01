@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useDocument = (id: string) => {
+const useElement = (id: string) => {
   const [element, setElement] = useState<Element | null>();
 
   useEffect(() => {
@@ -10,4 +10,4 @@ const useDocument = (id: string) => {
   return element;
 };
 
-export default useDocument;
+export default useElement;
