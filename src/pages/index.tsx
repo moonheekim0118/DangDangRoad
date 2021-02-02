@@ -1,10 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import Button from '../atoms/Button';
+import Modal from '../components/Modal';
 import Logo from '../components/Logo';
+import useModal from '../hooks/useModal';
 import styled from '@emotion/styled';
 
 const Index = () => {
+  const [showModal, modalHandler] = useModal(false);
+
   return (
     <Container>
       <LogoContainer>
@@ -19,17 +23,22 @@ const Index = () => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Button color="white">로그인하고 산책로 리뷰하기</Button>
+          <Button onClick={modalHandler} color="white">
+            로그인하고 산책로 리뷰하기
+          </Button>
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
+      <Modal showModal={showModal} modalHandler={modalHandler}>
+        <div>Just a test</div>
+      </Modal>
     </Container>
   );
 };
 
 const Container = styled.main`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #0277bc;
 
   display: flex;

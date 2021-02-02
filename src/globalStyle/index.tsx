@@ -11,6 +11,13 @@ const GlobalStyle = () => {
           padding: 0;
           position: relative;
         }
+
+        html,
+        body,
+        #__next {
+          width: 100%;
+          height: 100%;
+        }
       `}
     />
   );
