@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../../../atoms/Input';
+import Button from '../../../atoms/Button';
 import useMatch from '../../../hooks/useMatch';
 import useValidation from '../../../hooks/useValidation';
 import styled from '@emotion/styled';
@@ -99,10 +100,17 @@ const SignUpForm = () => {
         }}
         inputChangeHandler={PasswordCheckChangeHandler}
       />
+      <Button color="blue"> JOIN</Button>
     </Form>
   );
 };
 
-const Form = styled.form``;
+const Form = styled.form`
+  width: 450px;
+  height: 600px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  background-color: #fff;
+`;
 
 export default SignUpForm;

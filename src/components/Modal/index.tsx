@@ -36,10 +36,10 @@ const Overlay = styled.div`
 `;
 
 const Contents = styled.div`
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateXY(-50%, -50%);
+  transform: translate(-50%, 10%);
   z-index: 6000;
 `;
 
