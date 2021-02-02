@@ -6,6 +6,7 @@ import Logo from '../components/Logo';
 import useModal from '../hooks/useModal';
 import styled from '@emotion/styled';
 import LoginForm from '../components/Forms/SignUpForm';
+import SearchBar from '../components/SearchBar';
 
 const Index = () => {
   const [showModal, modalHandler] = useModal(false);
@@ -27,6 +28,9 @@ const Index = () => {
           <Button onClick={modalHandler} color="white">
             로그인하고 산책로 리뷰하기
           </Button>
+          <SearchBarContainer>
+            <SearchBar color="white" />
+          </SearchBarContainer>
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
@@ -66,7 +70,7 @@ const SubContetns = styled.section`
 `;
 
 const MainTitle = styled.div`
-  font-size: 72px;
+  font-size: 60px;
   margin: 40px 0;
 
   @media only screen and (max-width: 780px) {
@@ -78,6 +82,11 @@ const LogoContainer = styled.div`
   position: absolute;
   top: 20px;
   left: 20px;
+`;
+
+const SearchBarContainer = styled.div`
+  width: 100%;
+  margin: 25px 0;
 `;
 
 export default Index;
