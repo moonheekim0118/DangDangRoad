@@ -10,27 +10,23 @@ import * as CHECKER from '../../../utils/inputValidation';
 const SignUpForm = () => {
   /** id */
   const [id, idError, IdChangeHandler] = useValidation({
-    initialValue: '',
     max: 10,
     min: 5,
     characterCheck: CHECKER.passIdValue,
   });
   /** nickname */
   const [nickname, nicknameError, NicknameChangeHandler] = useValidation({
-    initialValue: '',
     max: 15,
     min: 3,
     characterCheck: CHECKER.passNicknameValue,
   });
   /** password */
   const [password, passwordError, PasswordChangeHandler] = useValidation({
-    initialValue: '',
     max: 16,
     min: 6,
   });
   /** password check */
   const [passwordCheck, , PasswordCheckChangeHandler] = useValidation({
-    initialValue: '',
     max: 16,
     min: 6,
   });

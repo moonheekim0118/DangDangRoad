@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 interface Props {
   /** initla value for input value */
@@ -19,10 +19,6 @@ const useValidation = ({
 }: Props) => {
   const [value, setValue] = useState<string>(initialValue);
   const [error, setError] = useState<boolean>(false);
-
-  useEffect(() => {
-    setValue(value);
-  }, [initialValue]);
 
   const valueChangeHanlder = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
