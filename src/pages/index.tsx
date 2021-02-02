@@ -5,6 +5,7 @@ import Modal from '../components/Modal';
 import Logo from '../components/Logo';
 import useModal from '../hooks/useModal';
 import styled from '@emotion/styled';
+import SignUpForm from '../components/Forms/SignUpForm';
 
 const Index = () => {
   const [showModal, modalHandler] = useModal(false);
@@ -30,7 +31,7 @@ const Index = () => {
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
       <Modal showModal={showModal} modalHandler={modalHandler}>
-        <div>Just a test</div>
+        <SignUpForm />
       </Modal>
     </Container>
   );
