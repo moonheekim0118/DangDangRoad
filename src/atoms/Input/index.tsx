@@ -23,6 +23,11 @@ const inputContents = {
     placeholder: '비밀번호를 확인해주세요!',
     error: '비밀번호가 일치하지 않습니다.',
   },
+  [inputId.DOGNAME]: {
+    label: '반려견 이름',
+    placeholder: '반려견 이름을 입력해주세요!',
+    error: '',
+  },
 };
 
 interface Props {

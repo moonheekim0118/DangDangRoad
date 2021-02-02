@@ -3,6 +3,7 @@ import Input from '../../../atoms/Input';
 import Button from '../../../atoms/Button';
 import useMatch from '../../../hooks/useMatch';
 import useValidation from '../../../hooks/useValidation';
+import useInput from '../../../hooks/useInput';
 import styled from '@emotion/styled';
 import { inputId } from '../../../model/inputIds';
 import * as CHECKER from '../../../utils/inputValidation';
@@ -20,6 +21,8 @@ const SignUpForm = () => {
     min: 3,
     characterCheck: CHECKER.passNicknameValue,
   });
+  /** dog name (not) */
+  const [dogName, DogNameHandler] = useInput();
   /** password */
   const [password, passwordError, PasswordChangeHandler] = useValidation({
     max: 16,
@@ -50,6 +53,12 @@ const SignUpForm = () => {
         error={nicknameError}
         required={true}
         inputChangeHandler={NicknameChangeHandler}
+      />
+      <Input
+        type="text"
+        id={inputId.DOGNAME}
+        value={dogName}
+        inputChangeHandler={DogNameHandler}
       />
       <Input
         type="password"

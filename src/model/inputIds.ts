@@ -3,4 +3,5 @@ export enum inputId {
   PASSWORD = 'password',
   PASSWORDCHECK = 'PASSWORDCHECK',
   NICKANME = 'nickname',
+  DOGNAME = 'dogname',
 }

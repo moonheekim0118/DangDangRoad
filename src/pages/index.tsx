@@ -5,7 +5,7 @@ import Modal from '../components/Modal';
 import Logo from '../components/Logo';
 import useModal from '../hooks/useModal';
 import styled from '@emotion/styled';
-import LoginForm from '../components/Forms/LoginForm';
+import LoginForm from '../components/Forms/SignUpForm';
 
 const Index = () => {
   const [showModal, modalHandler] = useModal(false);
