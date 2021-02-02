@@ -4,28 +4,8 @@ import Button from '../../../atoms/Button';
 import useMatch from '../../../hooks/useMatch';
 import useValidation from '../../../hooks/useValidation';
 import styled from '@emotion/styled';
+import { inputId } from '../../../model/inputIds';
 import * as CHECKER from '../../../utils/inputValidation';
-
-// TODO 특수문자 에러 띄워주기
-// 강아지 닉네임 추가  ( 반려견의 이름을 입력해주세요! )
-const inputContents = {
-  id: {
-    placeholder: '아이디를 입력해주세요!',
-    error: '5~20자 영문자 소문자, 숫자와 특수기호(_)(-)만 사용 가능합니다.',
-  },
-  nickname: {
-    placeholder: '닉네임을 입력해주세요!',
-    error: '3~15자 영문 대 소문자, 한글, 숫자, 특수문자를 사용하세요',
-  },
-  password: {
-    placeholder: '비밀번호를 입력해주세요!',
-    error: '6~16자 영문 대 소문자, 한글, 숫자, 특수문자를 사용하세요',
-  },
-  passwordCheck: {
-    placeholder: '비밀번호를 확인해주세요!',
-    error: '비밀번호가 일치하지 않습니다.',
-  },
-};
 
 const SignUpForm = () => {
   /** id */
@@ -49,11 +29,11 @@ const SignUpForm = () => {
     min: 6,
   });
   /** password check */
-  const [
-    passwordCheck,
-    passwordCheckError,
-    PasswordCheckChangeHandler,
-  ] = useValidation({ initialValue: '', max: 16, min: 6 });
+  const [passwordCheck, , PasswordCheckChangeHandler] = useValidation({
+    initialValue: '',
+    max: 16,
+    min: 6,
+  });
 
   const passwordMatch = useMatch({ value: passwordCheck, target: password });
 
@@ -61,46 +41,33 @@ const SignUpForm = () => {
     <Form>
       <Input
         type="text"
-        label="아이디"
-        placeholder={inputContents['id'].placeholder}
+        id={inputId.ID}
         value={id}
-        error={{ message: inputContents['id'].error, show: idError }}
+        error={idError}
         required={true}
         inputChangeHandler={IdChangeHandler}
       />
       <Input
         type="text"
-        label="닉네임"
-        placeholder={inputContents['nickname'].placeholder}
+        id={inputId.NICKANME}
         value={nickname}
-        error={{
-          message: inputContents['nickname'].error,
-          show: nicknameError,
-        }}
+        error={nicknameError}
         required={true}
         inputChangeHandler={NicknameChangeHandler}
       />
       <Input
         type="password"
-        label="비밀번호"
-        placeholder={inputContents['password'].placeholder}
+        id={inputId.PASSWORD}
         value={password}
-        error={{
-          message: inputContents['password'].error,
-          show: passwordError,
-        }}
+        error={passwordError}
         required={true}
         inputChangeHandler={PasswordChangeHandler}
       />
       <Input
         type="password"
-        label="비밀번호 확인"
-        placeholder={inputContents['passwordCheck'].placeholder}
+        id={inputId.PASSWORDCHECK}
         value={passwordCheck}
-        error={{
-          message: inputContents['passwordCheck'].error,
-          show: !passwordMatch,
-        }}
+        error={!passwordMatch}
         required={true}
         inputChangeHandler={PasswordCheckChangeHandler}
       />

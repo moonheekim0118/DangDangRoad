@@ -1,20 +1,39 @@
 import React, { memo } from 'react';
+import { inputId } from '../../model/inputIds';
 import styled from '@emotion/styled';
+
+const inputContents = {
+  [inputId.ID]: {
+    label: '아이디',
+    placeholder: '아이디를 입력해주세요!',
+    error: '5~20자 영문자 소문자, 숫자와 특수기호(_)(-)만 사용 가능합니다.',
+  },
+  [inputId.NICKANME]: {
+    label: '닉네임',
+    placeholder: '닉네임을 입력해주세요!',
+    error: '3~15자 영문 대 소문자, 한글, 숫자, 특수문자를 사용하세요',
+  },
+  [inputId.PASSWORD]: {
+    label: '비밀번호',
+    placeholder: '비밀번호를 입력해주세요!',
+    error: '6~16자 영문 대 소문자, 한글, 숫자, 특수문자를 사용하세요',
+  },
+  [inputId.PASSWORDCHECK]: {
+    label: '비밀번호 확인',
+    placeholder: '비밀번호를 확인해주세요!',
+    error: '비밀번호가 일치하지 않습니다.',
+  },
+};
 
 interface Props {
   /** input field type */
   type: 'text' | 'password';
-  /** label title */
-  label: string;
-  /** placeholder contents */
-  placeholder?: string;
+  /** input id */
+  id: inputId;
   /** input filed value */
   value: string;
   /** error message & show or not */
-  error?: {
-    message: string;
-    show: boolean;
-  };
+  error?: boolean;
   /** check if Input filed is required */
   required?: boolean;
   /** input filed change handler func */
@@ -22,17 +41,26 @@ interface Props {
 }
 
 const Input = ({
-  label,
-  placeholder,
+  type,
+  id,
+  value,
   error,
   required = false,
   inputChangeHandler,
 }: Props) => {
   return (
     <Container>
-      <Label required={required}>{label}</Label>
-      <InputField placeholder={placeholder} onChange={inputChangeHandler} />
-      {error && error.show && <Error>{error.message}</Error>}
+      <Label htmlFor={id} required={required}>
+        {inputContents[id].label}
+      </Label>
+      <InputField
+        type={type}
+        id={id}
+        value={value}
+        placeholder={inputContents[id].placeholder}
+        onChange={inputChangeHandler}
+      />
+      {error && <Error>{inputContents[id].error}</Error>}
     </Container>
   );
 };
