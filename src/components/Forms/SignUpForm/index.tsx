@@ -65,6 +65,7 @@ const SignUpForm = () => {
         placeholder={inputContents['id'].placeholder}
         value={id}
         error={{ message: inputContents['id'].error, show: idError }}
+        required={true}
         inputChangeHandler={IdChangeHandler}
       />
       <Input
@@ -76,6 +77,7 @@ const SignUpForm = () => {
           message: inputContents['nickname'].error,
           show: nicknameError,
         }}
+        required={true}
         inputChangeHandler={NicknameChangeHandler}
       />
       <Input
@@ -87,6 +89,7 @@ const SignUpForm = () => {
           message: inputContents['password'].error,
           show: passwordError,
         }}
+        required={true}
         inputChangeHandler={PasswordChangeHandler}
       />
       <Input
@@ -98,6 +101,7 @@ const SignUpForm = () => {
           message: inputContents['passwordCheck'].error,
           show: !passwordMatch,
         }}
+        required={true}
         inputChangeHandler={PasswordCheckChangeHandler}
       />
       <Button color="blue"> JOIN</Button>

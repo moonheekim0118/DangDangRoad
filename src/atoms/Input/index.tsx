@@ -15,14 +15,22 @@ interface Props {
     message: string;
     show: boolean;
   };
+  /** check if Input filed is required */
+  required?: boolean;
   /** input filed change handler func */
   inputChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ label, placeholder, error, inputChangeHandler }: Props) => {
+const Input = ({
+  label,
+  placeholder,
+  error,
+  required = false,
+  inputChangeHandler,
+}: Props) => {
   return (
     <Container>
-      <Label>{label}</Label>
+      <Label required={required}>{label}</Label>
       <InputField placeholder={placeholder} onChange={inputChangeHandler} />
       {error && error.show && <Error>{error.message}</Error>}
     </Container>
@@ -37,9 +45,14 @@ const Container = styled.div`
   height: 100px;
 `;
 
-const Label = styled.label`
+const Label = styled.label<{ required: boolean }>`
   padding: 10px 0;
   font-weight: bold;
+
+  &::after {
+    content: ${(props) => (props.required ? "' *'" : "''")};
+    color: red;
+  }
 `;
 
 const InputField = styled.input`
