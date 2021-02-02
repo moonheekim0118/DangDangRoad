@@ -16,6 +16,7 @@ const Button = ({ children, color, onClick }: Props) => {
 };
 
 const Container = styled.button<{ color: string }>`
+  width: 100%;
   background-color: ${(props) => (props.color === 'blue' ? '#0277bc' : '#fff')};
   color: ${(props) => (props.color === 'blue' ? '#fff' : '#0277bc')};
   font-size: 1.2rem;
