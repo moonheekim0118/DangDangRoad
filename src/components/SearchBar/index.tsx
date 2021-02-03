@@ -2,6 +2,7 @@ import React from 'react';
 import useInput from '../../hooks/useInput';
 import styled from '@emotion/styled';
 import Icon from '../../atoms/Icon';
+import Span from '../../atoms/Span';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -23,8 +24,11 @@ const SearchBar = ({ color }: Props) => {
         placeholder={PLACEHOLDER}
       />
       <IconContainer>
-        <Icon icon={faSearch} iconsize={'20'} color={'blue'} rotate={180} />
+        <Icon icon={faSearch} iconsize={20} color="blue" rotate={180} />
       </IconContainer>
+      <SpanContainer>
+        <Span title="Go" color="blue" fontsize={1} cursor={true} />
+      </SpanContainer>
     </Container>
   );
 };
@@ -35,8 +39,20 @@ const Container = styled.div`
 
 const IconContainer = styled.div`
   position: absolute;
-  top: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   left: 10px;
+`;
+
+const SpanContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -40px;
+
+  @media only screen and (max-width: 780px) {
+    right: 10px;
+  }
 `;
 
 const Input = styled.input<Props>`
