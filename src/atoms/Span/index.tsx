@@ -12,7 +12,7 @@ interface Props {
   /** contents of span*/
   title: string;
   /** true == cursor pointer */
-  cursor?: boolean;
+  cursor?: string;
   /** click handler function */
   spanClickHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
@@ -41,12 +41,12 @@ const StyledSpan = styled.span<{
   fontsize: number;
   color: string;
   bold?: boolean;
-  cursor;
+  cursor?: string;
 }>`
   font-size: ${(props) => props.fontsize}rem;
   color: ${(props) => colorCode[props.color]};
   font-weight: ${(props) => props.bold && 'bold'};
-  cursor: ${(props) => props.cursor && 'pointer'};
+  cursor: ${(props) => props.cursor};
 `;
 
 export default memo(Span);
