@@ -7,6 +7,8 @@ interface Props {
   fontsize: number;
   /** color of span*/
   color: colorTypes;
+  /** color of hover effects */
+  hoverColor?: colorTypes;
   /** true = font-weight:bold  */
   bold?: boolean;
   /** contents of span*/
@@ -22,6 +24,7 @@ interface Props {
 const Span = ({
   fontsize,
   color,
+  hoverColor,
   bold,
   title,
   cursor,
@@ -32,6 +35,7 @@ const Span = ({
     <StyledSpan
       fontsize={fontsize}
       color={color}
+      hoverColor={hoverColor}
       bold={bold}
       cursor={cursor}
       margin={margin}
@@ -44,6 +48,7 @@ const Span = ({
 const StyledSpan = styled.span<{
   fontsize: number;
   color: string;
+  hoverColor?: string;
   bold?: boolean;
   cursor?: string;
   margin?: string;
@@ -53,6 +58,10 @@ const StyledSpan = styled.span<{
   font-weight: ${(props) => props.bold && 'bold'};
   cursor: ${(props) => props.cursor};
   margin: ${(props) => props.margin};
+
+  &:hover {
+    color: ${(props) => props.hoverColor && colorCode[props.hoverColor]};
+  }
 `;
 
 export default memo(Span);

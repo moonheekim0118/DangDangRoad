@@ -2,6 +2,7 @@ import React from 'react';
 import { colorCode } from '../../model/colorCode';
 import Logo from '../Logo';
 import Icon from '../../atoms/Icon';
+import Anchor from '../../atoms/Anchor';
 import Span from '../../atoms/Span';
 import SearchBar from '../SearchBar';
 import styled from '@emotion/styled';
@@ -25,17 +26,18 @@ const Header = () => {
         <Span
           fontsize={1.2}
           color="white"
+          hoverColor="light-gray"
           title="LOGIN"
           margin="0 20px 0 0"
           bold={true}
           cursor={'pointer'}
         />
-        <Span
+        <Anchor
           fontsize={1.2}
           color="white"
           title="SIGNUP"
-          bold={true}
-          cursor={'pointer'}
+          hoverColor="light-gray"
+          path="/signUp"
         />
       </Side>
     </Container>
