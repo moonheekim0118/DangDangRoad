@@ -3,6 +3,7 @@ import useInput from '../../hooks/useInput';
 import styled from '@emotion/styled';
 import Icon from '../../atoms/Icon';
 import Span from '../../atoms/Span';
+import { colorCode } from '../../model/colorCode';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -56,8 +57,9 @@ const SpanContainer = styled.div`
 `;
 
 const Input = styled.input<Props>`
-  background-color: ${(props) => (props.color === 'blue' ? '#0277bc' : '#fff')};
-  color: ${(props) => (props.color === 'blue' ? '#fff' : '#0277bc')};
+  background-color: ${(props) => colorCode[props.color]};
+  color: ${(props) =>
+    props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
   border: none;
   border-radius: 20px;
   width: 120%;
