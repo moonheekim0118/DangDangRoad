@@ -16,7 +16,7 @@ const SearchBar = ({ color }: Props) => {
   const [keyword, keywordChangeHanlder] = useInput();
 
   return (
-    <Container>
+    <Form>
       <Input
         type="text"
         color={color}
@@ -40,11 +40,11 @@ const SearchBar = ({ color }: Props) => {
           cursor="pointer"
         />
       </SpanContainer>
-    </Container>
+    </Form>
   );
 };
 
-const Container = styled.div`
+const Form = styled.form`
   width: 100%;
 `;
 
