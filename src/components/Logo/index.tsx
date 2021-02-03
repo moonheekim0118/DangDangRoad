@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Link from 'next/Link';
 import styled from '@emotion/styled';
 
@@ -14,7 +14,7 @@ const Logo = ({ color = 'white' }: Props) => {
   );
 };
 
-const Title = styled.a<{ color: string }>`
+const Title = styled.a<Props>`
   position: relative;
   color: ${(props) => (props.color === 'blue' ? '#0277bc' : '#fff')};
   text-decoration: none;
@@ -53,4 +53,4 @@ const Title = styled.a<{ color: string }>`
   }
 `;
 
-export default Logo;
+export default memo(Logo);

@@ -2,7 +2,6 @@ import React from 'react';
 import useInput from '../../hooks/useInput';
 import styled from '@emotion/styled';
 import Icon from '../../atoms/Icon';
-import Button from '../../atoms/Button';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -17,13 +16,14 @@ const SearchBar = ({ color }: Props) => {
   return (
     <Container>
       <Input
+        type="text"
         color={color}
         value={keyword}
         onChange={keywordChangeHanlder}
         placeholder={PLACEHOLDER}
       />
       <IconContainer>
-        <Icon icon={faSearch} size={'20'} color={'blue'} rotate={180} />
+        <Icon icon={faSearch} iconsize={'20'} color={'blue'} rotate={180} />
       </IconContainer>
     </Container>
   );
@@ -39,7 +39,7 @@ const IconContainer = styled.div`
   left: 10px;
 `;
 
-const Input = styled.input<{ color: string }>`
+const Input = styled.input<Props>`
   background-color: ${(props) => (props.color === 'blue' ? '#0277bc' : '#fff')};
   color: ${(props) => (props.color === 'blue' ? '#fff' : '#0277bc')};
   border: none;
@@ -47,9 +47,6 @@ const Input = styled.input<{ color: string }>`
   width: 120%;
   padding: 20px 40px;
   font-weight: bold;
-
-  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {

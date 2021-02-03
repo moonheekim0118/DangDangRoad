@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
@@ -8,7 +8,7 @@ import styled from '@emotion/styled';
 type rotationTypes = 0 | 90 | 180 | 270;
 interface Props {
   /** icon size */
-  size: string;
+  iconsize: string;
   /** actual icon */
   icon: FontAwesomeIconProps['icon'];
   /** icon color */
@@ -22,7 +22,7 @@ interface Props {
 }
 
 const Icon = ({
-  size,
+  iconsize,
   icon,
   color,
   rotate = 0,
@@ -31,7 +31,7 @@ const Icon = ({
 }: Props) => {
   return (
     <StyledIcon
-      iconsize={size}
+      iconsize={iconsize}
       icon={icon}
       color={color}
       rotate={rotate}
@@ -41,12 +41,7 @@ const Icon = ({
   );
 };
 
-const StyledIcon = styled(FontAwesomeIcon)<{
-  color: string;
-  iconsize: string;
-  rotate?: rotationTypes;
-  cursor: string;
-}>`
+const StyledIcon = styled(FontAwesomeIcon)<Props>`
   width: ${(props) => props.iconsize}px;
   height: ${(props) => props.iconsize}px;
   color: ${(props) => (props.color === 'blue' ? '#0277bc' : '#fff')};
@@ -54,4 +49,4 @@ const StyledIcon = styled(FontAwesomeIcon)<{
   cursor: ${(props) => props.cursor};
 `;
 
-export default Icon;
+export default memo(Icon);

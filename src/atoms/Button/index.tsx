@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 interface Props {
   children: React.ReactNode;
   color: 'blue' | 'white';
-  onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = ({ children, color, onClick }: Props) => {
@@ -24,9 +24,6 @@ const Container = styled.button<{ color: string }>`
   border-radius: 15px;
   padding: 13px 15px;
   cursor: pointer;
-
-  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {
