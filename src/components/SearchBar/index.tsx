@@ -25,10 +25,20 @@ const SearchBar = ({ color }: Props) => {
         placeholder={PLACEHOLDER}
       />
       <IconContainer>
-        <Icon icon={faSearch} iconsize={20} color="blue" rotate={180} />
+        <Icon
+          icon={faSearch}
+          iconsize={20}
+          color={color === 'blue' ? 'white' : 'blue'}
+          rotate={180}
+        />
       </IconContainer>
       <SpanContainer>
-        <Span title="Go" color="blue" fontsize={1} cursor="pointer" />
+        <Span
+          title="Go"
+          color={color === 'blue' ? 'white' : 'blue'}
+          fontsize={1}
+          cursor="pointer"
+        />
       </SpanContainer>
     </Container>
   );
@@ -69,6 +79,11 @@ const Input = styled.input<Props>`
 
   &:focus {
     outline: none;
+  }
+
+  ::placeholder {
+    color: ${(props) =>
+      props.color === 'blue' ? colorCode['white'] : colorCode['gray']};
   }
 
   @media only screen and (max-width: 780px) {
