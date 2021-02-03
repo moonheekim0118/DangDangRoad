@@ -1,12 +1,13 @@
 import React, { memo } from 'react';
 import Link from 'next/Link';
+import { colorCode } from '../../model/colorCode';
 import styled from '@emotion/styled';
 
 interface Props {
-  color?: 'blue' | 'white';
+  color: 'blue' | 'white';
 }
 
-const Logo = ({ color = 'white' }: Props) => {
+const Logo = ({ color }: Props) => {
   return (
     <Link href="/">
       <Title color={color}>댕댕로드🐶</Title>
@@ -16,7 +17,7 @@ const Logo = ({ color = 'white' }: Props) => {
 
 const Title = styled.a<Props>`
   position: relative;
-  color: ${(props) => (props.color === 'blue' ? '#0277bc' : '#fff')};
+  color: ${(props) => colorCode[props.color]};
   text-decoration: none;
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.8rem;
@@ -35,7 +36,7 @@ const Title = styled.a<Props>`
     opacity: 0;
     transition: all 0.2s ease-in-out;
     transition-duration: 0.75s;
-    background-color: ${(props) => props.color};
+    background-color: ${(props) => colorCode[props.color]};
   }
 
   &:before {

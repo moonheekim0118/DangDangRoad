@@ -3,16 +3,17 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from '@fortawesome/react-fontawesome';
+import { colorCode, colorTypes } from '../../model/colorCode';
 import styled from '@emotion/styled';
 
 type rotationTypes = 0 | 90 | 180 | 270;
 interface Props {
   /** icon size */
-  iconsize: string;
+  iconsize: number;
   /** actual icon */
   icon: FontAwesomeIconProps['icon'];
   /** icon color */
-  color: string;
+  color: colorTypes;
   /** rotate degree */
   rotate?: rotationTypes;
   /** cursor pointer */
@@ -25,14 +26,14 @@ const Icon = ({
   iconsize,
   icon,
   color,
-  rotate = 0,
-  cursor = '',
+  rotate,
+  cursor,
   iconClickHandler,
 }: Props) => {
   return (
     <StyledIcon
-      iconsize={iconsize}
       icon={icon}
+      iconsize={iconsize}
       color={color}
       rotate={rotate}
       cursor={cursor}
@@ -44,7 +45,7 @@ const Icon = ({
 const StyledIcon = styled(FontAwesomeIcon)<Props>`
   width: ${(props) => props.iconsize}px;
   height: ${(props) => props.iconsize}px;
-  color: ${(props) => (props.color === 'blue' ? '#0277bc' : '#fff')};
+  color: ${(props) => colorCode[props.color]};
   transform: rotateY(${(props) => props.rotate}deg);
   cursor: ${(props) => props.cursor};
 `;
