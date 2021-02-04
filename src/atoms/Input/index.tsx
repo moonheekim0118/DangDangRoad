@@ -83,8 +83,8 @@ const Label = styled.label<{ required: boolean }>`
   font-weight: bold;
 
   &::after {
-    content: ${(props) => (props.required ? "' *'" : "''")};
-    color: red;
+    content: ${(props) => (props.required ? "' *'" : "' (optional)'")};
+    color: ${(props) => (props.required ? 'red' : '#aeaeae')};
   }
 `;
 

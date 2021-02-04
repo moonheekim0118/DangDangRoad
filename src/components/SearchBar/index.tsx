@@ -16,7 +16,7 @@ const SearchBar = ({ color }: Props) => {
   const [keyword, keywordChangeHanlder] = useInput();
 
   return (
-    <Container>
+    <Form>
       <Input
         type="text"
         color={color}
@@ -25,16 +25,26 @@ const SearchBar = ({ color }: Props) => {
         placeholder={PLACEHOLDER}
       />
       <IconContainer>
-        <Icon icon={faSearch} iconsize={20} color="blue" rotate={180} />
+        <Icon
+          icon={faSearch}
+          iconsize={20}
+          color={color === 'blue' ? 'white' : 'blue'}
+          rotate={180}
+        />
       </IconContainer>
       <SpanContainer>
-        <Span title="Go" color="blue" fontsize={1} cursor={true} />
+        <Span
+          title="Go"
+          color={color === 'blue' ? 'white' : 'blue'}
+          fontsize={1}
+          cursor="pointer"
+        />
       </SpanContainer>
-    </Container>
+    </Form>
   );
 };
 
-const Container = styled.div`
+const Form = styled.form`
   width: 100%;
 `;
 
@@ -51,7 +61,7 @@ const SpanContainer = styled.div`
   transform: translateY(-50%);
   right: -40px;
 
-  @media only screen and (max-width: 780px) {
+  @media only screen and (max-width: 910px) {
     right: 10px;
   }
 `;
@@ -71,7 +81,12 @@ const Input = styled.input<Props>`
     outline: none;
   }
 
-  @media only screen and (max-width: 780px) {
+  ::placeholder {
+    color: ${(props) =>
+      props.color === 'blue' ? colorCode['white'] : colorCode['gray']};
+  }
+
+  @media only screen and (max-width: 910px) {
     width: 100%;
   }
 `;

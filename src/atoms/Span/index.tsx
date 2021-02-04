@@ -7,12 +7,16 @@ interface Props {
   fontsize: number;
   /** color of span*/
   color: colorTypes;
+  /** color of hover effects */
+  hoverColor?: colorTypes;
   /** true = font-weight:bold  */
   bold?: boolean;
   /** contents of span*/
   title: string;
   /** true == cursor pointer */
-  cursor?: boolean;
+  cursor?: string;
+  /** margin */
+  margin?: string;
   /** click handler function */
   spanClickHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
@@ -20,17 +24,21 @@ interface Props {
 const Span = ({
   fontsize,
   color,
+  hoverColor,
   bold,
   title,
   cursor,
+  margin,
   spanClickHandler,
 }: Props) => {
   return (
     <StyledSpan
       fontsize={fontsize}
       color={color}
+      hoverColor={hoverColor}
       bold={bold}
       cursor={cursor}
+      margin={margin}
       onClick={spanClickHandler}>
       {title}
     </StyledSpan>
@@ -40,13 +48,20 @@ const Span = ({
 const StyledSpan = styled.span<{
   fontsize: number;
   color: string;
+  hoverColor?: string;
   bold?: boolean;
-  cursor;
+  cursor?: string;
+  margin?: string;
 }>`
   font-size: ${(props) => props.fontsize}rem;
   color: ${(props) => colorCode[props.color]};
   font-weight: ${(props) => props.bold && 'bold'};
-  cursor: ${(props) => props.cursor && 'pointer'};
+  cursor: ${(props) => props.cursor};
+  margin: ${(props) => props.margin};
+
+  &:hover {
+    color: ${(props) => props.hoverColor && colorCode[props.hoverColor]};
+  }
 `;
 
 export default memo(Span);
