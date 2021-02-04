@@ -33,7 +33,7 @@ const Header = () => {
         <Logo color="white" />
       </LogoContainer>
       <SearchBarContainer>
-        <SearchBar color="blue" />
+        <SearchBar color="blue" focus={true} />
       </SearchBarContainer>
       <SideContainer>
         {isLoggedIn ? (
@@ -91,7 +91,7 @@ const Header = () => {
       </SideContainer>
       {openNavigation && (
         <NavigationContainer>
-          <SearchBar color="blue" />
+          <SearchBar color="blue" focus={true} />
           {pathname !== '/signUp' && <Navigation />}
         </NavigationContainer>
       )}

@@ -13,7 +13,7 @@ interface Props {
   /** actual icon */
   icon: FontAwesomeIconProps['icon'];
   /** icon color */
-  color: colorTypes;
+  color?: colorTypes;
   /** rotate degree */
   rotate?: rotationTypes;
   /** cursor pointer */
@@ -45,7 +45,7 @@ const Icon = ({
 const StyledIcon = styled(FontAwesomeIcon)<Props>`
   width: ${(props) => props.iconsize}px;
   height: ${(props) => props.iconsize}px;
-  color: ${(props) => colorCode[props.color]};
+  color: ${(props) => (props.color ? colorCode[props.color] : 'inherit')};
   transform: rotateY(${(props) => props.rotate}deg);
   cursor: ${(props) => props.cursor};
 `;

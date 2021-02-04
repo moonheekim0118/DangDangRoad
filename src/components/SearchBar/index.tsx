@@ -7,38 +7,42 @@ import { colorCode } from '../../model/colorCode';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
+  /** input color */
   color: 'blue' | 'white';
+  /** have a focus effects or not */
+  focus?: boolean;
+}
+
+interface InputProps extends Props {
+  focusBackground?: 'blue' | 'white';
+  focusFont?: 'blue' | 'white';
 }
 
 const PLACEHOLDER = '지역명을 입력하세요. 예) 강원도 속초시';
 
-const SearchBar = ({ color }: Props) => {
+const SearchBar = ({ color, focus = false }: Props) => {
   const [keyword, keywordChangeHanlder] = useInput();
+
+  /** if it has focus effects, define foucsBack color and fontColor */
+  const focusBack = focus ? (color === 'blue' ? 'white' : 'blue') : undefined;
+  const focusFont = focus ? color : undefined;
 
   return (
     <Form>
       <Input
         type="text"
         color={color}
+        focusBackground={focusBack}
+        focusFont={focusFont}
         value={keyword}
         onChange={keywordChangeHanlder}
         placeholder={PLACEHOLDER}
       />
-      <IconContainer>
-        <Icon
-          icon={faSearch}
-          iconsize={20}
-          color={color === 'blue' ? 'white' : 'blue'}
-          rotate={180}
-        />
+      <IconContainer color={color}>
+        <Icon icon={faSearch} iconsize={20} rotate={180} />
       </IconContainer>
-      <SpanContainer>
-        <Span
-          title="Go"
-          color={color === 'blue' ? 'white' : 'blue'}
-          fontsize={1}
-          cursor="pointer"
-        />
+      <SpanContainer color={color}>
+        <Span title="Go" fontsize={1} cursor="pointer" />
       </SpanContainer>
     </Form>
   );
@@ -48,15 +52,19 @@ const Form = styled.form`
   width: 100%;
 `;
 
-const IconContainer = styled.div`
+const IconContainer = styled.div<Props>`
   position: absolute;
   top: 50%;
+  color: ${(props) =>
+    props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
   transform: translateY(-50%);
   left: 10px;
 `;
 
-const SpanContainer = styled.div`
+const SpanContainer = styled.div<Props>`
   position: absolute;
+  color: ${(props) =>
+    props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
   top: 50%;
   transform: translateY(-50%);
   right: -40px;
@@ -66,7 +74,7 @@ const SpanContainer = styled.div`
   }
 `;
 
-const Input = styled.input<Props>`
+const Input = styled.input<InputProps>`
   background-color: ${(props) => colorCode[props.color]};
   color: ${(props) =>
     props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
@@ -77,13 +85,20 @@ const Input = styled.input<Props>`
   font-weight: bold;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
 
-  &:focus {
-    outline: none;
-  }
-
   ::placeholder {
     color: ${(props) =>
-      props.color === 'blue' ? colorCode['white'] : colorCode['gray']};
+      props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
+  }
+
+  &:focus {
+    outline: none;
+    background-color: ${(props) =>
+      props.focusBackground && colorCode[props.focusBackground]};
+    color: ${(props) => props.focusFont && colorCode[props.focusFont]};
+  }
+
+  &:focus ~ ${SpanContainer}, &:focus ~ ${IconContainer}, &:focus::placeholder {
+    color: ${(props) => props.focusFont && colorCode[props.focusFont]};
   }
 
   @media only screen and (max-width: 910px) {

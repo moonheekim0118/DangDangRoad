@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 interface Props {
   /** size of span by rem */
   fontsize: number;
-  /** color of span*/
-  color: colorTypes;
+  /** color of span if theres no color, it will be inherited*/
+  color?: colorTypes;
   /** color of hover effects */
   hoverColor?: colorTypes;
   /** true = font-weight:bold  */
@@ -47,14 +47,14 @@ const Span = ({
 
 const StyledSpan = styled.span<{
   fontsize: number;
-  color: string;
+  color?: string;
   hoverColor?: string;
   bold?: boolean;
   cursor?: string;
   margin?: string;
 }>`
   font-size: ${(props) => props.fontsize}rem;
-  color: ${(props) => colorCode[props.color]};
+  color: ${(props) => (props.color ? colorCode[props.color] : 'inherit')};
   font-weight: ${(props) => props.bold && 'bold'};
   cursor: ${(props) => props.cursor};
   margin: ${(props) => props.margin};
