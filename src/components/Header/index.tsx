@@ -106,6 +106,7 @@ const Container = styled.header`
   padding: 0 30px;
 
   background-color: ${colorCode['blue']};
+  z-index: 4000;
 
   @media only screen and (max-width: 400px) {
     padding: 0 10px;

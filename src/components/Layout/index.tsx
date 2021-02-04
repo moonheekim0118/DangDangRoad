@@ -4,13 +4,18 @@ import Header from '../Header';
 import Navigation from '../Navigation';
 import styled from '@emotion/styled';
 
-const Layout = () => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const Layout = ({ children }: Props) => {
   const [openNavigation, NavigationToggler] = useToggle();
 
   return (
     <Container>
       <Header toggleHandler={NavigationToggler} />
       {openNavigation && <Navigation />}
+      {children}
     </Container>
   );
 };
@@ -18,9 +23,10 @@ const Layout = () => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #f5f5f0;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export default Layout;
