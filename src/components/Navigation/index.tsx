@@ -4,24 +4,42 @@ import Anchor from '../../atoms/Anchor';
 import SearchBar from '../SearchBar';
 import styled from '@emotion/styled';
 
+const isLoggedIn = false;
+
 const Navigation = () => {
   return (
     <Container>
       <Item>
         <SearchBar color="blue" />
       </Item>
-      <Item>
-        <Anchor
-          fontsize={1.2}
-          color="white"
-          hoverColor="light-gray"
-          title="LOGIN"
-          path="/login"
-        />
-      </Item>
-      <Item>
-        <Anchor fontsize={1.2} color="white" title="LOGIN" path="/login" />
-      </Item>
+      {isLoggedIn ? (
+        <>
+          <Item>
+            <Anchor
+              fontsize={1.2}
+              color="white"
+              hoverColor="light-gray"
+              title="MyReviews"
+              path="/login"
+            />
+          </Item>
+          <Item>
+            <Anchor fontsize={1.2} color="white" title="MyPage" path="/login" />
+          </Item>
+        </>
+      ) : (
+        <>
+          <Item>
+            <Anchor
+              fontsize={1.2}
+              color="white"
+              hoverColor="light-gray"
+              title="SIGNUP"
+              path="/signUp"
+            />
+          </Item>
+        </>
+      )}
     </Container>
   );
 };
@@ -34,7 +52,7 @@ const Container = styled.div`
   justify-contents: center;
   padding: 10px 20px;
 
-  @media only screen and (min-width: 850px) {
+  @media only screen and (min-width: 910px) {
     display: none;
   }
 `;

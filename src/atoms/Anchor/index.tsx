@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Link from 'next/Link';
 import { colorCode, colorTypes } from '../../model/colorCode';
 import styled from '@emotion/styled';
@@ -52,4 +52,4 @@ const Title = styled.a<{
   }
 `;
 
-export default Anchor;
+export default memo(Anchor);

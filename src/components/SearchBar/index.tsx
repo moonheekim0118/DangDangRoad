@@ -61,7 +61,7 @@ const SpanContainer = styled.div`
   transform: translateY(-50%);
   right: -40px;
 
-  @media only screen and (max-width: 780px) {
+  @media only screen and (max-width: 910px) {
     right: 10px;
   }
 `;
@@ -86,7 +86,7 @@ const Input = styled.input<Props>`
       props.color === 'blue' ? colorCode['white'] : colorCode['gray']};
   }
 
-  @media only screen and (max-width: 780px) {
+  @media only screen and (max-width: 910px) {
     width: 100%;
   }
 `;
