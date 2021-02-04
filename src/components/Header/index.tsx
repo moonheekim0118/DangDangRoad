@@ -15,6 +15,7 @@ const isLoggedIn = false;
 
 const Header = () => {
   const router = useRouter();
+  const pathname = router.pathname;
   const [openNavigation, NavigationToggler] = useToggle();
 
   return (
@@ -66,16 +67,17 @@ const Header = () => {
           </>
         ) : (
           <>
-            <Span
-              fontsize={1.2}
-              color="white"
-              title="LogIn"
-              hoverColor="light-gray"
-              margin="0 20px 0 0"
-              cursor="pointer"
-              bold={true}
-            />
-            {router.pathname !== '/signUp' && (
+            {pathname !== '/login' && (
+              <Anchor
+                fontsize={1.2}
+                color="white"
+                title="LogIn"
+                hoverColor="light-gray"
+                margin="0 20px 0 0"
+                path="/login"
+              />
+            )}
+            {pathname !== '/signUp' && (
               <ExtraMenuContainer>
                 <Anchor
                   fontsize={1.2}
@@ -92,7 +94,7 @@ const Header = () => {
       {openNavigation && (
         <NavigationContainer>
           <SearchBar color="blue" />
-          {router.pathname !== '/signUp' && <Navigation />}
+          {pathname !== '/signUp' && <Navigation />}
         </NavigationContainer>
       )}
     </Container>
