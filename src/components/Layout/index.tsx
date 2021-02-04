@@ -1,13 +1,16 @@
 import React from 'react';
+import useToggle from '../../hooks/useToggle';
 import Header from '../Header';
 import Navigation from '../Navigation';
 import styled from '@emotion/styled';
 
 const Layout = () => {
+  const [openNavigation, NavigationToggler] = useToggle();
+
   return (
     <Container>
-      <Header />
-      <Navigation />
+      <Header toggleHandler={NavigationToggler} />
+      {openNavigation && <Navigation />}
     </Container>
   );
 };

@@ -1,21 +1,31 @@
 import React from 'react';
-import { colorCode } from '../../model/colorCode';
 import Logo from '../Logo';
 import Icon from '../../atoms/Icon';
 import Anchor from '../../atoms/Anchor';
 import Span from '../../atoms/Span';
 import SearchBar from '../SearchBar';
 import styled from '@emotion/styled';
+import { colorCode } from '../../model/colorCode';
 import { faList } from '@fortawesome/free-solid-svg-icons';
+
+interface Props {
+  toggleHandler: () => void;
+}
 
 const isLoggedIn = false;
 
-const Header = () => {
+const Header = ({ toggleHandler }: Props) => {
   return (
     <Container>
       <SideContainer>
         <MenuToggler>
-          <Icon iconsize={20} icon={faList} color="white" cursor="pointer" />
+          <Icon
+            iconsize={20}
+            icon={faList}
+            color="white"
+            cursor="pointer"
+            iconClickHandler={toggleHandler}
+          />
         </MenuToggler>
         <LogoContainer>
           <Logo color="white" />
