@@ -82,11 +82,12 @@ const SignUpForm = () => {
 };
 
 const Form = styled.form`
-  width: 450px;
-  height: 600px;
+  width: 100%:
+  height: 100%;
   padding: 15px 25px;
   border-radius: 10px;
   background-color: #fff;
+
 `;
 
 export default SignUpForm;

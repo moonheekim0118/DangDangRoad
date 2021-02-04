@@ -1,7 +1,5 @@
 import React from 'react';
-import useToggle from '../../hooks/useToggle';
 import Header from '../Header';
-import Navigation from '../Navigation';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -9,13 +7,10 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-  const [openNavigation, NavigationToggler] = useToggle();
-
   return (
     <Container>
-      <Header toggleHandler={NavigationToggler} />
-      {openNavigation && <Navigation />}
-      {children}
+      <Header />
+      <MainContents>{children}</MainContents>
     </Container>
   );
 };
@@ -27,6 +22,21 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const NavigationContainer = styled.div`
+  width: 100%;
+  margin-top: 70px;
+`;
+
+const MainContents = styled.main`
+  width: 600px;
+  height: 100%;
+  margin: auto;
+
+  @media only screen and (max-width: 780px) {
+    width: 100%;
+  }
 `;
 
 export default Layout;

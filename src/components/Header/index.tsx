@@ -4,33 +4,31 @@ import Icon from '../../atoms/Icon';
 import Anchor from '../../atoms/Anchor';
 import Span from '../../atoms/Span';
 import SearchBar from '../SearchBar';
+import Navigation from '../Navigation';
 import styled from '@emotion/styled';
+import useToggle from '../../hooks/useToggle';
 import { colorCode } from '../../model/colorCode';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {
-  toggleHandler: () => void;
-}
-
 const isLoggedIn = false;
 
-const Header = ({ toggleHandler }: Props) => {
+const Header = () => {
+  const [openNavigation, NavigationToggler] = useToggle();
+
   return (
     <Container>
-      <SideContainer>
-        <MenuToggler>
-          <Icon
-            iconsize={20}
-            icon={faList}
-            color="white"
-            cursor="pointer"
-            iconClickHandler={toggleHandler}
-          />
-        </MenuToggler>
-        <LogoContainer>
-          <Logo color="white" />
-        </LogoContainer>
-      </SideContainer>
+      <MenuToggler>
+        <Icon
+          iconsize={20}
+          icon={faList}
+          color="white"
+          cursor="pointer"
+          iconClickHandler={NavigationToggler}
+        />
+      </MenuToggler>
+      <LogoContainer>
+        <Logo color="white" />
+      </LogoContainer>
       <SearchBarContainer>
         <SearchBar color="blue" />
       </SearchBarContainer>
@@ -87,23 +85,23 @@ const Header = ({ toggleHandler }: Props) => {
           </>
         )}
       </SideContainer>
+      {openNavigation && (
+        <NavigationContainer>
+          <SearchBar color="blue" />
+          <Navigation />
+        </NavigationContainer>
+      )}
     </Container>
   );
 };
 
 const Container = styled.header`
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   width: 100%;
-  height: 70px;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-
-  padding: 0 30px;
+  padding: 16px 30px;
+  lign-height: 1.5;
 
   background-color: ${colorCode['blue']};
   z-index: 4000;
@@ -115,22 +113,21 @@ const Container = styled.header`
 
 const SideContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
 `;
 
 const MenuToggler = styled.div`
   opacity: 0;
   margin-right: 25px;
+  display: flex;
+  align-items: center;
   @media only screen and (max-width: 910px) {
     opacity: 1;
   }
 `;
 
 const LogoContainer = styled.div`
-  @media only screen and (max-width: 320px) {
-    opacity: 0;
-  }
+  align-self: center;
+  flex: auto;
 `;
 
 const SearchBarContainer = styled.div`
@@ -145,6 +142,16 @@ const SearchBarContainer = styled.div`
 const ExtraMenuContainer = styled.div`
   display: flex;
   @media only screen and (max-width: 910px) {
+    display: none;
+  }
+`;
+
+const NavigationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  @media only screen and (min-width: 910px) {
     display: none;
   }
 `;
