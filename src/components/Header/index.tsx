@@ -7,12 +7,14 @@ import SearchBar from '../SearchBar';
 import Navigation from '../Navigation';
 import styled from '@emotion/styled';
 import useToggle from '../../hooks/useToggle';
+import { useRouter } from 'next/router';
 import { colorCode } from '../../model/colorCode';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
 const isLoggedIn = false;
 
 const Header = () => {
+  const router = useRouter();
   const [openNavigation, NavigationToggler] = useToggle();
 
   return (
@@ -73,22 +75,24 @@ const Header = () => {
               cursor="pointer"
               bold={true}
             />
-            <ExtraMenuContainer>
-              <Anchor
-                fontsize={1.2}
-                color="white"
-                hoverColor="light-gray"
-                title="SignUp"
-                path="/"
-              />
-            </ExtraMenuContainer>
+            {router.pathname !== '/signUp' && (
+              <ExtraMenuContainer>
+                <Anchor
+                  fontsize={1.2}
+                  color="white"
+                  hoverColor="light-gray"
+                  title="SignUp"
+                  path="/"
+                />
+              </ExtraMenuContainer>
+            )}
           </>
         )}
       </SideContainer>
       {openNavigation && (
         <NavigationContainer>
           <SearchBar color="blue" />
-          <Navigation />
+          {router.pathname !== '/signUp' && <Navigation />}
         </NavigationContainer>
       )}
     </Container>
