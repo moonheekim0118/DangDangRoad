@@ -15,12 +15,14 @@ const LoginForm = () => {
         id={inputId.ID}
         value={id}
         inputChangeHandler={IdChangeHandler}
+        required={true}
       />
       <Input
         type="password"
         id={inputId.PASSWORD}
         value={password}
         inputChangeHandler={PasswordChangeHandler}
+        required={true}
       />
       <Button color="blue">LOGIN</Button>
     </Form>

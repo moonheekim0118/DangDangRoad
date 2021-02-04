@@ -78,15 +78,13 @@ const Header = () => {
               />
             )}
             {pathname !== '/signUp' && (
-              <ExtraMenuContainer>
-                <Anchor
-                  fontsize={1.2}
-                  color="white"
-                  hoverColor="light-gray"
-                  title="SignUp"
-                  path="/"
-                />
-              </ExtraMenuContainer>
+              <Anchor
+                fontsize={1.2}
+                color="white"
+                hoverColor="light-gray"
+                title="SignUp"
+                path="/signUp"
+              />
             )}
           </>
         )}
