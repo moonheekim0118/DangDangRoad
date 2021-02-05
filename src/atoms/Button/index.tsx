@@ -3,8 +3,11 @@ import { colorCode } from '../../model/colorCode';
 import styled from '@emotion/styled';
 
 interface Props {
+  /** text of button */
   children: React.ReactNode;
+  /** color of button */
   color: 'blue' | 'white';
+  /** onClick event function */
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

@@ -43,27 +43,27 @@ const Header = () => {
                 fontsize={1.2}
                 color="white"
                 hoverColor="light-gray"
-                title="MyReviews"
                 margin="0 20px 0 0"
-                path="/"
-              />
+                path="/">
+                MyReviews
+              </Anchor>
               <Anchor
                 fontsize={1.2}
                 color="white"
                 hoverColor="light-gray"
-                title="MyPage"
                 margin="0 20px 0 0"
-                path="/"
-              />
+                path="/">
+                MyPage
+              </Anchor>
             </ExtraMenuContainer>
             <Span
               fontsize={1.2}
               color="white"
-              title="LOGOUT"
               hoverColor="light-gray"
               cursor="pointer"
-              bold={true}
-            />
+              bold={true}>
+              LOGOUT
+            </Span>
           </>
         ) : (
           <>
@@ -71,20 +71,20 @@ const Header = () => {
               <Anchor
                 fontsize={1.2}
                 color="white"
-                title="LogIn"
                 hoverColor="light-gray"
                 margin="0 20px 0 0"
-                path="/login"
-              />
+                path="/login">
+                LogIn
+              </Anchor>
             )}
             {pathname !== '/signUp' && (
               <Anchor
                 fontsize={1.2}
                 color="white"
                 hoverColor="light-gray"
-                title="SignUp"
-                path="/signUp"
-              />
+                path="/signUp">
+                SignUp
+              </Anchor>
             )}
           </>
         )}

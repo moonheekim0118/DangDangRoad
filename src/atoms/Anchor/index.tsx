@@ -4,11 +4,17 @@ import { colorCode, colorTypes } from '../../model/colorCode';
 import styled from '@emotion/styled';
 
 interface Props {
+  /** font size */
   fontsize: number;
+  /** color of anchor element */
   color: colorTypes;
+  /** optional hover color of element */
   hoverColor?: colorTypes;
+  /** optional margin of element */
   margin?: string;
-  title: string;
+  /** text of element */
+  children: React.ReactNode;
+  /** href */
   path: string;
 }
 
@@ -17,7 +23,7 @@ const Anchor = ({
   color,
   hoverColor,
   margin,
-  title,
+  children,
   path,
 }: Props) => {
   return (
@@ -27,7 +33,7 @@ const Anchor = ({
         color={color}
         hoverColor={hoverColor}
         margin={margin}>
-        {title}
+        {children}
       </Title>
     </Link>
   );

@@ -42,7 +42,9 @@ const SearchBar = ({ color, focus = false }: Props) => {
         <Icon icon={faSearch} iconsize={20} rotate={180} />
       </IconContainer>
       <SpanContainer color={color}>
-        <Span title="Go" fontsize={1} cursor="pointer" />
+        <Span fontsize={1} cursor="pointer">
+          Go
+        </Span>
       </SpanContainer>
     </Form>
   );

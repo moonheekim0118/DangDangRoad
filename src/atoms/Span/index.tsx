@@ -12,7 +12,7 @@ interface Props {
   /** true = font-weight:bold  */
   bold?: boolean;
   /** contents of span*/
-  title: string;
+  children: React.ReactNode;
   /** true == cursor pointer */
   cursor?: string;
   /** margin */
@@ -26,7 +26,7 @@ const Span = ({
   color,
   hoverColor,
   bold,
-  title,
+  children,
   cursor,
   margin,
   spanClickHandler,
@@ -40,7 +40,7 @@ const Span = ({
       cursor={cursor}
       margin={margin}
       onClick={spanClickHandler}>
-      {title}
+      {children}
     </StyledSpan>
   );
 };

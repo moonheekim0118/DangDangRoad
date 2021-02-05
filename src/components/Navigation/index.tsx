@@ -15,12 +15,14 @@ const Navigation = () => {
               fontsize={1.2}
               color="white"
               hoverColor="light-gray"
-              title="MyReviews"
-              path="/login"
-            />
+              path="/login">
+              MyReviews
+            </Anchor>
           </Item>
           <Item>
-            <Anchor fontsize={1.2} color="white" title="MyPage" path="/login" />
+            <Anchor fontsize={1.2} color="white" path="/login">
+              MyPage
+            </Anchor>
           </Item>
         </>
       ) : (
@@ -30,9 +32,9 @@ const Navigation = () => {
               fontsize={1.2}
               color="white"
               hoverColor="light-gray"
-              title="SIGNUP"
-              path="/signUp"
-            />
+              path="/signUp">
+              SIGNUP
+            </Anchor>
           </Item>
         </>
       )}
