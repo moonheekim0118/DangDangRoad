@@ -92,7 +92,7 @@ const Header = () => {
       {openNavigation && (
         <NavigationContainer>
           <SearchBar color="blue" focus={true} />
-          {pathname !== '/signUp' && <Navigation />}
+          {pathname !== '/signUp' && pathname !== '/login' && <Navigation />}
         </NavigationContainer>
       )}
     </Container>
