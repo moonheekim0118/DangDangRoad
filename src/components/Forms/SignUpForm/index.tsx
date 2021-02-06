@@ -1,42 +1,23 @@
 import React from 'react';
 import Input from '../../../atoms/Input';
 import Button from '../../../atoms/Button';
-import useMatch from '../../../hooks/useMatch';
-import useValidation from '../../../hooks/useValidation';
 import styled from '@emotion/styled';
+import useSignUp from '../../../hooks/useSignUp';
 import { inputId } from '../../../model/inputIds';
 
-const validateEmail = (email: string): boolean => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email.toLowerCase());
-};
-
-const validatePassword = (password: string): boolean => {
-  const re = /\s/;
-  return !re.test(password);
-};
-
 const SignUpForm = () => {
-  /** email */
-  const [email, emailError, IdChangeHandler] = useValidation({
-    max: 100,
-    min: 5,
-    characterCheck: validateEmail,
-  });
-  /** password */
-  const [password, passwordError, PasswordChangeHandler] = useValidation({
-    max: 16,
-    min: 6,
-    characterCheck: validatePassword,
-  });
-  /** password check */
-  const [passwordCheck, , PasswordCheckChangeHandler] = useValidation({
-    max: 16,
-    min: 6,
-  });
-
-  const passwordMatch = useMatch({ value: passwordCheck, target: password });
-
+  const [
+    email,
+    emailError,
+    EmailChangeHandler,
+    password,
+    passwordError,
+    PasswordChangeHandler,
+    passwordCheck,
+    passwordMatch,
+    PasswordCheckChangeHandler,
+    SubmitHanlder,
+  ] = useSignUp();
   return (
     <Form>
       <Input
@@ -45,7 +26,7 @@ const SignUpForm = () => {
         value={email}
         error={emailError}
         required={true}
-        inputChangeHandler={IdChangeHandler}
+        inputChangeHandler={EmailChangeHandler}
       />
       <Input
         type="password"
@@ -63,7 +44,9 @@ const SignUpForm = () => {
         required={true}
         inputChangeHandler={PasswordCheckChangeHandler}
       />
-      <Button color="blue"> JOIN</Button>
+      <Button color="blue" type="submit" onClick={SubmitHanlder}>
+        JOIN
+      </Button>
     </Form>
   );
 };
