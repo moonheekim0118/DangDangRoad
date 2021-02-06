@@ -6,15 +6,15 @@ import { inputId } from '../../../model/inputIds';
 import styled from '@emotion/styled';
 
 const LoginForm = () => {
-  const [id, IdChangeHandler] = useInput();
+  const [email, emailChangeHandler] = useInput();
   const [password, PasswordChangeHandler] = useInput();
   return (
     <Form>
       <Input
         type="text"
-        id={inputId.ID}
-        value={id}
-        inputChangeHandler={IdChangeHandler}
+        id={inputId.EMAIL}
+        value={email}
+        inputChangeHandler={emailChangeHandler}
         required={true}
       />
       <Input

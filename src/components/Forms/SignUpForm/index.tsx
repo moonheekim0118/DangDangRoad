@@ -3,30 +3,31 @@ import Input from '../../../atoms/Input';
 import Button from '../../../atoms/Button';
 import useMatch from '../../../hooks/useMatch';
 import useValidation from '../../../hooks/useValidation';
-import useInput from '../../../hooks/useInput';
 import styled from '@emotion/styled';
 import { inputId } from '../../../model/inputIds';
-import * as CHECKER from '../../../utils/inputValidation';
+
+const validateEmail = (email: string): boolean => {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email.toLowerCase());
+};
+
+const validatePassword = (password: string): boolean => {
+  const re = /\s/;
+  return !re.test(password);
+};
 
 const SignUpForm = () => {
-  /** id */
-  const [id, idError, IdChangeHandler] = useValidation({
-    max: 10,
+  /** email */
+  const [email, emailError, IdChangeHandler] = useValidation({
+    max: 100,
     min: 5,
-    characterCheck: CHECKER.passIdValue,
+    characterCheck: validateEmail,
   });
-  /** nickname */
-  const [nickname, nicknameError, NicknameChangeHandler] = useValidation({
-    max: 15,
-    min: 3,
-    characterCheck: CHECKER.passNicknameValue,
-  });
-  /** dog name (not) */
-  const [dogName, DogNameHandler] = useInput();
   /** password */
   const [password, passwordError, PasswordChangeHandler] = useValidation({
     max: 16,
     min: 6,
+    characterCheck: validatePassword,
   });
   /** password check */
   const [passwordCheck, , PasswordCheckChangeHandler] = useValidation({
@@ -40,25 +41,11 @@ const SignUpForm = () => {
     <Form>
       <Input
         type="text"
-        id={inputId.ID}
-        value={id}
-        error={idError}
+        id={inputId.EMAIL}
+        value={email}
+        error={emailError}
         required={true}
         inputChangeHandler={IdChangeHandler}
-      />
-      <Input
-        type="text"
-        id={inputId.NICKANME}
-        value={nickname}
-        error={nicknameError}
-        required={true}
-        inputChangeHandler={NicknameChangeHandler}
-      />
-      <Input
-        type="text"
-        id={inputId.DOGNAME}
-        value={dogName}
-        inputChangeHandler={DogNameHandler}
       />
       <Input
         type="password"
