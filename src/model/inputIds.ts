@@ -1,7 +1,5 @@
 export enum inputId {
-  ID = 'id',
+  EMAIL = 'EMAIL',
   PASSWORD = 'password',
   PASSWORDCHECK = 'PASSWORDCHECK',
-  NICKANME = 'nickname',
-  DOGNAME = 'dogname',
 }

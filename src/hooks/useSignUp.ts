@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import signUp from '../remotes/signUp';
+import { signUp } from '../remotes/sign';
 import useValidation from './useValidation';
 import useMatch from './useMatch';
 
