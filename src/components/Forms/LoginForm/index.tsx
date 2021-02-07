@@ -8,11 +8,17 @@ import styled from '@emotion/styled';
 type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 interface Props {
+  /** email value */
   email: string;
+  /** email value change handler */
   emailChangeHandler: handlerFunction;
+  /** password value */
   password: string;
+  /** password value change handler */
   PasswordChangeHandler: handlerFunction;
+  /** submit handler function */
   SubmitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /** error message about login */
   ErrorMessage: string;
 }
 

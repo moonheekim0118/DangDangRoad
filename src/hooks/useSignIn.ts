@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from '../remotes/sign';
 import useInput from './useInput';
 
+/** sign in logics */
 const useSignIn = () => {
   const router = useRouter();
   const [email, emailChangeHandler] = useInput();
@@ -19,7 +20,7 @@ const useSignIn = () => {
       if (response.isError) {
         return setErrorMessage(response.errorMessage);
       }
-      router.push('/');
+      router.push('/'); // push to index page
     },
     [email, password]
   );
