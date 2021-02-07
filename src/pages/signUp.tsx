@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import useSignUp from '../hooks/useSignUp';
 import SignUpForm from '../components/Forms/SignUpForm';
+import withNotAuth from '../helpers/withNotAuth';
 
 const SignUp = () => {
   /** logic */
@@ -38,4 +39,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withNotAuth(SignUp);

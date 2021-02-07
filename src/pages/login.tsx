@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import useSignIn from '../hooks/useSignIn';
 import LoginForm from '../components/Forms/LoginForm';
+import withNotAuth from '../helpers/withNotAuth';
 
 const Login = () => {
   const [
@@ -26,4 +27,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withNotAuth(Login);
