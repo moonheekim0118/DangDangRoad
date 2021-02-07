@@ -1,15 +1,14 @@
 import React from 'react';
+import Link from 'next/Link';
 import Image from 'next/image';
 import Button from '../atoms/Button';
-import Modal from '../components/Modal';
 import Logo from '../components/Logo';
-import useModal from '../hooks/useModal';
 import styled from '@emotion/styled';
-import LoginForm from '../components/Forms/SignUpForm';
+import useAuth from '../hooks/useAuth';
 import SearchBar from '../components/SearchBar';
 
 const Index = () => {
-  const [showModal, modalHandler] = useModal(false);
+  const isLoggedIn = useAuth();
 
   return (
     <Container>
@@ -25,18 +24,19 @@ const Index = () => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Button onClick={modalHandler} color="white">
-            로그인하고 산책로 리뷰하기
-          </Button>
+          {!isLoggedIn && (
+            <Link href="/login">
+              <a>
+                <Button color="white">로그인하고 산책로 리뷰하기</Button>
+              </a>
+            </Link>
+          )}
           <SearchBarContainer>
             <SearchBar color="white" />
           </SearchBarContainer>
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
-      <Modal showModal={showModal} modalHandler={modalHandler}>
-        <LoginForm />
-      </Modal>
     </Container>
   );
 };
