@@ -1,8 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
+import Loading from '../components/Loading';
+import useRouterStatus from '../hooks/useRouterStatus';
 import GlobalStyle from '../globalStyle';
 
 const App = ({ Component }) => {
+  const isLoading = useRouterStatus();
+
   return (
     <>
       <Head>
@@ -17,7 +21,7 @@ const App = ({ Component }) => {
         <title>댕댕로드</title>
       </Head>
       <GlobalStyle />
-      <Component />
+      {isLoading ? <Loading /> : <Component />}
     </>
   );
 };

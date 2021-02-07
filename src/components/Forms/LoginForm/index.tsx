@@ -1,20 +1,43 @@
 import React from 'react';
 import Input from '../../../atoms/Input';
 import Button from '../../../atoms/Button';
-import useInput from '../../../hooks/useInput';
+import Alert from '../../../atoms/Alert';
 import { inputId } from '../../../model/inputIds';
 import styled from '@emotion/styled';
 
-const LoginForm = () => {
-  const [id, IdChangeHandler] = useInput();
-  const [password, PasswordChangeHandler] = useInput();
+type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+interface Props {
+  /** email value */
+  email: string;
+  /** email value change handler */
+  emailChangeHandler: handlerFunction;
+  /** password value */
+  password: string;
+  /** password value change handler */
+  PasswordChangeHandler: handlerFunction;
+  /** submit handler function */
+  SubmitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /** error message about login */
+  ErrorMessage: string;
+}
+
+const LoginForm = ({
+  email,
+  emailChangeHandler,
+  password,
+  PasswordChangeHandler,
+  SubmitHandler,
+  ErrorMessage,
+}: Props) => {
   return (
     <Form>
+      {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
       <Input
         type="text"
-        id={inputId.ID}
-        value={id}
-        inputChangeHandler={IdChangeHandler}
+        id={inputId.EMAIL}
+        value={email}
+        inputChangeHandler={emailChangeHandler}
         required={true}
       />
       <Input
@@ -24,7 +47,9 @@ const LoginForm = () => {
         inputChangeHandler={PasswordChangeHandler}
         required={true}
       />
-      <Button color="blue">LOGIN</Button>
+      <Button color="blue" type="submit" onClick={SubmitHandler}>
+        LOGIN
+      </Button>
     </Form>
   );
 };

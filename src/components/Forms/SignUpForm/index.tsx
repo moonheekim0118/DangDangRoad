@@ -1,64 +1,60 @@
 import React from 'react';
 import Input from '../../../atoms/Input';
 import Button from '../../../atoms/Button';
-import useMatch from '../../../hooks/useMatch';
-import useValidation from '../../../hooks/useValidation';
-import useInput from '../../../hooks/useInput';
+import Alert from '../../../atoms/Alert';
 import styled from '@emotion/styled';
 import { inputId } from '../../../model/inputIds';
-import * as CHECKER from '../../../utils/inputValidation';
 
-const SignUpForm = () => {
-  /** id */
-  const [id, idError, IdChangeHandler] = useValidation({
-    max: 10,
-    min: 5,
-    characterCheck: CHECKER.passIdValue,
-  });
-  /** nickname */
-  const [nickname, nicknameError, NicknameChangeHandler] = useValidation({
-    max: 15,
-    min: 3,
-    characterCheck: CHECKER.passNicknameValue,
-  });
-  /** dog name (not) */
-  const [dogName, DogNameHandler] = useInput();
-  /** password */
-  const [password, passwordError, PasswordChangeHandler] = useValidation({
-    max: 16,
-    min: 6,
-  });
-  /** password check */
-  const [passwordCheck, , PasswordCheckChangeHandler] = useValidation({
-    max: 16,
-    min: 6,
-  });
+type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
-  const passwordMatch = useMatch({ value: passwordCheck, target: password });
+interface Props {
+  /** email value */
+  email: string;
+  /** email error */
+  emailError: boolean;
+  /** email Change Handler function */
+  EmailChangeHandler: handlerFunction;
+  /** password value */
+  password: string;
+  /** password error  */
+  passwordError: boolean;
+  /** password change Handler function */
+  PasswordChangeHandler: handlerFunction;
+  /** double check password value*/
+  passwordCheck: string;
+  /** double check password error  */
+  passwordMatch: boolean;
+  /** double check password change handler function */
+  PasswordCheckChangeHandler: handlerFunction;
+  /** submit handler function */
+  SubmitHanlder: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /** general Error Message */
+  ErrorMessage: string;
+}
 
+const SignUpForm = ({
+  email,
+  emailError,
+  EmailChangeHandler,
+  password,
+  passwordError,
+  PasswordChangeHandler,
+  passwordCheck,
+  passwordMatch,
+  PasswordCheckChangeHandler,
+  SubmitHanlder,
+  ErrorMessage,
+}: Props) => {
   return (
     <Form>
+      {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
       <Input
         type="text"
-        id={inputId.ID}
-        value={id}
-        error={idError}
+        id={inputId.EMAIL}
+        value={email}
+        error={emailError}
         required={true}
-        inputChangeHandler={IdChangeHandler}
-      />
-      <Input
-        type="text"
-        id={inputId.NICKANME}
-        value={nickname}
-        error={nicknameError}
-        required={true}
-        inputChangeHandler={NicknameChangeHandler}
-      />
-      <Input
-        type="text"
-        id={inputId.DOGNAME}
-        value={dogName}
-        inputChangeHandler={DogNameHandler}
+        inputChangeHandler={EmailChangeHandler}
       />
       <Input
         type="password"
@@ -76,7 +72,9 @@ const SignUpForm = () => {
         required={true}
         inputChangeHandler={PasswordCheckChangeHandler}
       />
-      <Button color="blue"> JOIN</Button>
+      <Button color="blue" type="submit" onClick={SubmitHanlder}>
+        JOIN
+      </Button>
     </Form>
   );
 };

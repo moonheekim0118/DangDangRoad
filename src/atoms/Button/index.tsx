@@ -7,13 +7,15 @@ interface Props {
   children: React.ReactNode;
   /** color of button */
   color: 'blue' | 'white';
+  /** type of button */
+  type?: 'button' | 'submit' | 'reset';
   /** onClick event function */
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button = ({ children, color, onClick }: Props) => {
+const Button = ({ children, color, type = 'button', onClick }: Props) => {
   return (
-    <Container onClick={onClick} color={color}>
+    <Container type={type} onClick={onClick} color={color}>
       {children}
     </Container>
   );
