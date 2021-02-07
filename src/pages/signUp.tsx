@@ -16,6 +16,7 @@ const SignUp = () => {
     passwordMatch,
     PasswordCheckChangeHandler,
     SubmitHanlder,
+    ErrorMessage,
   ] = useSignUp();
 
   return (
@@ -31,6 +32,7 @@ const SignUp = () => {
         passwordMatch={passwordMatch}
         PasswordCheckChangeHandler={PasswordCheckChangeHandler}
         SubmitHanlder={SubmitHanlder}
+        ErrorMessage={ErrorMessage}
       />
     </Layout>
   );

@@ -5,6 +5,8 @@ export enum colorCode {
   'dark-blue' = '#58a5f0',
   'light-gray' = '#e0e0e0',
   'dark-gray' = '#aeaeae',
+  'red' = '#ff0000',
+  'green' = '#33cc33',
 }
 
 export type colorTypes =
@@ -13,4 +15,6 @@ export type colorTypes =
   | 'light-blue'
   | 'dark-blue'
   | 'light-gray'
-  | 'dark-gray';
+  | 'dark-gray'
+  | 'red'
+  | 'green';

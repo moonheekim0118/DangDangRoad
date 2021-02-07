@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../../../atoms/Input';
 import Button from '../../../atoms/Button';
+import Alert from '../../../atoms/Alert';
 import styled from '@emotion/styled';
 import { inputId } from '../../../model/inputIds';
 
@@ -27,6 +28,8 @@ interface Props {
   PasswordCheckChangeHandler: handlerFunction;
   /** submit handler function */
   SubmitHanlder: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /** general Error Message */
+  ErrorMessage: string;
 }
 
 const SignUpForm = ({
@@ -40,9 +43,11 @@ const SignUpForm = ({
   passwordMatch,
   PasswordCheckChangeHandler,
   SubmitHanlder,
+  ErrorMessage,
 }: Props) => {
   return (
     <Form>
+      {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
       <Input
         type="text"
         id={inputId.EMAIL}

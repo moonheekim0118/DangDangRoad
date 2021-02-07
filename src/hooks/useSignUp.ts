@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import signUp from '../remotes/signUp';
 import useValidation from './useValidation';
 import useMatch from './useMatch';
@@ -15,13 +15,18 @@ const validatePassword = (password: string): boolean => {
 
 const useSignUp = () => {
   /** email */
-  const [email, emailError, EmailChangeHandler] = useValidation({
+  const [email, emailError, EmailChangeHandler, setEmailError] = useValidation({
     max: 100,
     min: 5,
     characterCheck: validateEmail,
   });
   /** password */
-  const [password, passwordError, PasswordChangeHandler] = useValidation({
+  const [
+    password,
+    passwordError,
+    PasswordChangeHandler,
+    setPasswordError,
+  ] = useValidation({
     max: 16,
     min: 6,
     characterCheck: validatePassword,
@@ -32,10 +37,13 @@ const useSignUp = () => {
     min: 6,
   });
 
+  /** general error */
+  const [ErrorMessage, setErrorMessage] = useState<string>('');
+
   const passwordMatch = useMatch({ value: passwordCheck, target: password });
 
   const SubmitHanlder = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (
         email.length === 0 ||
@@ -45,9 +53,14 @@ const useSignUp = () => {
         passwordError ||
         !passwordMatch
       ) {
-        return alert('노노');
+        if (email.length === 0) setEmailError(true);
+        if (password.length === 0) setPasswordError(true);
+        return;
       }
-      signUp(email, password);
+      const response = await signUp(email, password);
+      if (response.isError) {
+        return setErrorMessage(response.errorMessage);
+      }
     },
     [email, password, passwordCheck, emailError, passwordError, passwordMatch]
   );
@@ -63,6 +76,7 @@ const useSignUp = () => {
     passwordMatch,
     PasswordCheckChangeHandler,
     SubmitHanlder,
+    ErrorMessage,
   ] as const;
 };
 

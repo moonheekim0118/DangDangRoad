@@ -35,7 +35,7 @@ const useValidation = ({
     [value]
   );
 
-  return [value, error, valueChangeHanlder] as const;
+  return [value, error, valueChangeHanlder, setError] as const;
 };
 
 export default useValidation;
