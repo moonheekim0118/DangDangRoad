@@ -6,16 +6,18 @@ import Span from '../../atoms/Span';
 import SearchBar from '../SearchBar';
 import Navigation from '../Navigation';
 import styled from '@emotion/styled';
+import useAuth from '../../hooks/useAuth';
 import useToggle from '../../hooks/useToggle';
+import useSignOut from '../../hooks/useSignOut';
 import { useRouter } from 'next/router';
 import { colorCode } from '../../model/colorCode';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
-const isLoggedIn = false;
-
 const Header = () => {
+  const isLoggedIn = useAuth();
   const router = useRouter();
   const pathname = router.pathname;
+  const signOutHandler = useSignOut();
   const [openNavigation, NavigationToggler] = useToggle();
 
   return (
@@ -61,6 +63,7 @@ const Header = () => {
               color="white"
               hoverColor="light-gray"
               cursor="pointer"
+              spanClickHandler={signOutHandler}
               bold={true}>
               LOGOUT
             </Span>
