@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import signUp from '../remotes/signUp';
 import useValidation from './useValidation';
 import useMatch from './useMatch';
@@ -15,6 +16,7 @@ const validatePassword = (password: string): boolean => {
 
 const useSignUp = () => {
   /** email */
+  const router = useRouter();
   const [email, emailError, EmailChangeHandler, setEmailError] = useValidation({
     max: 100,
     min: 5,
@@ -61,6 +63,7 @@ const useSignUp = () => {
       if (response.isError) {
         return setErrorMessage(response.errorMessage);
       }
+      router.push('/signUpInProcess');
     },
     [email, password, passwordCheck, emailError, passwordError, passwordMatch]
   );

@@ -15,9 +15,12 @@ const errorExTxt = (errorCode) => {
 const signUp = async (email, password) => {
   try {
     const auth = firebase.auth();
-    const user = await auth.createUserWithEmailAndPassword(email, password);
+    await auth.createUserWithEmailAndPassword(email, password);
+    const user = await auth.currentUser;
+    await user.sendEmailVerification();
     return { isError: false, errorMessage: '' };
   } catch (error) {
+    console.log(error.message);
     const errorMessage = errorExTxt(error.code);
     return { isError: true, errorMessage };
   }
