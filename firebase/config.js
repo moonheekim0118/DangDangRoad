@@ -1,8 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore';
 
-var firebaseConfig = {
+const config = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
   projectId: process.env.PROJECT_ID,
@@ -12,10 +11,4 @@ var firebaseConfig = {
   measurementId: process.env.MEASUREMENT_ID,
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app();
-}
-
-export default firebase;
+export default config;
