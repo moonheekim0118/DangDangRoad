@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { colorCode } from '../../model/colorCode';
 import styled from '@emotion/styled';
 
@@ -38,4 +38,4 @@ const Container = styled.button<{ color: string }>`
   }
 `;
 
-export default Button;
+export default memo(Button);

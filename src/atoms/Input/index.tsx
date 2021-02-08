@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { inputId } from '../../model/inputIds';
 import styled from '@emotion/styled';
 
@@ -94,4 +94,4 @@ const Error = styled.span`
   font-size: 0.9rem;
 `;
 
-export default memo(Input);
+export default Input;
