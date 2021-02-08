@@ -4,12 +4,35 @@ import Image from 'next/image';
 import Button from '../atoms/Button';
 import Logo from '../components/Logo';
 import styled from '@emotion/styled';
-import useAuth from '../hooks/useAuth';
 import SearchBar from '../components/SearchBar';
 
-const Index = () => {
-  const isLoggedIn = useAuth();
+import { parseCookies } from 'nookies';
+import 'firebase/auth';
+import verifyCookie from '../remotes/verifyCookie';
 
+export const getServerSideProps = async (context) => {
+  let propsObject = {
+    authenticated: false,
+    usermail: '',
+  };
+
+  const cookies = parseCookies(context);
+
+  if (cookies.user) {
+    const authentication = await verifyCookie(cookies.user);
+    propsObject.authenticated = authentication
+      ? authentication.authenticated
+      : false;
+    propsObject.usermail = authentication ? authentication.usermail : '';
+  }
+
+  return {
+    props: propsObject,
+  };
+};
+
+const Index = (props) => {
+  console.log(props);
   return (
     <Container>
       <LogoContainer>
@@ -24,7 +47,7 @@ const Index = () => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          {!isLoggedIn && (
+          {!props.authenticated && (
             <Link href="/login">
               <a>
                 <Button color="white">로그인하고 산책로 리뷰하기</Button>
