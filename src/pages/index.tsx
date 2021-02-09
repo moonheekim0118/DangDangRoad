@@ -32,7 +32,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const Index = (props) => {
-  console.log(props);
   return (
     <Container>
       <LogoContainer>
@@ -75,6 +74,8 @@ const Container = styled.main`
   align-items: center;
 
   color: #fff;
+
+  z-index: 10000;
 `;
 
 const MainContents = styled.section`

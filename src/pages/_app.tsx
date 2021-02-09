@@ -7,6 +7,7 @@ import GlobalStyle from '../globalStyle';
 const App = ({ Component, pageProps }) => {
   const isLoading = useRouterStatus();
 
+  console.log(pageProps);
   return (
     <>
       <Head>
