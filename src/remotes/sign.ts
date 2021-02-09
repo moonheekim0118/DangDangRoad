@@ -1,8 +1,10 @@
-import firebase from '../../firebase';
+import getFirebase from '../../firebase/firebase';
 
 /**
  *  function related to Sign ( Sign-in , Sign-up , Sign-out)
  */
+
+const firebase = getFirebase();
 
 /** transform error code to Korean Message */
 const errorExTxt = (errorCode) => {
@@ -18,11 +20,28 @@ const errorExTxt = (errorCode) => {
   }
 };
 
+export const postUserToken = async (token) => {
+  const path = '/api/auth';
+  const url = process.env.BASE_API_URL + path;
+  const data = { token: token };
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
+
 /** Sign in function  */
 export const signIn = async (email: string, password: string) => {
   try {
     const auth = firebase.auth();
-    await auth.signInWithEmailAndPassword(email, password);
+    const response = await auth.signInWithEmailAndPassword(email, password);
+    if (response && response.user) {
+      await postUserToken(await response.user.getIdToken());
+    }
     return { isError: false, errorMessage: '' };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessage

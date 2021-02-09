@@ -10,6 +10,8 @@ module.exports = {
     MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
     APP_ID: process.env.APP_ID,
     MEASUREMENT_ID: process.env.MEASUREMENT_ID,
+    BASE_API_URL: process.env.BASE_API_URL,
+    SECURE_COOKIE: process.env.SECURE_COOKIE,
   },
   webpack(config, { webpack, isServer }) {
     if (!isServer) {

@@ -4,9 +4,10 @@ import Loading from '../components/Loading';
 import useRouterStatus from '../hooks/useRouterStatus';
 import GlobalStyle from '../globalStyle';
 
-const App = ({ Component }) => {
+const App = ({ Component, pageProps }) => {
   const isLoading = useRouterStatus();
 
+  console.log(pageProps);
   return (
     <>
       <Head>
@@ -21,7 +22,7 @@ const App = ({ Component }) => {
         <title>댕댕로드</title>
       </Head>
       <GlobalStyle />
-      {isLoading ? <Loading /> : <Component />}
+      {isLoading ? <Loading /> : <Component {...pageProps} />}
     </>
   );
 };
