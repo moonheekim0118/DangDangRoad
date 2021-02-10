@@ -1,4 +1,5 @@
 import getFirebase from '../../firebase/firebase';
+import db from '../../firebase/db';
 import axios from 'axios';
 /**
  *  function related to Sign ( Sign-in , Sign-up , Sign-out)
@@ -15,6 +16,8 @@ const errorExTxt = (errorCode) => {
       return '잘못된 비밀번호 입니다.';
     case 'auth/user-not-found':
       return '존재하지 않는 이메일 입니다.';
+    case 'Not verfied':
+      return '이메일 인증을 완료해주세요';
     default:
       return '잠시후 다시 시도해주세요';
   }
@@ -38,6 +41,10 @@ export const signIn = async (email: string, password: string) => {
     const auth = firebase.auth();
     const response = await auth.signInWithEmailAndPassword(email, password);
     if (response && response.user) {
+      if (!response.user.emailVerified) {
+        // 이메일 인증 여부 확인
+        throw { code: 'Not verfied' };
+      }
       // 로그인 요청 후 응답에 담긴 토큰 보내기
       await postUserToken(await response.user.getIdToken());
     }
@@ -48,12 +55,26 @@ export const signIn = async (email: string, password: string) => {
   }
 };
 
-export const signUp = async (email: string, password: string) => {
+export const signUp = async (
+  email: string,
+  nickname: string,
+  password: string
+) => {
   try {
     const auth = firebase.auth();
-    await auth.createUserWithEmailAndPassword(email, password);
+    const userCredential = await auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    // data base users collection에 유저 정보 저장
+    await db
+      .collection('users')
+      .doc(userCredential.user.uid)
+      .set({ email: email, nickname });
     const user = await auth.currentUser;
+    // 확인 이메일 보내기
     await user.sendEmailVerification();
+    // signOut
     await signOut();
     return { isError: false, errorMessage: '' };
   } catch (error) {

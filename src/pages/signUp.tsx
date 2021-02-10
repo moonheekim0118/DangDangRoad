@@ -15,6 +15,9 @@ const SignUp = () => {
     email,
     emailError,
     EmailChangeHandler,
+    nickname,
+    nicknameError,
+    NicknameChangeHandler,
     password,
     passwordError,
     PasswordChangeHandler,
@@ -31,6 +34,9 @@ const SignUp = () => {
         email={email}
         emailError={emailError}
         EmailChangeHandler={EmailChangeHandler}
+        nickname={nickname}
+        nicknameError={nicknameError}
+        NicknameChangeHandler={NicknameChangeHandler}
         password={password}
         passwordError={passwordError}
         PasswordChangeHandler={PasswordChangeHandler}

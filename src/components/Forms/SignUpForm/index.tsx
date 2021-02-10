@@ -14,6 +14,12 @@ interface Props {
   emailError: boolean;
   /** email Change Handler function */
   EmailChangeHandler: handlerFunction;
+  /** nickname value */
+  nickname: string;
+  /** nickname error  */
+  nicknameError: boolean;
+  /** nickname change handler function00 */
+  NicknameChangeHandler: handlerFunction;
   /** password value */
   password: string;
   /** password error  */
@@ -36,6 +42,9 @@ const SignUpForm = ({
   email,
   emailError,
   EmailChangeHandler,
+  nickname,
+  nicknameError,
+  NicknameChangeHandler,
   password,
   passwordError,
   PasswordChangeHandler,
@@ -55,6 +64,14 @@ const SignUpForm = ({
         error={emailError}
         required={true}
         inputChangeHandler={EmailChangeHandler}
+      />
+      <Input
+        type="text"
+        id={inputId.NICKNAME}
+        value={nickname}
+        error={nicknameError}
+        required={true}
+        inputChangeHandler={NicknameChangeHandler}
       />
       <Input
         type="password"

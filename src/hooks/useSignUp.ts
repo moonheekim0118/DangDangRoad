@@ -14,6 +14,11 @@ const validatePassword = (password: string): boolean => {
   return !re.test(password);
 };
 
+const validateNickname = (nickname: string): boolean => {
+  const re = /[ !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/;
+  return !re.test(nickname);
+};
+
 const useSignUp = () => {
   /** email */
   const router = useRouter();
@@ -21,6 +26,17 @@ const useSignUp = () => {
     max: 100,
     min: 5,
     characterCheck: validateEmail,
+  });
+  /** nickname */
+  const [
+    nickname,
+    nicknameError,
+    NicknameChangeHandler,
+    setNicknameError,
+  ] = useValidation({
+    max: 10,
+    min: 2,
+    characterCheck: validateNickname,
   });
   /** password */
   const [
@@ -49,29 +65,44 @@ const useSignUp = () => {
       e.preventDefault();
       if (
         email.length === 0 ||
+        nickname.length === 0 ||
         password.length === 0 ||
         passwordCheck.length === 0 ||
         emailError ||
+        nicknameError ||
         passwordError ||
         !passwordMatch
       ) {
         if (email.length === 0) setEmailError(true);
+        if (nickname.length === 0) setNicknameError(true);
         if (password.length === 0) setPasswordError(true);
         return;
       }
-      const response = await signUp(email, password);
+      const response = await signUp(email, nickname, password);
       if (response.isError) {
         return setErrorMessage(response.errorMessage);
       }
       router.push('/signUpInProcess');
     },
-    [email, password, passwordCheck, emailError, passwordError, passwordMatch]
+    [
+      email,
+      nickname,
+      password,
+      passwordCheck,
+      emailError,
+      nicknameError,
+      passwordError,
+      passwordMatch,
+    ]
   );
 
   return [
     email,
     emailError,
     EmailChangeHandler,
+    nickname,
+    nicknameError,
+    NicknameChangeHandler,
     password,
     passwordError,
     PasswordChangeHandler,
