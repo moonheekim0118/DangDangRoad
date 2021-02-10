@@ -6,10 +6,14 @@ import Logo from '../components/Logo';
 import styled from '@emotion/styled';
 import SearchBar from '../components/SearchBar';
 import getAuthentication from '../libs/getAuthentication';
+import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
-export const getServerSideProps = (context) => getAuthentication(context);
+export const getServerSideProps = (context: GetServerSidePropsContext) =>
+  getAuthentication(context);
 
-const Index = (props) => {
+const Index = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
   return (
     <Container>
       <LogoContainer>

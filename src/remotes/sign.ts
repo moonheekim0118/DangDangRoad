@@ -1,5 +1,5 @@
 import getFirebase from '../../firebase/firebase';
-
+import axios from 'axios';
 /**
  *  function related to Sign ( Sign-in , Sign-up , Sign-out)
  */
@@ -25,14 +25,11 @@ export const postUserToken = async (token) => {
   const path = '/api/auth';
   const url = process.env.BASE_API_URL + path;
   const data = { token: token };
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+  const response = await axios.post(url, data, { headers });
+  return response;
 };
 
 /** Sign in function  */
