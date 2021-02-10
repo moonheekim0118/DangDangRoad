@@ -20,6 +20,7 @@ const errorExTxt = (errorCode) => {
   }
 };
 
+// 받은 authentication 토큰으로 쿠키 생성해주는 함수
 export const postUserToken = async (token) => {
   const path = '/api/auth';
   const url = process.env.BASE_API_URL + path;
@@ -40,6 +41,7 @@ export const signIn = async (email: string, password: string) => {
     const auth = firebase.auth();
     const response = await auth.signInWithEmailAndPassword(email, password);
     if (response && response.user) {
+      // 로그인 요청 후 응답에 담긴 토큰 보내기
       await postUserToken(await response.user.getIdToken());
     }
     return { isError: false, errorMessage: '' };
