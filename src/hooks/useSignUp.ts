@@ -4,6 +4,10 @@ import { signUp } from '../remotes/sign';
 import useValidation from './useValidation';
 import useMatch from './useMatch';
 
+const lengthTest = (value: string, max: number, min: number): boolean => {
+  if (value.length > max || value.length < min) return false;
+  return true;
+};
 const validateEmail = (email: string): boolean => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email.toLowerCase());
@@ -11,20 +15,19 @@ const validateEmail = (email: string): boolean => {
 
 const validatePassword = (password: string): boolean => {
   const re = /\s/;
-  return !re.test(password);
+
+  return !re.test(password) && lengthTest(password, 16, 6);
 };
 
 const validateNickname = (nickname: string): boolean => {
-  const re = /[ !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]/;
-  return !re.test(nickname);
+  const re = /[a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣|0-10]+/;
+  return re.test(nickname) && lengthTest(nickname, 10, 2);
 };
 
 const useSignUp = () => {
   /** email */
   const router = useRouter();
   const [email, emailError, EmailChangeHandler, setEmailError] = useValidation({
-    max: 100,
-    min: 5,
     characterCheck: validateEmail,
   });
   /** nickname */
@@ -34,8 +37,6 @@ const useSignUp = () => {
     NicknameChangeHandler,
     setNicknameError,
   ] = useValidation({
-    max: 10,
-    min: 2,
     characterCheck: validateNickname,
   });
   /** password */
@@ -45,14 +46,11 @@ const useSignUp = () => {
     PasswordChangeHandler,
     setPasswordError,
   ] = useValidation({
-    max: 16,
-    min: 6,
     characterCheck: validatePassword,
   });
   /** password check */
   const [passwordCheck, , PasswordCheckChangeHandler] = useValidation({
-    max: 16,
-    min: 6,
+    characterCheck: validatePassword,
   });
 
   /** general error */
