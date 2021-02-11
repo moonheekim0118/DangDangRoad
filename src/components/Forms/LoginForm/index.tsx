@@ -19,6 +19,7 @@ interface Props {
   /** submit handler function */
   SubmitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /** error message about login */
+  GoogleSignInHandler: () => void;
   ErrorMessage: string;
 }
 
@@ -28,6 +29,7 @@ const LoginForm = ({
   password,
   PasswordChangeHandler,
   SubmitHandler,
+  GoogleSignInHandler,
   ErrorMessage,
 }: Props) => {
   return (
@@ -49,6 +51,9 @@ const LoginForm = ({
       />
       <Button color="blue" type="submit" onClick={SubmitHandler}>
         LOGIN
+      </Button>
+      <Button color="blue" onClick={GoogleSignInHandler}>
+        GOOGLE LOGIN
       </Button>
     </Form>
   );

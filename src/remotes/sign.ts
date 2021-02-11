@@ -35,6 +35,38 @@ export const postUserToken = async (token: string) => {
   return response;
 };
 
+/** 유저 정보 firestore에 저장 */
+export const addUser = async (uid: string, email: string, nickname: string) => {
+  try {
+    await db.collection('users').doc(uid).set({ email: email, nickname });
+  } catch (error) {
+    throw error;
+  }
+};
+
+/** 구글 로그인 */
+export const googleSignIn = async () => {
+  try {
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const response = await auth.signInWithPopup(provider);
+    const profile = response.user;
+    const token = await auth.currentUser.getIdToken(); // 파이어베이스 사용자 토큰
+    const uid = auth.currentUser.uid;
+    const user = await db.collection('users').doc(uid); // 파이어베이스에 저장된 유저정보인지 확인
+    console.log(uid);
+    if (!user.exists) {
+      // 신규 가입
+      await addUser(uid, profile.email, profile.displayName);
+    }
+    await postUserToken(token); // 인증 유지
+    return { isError: false, errorMessage: '' };
+  } catch (error) {
+    console.log(error);
+    return { isError: true, errorMessage: '잠시후 다시 시도해주세요' };
+  }
+};
+
 /** Sign in function  */
 export const signIn = async (email: string, password: string) => {
   try {
@@ -68,10 +100,7 @@ export const signUp = async (
       password
     );
     // data base users collection에 유저 정보 저장
-    await db
-      .collection('users')
-      .doc(userCredential.user.uid)
-      .set({ email: email, nickname });
+    await addUser(userCredential.user.uid, email, nickname);
     const user = await auth.currentUser;
     // 확인 이메일 보내기
     await user.sendEmailVerification();

@@ -16,6 +16,7 @@ const Login = () => {
     password,
     PasswordChangeHandler,
     SignInHandler,
+    GoogleSignInHandler,
     ErrorMessage,
   ] = useSignIn();
   return (
@@ -26,6 +27,7 @@ const Login = () => {
         password={password}
         PasswordChangeHandler={PasswordChangeHandler}
         SubmitHandler={SignInHandler}
+        GoogleSignInHandler={GoogleSignInHandler}
         ErrorMessage={ErrorMessage}
       />
     </Layout>
