@@ -8,7 +8,7 @@ import axios from 'axios';
 const firebase = getFirebase();
 
 /** transform error code to Korean Message */
-const errorExTxt = (errorCode) => {
+const errorExTxt = (errorCode: string): string => {
   switch (errorCode) {
     case 'auth/email-already-in-use':
       return '이미 사용중인 이메일 입니다';
@@ -24,10 +24,10 @@ const errorExTxt = (errorCode) => {
 };
 
 // 받은 authentication 토큰으로 쿠키 생성해주는 함수
-export const postUserToken = async (token) => {
+export const postUserToken = async (token: string) => {
   const path = '/api/auth';
   const url = process.env.BASE_API_URL + path;
-  const data = { token: token };
+  const data = { token };
   const headers = {
     'Content-Type': 'application/json',
   };
@@ -46,7 +46,8 @@ export const signIn = async (email: string, password: string) => {
         throw { code: 'Not verfied' };
       }
       // 로그인 요청 후 응답에 담긴 토큰 보내기
-      await postUserToken(await response.user.getIdToken());
+      const token = await response.user.getIdToken(); // Token
+      await postUserToken(token);
     }
     return { isError: false, errorMessage: '' };
   } catch (error) {

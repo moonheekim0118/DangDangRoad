@@ -8,7 +8,7 @@ const auth = async (req, res) => {
     const admin = await getFirebaseAdmin();
     const expiresIn = EXPIRE * 1000; // 1hour
     if (req.method === 'POST') {
-      let idToken = req.body.token; // 토큰 가져오기
+      const idToken = req.body.token; // 토큰 가져오기
       const decodedIdToken = await admin.auth().verifyIdToken(idToken); // 파이어베이스 토큰 인증
       let cookie;
       if (new Date().getTime() / 1000 - decodedIdToken.auth_time < EXPIRE) {

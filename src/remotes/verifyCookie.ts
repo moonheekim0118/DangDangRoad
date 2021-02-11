@@ -6,16 +6,16 @@ const verifyCookie = async (cookie) => {
   try {
     const admin = await getFirebaseAdmin();
     if (!admin) return null;
-    let usermail = '';
+    let userId = '';
     let bAuth = false;
     const decodedClaims = await admin.auth().verifySessionCookie(cookie, true);
     if (decodedClaims) {
       bAuth = true;
-      usermail = decodedClaims.email;
+      userId = decodedClaims.uid;
     }
     return {
       authenticated: bAuth,
-      usermail,
+      userId,
     };
   } catch (error) {
     return null;

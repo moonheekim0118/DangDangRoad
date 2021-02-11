@@ -10,7 +10,7 @@ import { GetServerSidePropsContext } from 'next';
 const getAuthentication = async (context: GetServerSidePropsContext) => {
   let propsObject = {
     authenticated: false,
-    usermail: '',
+    userId: '',
   };
   const cookies = parseCookies(context);
 
@@ -19,9 +19,8 @@ const getAuthentication = async (context: GetServerSidePropsContext) => {
     propsObject.authenticated = authentication
       ? authentication.authenticated
       : false;
-    propsObject.usermail = authentication ? authentication.usermail : '';
+    propsObject.userId = authentication ? authentication.userId : '';
   }
-
   return {
     props: propsObject,
   };
