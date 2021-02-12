@@ -6,9 +6,9 @@ const user = async (req, res) => {
     if (!userInfo.exists) {
       throw 'No User';
     }
-    return res.json({ data: userInfo.data() });
+    return res.status(200).send({ data: userInfo.data() });
   } catch (error) {
-    res.json({ error });
+    res.status(400).send(error);
   }
 };
 
