@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { signIn } from '../remotes/sign';
+import { signIn, googleSignIn } from '../remotes/sign';
 import useInput from './useInput';
 
 /** sign in logics */
@@ -25,12 +25,21 @@ const useSignIn = () => {
     [email, password]
   );
 
+  const GoogleSignInHandler = useCallback(async () => {
+    const response = await googleSignIn();
+    if (response.isError) {
+      return setErrorMessage(response.errorMessage);
+    }
+    router.push('/');
+  }, []);
+
   return [
     email,
     emailChangeHandler,
     password,
     PasswordChangeHandler,
     SignInHandler,
+    GoogleSignInHandler,
     ErrorMessage,
   ] as const;
 };

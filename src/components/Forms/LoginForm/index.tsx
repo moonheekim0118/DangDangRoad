@@ -1,4 +1,5 @@
 import React from 'react';
+import GoogleButton from 'react-google-button';
 import Input from '../../../atoms/Input';
 import Button from '../../../atoms/Button';
 import Alert from '../../../atoms/Alert';
@@ -19,6 +20,7 @@ interface Props {
   /** submit handler function */
   SubmitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /** error message about login */
+  GoogleSignInHandler: () => void;
   ErrorMessage: string;
 }
 
@@ -28,6 +30,7 @@ const LoginForm = ({
   password,
   PasswordChangeHandler,
   SubmitHandler,
+  GoogleSignInHandler,
   ErrorMessage,
 }: Props) => {
   return (
@@ -47,18 +50,30 @@ const LoginForm = ({
         inputChangeHandler={PasswordChangeHandler}
         required={true}
       />
-      <Button color="blue" type="submit" onClick={SubmitHandler}>
-        LOGIN
-      </Button>
+      <ButtonContainer>
+        <Button color="blue" type="submit" onClick={SubmitHandler}>
+          LOGIN
+        </Button>
+        <GoogleButton onClick={GoogleSignInHandler} />
+      </ButtonContainer>
     </Form>
   );
 };
 
 const Form = styled.form`
   width: 100%;
+  height: 100%;
   padding: 15px 25px;
   border-radius: 10px;
   background-color: #fff;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 20%;
 `;
 
 export default LoginForm;
