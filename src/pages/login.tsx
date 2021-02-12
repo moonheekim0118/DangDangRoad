@@ -1,5 +1,6 @@
 import React from 'react';
 import useSignIn from 'hooks/useSignIn';
+import useLoginCheck from 'hooks/useLoginCheck';
 import Layout from 'components/Layout';
 import LoginForm from 'components/Forms/LoginForm';
 import withNotAuth from 'helpers/withNotAuth';
@@ -9,7 +10,7 @@ import { GetServerSidePropsContext } from 'next';
 export const getServerSideProps = (context: GetServerSidePropsContext) =>
   getAuthentication(context);
 
-const Login = (): React.ReactElement => {
+const Login = (props): React.ReactElement => {
   const [
     email,
     emailChangeHandler,
@@ -19,6 +20,10 @@ const Login = (): React.ReactElement => {
     GoogleSignInHandler,
     ErrorMessage,
   ] = useSignIn();
+
+  // change isLoggedIn state by props authenticated
+  useLoginCheck(props.authenticated);
+
   return (
     <Layout>
       <LoginForm

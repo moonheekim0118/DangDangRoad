@@ -10,13 +10,14 @@ import useSignOut from 'hooks/useSignOut';
 import styled from '@emotion/styled';
 import { colorCode } from 'model/colorCode';
 import { useRouter } from 'next/router';
+import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
 const Header = (): React.ReactElement => {
-  const isLoggedIn = false;
   const router = useRouter();
   const pathname = router.pathname;
   const signOutHandler = useSignOut();
+  const { isLoggedIn } = useLoginInfoState();
   const [openNavigation, NavigationToggler] = useToggle();
 
   return (
