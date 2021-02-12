@@ -49,20 +49,25 @@ export const googleSignIn = async () => {
   try {
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
-    const response = await auth.signInWithPopup(provider);
-    const profile = response.user;
-    const token = await auth.currentUser.getIdToken(); // 파이어베이스 사용자 토큰
-    const uid = auth.currentUser.uid;
-    const user = await db.collection('users').doc(uid); // 파이어베이스에 저장된 유저정보인지 확인
-    console.log(uid);
-    if (!user.exists) {
-      // 신규 가입
-      await addUser(uid, profile.email, profile.displayName);
+    if (provider) {
+      const response = await auth.signInWithPopup(provider);
+      const profile = response.user;
+      const token = await auth.currentUser.getIdToken(); // 파이어베이스 사용자 토큰
+      const uid = auth.currentUser.uid;
+      const user = await db.collection('users').doc(uid); // 파이어베이스에 저장된 유저정보인지 확인
+
+      if (!user.exists) {
+        // 신규 가입
+        await addUser(uid, profile.email, profile.displayName);
+      }
+      await postUserToken(token); // 인증 유지
     }
-    await postUserToken(token); // 인증 유지
     return { isError: false, errorMessage: '' };
   } catch (error) {
-    console.log(error);
+    // 유저가 auth 창 닫은 경우는 에러로 치지 않는다
+    if (error.code === 'auth/popup-closed-by-user') {
+      return { isError: false, errorMessage: '' };
+    }
     return { isError: true, errorMessage: '잠시후 다시 시도해주세요' };
   }
 };
