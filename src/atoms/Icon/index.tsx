@@ -3,7 +3,7 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from '@fortawesome/react-fontawesome';
-import { colorCode, colorTypes } from '../../model/colorCode';
+import { colorCode, colorTypes } from 'model/colorCode';
 import styled from '@emotion/styled';
 
 type rotationTypes = 0 | 90 | 180 | 270;

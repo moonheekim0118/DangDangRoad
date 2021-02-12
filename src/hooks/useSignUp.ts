@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { signUp } from '../remotes/sign';
-import useValidation from './useValidation';
-import useMatch from './useMatch';
+import { signUp } from 'remotes/sign';
+import useValidation from 'hooks/useValidation';
+import useMatch from 'hooks/useMatch';
 
 const lengthTest = (value: string, max: number, min: number): boolean => {
   if (value.length > max || value.length < min) return false;

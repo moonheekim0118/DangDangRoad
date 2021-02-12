@@ -1,9 +1,9 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import useSignUp from '../hooks/useSignUp';
-import SignUpForm from '../components/Forms/SignUpForm';
-import withNotAuth from '../helpers/withNotAuth';
-import getAuthentication from '../libs/getAuthentication';
+import Layout from 'components/Layout';
+import useSignUp from 'hooks/useSignUp';
+import SignUpForm from 'components/Forms/SignUpForm';
+import withNotAuth from 'helpers/withNotAuth';
+import getAuthentication from 'libs/getAuthentication';
 import { GetServerSidePropsContext } from 'next';
 
 export const getServerSideProps = (context: GetServerSidePropsContext) =>

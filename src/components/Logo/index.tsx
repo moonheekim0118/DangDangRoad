@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
+import { colorCode } from 'model/colorCode';
 import Link from 'next/Link';
-import { colorCode } from '../../model/colorCode';
 import styled from '@emotion/styled';
 
 interface Props {

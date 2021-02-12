@@ -1,9 +1,9 @@
 import React from 'react';
-import useInput from '../../hooks/useInput';
+import Icon from 'atoms/Icon';
+import Span from 'atoms/Span';
+import useInput from 'hooks/useInput';
 import styled from '@emotion/styled';
-import Icon from '../../atoms/Icon';
-import Span from '../../atoms/Span';
-import { colorCode } from '../../model/colorCode';
+import { colorCode } from 'model/colorCode';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {

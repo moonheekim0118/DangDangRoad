@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import useElement from '../../hooks/useElement';
+import useElement from 'hooks/useElement';
 import styled from '@emotion/styled';
 
 interface Props {

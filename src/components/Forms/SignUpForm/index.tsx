@@ -1,9 +1,9 @@
 import React from 'react';
-import Input from '../../../atoms/Input';
-import Button from '../../../atoms/Button';
-import Alert from '../../../atoms/Alert';
+import Input from 'atoms/Input';
+import Button from 'atoms/Button';
+import Alert from 'atoms/Alert';
 import styled from '@emotion/styled';
-import { inputId } from '../../../model/inputIds';
+import { inputId } from 'model/inputIds';
 
 type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
 

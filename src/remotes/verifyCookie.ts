@@ -1,5 +1,5 @@
 import 'firebase/auth';
-import getFirebaseAdmin from '../../firebase/admin';
+import getFirebaseAdmin from 'firebaseConfigs/admin';
 
 /** 파이어베이스 관리자 권한으로 쿠키 인증 */
 const verifyCookie = async (cookie) => {

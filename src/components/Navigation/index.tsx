@@ -1,6 +1,6 @@
 import React from 'react';
-import { colorCode } from '../../model/colorCode';
-import Anchor from '../../atoms/Anchor';
+import { colorCode } from 'model/colorCode';
+import Anchor from 'atoms/Anchor';
 import styled from '@emotion/styled';
 
 const isLoggedIn = false;

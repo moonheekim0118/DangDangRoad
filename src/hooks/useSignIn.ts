@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { signIn, googleSignIn } from '../remotes/sign';
-import useInput from './useInput';
+import { signIn, googleSignIn } from 'remotes/sign';
+import useInput from 'hooks/useInput';
 
 /** sign in logics */
 const useSignIn = () => {

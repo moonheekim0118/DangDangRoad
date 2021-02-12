@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin';
-import serviceAccount from '../serviceaccount.json';
+import serviceAccount from '../../serviceaccount.json';
 
 async function getFirebaseAdmin() {
   if (!admin.apps.length) {

@@ -1,5 +1,5 @@
 import { serialize } from 'cookie';
-import getFirebaseAdmin from '../../../firebase/admin';
+import getFirebaseAdmin from 'firebaseConfigs/admin';
 
 const EXPIRE = 60 * 60;
 // 쿠키 생성해주는 api

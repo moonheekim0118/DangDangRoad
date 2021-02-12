@@ -1,7 +1,7 @@
 import React from 'react';
-import { colorCode } from '../model/colorCode';
+import { colorCode } from 'model/colorCode';
 import Image from 'next/image';
-import Layout from '../components/Layout';
+import Layout from 'components/Layout';
 import styled from '@emotion/styled';
 
 const SignUpProcess = () => {

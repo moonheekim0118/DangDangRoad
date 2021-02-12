@@ -1,6 +1,6 @@
 import { parseCookies } from 'nookies';
 import 'firebase/auth';
-import verifyCookie from '../remotes/verifyCookie';
+import verifyCookie from 'remotes/verifyCookie';
 import { GetServerSidePropsContext } from 'next';
 
 /** 서버가 브라우저로부터 받아온 context 에서 쿠키를 파싱

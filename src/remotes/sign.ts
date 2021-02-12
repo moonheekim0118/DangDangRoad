@@ -1,5 +1,5 @@
-import getFirebase from '../../firebase/firebase';
-import db from '../../firebase/db';
+import getFirebase from 'firebaseConfigs/firebase';
+import db from 'firebaseConfigs/db';
 import axios from 'axios';
 /**
  *  function related to Sign ( Sign-in , Sign-up , Sign-out)

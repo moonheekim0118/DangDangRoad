@@ -1,4 +1,4 @@
-import db from '../../../../firebase/db';
+import db from 'firebaseConfigs/db';
 
 const user = async (req, res) => {
   try {

@@ -1,15 +1,15 @@
 import React from 'react';
-import Logo from '../Logo';
-import Icon from '../../atoms/Icon';
-import Anchor from '../../atoms/Anchor';
-import Span from '../../atoms/Span';
-import SearchBar from '../SearchBar';
-import Navigation from '../Navigation';
+import Icon from 'atoms/Icon';
+import Anchor from 'atoms/Anchor';
+import Span from 'atoms/Span';
+import Logo from 'components/Logo';
+import SearchBar from 'components/SearchBar';
+import Navigation from 'components/Navigation';
+import useToggle from 'hooks/useToggle';
+import useSignOut from 'hooks/useSignOut';
 import styled from '@emotion/styled';
-import useToggle from '../../hooks/useToggle';
-import useSignOut from '../../hooks/useSignOut';
+import { colorCode } from 'model/colorCode';
 import { useRouter } from 'next/router';
-import { colorCode } from '../../model/colorCode';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {

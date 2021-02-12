@@ -1,9 +1,9 @@
 import React from 'react';
 import GoogleButton from 'react-google-button';
-import Input from '../../../atoms/Input';
-import Button from '../../../atoms/Button';
-import Alert from '../../../atoms/Alert';
-import { inputId } from '../../../model/inputIds';
+import Input from 'atoms/Input';
+import Button from 'atoms/Button';
+import Alert from 'atoms/Alert';
+import { inputId } from 'model/inputIds';
 import styled from '@emotion/styled';
 
 type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;

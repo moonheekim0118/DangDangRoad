@@ -1,8 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
-import Loading from '../components/Loading';
-import useRouterStatus from '../hooks/useRouterStatus';
-import GlobalStyle from '../globalStyle';
+import Loading from 'components/Loading';
+import useRouterStatus from 'hooks/useRouterStatus';
+import GlobalStyle from 'globalStyle';
 
 const App = ({ Component, pageProps }) => {
   const isLoading = useRouterStatus();

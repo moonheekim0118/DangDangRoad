@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
-import Button from '../atoms/Button';
-import Logo from '../components/Logo';
+import Button from 'atoms/Button';
+import Logo from 'components/Logo';
+import SearchBar from 'components/SearchBar';
+import getAuthentication from 'libs/getAuthentication';
 import styled from '@emotion/styled';
-import SearchBar from '../components/SearchBar';
-import getAuthentication from '../libs/getAuthentication';
 import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
 export const getServerSideProps = (context: GetServerSidePropsContext) =>
