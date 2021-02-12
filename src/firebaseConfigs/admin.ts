@@ -1,5 +1,7 @@
 import * as admin from 'firebase-admin';
-import serviceAccount from '../../serviceaccount.json';
+import firebaseAccountCredentials from '../../serviceaccount.json';
+
+const serviceAccount = firebaseAccountCredentials as admin.ServiceAccount;
 
 async function getFirebaseAdmin() {
   if (!admin.apps.length) {
