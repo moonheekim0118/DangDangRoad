@@ -3,11 +3,7 @@ import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
 const Loading = (): React.ReactElement => {
-  return (
-    <Container>
-      <Loader />
-    </Container>
-  );
+  return <Loader />;
 };
 
 const Spin = keyframes`
@@ -19,26 +15,23 @@ const Spin = keyframes`
     }
 `;
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 const Loader = styled.div`
     display: inline-block;
-    width: 200px;
-    height: 200px;
+    position:relative;
+    width: 100%;
+    height: 100%;
 
     &:after{
         content: " ";
         display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
         width: 64px;
         height: 64px;
-        margin: 8px;
         border-radius: 50%;
         border: 6px solid blue;
         border-color: blue transparent blue transparent;
