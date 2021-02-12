@@ -2,10 +2,10 @@ import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
 import Button from 'atoms/Button';
-import SearchBar from 'components/SearchBar';
 import getAuthentication from 'libs/getAuthentication';
 import useLoginCheck from 'hooks/useLoginCheck';
 import styled from '@emotion/styled';
+import { useLoginInfoState } from 'context/LoginInfo';
 import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
 export const getServerSideProps = (context: GetServerSidePropsContext) =>
@@ -14,6 +14,7 @@ export const getServerSideProps = (context: GetServerSidePropsContext) =>
 const Index = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): React.ReactElement => {
+  const { isLoggedIn } = useLoginInfoState();
   useLoginCheck(props.authenticated);
 
   return (
@@ -27,7 +28,13 @@ const Index = (
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          {!props.authenticated && (
+          {isLoggedIn ? (
+            <Link href="/review">
+              <a>
+                <Button color="white">산책로 리뷰하기</Button>
+              </a>
+            </Link>
+          ) : (
             <Link href="/login">
               <a>
                 <Button color="white">로그인하고 산책로 리뷰하기</Button>

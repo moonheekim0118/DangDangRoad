@@ -14,7 +14,7 @@ const useSignIn = () => {
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (email.length === 0 || password.length === 0) {
-        setErrorMessage('정보를 올바르게 입력해주세요');
+        return setErrorMessage('정보를 올바르게 입력해주세요');
       }
       const response = await signIn(email, password);
       if (response.errorMessage) {
