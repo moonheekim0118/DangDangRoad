@@ -61,11 +61,16 @@ const LoginForm = ({
 };
 
 const Form = styled.form`
-  width: 100%;
+  width: 600px;
   height: 100%;
+  margin: auto;
   padding: 15px 25px;
   border-radius: 10px;
   background-color: #fff;
+
+  @media only screen and (max-width: 780px) {
+    width: 100%;
+  }
 `;
 
 const ButtonContainer = styled.div`

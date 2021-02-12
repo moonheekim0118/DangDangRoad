@@ -28,10 +28,6 @@ const MainContents = styled.main`
   width: 100%;
   height: 100%;
   margin: auto;
-
-  @media only screen and (max-width: 780px) {
-    width: 100%;
-  }
 `;
 
 export default Layout;
