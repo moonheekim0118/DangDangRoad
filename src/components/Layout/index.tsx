@@ -24,11 +24,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const NavigationContainer = styled.div`
-  width: 100%;
-  margin-top: 70px;
-`;
-
 const MainContents = styled.main`
   width: 600px;
   height: 100%;
