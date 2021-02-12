@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { signOut } from 'remotes/sign';
+import { signOut } from 'api/sign';
 
 /** sign out logic  */
 const useSignOut = () => {

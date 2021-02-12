@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { signIn, googleSignIn } from 'remotes/sign';
+import { signIn, googleSignIn } from 'api/sign';
 import useInput from 'hooks/useInput';
 
 /** sign in logics */

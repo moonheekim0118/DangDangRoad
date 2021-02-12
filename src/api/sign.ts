@@ -1,6 +1,8 @@
 import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { ReqResult } from 'types/API';
+
 /**
  *  function related to Sign ( Sign-in , Sign-up , Sign-out)
  */
@@ -24,7 +26,9 @@ const errorExTxt = (errorCode: string): string => {
 };
 
 // 받은 authentication 토큰으로 쿠키 생성해주는 함수
-export const postUserToken = async (token: string) => {
+export const postUserToken = async (
+  token: string
+): Promise<AxiosResponse<any>> => {
   const path = '/api/auth';
   const url = process.env.BASE_API_URL + path;
   const data = { token };
@@ -45,7 +49,7 @@ export const addUser = async (uid: string, email: string, nickname: string) => {
 };
 
 /** 구글 로그인 */
-export const googleSignIn = async () => {
+export const googleSignIn = async (): Promise<ReqResult> => {
   try {
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -77,7 +81,10 @@ export const googleSignIn = async () => {
 };
 
 /** Sign in function  */
-export const signIn = async (email: string, password: string) => {
+export const signIn = async (
+  email: string,
+  password: string
+): Promise<ReqResult> => {
   try {
     const auth = firebase.auth();
     const response = await auth.signInWithEmailAndPassword(email, password);
@@ -101,7 +108,7 @@ export const signUp = async (
   email: string,
   nickname: string,
   password: string
-) => {
+): Promise<ReqResult> => {
   try {
     const auth = firebase.auth();
     const userCredential = await auth.createUserWithEmailAndPassword(
@@ -125,7 +132,7 @@ export const signUp = async (
   }
 };
 
-export const signOut = async () => {
+export const signOut = async (): Promise<undefined | string> => {
   try {
     const auth = firebase.auth();
     await auth.signOut();

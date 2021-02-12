@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { signUp } from 'remotes/sign';
+import { signUp } from 'api/sign';
 import * as checkers from 'util/signUpValidations';
 import useValidation from 'hooks/useValidation';
 import useMatch from 'hooks/useMatch';

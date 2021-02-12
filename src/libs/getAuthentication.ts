@@ -1,13 +1,17 @@
 import { parseCookies } from 'nookies';
 import 'firebase/auth';
-import verifyCookie from 'remotes/verifyCookie';
+import verifyCookie from 'api/verifyCookie';
 import { GetServerSidePropsContext } from 'next';
+import { AuthResult } from 'types/API';
 
 /** 서버가 브라우저로부터 받아온 context 에서 쿠키를 파싱
  *  파싱한 쿠키를 verifyCookie (파이어베이스 관리자 권한) 으로 인증
  *  인증 완료시 authenticated===true
  */
-const getAuthentication = async (context: GetServerSidePropsContext) => {
+
+const getAuthentication = async (
+  context: GetServerSidePropsContext
+): Promise<{ props: AuthResult }> => {
   let propsObject = {
     authenticated: false,
     userId: '',
