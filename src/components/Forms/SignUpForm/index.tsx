@@ -99,7 +99,6 @@ const SignUpForm = ({
 const Form = styled.form`
   width: 600px;
   height: 100%;
-  margin: auto;
   padding: 15px 25px;
   border-radius: 10px;
   background-color: #fff;
