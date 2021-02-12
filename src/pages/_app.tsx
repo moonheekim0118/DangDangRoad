@@ -3,11 +3,10 @@ import Head from 'next/head';
 import Loading from 'components/Loading';
 import useRouterStatus from 'hooks/useRouterStatus';
 import GlobalStyle from 'globalStyle';
+import { LoginInfoProvider } from 'context/LoginInfo';
 
 const App = ({ Component, pageProps }) => {
   const isLoading = useRouterStatus();
-
-  console.log(pageProps);
   return (
     <>
       <Head>
@@ -22,7 +21,13 @@ const App = ({ Component, pageProps }) => {
         <title>댕댕로드</title>
       </Head>
       <GlobalStyle />
-      {isLoading ? <Loading /> : <Component {...pageProps} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <LoginInfoProvider>
+          <Component {...pageProps} />
+        </LoginInfoProvider>
+      )}
     </>
   );
 };
