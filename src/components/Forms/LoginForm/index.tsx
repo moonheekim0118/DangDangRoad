@@ -3,7 +3,7 @@ import GoogleButton from 'react-google-button';
 import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
-import { inputId } from 'model/inputIds';
+import { inputId } from 'types/inputIds';
 import styled from '@emotion/styled';
 
 type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -51,7 +51,11 @@ const LoginForm = ({
         required={true}
       />
       <ButtonContainer>
-        <Button color="blue" type="submit" onClick={SubmitHandler}>
+        <Button
+          color="blue"
+          hoverColor="light-blue"
+          type="submit"
+          onClick={SubmitHandler}>
           LOGIN
         </Button>
         <GoogleButton onClick={GoogleSignInHandler} />

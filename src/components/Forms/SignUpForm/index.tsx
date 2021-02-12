@@ -3,7 +3,7 @@ import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
 import styled from '@emotion/styled';
-import { inputId } from 'model/inputIds';
+import { inputId } from 'types/inputIds';
 
 type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -89,7 +89,11 @@ const SignUpForm = ({
         required={true}
         inputChangeHandler={PasswordCheckChangeHandler}
       />
-      <Button color="blue" type="submit" onClick={SubmitHanlder}>
+      <Button
+        color="blue"
+        hoverColor="light-blue"
+        type="submit"
+        onClick={SubmitHanlder}>
         JOIN
       </Button>
     </Form>
