@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 const isLoggedIn = false;
 
-const Navigation = () => {
+const Navigation = (): React.ReactElement => {
   return (
     <Container>
       {isLoggedIn ? (

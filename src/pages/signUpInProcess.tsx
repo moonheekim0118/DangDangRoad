@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Layout from 'components/Layout';
 import styled from '@emotion/styled';
 
-const SignUpProcess = () => {
+const SignUpProcess = (): React.ReactElement => {
   return (
     <Layout>
       <Container>

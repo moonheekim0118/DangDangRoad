@@ -53,7 +53,7 @@ const SignUpForm = ({
   PasswordCheckChangeHandler,
   SubmitHanlder,
   ErrorMessage,
-}: Props) => {
+}: Props): React.ReactElement => {
   return (
     <Form>
       {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}

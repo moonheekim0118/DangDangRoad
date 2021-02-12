@@ -12,7 +12,7 @@ import { colorCode } from 'model/colorCode';
 import { useRouter } from 'next/router';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 
-const Header = () => {
+const Header = (): React.ReactElement => {
   const isLoggedIn = false;
   const router = useRouter();
   const pathname = router.pathname;

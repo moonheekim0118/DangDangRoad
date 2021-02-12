@@ -20,7 +20,7 @@ interface InputProps extends Props {
 
 const PLACEHOLDER = '지역명을 입력하세요. 예) 강원도 속초시';
 
-const SearchBar = ({ color, focus = false }: Props) => {
+const SearchBar = ({ color, focus = false }: Props): React.ReactElement => {
   const [keyword, keywordChangeHanlder] = useInput();
 
   /** if it has focus effects, define foucsBack color and fontColor */

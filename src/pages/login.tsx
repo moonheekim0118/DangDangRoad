@@ -9,7 +9,7 @@ import { GetServerSidePropsContext } from 'next';
 export const getServerSideProps = (context: GetServerSidePropsContext) =>
   getAuthentication(context);
 
-const Login = () => {
+const Login = (): React.ReactElement => {
   const [
     email,
     emailChangeHandler,

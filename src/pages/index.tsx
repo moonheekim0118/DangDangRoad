@@ -13,7 +13,7 @@ export const getServerSideProps = (context: GetServerSidePropsContext) =>
 
 const Index = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
-) => {
+): React.ReactElement => {
   return (
     <Container>
       <LogoContainer>

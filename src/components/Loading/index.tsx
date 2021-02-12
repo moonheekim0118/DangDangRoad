@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
-const Loading = () => {
+const Loading = (): React.ReactElement => {
   return (
     <Container>
       <Loader />
