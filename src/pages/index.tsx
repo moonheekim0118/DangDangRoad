@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
 import Button from 'atoms/Button';
-import Logo from 'components/Logo';
 import SearchBar from 'components/SearchBar';
 import getAuthentication from 'libs/getAuthentication';
+import useLoginCheck from 'hooks/useLoginCheck';
 import styled from '@emotion/styled';
 import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
@@ -14,11 +14,10 @@ export const getServerSideProps = (context: GetServerSidePropsContext) =>
 const Index = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): React.ReactElement => {
+  useLoginCheck(props.authenticated);
+
   return (
     <Container>
-      <LogoContainer>
-        <Logo color="white" />
-      </LogoContainer>
       <MainContents>
         <SubContetns>
           <MainTitle>
@@ -35,9 +34,6 @@ const Index = (
               </a>
             </Link>
           )}
-          <SearchBarContainer>
-            <SearchBar color="white" />
-          </SearchBarContainer>
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
@@ -56,8 +52,6 @@ const Container = styled.main`
   align-items: center;
 
   color: #fff;
-
-  z-index: 10000;
 `;
 
 const MainContents = styled.section`
@@ -82,17 +76,6 @@ const MainTitle = styled.div`
   @media only screen and (max-width: 780px) {
     display: none;
   }
-`;
-
-const LogoContainer = styled.div`
-  position: absolute;
-  top: 20px;
-  left: 20px;
-`;
-
-const SearchBarContainer = styled.div`
-  width: 100%;
-  margin: 25px 0;
 `;
 
 export default Index;

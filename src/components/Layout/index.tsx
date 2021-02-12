@@ -25,7 +25,7 @@ const Container = styled.div`
 `;
 
 const MainContents = styled.main`
-  width: 600px;
+  width: 100%;
   height: 100%;
   margin: auto;
 

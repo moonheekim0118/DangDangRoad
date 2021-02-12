@@ -1,7 +1,6 @@
 import React from 'react';
 import useSignIn from 'hooks/useSignIn';
 import useLoginCheck from 'hooks/useLoginCheck';
-import Layout from 'components/Layout';
 import LoginForm from 'components/Forms/LoginForm';
 import withNotAuth from 'helpers/withNotAuth';
 import getAuthentication from 'libs/getAuthentication';
@@ -25,17 +24,15 @@ const Login = (props): React.ReactElement => {
   useLoginCheck(props.authenticated);
 
   return (
-    <Layout>
-      <LoginForm
-        email={email}
-        emailChangeHandler={emailChangeHandler}
-        password={password}
-        PasswordChangeHandler={PasswordChangeHandler}
-        SubmitHandler={SignInHandler}
-        GoogleSignInHandler={GoogleSignInHandler}
-        ErrorMessage={ErrorMessage}
-      />
-    </Layout>
+    <LoginForm
+      email={email}
+      emailChangeHandler={emailChangeHandler}
+      password={password}
+      PasswordChangeHandler={PasswordChangeHandler}
+      SubmitHandler={SignInHandler}
+      GoogleSignInHandler={GoogleSignInHandler}
+      ErrorMessage={ErrorMessage}
+    />
   );
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from 'components/Layout';
 import useSignUp from 'hooks/useSignUp';
 import useLoginCheck from 'hooks/useLoginCheck';
 import SignUpForm from 'components/Forms/SignUpForm';
@@ -33,24 +32,22 @@ const SignUp = (props): React.ReactElement => {
   useLoginCheck(props.authenticated);
 
   return (
-    <Layout>
-      <SignUpForm
-        email={email}
-        emailError={emailError}
-        EmailChangeHandler={EmailChangeHandler}
-        nickname={nickname}
-        nicknameError={nicknameError}
-        NicknameChangeHandler={NicknameChangeHandler}
-        password={password}
-        passwordError={passwordError}
-        PasswordChangeHandler={PasswordChangeHandler}
-        passwordCheck={passwordCheck}
-        passwordMatch={passwordMatch}
-        PasswordCheckChangeHandler={PasswordCheckChangeHandler}
-        SubmitHanlder={SubmitHanlder}
-        ErrorMessage={ErrorMessage}
-      />
-    </Layout>
+    <SignUpForm
+      email={email}
+      emailError={emailError}
+      EmailChangeHandler={EmailChangeHandler}
+      nickname={nickname}
+      nicknameError={nicknameError}
+      NicknameChangeHandler={NicknameChangeHandler}
+      password={password}
+      passwordError={passwordError}
+      PasswordChangeHandler={PasswordChangeHandler}
+      passwordCheck={passwordCheck}
+      passwordMatch={passwordMatch}
+      PasswordCheckChangeHandler={PasswordCheckChangeHandler}
+      SubmitHanlder={SubmitHanlder}
+      ErrorMessage={ErrorMessage}
+    />
   );
 };
 
