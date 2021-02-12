@@ -51,16 +51,20 @@ export const googleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
       const response = await auth.signInWithPopup(provider);
-      const profile = response.user;
-      const token = await auth.currentUser.getIdToken(); // 파이어베이스 사용자 토큰
-      const uid = auth.currentUser.uid;
-      const user = await db.collection('users').doc(uid); // 파이어베이스에 저장된 유저정보인지 확인
-
-      if (!user.exists) {
-        // 신규 가입
-        await addUser(uid, profile.email, profile.displayName);
+      // 로그인 완료
+      if (response.user) {
+        const user = response.user;
+        const email = user.email || '';
+        const nickname = user.displayName || '';
+        const token = await user.getIdToken(); // 파이어베이스 사용자 토큰
+        const uid = user.uid; // 사용자 uid
+        const snapshot = await db.collection('users').doc(uid).get(); // 파이어베이스에 저장된 유저정보인지 확인
+        if (!snapshot.exists) {
+          // 신규 가입
+          await addUser(uid, email, nickname);
+        }
+        await postUserToken(token); // 인증 유지
       }
-      await postUserToken(token); // 인증 유지
     }
     return { isError: false, errorMessage: '' };
   } catch (error) {
@@ -104,13 +108,16 @@ export const signUp = async (
       email,
       password
     );
-    // data base users collection에 유저 정보 저장
-    await addUser(userCredential.user.uid, email, nickname);
-    const user = await auth.currentUser;
-    // 확인 이메일 보내기
-    await user.sendEmailVerification();
-    // signOut
-    await signOut();
+    // 회원가입 완료
+    if (userCredential.user && auth.currentUser) {
+      // data base users collection에 유저 정보 저장
+      await addUser(userCredential.user.uid, email, nickname);
+      const user = await auth.currentUser;
+      // 확인 이메일 보내기
+      await user.sendEmailVerification();
+      // signOut
+      await signOut();
+    }
     return { isError: false, errorMessage: '' };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessgae
