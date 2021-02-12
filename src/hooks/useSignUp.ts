@@ -1,34 +1,16 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { signUp } from 'remotes/sign';
+import * as checkers from 'util/signUpValidations';
 import useValidation from 'hooks/useValidation';
 import useMatch from 'hooks/useMatch';
-
-const lengthTest = (value: string, max: number, min: number): boolean => {
-  if (value.length > max || value.length < min) return false;
-  return true;
-};
-const validateEmail = (email: string): boolean => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email.toLowerCase());
-};
-
-const validatePassword = (password: string): boolean => {
-  const re = /\s/;
-
-  return !re.test(password) && lengthTest(password, 16, 6);
-};
-
-const validateNickname = (nickname: string): boolean => {
-  const re = /[a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣|0-10]+/;
-  return re.test(nickname) && lengthTest(nickname, 10, 2);
-};
+import useInput from 'hooks/useInput';
 
 const useSignUp = () => {
   /** email */
   const router = useRouter();
   const [email, emailError, EmailChangeHandler, setEmailError] = useValidation({
-    characterCheck: validateEmail,
+    characterCheck: checkers.checkEmail,
   });
   /** nickname */
   const [
@@ -37,7 +19,7 @@ const useSignUp = () => {
     NicknameChangeHandler,
     setNicknameError,
   ] = useValidation({
-    characterCheck: validateNickname,
+    characterCheck: checkers.nicknameValidator,
   });
   /** password */
   const [
@@ -46,12 +28,10 @@ const useSignUp = () => {
     PasswordChangeHandler,
     setPasswordError,
   ] = useValidation({
-    characterCheck: validatePassword,
+    characterCheck: checkers.passwordValidator,
   });
   /** password check */
-  const [passwordCheck, , PasswordCheckChangeHandler] = useValidation({
-    characterCheck: validatePassword,
-  });
+  const [passwordCheck, PasswordCheckChangeHandler] = useInput();
 
   /** general error */
   const [ErrorMessage, setErrorMessage] = useState<string>('');
