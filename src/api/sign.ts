@@ -26,7 +26,7 @@ const errorExTxt = (errorCode: string): string => {
 };
 
 // authentication Cookie 삭제하기
-export const removeCookie = async (): Promise<AxiosResponse<any> | Error> => {
+const removeCookie = async (): Promise<AxiosResponse<any> | Error> => {
   try {
     const path = '/api/removeAuth';
     const url = process.env.BASE_API_URL + path;
@@ -41,7 +41,7 @@ export const removeCookie = async (): Promise<AxiosResponse<any> | Error> => {
 };
 
 // 받은 authentication 토큰으로 쿠키 생성해주는 함수
-export const postUserToken = async (
+const postUserToken = async (
   token: string
 ): Promise<AxiosResponse<any> | Error> => {
   try {
@@ -59,7 +59,7 @@ export const postUserToken = async (
 };
 
 /** 유저 정보 firestore에 저장 */
-export const addUser = async (uid: string, email: string, nickname: string) => {
+const addUser = async (uid: string, email: string, nickname: string) => {
   try {
     await db.collection('users').doc(uid).set({ email: email, nickname });
   } catch (error) {

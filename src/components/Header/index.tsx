@@ -47,7 +47,7 @@ const Header = (): React.ReactElement => {
                 hoverColor="light-gray"
                 margin="0 20px 0 0"
                 path="/">
-                MyReviews
+                MYREVIEWS
               </Anchor>
               <Anchor
                 fontsize={1.2}
@@ -55,7 +55,7 @@ const Header = (): React.ReactElement => {
                 hoverColor="light-gray"
                 margin="0 20px 0 0"
                 path="/">
-                MyPage
+                MYPAGE
               </Anchor>
             </ExtraMenuContainer>
             <Span
