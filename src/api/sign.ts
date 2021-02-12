@@ -25,18 +25,37 @@ const errorExTxt = (errorCode: string): string => {
   }
 };
 
+// authentication Cookie 삭제하기
+export const removeCookie = async (): Promise<AxiosResponse<any> | Error> => {
+  try {
+    const path = '/api/removeAuth';
+    const url = process.env.BASE_API_URL + path;
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const response = await axios.post(url, { headers }); // remove token
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 // 받은 authentication 토큰으로 쿠키 생성해주는 함수
 export const postUserToken = async (
   token: string
-): Promise<AxiosResponse<any>> => {
-  const path = '/api/auth';
-  const url = process.env.BASE_API_URL + path;
-  const data = { token };
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-  const response = await axios.post(url, data, { headers });
-  return response;
+): Promise<AxiosResponse<any> | Error> => {
+  try {
+    const path = '/api/auth';
+    const url = process.env.BASE_API_URL + path;
+    const data = { token };
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const response = await axios.post(url, data, { headers });
+    return response;
+  } catch (error) {
+    return error;
+  }
 };
 
 /** 유저 정보 firestore에 저장 */
@@ -70,11 +89,11 @@ export const googleSignIn = async (): Promise<ReqResult> => {
         await postUserToken(token); // 인증 유지
       }
     }
-    return { isError: false, errorMessage: '' };
+    return { isError: false };
   } catch (error) {
     // 유저가 auth 창 닫은 경우는 에러로 치지 않는다
     if (error.code === 'auth/popup-closed-by-user') {
-      return { isError: false, errorMessage: '' };
+      return { isError: false };
     }
     return { isError: true, errorMessage: '잠시후 다시 시도해주세요' };
   }
@@ -97,7 +116,7 @@ export const signIn = async (
       const token = await response.user.getIdToken(); // Token
       await postUserToken(token);
     }
-    return { isError: false, errorMessage: '' };
+    return { isError: false };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessage
     return { isError: true, errorMessage };
@@ -125,19 +144,21 @@ export const signUp = async (
       // signOut
       await signOut();
     }
-    return { isError: false, errorMessage: '' };
+    return { isError: false };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessgae
     return { isError: true, errorMessage };
   }
 };
 
-export const signOut = async (): Promise<undefined | string> => {
+export const signOut = async (): Promise<ReqResult> => {
   try {
     const auth = firebase.auth();
     await auth.signOut();
+    await removeCookie(); // remove token
+    return { isError: false };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessage
-    return errorMessage;
+    return { isError: true, errorMessage };
   }
 };

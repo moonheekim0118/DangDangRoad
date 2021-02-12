@@ -17,7 +17,7 @@ const useSignIn = () => {
         setErrorMessage('정보를 올바르게 입력해주세요');
       }
       const response = await signIn(email, password);
-      if (response.isError) {
+      if (response.errorMessage) {
         return setErrorMessage(response.errorMessage);
       }
       router.push('/'); // push to index page
@@ -27,7 +27,7 @@ const useSignIn = () => {
 
   const GoogleSignInHandler = useCallback(async () => {
     const response = await googleSignIn();
-    if (response.isError) {
+    if (response.errorMessage) {
       return setErrorMessage(response.errorMessage);
     }
     router.push('/');
