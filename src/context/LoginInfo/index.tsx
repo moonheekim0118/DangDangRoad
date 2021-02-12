@@ -4,10 +4,16 @@ import React, { useReducer, createContext, useContext } from 'react';
  *  state : isLoggedIn 현재 로그인 여부
  */
 
-type Action = { type: 'login' } | { type: 'logout' };
+interface Action {
+  type: 'login' | 'logout';
+}
+interface State {
+  isLoggedIn: boolean;
+}
+interface LoginInfoProviderProps {
+  children: React.ReactNode;
+}
 type Dispatch = (action: Action) => void;
-type State = { isLoggedIn: boolean };
-type LoginInfoProviderProps = { children: React.ReactNode };
 
 const LoginStateContext = createContext<State | undefined>(undefined);
 const LoginDispatchContext = createContext<Dispatch | undefined>(undefined);
