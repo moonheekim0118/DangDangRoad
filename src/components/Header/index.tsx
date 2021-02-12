@@ -8,7 +8,7 @@ import Navigation from 'components/Navigation';
 import useToggle from 'hooks/useToggle';
 import useSignOut from 'hooks/useSignOut';
 import styled from '@emotion/styled';
-import { colorCode } from 'model/colorCode';
+import { colorCode } from 'types/colorCode';
 import { useRouter } from 'next/router';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
