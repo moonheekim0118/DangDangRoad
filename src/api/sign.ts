@@ -1,5 +1,6 @@
 import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
+import errorExTxt from 'util/erreorExTxt';
 import axios, { AxiosResponse } from 'axios';
 import { ReqResult } from 'types/API';
 
@@ -8,22 +9,6 @@ import { ReqResult } from 'types/API';
  */
 
 const firebase = getFirebase();
-
-/** transform error code to Korean Message */
-const errorExTxt = (errorCode: string): string => {
-  switch (errorCode) {
-    case 'auth/email-already-in-use':
-      return '이미 사용중인 이메일 입니다';
-    case 'auth/wrong-password':
-      return '잘못된 비밀번호 입니다.';
-    case 'auth/user-not-found':
-      return '존재하지 않는 이메일 입니다.';
-    case 'Not verfied':
-      return '이메일 인증을 완료해주세요';
-    default:
-      return '잠시후 다시 시도해주세요';
-  }
-};
 
 // authentication Cookie 삭제하기
 const removeCookie = async (): Promise<AxiosResponse<any> | Error> => {
@@ -59,9 +44,14 @@ const postUserToken = async (
 };
 
 /** 유저 정보 firestore에 저장 */
-const addUser = async (uid: string, email: string, nickname: string) => {
+const addUser = async (
+  uid: string,
+  email: string,
+  nickname: string,
+  profilePic: string = ''
+) => {
   try {
-    await db.collection('users').doc(uid).set({ email: email, nickname });
+    await db.collection('users').doc(uid).set({ email, nickname, profilePic });
   } catch (error) {
     throw error;
   }
@@ -79,12 +69,13 @@ export const googleSignIn = async (): Promise<ReqResult> => {
         const user = response.user;
         const email = user.email || '';
         const nickname = user.displayName || '';
+        const profilePic = user.photoURL || '';
         const token = await user.getIdToken(); // 파이어베이스 사용자 토큰
         const uid = user.uid; // 사용자 uid
         const snapshot = await db.collection('users').doc(uid).get(); // 파이어베이스에 저장된 유저정보인지 확인
         if (!snapshot.exists) {
           // 신규 가입
-          await addUser(uid, email, nickname);
+          await addUser(uid, email, nickname, profilePic);
         }
         await postUserToken(token); // 인증 유지
       }
