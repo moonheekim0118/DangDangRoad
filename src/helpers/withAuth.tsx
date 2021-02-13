@@ -14,6 +14,7 @@ const withAuth = (WrappedComponent) => {
       if (!isLoggedIn) router.push('/login');
     }, [isLoggedIn]);
 
+    // initial rendering 시에도 loading 컴포넌트 대체
     if (isLoggedIn && !isInitial) return <WrappedComponent {...props} />;
     return <Loading />;
   };

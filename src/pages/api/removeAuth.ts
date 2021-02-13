@@ -1,7 +1,8 @@
 import { serialize } from 'cookie';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 // remove Session-Cookie
-const removeAuth = (req, res) => {
+const removeAuth = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader(
     'Set-Cookie',
     serialize('user', '', {
@@ -9,7 +10,7 @@ const removeAuth = (req, res) => {
       path: '/',
     })
   );
-  res.end();
+  res.status(200).send('ok');
 };
 
 export default removeAuth;

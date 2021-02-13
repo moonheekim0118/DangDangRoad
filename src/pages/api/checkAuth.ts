@@ -1,7 +1,8 @@
 import verifyCookie from 'api/verifyCookie';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-// remove Session-Cookie
-const checkAuth = async (req, res) => {
+// check and verify Session Cookie
+const checkAuth = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const propsObject = {
       authenticated: false,

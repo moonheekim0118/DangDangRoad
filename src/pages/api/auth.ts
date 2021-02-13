@@ -1,9 +1,10 @@
 import { serialize } from 'cookie';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import getFirebaseAdmin from 'firebaseConfigs/admin';
 
 const EXPIRE = 60 * 60;
 // 쿠키 생성해주는 api
-const auth = async (req, res) => {
+const auth = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const admin = await getFirebaseAdmin();
     const expiresIn = EXPIRE * 1000; // 1hour
@@ -26,9 +27,7 @@ const auth = async (req, res) => {
           path: '/',
         };
         res.setHeader('Set-Cookie', serialize('user', cookie, options)); // 쿠키 set
-        res
-          .status(200)
-          .end(JSON.stringify({ response: 'Succesfull logged in' }));
+        res.status(200).send('Succesfull logged in');
       } else {
         // Authentication 잘못됨
         res.status(401).send('Invalid Authentication');
