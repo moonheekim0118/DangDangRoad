@@ -1,5 +1,5 @@
 import React from 'react';
-import { colorCode } from 'model/colorCode';
+import { colorCode } from 'types/colorCode';
 import Anchor from 'atoms/Anchor';
 import styled from '@emotion/styled';
 

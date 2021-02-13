@@ -57,7 +57,7 @@ const useSignUp = () => {
         return;
       }
       const response = await signUp(email, nickname, password);
-      if (response.isError) {
+      if (response.errorMessage) {
         return setErrorMessage(response.errorMessage);
       }
       router.push('/signUpInProcess');

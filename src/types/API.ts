@@ -1,6 +1,6 @@
 export interface ReqResult {
   isError: boolean;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 export interface AuthResult {

@@ -8,7 +8,7 @@ import Navigation from 'components/Navigation';
 import useToggle from 'hooks/useToggle';
 import useSignOut from 'hooks/useSignOut';
 import styled from '@emotion/styled';
-import { colorCode } from 'model/colorCode';
+import { colorCode } from 'types/colorCode';
 import { useRouter } from 'next/router';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
@@ -47,7 +47,7 @@ const Header = (): React.ReactElement => {
                 hoverColor="light-gray"
                 margin="0 20px 0 0"
                 path="/">
-                MyReviews
+                MYREVIEWS
               </Anchor>
               <Anchor
                 fontsize={1.2}
@@ -55,7 +55,7 @@ const Header = (): React.ReactElement => {
                 hoverColor="light-gray"
                 margin="0 20px 0 0"
                 path="/">
-                MyPage
+                MYPAGE
               </Anchor>
             </ExtraMenuContainer>
             <Span

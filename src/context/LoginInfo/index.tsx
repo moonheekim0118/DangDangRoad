@@ -6,9 +6,11 @@ import React, { useReducer, createContext, useContext } from 'react';
 
 interface Action {
   type: 'login' | 'logout';
+  data: string;
 }
 interface State {
   isLoggedIn: boolean;
+  userId: string;
 }
 interface LoginInfoProviderProps {
   children: React.ReactNode;
@@ -21,10 +23,10 @@ const LoginDispatchContext = createContext<Dispatch | undefined>(undefined);
 const LoginInfoReducer = (state: State, action: Action) => {
   switch (action.type) {
     case 'login': {
-      return { isLoggedIn: true };
+      return { isLoggedIn: true, userId: action.data };
     }
     case 'logout': {
-      return { isLoggedIn: false };
+      return { isLoggedIn: false, userId: '' };
     }
     default: {
       throw new Error(`Unhandled action type`);
@@ -33,7 +35,10 @@ const LoginInfoReducer = (state: State, action: Action) => {
 };
 
 const LoginInfoProvider = ({ children }: LoginInfoProviderProps) => {
-  const [state, dispatch] = useReducer(LoginInfoReducer, { isLoggedIn: false });
+  const [state, dispatch] = useReducer(LoginInfoReducer, {
+    isLoggedIn: false,
+    userId: '',
+  });
 
   return (
     <LoginStateContext.Provider value={state}>

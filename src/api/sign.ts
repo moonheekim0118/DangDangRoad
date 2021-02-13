@@ -1,5 +1,6 @@
 import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
+import errorExTxt from 'util/erreorExTxt';
 import axios, { AxiosResponse } from 'axios';
 import { ReqResult } from 'types/API';
 
@@ -9,40 +10,48 @@ import { ReqResult } from 'types/API';
 
 const firebase = getFirebase();
 
-/** transform error code to Korean Message */
-const errorExTxt = (errorCode: string): string => {
-  switch (errorCode) {
-    case 'auth/email-already-in-use':
-      return '이미 사용중인 이메일 입니다';
-    case 'auth/wrong-password':
-      return '잘못된 비밀번호 입니다.';
-    case 'auth/user-not-found':
-      return '존재하지 않는 이메일 입니다.';
-    case 'Not verfied':
-      return '이메일 인증을 완료해주세요';
-    default:
-      return '잠시후 다시 시도해주세요';
+// authentication Cookie 삭제하기
+const removeCookie = async (): Promise<AxiosResponse<any> | Error> => {
+  try {
+    const path = '/api/removeAuth';
+    const url = process.env.BASE_API_URL + path;
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const response = await axios.post(url, { headers }); // remove token
+    return response;
+  } catch (error) {
+    return error;
   }
 };
 
 // 받은 authentication 토큰으로 쿠키 생성해주는 함수
-export const postUserToken = async (
+const postUserToken = async (
   token: string
-): Promise<AxiosResponse<any>> => {
-  const path = '/api/auth';
-  const url = process.env.BASE_API_URL + path;
-  const data = { token };
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-  const response = await axios.post(url, data, { headers });
-  return response;
+): Promise<AxiosResponse<any> | Error> => {
+  try {
+    const path = '/api/auth';
+    const url = process.env.BASE_API_URL + path;
+    const data = { token };
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    const response = await axios.post(url, data, { headers });
+    return response;
+  } catch (error) {
+    return error;
+  }
 };
 
 /** 유저 정보 firestore에 저장 */
-export const addUser = async (uid: string, email: string, nickname: string) => {
+const addUser = async (
+  uid: string,
+  email: string,
+  nickname: string,
+  profilePic: string = ''
+) => {
   try {
-    await db.collection('users').doc(uid).set({ email: email, nickname });
+    await db.collection('users').doc(uid).set({ email, nickname, profilePic });
   } catch (error) {
     throw error;
   }
@@ -60,21 +69,22 @@ export const googleSignIn = async (): Promise<ReqResult> => {
         const user = response.user;
         const email = user.email || '';
         const nickname = user.displayName || '';
+        const profilePic = user.photoURL || '';
         const token = await user.getIdToken(); // 파이어베이스 사용자 토큰
         const uid = user.uid; // 사용자 uid
         const snapshot = await db.collection('users').doc(uid).get(); // 파이어베이스에 저장된 유저정보인지 확인
         if (!snapshot.exists) {
           // 신규 가입
-          await addUser(uid, email, nickname);
+          await addUser(uid, email, nickname, profilePic);
         }
         await postUserToken(token); // 인증 유지
       }
     }
-    return { isError: false, errorMessage: '' };
+    return { isError: false };
   } catch (error) {
     // 유저가 auth 창 닫은 경우는 에러로 치지 않는다
     if (error.code === 'auth/popup-closed-by-user') {
-      return { isError: false, errorMessage: '' };
+      return { isError: false };
     }
     return { isError: true, errorMessage: '잠시후 다시 시도해주세요' };
   }
@@ -97,7 +107,7 @@ export const signIn = async (
       const token = await response.user.getIdToken(); // Token
       await postUserToken(token);
     }
-    return { isError: false, errorMessage: '' };
+    return { isError: false };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessage
     return { isError: true, errorMessage };
@@ -125,19 +135,21 @@ export const signUp = async (
       // signOut
       await signOut();
     }
-    return { isError: false, errorMessage: '' };
+    return { isError: false };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessgae
     return { isError: true, errorMessage };
   }
 };
 
-export const signOut = async (): Promise<undefined | string> => {
+export const signOut = async (): Promise<ReqResult> => {
   try {
     const auth = firebase.auth();
     await auth.signOut();
+    await removeCookie(); // remove token
+    return { isError: false };
   } catch (error) {
     const errorMessage = errorExTxt(error.code); // get Correct ErrorMessage
-    return errorMessage;
+    return { isError: true, errorMessage };
   }
 };

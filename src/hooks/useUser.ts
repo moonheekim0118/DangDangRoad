@@ -1,11 +1,9 @@
 import useSWR from 'swr';
-import axios from 'axios';
+import fetcher from 'libs/fetcher';
 
 interface Props {
   userId: string;
 }
-
-const fetcher = (url) => axios.get(url).then((result) => result.data);
 
 const useUser = ({ userId }: Props) => {
   const { data: userInfo, error: userInfoError } = useSWR(

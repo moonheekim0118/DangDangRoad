@@ -1,5 +1,5 @@
 import React from 'react';
-import { inputId } from 'model/inputIds';
+import { inputId } from 'types/inputIds';
 import styled from '@emotion/styled';
 
 const inputContents = {

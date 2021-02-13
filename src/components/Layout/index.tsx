@@ -25,13 +25,12 @@ const Container = styled.div`
 `;
 
 const MainContents = styled.main`
-  width: 600px;
+  width: 100%;
   height: 100%;
-  margin: auto;
-
-  @media only screen and (max-width: 780px) {
-    width: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-contents: center;
+  align-items: center;
 `;
 
 export default Layout;

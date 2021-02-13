@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { colorCode } from 'model/colorCode';
+import { colorCode } from 'types/colorCode';
 import Link from 'next/Link';
 import styled from '@emotion/styled';
 
