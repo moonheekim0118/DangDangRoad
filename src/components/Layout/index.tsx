@@ -31,6 +31,7 @@ const MainContents = styled.main`
   flex-direction: column;
   justify-contents: center;
   align-items: center;
+  background-color: #fbfbfb;
 `;
 
 export default Layout;

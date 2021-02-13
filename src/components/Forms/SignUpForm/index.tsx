@@ -2,8 +2,8 @@ import React from 'react';
 import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
-import styled from '@emotion/styled';
 import { inputId } from 'types/inputIds';
+import * as S from '../style';
 
 type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -55,7 +55,8 @@ const SignUpForm = ({
   ErrorMessage,
 }: Props): React.ReactElement => {
   return (
-    <Form>
+    <S.Form signUp={true}>
+      <S.Title>SIGN UP</S.Title>
       {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
       <Input
         type="text"
@@ -89,27 +90,17 @@ const SignUpForm = ({
         required={true}
         inputChangeHandler={PasswordCheckChangeHandler}
       />
-      <Button
-        color="blue"
-        hoverColor="light-blue"
-        type="submit"
-        onClick={SubmitHanlder}>
-        JOIN
-      </Button>
-    </Form>
+      <S.ButtonContainer>
+        <Button
+          color="blue"
+          hoverColor="light-blue"
+          type="submit"
+          onClick={SubmitHanlder}>
+          JOIN
+        </Button>
+      </S.ButtonContainer>
+    </S.Form>
   );
 };
-
-const Form = styled.form`
-  width: 600px;
-  height: 100%;
-  padding: 15px 25px;
-  border-radius: 10px;
-  background-color: #fff;
-
-  @media only screen and (max-width: 780px) {
-    width: 100%;
-  }
-`;
 
 export default SignUpForm;

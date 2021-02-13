@@ -4,7 +4,7 @@ import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
 import { inputId } from 'types/inputIds';
-import styled from '@emotion/styled';
+import * as S from '../style';
 
 type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -34,7 +34,8 @@ const LoginForm = ({
   ErrorMessage,
 }: Props): React.ReactElement => {
   return (
-    <Form>
+    <S.Form>
+      <S.Title>LOGIN</S.Title>
       {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
       <Input
         type="text"
@@ -50,7 +51,7 @@ const LoginForm = ({
         inputChangeHandler={PasswordChangeHandler}
         required={true}
       />
-      <ButtonContainer>
+      <S.ButtonContainer>
         <Button
           color="blue"
           hoverColor="light-blue"
@@ -59,29 +60,9 @@ const LoginForm = ({
           LOGIN
         </Button>
         <GoogleButton onClick={GoogleSignInHandler} />
-      </ButtonContainer>
-    </Form>
+      </S.ButtonContainer>
+    </S.Form>
   );
 };
-
-const Form = styled.form`
-  width: 600px;
-  height: 100%;
-  padding: 15px 25px;
-  border-radius: 10px;
-  background-color: #fff;
-
-  @media only screen and (max-width: 780px) {
-    width: 100%;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 20%;
-`;
 
 export default LoginForm;
