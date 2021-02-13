@@ -3,13 +3,8 @@ import useSignUp from 'hooks/useSignUp';
 import useLoginCheck from 'hooks/useLoginCheck';
 import SignUpForm from 'components/Forms/SignUpForm';
 import withNotAuth from 'helpers/withNotAuth';
-import getAuthentication from 'libs/getAuthentication';
-import { GetServerSidePropsContext } from 'next';
 
-export const getServerSideProps = (context: GetServerSidePropsContext) =>
-  getAuthentication(context);
-
-const SignUp = (props): React.ReactElement => {
+const SignUp = (): React.ReactElement => {
   /** logic */
   const [
     email,
@@ -29,7 +24,7 @@ const SignUp = (props): React.ReactElement => {
   ] = useSignUp();
 
   // change isLoggedIn state by props authenticated
-  useLoginCheck(props.authenticated);
+  useLoginCheck();
 
   return (
     <SignUpForm

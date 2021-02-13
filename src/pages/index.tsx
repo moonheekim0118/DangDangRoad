@@ -2,21 +2,14 @@ import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
 import Button from 'atoms/Button';
-import getAuthentication from 'libs/getAuthentication';
 import useLoginCheck from 'hooks/useLoginCheck';
 import styled from '@emotion/styled';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
 
-export const getServerSideProps = (context: GetServerSidePropsContext) =>
-  getAuthentication(context);
-
-const Index = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-): React.ReactElement => {
+const Index = (): React.ReactElement => {
   const { isLoggedIn } = useLoginInfoState();
-  useLoginCheck(props.authenticated);
 
+  useLoginCheck();
   return (
     <Container>
       <MainContents>
