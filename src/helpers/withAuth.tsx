@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import Loading from 'components/Loading';
+import useDetectInitial from 'hooks/useDetectInitial';
 import { useRouter } from 'next/router';
+import { useLoginInfoState } from 'context/LoginInfo';
 
 const withAuth = (WrappedComponent) => {
   const Wrapper = (props) => {
     const router = useRouter();
+    const isInitial = useDetectInitial();
+    const { isLoggedIn } = useLoginInfoState();
 
     useEffect(() => {
-      if (!props.authenticatd) router.push('/');
-    }, []);
+      if (!isLoggedIn) router.push('/login');
+    }, [isLoggedIn]);
 
-    if (props.authenticated) return <WrappedComponent {...props} />;
+    if (isLoggedIn && !isInitial) return <WrappedComponent {...props} />;
     return <Loading />;
   };
   return Wrapper;
