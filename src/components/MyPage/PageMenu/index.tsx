@@ -1,11 +1,13 @@
 import React from 'react';
 import Span from 'atoms/Span';
+import Anchor from 'atoms/Anchor';
 import styled from '@emotion/styled';
 
 interface DataTypes {
   key: number;
   icon: React.ReactElement;
   title: string;
+  href?: string;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -22,7 +24,13 @@ const PageMenu = ({ datas }: Props) => {
           onClick={v.onClick}
           warn={v.title === 'destroy account'}>
           {v.icon}
-          <Span fontsize={1}>{v.title}</Span>
+          {v.href ? (
+            <Anchor fontsize={1} path={v.href} fontbold={false}>
+              {v.title}
+            </Anchor>
+          ) : (
+            <Span fontsize={1}>{v.title}</Span>
+          )}
         </Menu>
       ))}
     </Container>

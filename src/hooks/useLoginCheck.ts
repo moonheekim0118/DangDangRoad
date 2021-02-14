@@ -18,6 +18,8 @@ const useLoginCheck = () => {
         const data = response.data;
         if (data.authenticated) {
           dispatch({ type: 'login', data: data.userId });
+        } else {
+          dispatch({ type: 'logout', data });
         }
       })
       .catch((error) => {
