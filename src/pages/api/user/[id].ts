@@ -9,7 +9,7 @@ const user = async (req: NextApiRequest, res: NextApiResponse) => {
       if (!userInfo.exists) {
         throw 'No User';
       }
-      return res.status(200).send({ data: userInfo.data() });
+      return res.status(200).send(userInfo.data());
     } else {
       throw 'No User';
     }

@@ -2,17 +2,26 @@ import React from 'react';
 import Icon from 'atoms/Icon';
 import PageMenu from './PageMenu';
 import UserCard from './UserCard';
+import Loading from 'components/Loading';
 import {
   faShareSquare,
   faEdit,
   faUserCircle,
   faSadTear,
 } from '@fortawesome/free-regular-svg-icons';
-
 import styled from '@emotion/styled';
 
-const MyPage = () => {
-  // Menu Dats, not gonna change
+interface Props {
+  userInfo: {
+    email: string;
+    nickname: string;
+    profilePic: string;
+  };
+}
+
+const MyPage = ({ userInfo }: Props) => {
+  // Menu Datas, not gonna change
+
   const MenuDatas = [
     {
       key: 0,
@@ -42,7 +51,15 @@ const MyPage = () => {
   return (
     <Container>
       <SideContainer>
-        <UserCard userName="아무개" userEmail="우하하" />
+        {userInfo ? (
+          <UserCard
+            userName={userInfo.nickname}
+            userEmail={userInfo.email}
+            userImgUrl={userInfo.profilePic}
+          />
+        ) : (
+          <Loading />
+        )}
         <PageMenu datas={MenuDatas} />
         <PageMenu datas={DestroyData} />
       </SideContainer>

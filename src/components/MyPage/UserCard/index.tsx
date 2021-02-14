@@ -43,8 +43,13 @@ const Name = styled.span`
 
 const Email = styled.span`
   color: #aeaeae;
-  font-weight: bold;
-  fotn-size: 0.5rem;
+  fotn-size: 0.3rem;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: inline-block;
 `;
 
 export default UserCard;
