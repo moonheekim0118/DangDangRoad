@@ -17,7 +17,7 @@ const Header = (): React.ReactElement => {
   const router = useRouter();
   const pathname = router.pathname;
   const signOutHandler = useSignOut();
-  const { isLoggedIn } = useLoginInfoState();
+  const { isLoggedIn, isLoaded } = useLoginInfoState();
   const [openNavigation, NavigationToggler] = useToggle();
 
   return (
@@ -38,7 +38,7 @@ const Header = (): React.ReactElement => {
         <SearchBar color="blue" focus={true} />
       </SearchBarContainer>
       <SideContainer>
-        {isLoggedIn ? (
+        {isLoaded && isLoggedIn && (
           <>
             <ExtraMenuContainer>
               <Anchor
@@ -60,7 +60,8 @@ const Header = (): React.ReactElement => {
               LOGOUT
             </Span>
           </>
-        ) : (
+        )}
+        {isLoaded && !isLoggedIn && (
           <>
             {pathname !== '/login' && (
               <Anchor
