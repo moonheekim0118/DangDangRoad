@@ -12,7 +12,11 @@ const updatePassword = () => {
   useWithAuth(isLoggedIn);
 
   if (!isLoggedIn) return <Loading />;
-  return <MyPage userId={userId}>{UpdatePassword}</MyPage>;
+  return (
+    <MyPage userId={userId}>
+      <UpdatePassword />
+    </MyPage>
+  );
 };
 
 export default updatePassword;

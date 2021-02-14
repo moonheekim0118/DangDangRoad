@@ -1,8 +1,7 @@
 import React from 'react';
-import * as S from '../style';
 
 const UpdateProfile = () => {
-  return <S.Container>수정페이지</S.Container>;
+  return <div>수정페이지</div>;
 };
 
 export default UpdateProfile;

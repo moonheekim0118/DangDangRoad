@@ -13,7 +13,11 @@ const myPage = (): React.ReactElement => {
   useWithAuth(isLoggedIn);
 
   if (!isLoggedIn) return <Loading />;
-  return <MyPage userId={userId}>{MyReviews}</MyPage>;
+  return (
+    <MyPage userId={userId}>
+      <MyReviews />
+    </MyPage>
+  );
 };
 
 export default myPage;

@@ -12,7 +12,11 @@ const updateProfile = () => {
   useWithAuth(isLoggedIn);
 
   if (!isLoggedIn) return <Loading />;
-  return <MyPage userId={userId}>{UpdateProfile}</MyPage>;
+  return (
+    <MyPage userId={userId}>
+      <UpdateProfile />
+    </MyPage>
+  );
 };
 
 export default updateProfile;
