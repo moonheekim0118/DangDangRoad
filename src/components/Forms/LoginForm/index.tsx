@@ -3,36 +3,28 @@ import GoogleButton from 'react-google-button';
 import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
+import useSignIn from 'hooks/useSignIn';
 import { inputId } from 'types/inputIds';
 import * as S from '../style';
 
-type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
+const LoginForm = (): React.ReactElement => {
+  const [
+    /** email value */
+    email,
+    /** email change handler fucntion */
+    emailChangeHandler,
+    /** password value */
+    password,
+    /** password change handler function */
+    PasswordChangeHandler,
+    /** submit handler function */
+    SubmitHandler,
+    /** google sign in handelr funciton */
+    GoogleSignInHandler,
+    /** error Message */
+    ErrorMessage,
+  ] = useSignIn();
 
-interface Props {
-  /** email value */
-  email: string;
-  /** email value change handler */
-  emailChangeHandler: handlerFunction;
-  /** password value */
-  password: string;
-  /** password value change handler */
-  PasswordChangeHandler: handlerFunction;
-  /** submit handler function */
-  SubmitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  /** error message about login */
-  GoogleSignInHandler: () => void;
-  ErrorMessage: string;
-}
-
-const LoginForm = ({
-  email,
-  emailChangeHandler,
-  password,
-  PasswordChangeHandler,
-  SubmitHandler,
-  GoogleSignInHandler,
-  ErrorMessage,
-}: Props): React.ReactElement => {
   return (
     <S.Form>
       <S.Title>LOGIN</S.Title>
