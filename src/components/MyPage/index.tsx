@@ -14,9 +14,10 @@ import styled from '@emotion/styled';
 
 interface Props {
   userId: string;
+  children: React.ReactNode;
 }
 
-const MyPage = ({ userId }: Props) => {
+const MyPage = ({ userId, children }: Props) => {
   // Menu Datas, not gonna change
   const [userInfo] = useUser({ userId });
 
@@ -25,17 +26,19 @@ const MyPage = ({ userId }: Props) => {
       key: 0,
       icon: <Icon iconsize={20} icon={faFileAlt} />,
       title: 'My reviews',
-      href: '/',
+      href: '/myPage/',
     },
     {
       key: 1,
       icon: <Icon iconsize={20} icon={faUserCircle} />,
-      title: 'edit profile',
+      title: 'update profile',
+      href: '/myPage/updateProfile',
     },
     {
       key: 2,
       icon: <Icon iconsize={20} icon={faEdit} />,
       title: 'update password',
+      href: '/myPage/updatePassword',
     },
   ];
 
@@ -62,7 +65,7 @@ const MyPage = ({ userId }: Props) => {
         <PageMenu datas={MenuDatas} />
         <PageMenu datas={DestroyData} />
       </SideContainer>
-      <ReviewContainer>우와~</ReviewContainer>
+      {children}
     </Container>
   );
 };
@@ -91,17 +94,4 @@ const SideContainer = styled.article`
     margin: 0;
   }
 `;
-
-const ReviewContainer = styled.article`
-  width: 60%;
-  height: 80%;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
-  @media only screen and (max-width: 500px) {
-    width: 100%;
-    border-radius: 0;
-  }
-`;
-
 export default MyPage;
