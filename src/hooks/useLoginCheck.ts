@@ -9,6 +9,7 @@ import axios from 'axios';
 
 const useLoginCheck = () => {
   const dispatch = useLoginInfoDispatch();
+
   useEffect(() => {
     const path = '/api/checkAuth';
     const url = process.env.BASE_API_URL + path;

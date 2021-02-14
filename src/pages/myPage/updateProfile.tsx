@@ -8,14 +8,15 @@ import { useLoginInfoState } from 'context/LoginInfo';
 
 const updateProfile = () => {
   useLoginCheck();
-  const { userId, isLoggedIn } = useLoginInfoState();
-  useWithAuth(isLoggedIn);
+  const { userId } = useLoginInfoState();
+  const renderable = useWithAuth();
 
-  if (!isLoggedIn) return <Loading />;
-  return (
+  return renderable ? (
     <MyPage userId={userId}>
       <UpdateProfile />
     </MyPage>
+  ) : (
+    <Loading />
   );
 };
 

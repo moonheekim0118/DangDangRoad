@@ -9,14 +9,15 @@ import { useLoginInfoState } from 'context/LoginInfo';
 
 const myPage = (): React.ReactElement => {
   useLoginCheck();
-  const { userId, isLoggedIn } = useLoginInfoState();
-  useWithAuth(isLoggedIn);
+  const { userId } = useLoginInfoState();
+  const renderable = useWithAuth();
 
-  if (!isLoggedIn) return <Loading />;
-  return (
+  return renderable ? (
     <MyPage userId={userId}>
       <MyReviews />
     </MyPage>
+  ) : (
+    <Loading />
   );
 };
 
