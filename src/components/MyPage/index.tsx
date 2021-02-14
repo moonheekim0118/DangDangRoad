@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from 'atoms/Icon';
 import PageMenu from './PageMenu';
 import UserCard from './UserCard';
+import useUser from 'hooks/useUser';
 import Loading from 'components/Loading';
 import {
   faShareSquare,
@@ -12,15 +13,12 @@ import {
 import styled from '@emotion/styled';
 
 interface Props {
-  userInfo: {
-    email: string;
-    nickname: string;
-    profilePic: string;
-  };
+  userId: string;
 }
 
-const MyPage = ({ userInfo }: Props) => {
+const MyPage = ({ userId }: Props) => {
   // Menu Datas, not gonna change
+  const [userInfo] = useUser({ userId });
 
   const MenuDatas = [
     {
