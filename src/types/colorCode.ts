@@ -7,6 +7,7 @@ export enum colorCode {
   'dark-gray' = '#aeaeae',
   'red' = '#ff0000',
   'green' = '#33cc33',
+  'black' = '#00000',
 }
 
 export type colorTypes =
@@ -17,4 +18,5 @@ export type colorTypes =
   | 'light-gray'
   | 'dark-gray'
   | 'red'
-  | 'green';
+  | 'green'
+  | 'black';

@@ -1,11 +1,12 @@
 import React from 'react';
+import MyPage from 'components/MyPage';
 import useLoginCheck from 'hooks/useLoginCheck';
 import withAuth from 'helpers/withAuth';
 
 const myPage = () => {
   useLoginCheck();
 
-  return <></>;
+  return <MyPage />;
 };
 
 export default withAuth(myPage);
