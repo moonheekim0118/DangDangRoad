@@ -10,6 +10,7 @@ interface Action {
 }
 interface State {
   isLoggedIn: boolean;
+  isLoaded: boolean;
   userId: string;
 }
 interface LoginInfoProviderProps {
@@ -23,10 +24,10 @@ const LoginDispatchContext = createContext<Dispatch | undefined>(undefined);
 const LoginInfoReducer = (state: State, action: Action) => {
   switch (action.type) {
     case 'login': {
-      return { isLoggedIn: true, userId: action.data };
+      return { isLoggedIn: true, isLoaded: true, userId: action.data };
     }
     case 'logout': {
-      return { isLoggedIn: false, userId: '' };
+      return { isLoggedIn: false, isLoaded: true, userId: '' };
     }
     default: {
       throw new Error(`Unhandled action type`);
@@ -37,6 +38,7 @@ const LoginInfoReducer = (state: State, action: Action) => {
 const LoginInfoProvider = ({ children }: LoginInfoProviderProps) => {
   const [state, dispatch] = useReducer(LoginInfoReducer, {
     isLoggedIn: false,
+    isLoaded: false,
     userId: '',
   });
 

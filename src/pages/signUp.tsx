@@ -1,12 +1,17 @@
 import React from 'react';
+import Loading from 'components/Loading';
 import useLoginCheck from 'hooks/useLoginCheck';
 import SignUpForm from 'components/Forms/SignUpForm';
-import withNotAuth from 'helpers/withNotAuth';
+import useWithNotAuth from 'hooks/useWithNotAuth';
+import { useLoginInfoState } from 'context/LoginInfo';
 
 const SignUp = (): React.ReactElement => {
-  // change isLoggedIn state by props authenticated
   useLoginCheck();
-  return <SignUpForm />;
+  const { isLoggedIn, isLoaded } = useLoginInfoState();
+  useWithNotAuth(isLoggedIn);
+
+  if (!isLoggedIn && isLoaded) return <SignUpForm />;
+  return <Loading />;
 };
 
-export default withNotAuth(SignUp);
+export default SignUp;

@@ -1,16 +1,17 @@
 import React from 'react';
 import MyPage from 'components/MyPage';
+import Loading from 'components/Loading';
 import useLoginCheck from 'hooks/useLoginCheck';
-import withAuth from 'helpers/withAuth';
+import useWithAuth from 'hooks/useWithAuth';
 import { useLoginInfoState } from 'context/LoginInfo';
-import useUser from 'hooks/useUser';
 
 const myPage = () => {
   useLoginCheck();
-  const { userId } = useLoginInfoState();
-  const [userInfo] = useUser({ userId });
+  const { userId, isLoggedIn } = useLoginInfoState();
+  useWithAuth(isLoggedIn);
 
-  return <MyPage userInfo={userInfo} />;
+  if (!isLoggedIn) return <Loading />;
+  return <MyPage userId={userId} />;
 };
 
-export default withAuth(myPage);
+export default myPage;
