@@ -2,60 +2,44 @@ import React from 'react';
 import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
-import styled from '@emotion/styled';
+import useSignUp from 'hooks/useSignUp';
 import { inputId } from 'types/inputIds';
+import * as S from '../style';
 
-type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
-
-interface Props {
-  /** email value */
-  email: string;
-  /** email error */
-  emailError: boolean;
-  /** email Change Handler function */
-  EmailChangeHandler: handlerFunction;
-  /** nickname value */
-  nickname: string;
-  /** nickname error  */
-  nicknameError: boolean;
-  /** nickname change handler function00 */
-  NicknameChangeHandler: handlerFunction;
-  /** password value */
-  password: string;
-  /** password error  */
-  passwordError: boolean;
-  /** password change Handler function */
-  PasswordChangeHandler: handlerFunction;
-  /** double check password value*/
-  passwordCheck: string;
-  /** double check password error  */
-  passwordMatch: boolean;
-  /** double check password change handler function */
-  PasswordCheckChangeHandler: handlerFunction;
-  /** submit handler function */
-  SubmitHanlder: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  /** general Error Message */
-  ErrorMessage: string;
-}
-
-const SignUpForm = ({
-  email,
-  emailError,
-  EmailChangeHandler,
-  nickname,
-  nicknameError,
-  NicknameChangeHandler,
-  password,
-  passwordError,
-  PasswordChangeHandler,
-  passwordCheck,
-  passwordMatch,
-  PasswordCheckChangeHandler,
-  SubmitHanlder,
-  ErrorMessage,
-}: Props): React.ReactElement => {
+const SignUpForm = (): React.ReactElement => {
+  const [
+    /** email value */
+    email,
+    /** email value error */
+    emailError,
+    /** email value change handler function */
+    EmailChangeHandler,
+    /** nickname value */
+    nickname,
+    /** nickname value error */
+    nicknameError,
+    /** nickname value change handler fucntion */
+    NicknameChangeHandler,
+    /** password value */
+    password,
+    /** password value error */
+    passwordError,
+    /** password value change handler function */
+    PasswordChangeHandler,
+    /** check password value */
+    passwordCheck,
+    /** error if passwords match  */
+    passwordMatch,
+    /** check password change handler function */
+    PasswordCheckChangeHandler,
+    /** fomr sumbit handler */
+    SubmitHanlder,
+    /** error message */
+    ErrorMessage,
+  ] = useSignUp();
   return (
-    <Form>
+    <S.Form signUp={true}>
+      <S.Title>SIGN UP</S.Title>
       {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
       <Input
         type="text"
@@ -89,27 +73,17 @@ const SignUpForm = ({
         required={true}
         inputChangeHandler={PasswordCheckChangeHandler}
       />
-      <Button
-        color="blue"
-        hoverColor="light-blue"
-        type="submit"
-        onClick={SubmitHanlder}>
-        JOIN
-      </Button>
-    </Form>
+      <S.ButtonContainer>
+        <Button
+          color="blue"
+          hoverColor="light-blue"
+          type="submit"
+          onClick={SubmitHanlder}>
+          JOIN
+        </Button>
+      </S.ButtonContainer>
+    </S.Form>
   );
 };
-
-const Form = styled.form`
-  width: 600px;
-  height: 100%;
-  padding: 15px 25px;
-  border-radius: 10px;
-  background-color: #fff;
-
-  @media only screen and (max-width: 780px) {
-    width: 100%;
-  }
-`;
 
 export default SignUpForm;

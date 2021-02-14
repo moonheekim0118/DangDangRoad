@@ -1,34 +1,17 @@
 import React from 'react';
-import useSignIn from 'hooks/useSignIn';
+import Loading from 'components/Loading';
 import useLoginCheck from 'hooks/useLoginCheck';
 import LoginForm from 'components/Forms/LoginForm';
-import withNotAuth from 'helpers/withNotAuth';
+import useWithNotAuth from 'hooks/useWithNotAuth';
+import { useLoginInfoState } from 'context/LoginInfo';
 
 const Login = (): React.ReactElement => {
-  const [
-    email,
-    emailChangeHandler,
-    password,
-    PasswordChangeHandler,
-    SignInHandler,
-    GoogleSignInHandler,
-    ErrorMessage,
-  ] = useSignIn();
-
-  // change isLoggedIn state by props authenticated
   useLoginCheck();
+  const { isLoggedIn, isLoaded } = useLoginInfoState();
+  useWithNotAuth(isLoggedIn);
 
-  return (
-    <LoginForm
-      email={email}
-      emailChangeHandler={emailChangeHandler}
-      password={password}
-      PasswordChangeHandler={PasswordChangeHandler}
-      SubmitHandler={SignInHandler}
-      GoogleSignInHandler={GoogleSignInHandler}
-      ErrorMessage={ErrorMessage}
-    />
-  );
+  if (!isLoggedIn && isLoaded) return <LoginForm />;
+  return <Loading />;
 };
 
-export default withNotAuth(Login);
+export default Login;

@@ -3,38 +3,31 @@ import GoogleButton from 'react-google-button';
 import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
+import useSignIn from 'hooks/useSignIn';
 import { inputId } from 'types/inputIds';
-import styled from '@emotion/styled';
+import * as S from '../style';
 
-type handlerFunction = (e: React.ChangeEvent<HTMLInputElement>) => void;
+const LoginForm = (): React.ReactElement => {
+  const [
+    /** email value */
+    email,
+    /** email change handler fucntion */
+    emailChangeHandler,
+    /** password value */
+    password,
+    /** password change handler function */
+    PasswordChangeHandler,
+    /** submit handler function */
+    SubmitHandler,
+    /** google sign in handelr funciton */
+    GoogleSignInHandler,
+    /** error Message */
+    ErrorMessage,
+  ] = useSignIn();
 
-interface Props {
-  /** email value */
-  email: string;
-  /** email value change handler */
-  emailChangeHandler: handlerFunction;
-  /** password value */
-  password: string;
-  /** password value change handler */
-  PasswordChangeHandler: handlerFunction;
-  /** submit handler function */
-  SubmitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  /** error message about login */
-  GoogleSignInHandler: () => void;
-  ErrorMessage: string;
-}
-
-const LoginForm = ({
-  email,
-  emailChangeHandler,
-  password,
-  PasswordChangeHandler,
-  SubmitHandler,
-  GoogleSignInHandler,
-  ErrorMessage,
-}: Props): React.ReactElement => {
   return (
-    <Form>
+    <S.Form>
+      <S.Title>LOGIN</S.Title>
       {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
       <Input
         type="text"
@@ -50,7 +43,7 @@ const LoginForm = ({
         inputChangeHandler={PasswordChangeHandler}
         required={true}
       />
-      <ButtonContainer>
+      <S.ButtonContainer>
         <Button
           color="blue"
           hoverColor="light-blue"
@@ -59,29 +52,9 @@ const LoginForm = ({
           LOGIN
         </Button>
         <GoogleButton onClick={GoogleSignInHandler} />
-      </ButtonContainer>
-    </Form>
+      </S.ButtonContainer>
+    </S.Form>
   );
 };
-
-const Form = styled.form`
-  width: 600px;
-  height: 100%;
-  padding: 15px 25px;
-  border-radius: 10px;
-  background-color: #fff;
-
-  @media only screen and (max-width: 780px) {
-    width: 100%;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 20%;
-`;
 
 export default LoginForm;

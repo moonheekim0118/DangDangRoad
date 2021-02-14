@@ -3,9 +3,10 @@ import { colorCode } from 'types/colorCode';
 import Anchor from 'atoms/Anchor';
 import styled from '@emotion/styled';
 
-const isLoggedIn = false;
-
-const Navigation = (): React.ReactElement => {
+interface Props {
+  isLoggedIn: boolean;
+}
+const Navigation = ({ isLoggedIn }: Props): React.ReactElement => {
   return (
     <Container>
       {isLoggedIn ? (
@@ -15,13 +16,8 @@ const Navigation = (): React.ReactElement => {
               fontsize={1.2}
               color="white"
               hoverColor="light-gray"
-              path="/login">
-              MyReviews
-            </Anchor>
-          </Item>
-          <Item>
-            <Anchor fontsize={1.2} color="white" path="/login">
-              MyPage
+              path="/myPage">
+              MYPAGE
             </Anchor>
           </Item>
         </>

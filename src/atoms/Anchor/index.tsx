@@ -7,7 +7,9 @@ interface Props {
   /** font size */
   fontsize: number;
   /** color of anchor element */
-  color: colorTypes;
+  color?: colorTypes;
+  /** font weight */
+  fontbold?: boolean;
   /** optional hover color of element */
   hoverColor?: colorTypes;
   /** optional margin of element */
@@ -21,6 +23,7 @@ interface Props {
 const Anchor = ({
   fontsize,
   color,
+  fontbold = true,
   hoverColor,
   margin,
   children,
@@ -31,6 +34,7 @@ const Anchor = ({
       <Title
         fontsize={fontsize}
         color={color}
+        fontbold={fontbold}
         hoverColor={hoverColor}
         margin={margin}>
         {children}
@@ -40,16 +44,16 @@ const Anchor = ({
 };
 
 const Title = styled.a<{
-  color: string;
+  color?: string;
   fontsize: number;
+  fontbold?: boolean;
   hoverColor?: string;
   margin?: string;
 }>`
-  display: block;
-  width: 100%;
-  color: ${(props) => colorCode[props.color]};
+  display: inline;
+  color: ${(props) => (props.color ? colorCode[props.color] : 'inherit')};
   font-size: ${(props) => props.fontsize}rem;
-  font-weight: bold;
+  font-weight: ${(props) => props.fontbold && 'bold'};
   margin: ${(props) => props.margin};
   cursor: pointer;
 
