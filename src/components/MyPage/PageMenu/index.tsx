@@ -2,6 +2,7 @@ import React from 'react';
 import Span from 'atoms/Span';
 import Anchor from 'atoms/Anchor';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 interface DataTypes {
   key: number;
@@ -16,13 +17,17 @@ interface Props {
 }
 
 const PageMenu = ({ datas }: Props) => {
+  const router = useRouter();
+  const pathname = router.pathname;
+
   return (
     <Container>
       {datas.map((v) => (
         <Menu
           key={v.key}
           onClick={v.onClick}
-          warn={v.title === 'destroy account'}>
+          warn={v.title === 'destroy account'}
+          visiting={pathname === v.href}>
           {v.icon}
           {v.href ? (
             <Anchor fontsize={1} path={v.href} fontbold={false}>
@@ -50,7 +55,7 @@ const Container = styled.div`
   }
 `;
 
-const Menu = styled.div<{ warn: boolean }>`
+const Menu = styled.div<{ warn: boolean; visiting: boolean }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -58,6 +63,8 @@ const Menu = styled.div<{ warn: boolean }>`
   padding: 15px;
   cursor: pointer;
   color: ${(props) => (props.warn ? 'red' : 'black')};
+  background-color: ${(props) => props.visiting && '#e0e0e0'};
+
   transition: background-color 0.3s ease;
 
   &:hover {

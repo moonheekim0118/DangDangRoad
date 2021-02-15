@@ -5,15 +5,22 @@ import Loading from 'components/Loading';
 import MyReviews from 'components/MyPage/MyReviews';
 import useLoginCheck from 'hooks/useLoginCheck';
 import useWithAuth from 'hooks/useWithAuth';
+import useUser from 'hooks/useUser';
 import { useLoginInfoState } from 'context/LoginInfo';
 
 const myPage = (): React.ReactElement => {
   useLoginCheck();
-  const { userId, isLoggedIn } = useLoginInfoState();
-  useWithAuth(isLoggedIn);
+  const { userId } = useLoginInfoState();
+  const [userInfo] = useUser({ userId });
+  const renderable = useWithAuth();
 
-  if (!isLoggedIn) return <Loading />;
-  return <MyPage userId={userId}>{MyReviews}</MyPage>;
+  return renderable ? (
+    <MyPage userInfo={userInfo}>
+      <MyReviews />
+    </MyPage>
+  ) : (
+    <Loading />
+  );
 };
 
 export default myPage;

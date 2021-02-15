@@ -3,15 +3,12 @@ import Loading from 'components/Loading';
 import useLoginCheck from 'hooks/useLoginCheck';
 import SignUpForm from 'components/Forms/SignUpForm';
 import useWithNotAuth from 'hooks/useWithNotAuth';
-import { useLoginInfoState } from 'context/LoginInfo';
 
 const SignUp = (): React.ReactElement => {
   useLoginCheck();
-  const { isLoggedIn, isLoaded } = useLoginInfoState();
-  useWithNotAuth(isLoggedIn);
+  const renderable = useWithNotAuth();
 
-  if (!isLoggedIn && isLoaded) return <SignUpForm />;
-  return <Loading />;
+  return renderable ? <SignUpForm /> : <Loading />;
 };
 
 export default SignUp;

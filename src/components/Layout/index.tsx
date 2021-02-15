@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from 'components/Header';
+import Footer from 'components/Footer';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -11,6 +12,7 @@ const Layout = ({ children }: Props): React.ReactElement => {
     <Container>
       <Header />
       <MainContents>{children}</MainContents>
+      <Footer />
     </Container>
   );
 };
@@ -18,19 +20,16 @@ const Layout = ({ children }: Props): React.ReactElement => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const MainContents = styled.main`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-contents: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
   background-color: #fbfbfb;
 `;
 

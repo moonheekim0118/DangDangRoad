@@ -1,17 +1,26 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useLoginInfoState } from 'context/LoginInfo';
 
-const useWithAuth = (isLoggedIn: boolean) => {
+/**
+ * this Hooks will return If it's authenticated or not
+ * by renderable state
+ */
+
+const useWithAuth = (): boolean => {
   const router = useRouter();
-  const isInitial = useRef<boolean>(true);
+  const [renderable, setRenderable] = useState<boolean>(false);
+  const { isLoggedIn, isLoaded } = useLoginInfoState();
 
   useEffect(() => {
-    if (isInitial.current) {
-      isInitial.current = false;
-    } else if (!isLoggedIn) {
+    if (!isLoggedIn && isLoaded) {
       router.push('/login');
+    } else if (isLoggedIn && isLoaded) {
+      setRenderable(true);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, isLoaded]);
+
+  return renderable;
 };
 
 export default useWithAuth;

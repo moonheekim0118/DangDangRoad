@@ -1,55 +1,22 @@
 import React from 'react';
-import Icon from 'atoms/Icon';
 import PageMenu from './PageMenu';
 import UserCard from './UserCard';
-import useUser from 'hooks/useUser';
 import Loading from 'components/Loading';
-import {
-  faFileAlt,
-  faEdit,
-  faUserCircle,
-  faSadTear,
-} from '@fortawesome/free-regular-svg-icons';
+import { colorCode } from 'types/colorCode';
+import * as Menus from 'util/myPageDatas';
 import styled from '@emotion/styled';
 
 interface Props {
-  userId: string;
+  userInfo: {
+    nickname: string;
+    email: string;
+    profilePic: string;
+  };
+  pageName?: string;
   children: React.ReactNode;
 }
 
-const MyPage = ({ userId, children }: Props) => {
-  // Menu Datas, not gonna change
-  const [userInfo] = useUser({ userId });
-
-  const MenuDatas = [
-    {
-      key: 0,
-      icon: <Icon iconsize={20} icon={faFileAlt} />,
-      title: 'My reviews',
-      href: '/myPage/',
-    },
-    {
-      key: 1,
-      icon: <Icon iconsize={20} icon={faUserCircle} />,
-      title: 'update profile',
-      href: '/myPage/updateProfile',
-    },
-    {
-      key: 2,
-      icon: <Icon iconsize={20} icon={faEdit} />,
-      title: 'update password',
-      href: '/myPage/updatePassword',
-    },
-  ];
-
-  const DestroyData = [
-    {
-      key: 3,
-      icon: <Icon iconsize={20} icon={faSadTear} color="red" />,
-      title: 'destroy account',
-    },
-  ];
-
+const MyPage = ({ userInfo, pageName = 'My Reviews', children }: Props) => {
   return (
     <Container>
       <SideContainer>
@@ -62,36 +29,85 @@ const MyPage = ({ userId, children }: Props) => {
         ) : (
           <Loading />
         )}
-        <PageMenu datas={MenuDatas} />
-        <PageMenu datas={DestroyData} />
+        <PageMenu datas={Menus.GeneralMenu} />
+        <PageMenu datas={Menus.DestoryMenu} />
       </SideContainer>
-      {children}
+      <MainContainer>
+        <MainTitle>{pageName}</MainTitle>
+        {children}
+      </MainContainer>
     </Container>
   );
 };
 
 const Container = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media only screen and (max-width: 500px) {
     flex-direction: column;
   }
 `;
 
-const SideContainer = styled.article`
+const SideContainer = styled.aside`
+  width: 250px;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 250px;
-  height: 80%;
   margin-right: 25px;
   @media only screen and (max-width: 500px) {
     width: 100%;
     margin: 0;
   }
 `;
+
+const MainContainer = styled.article`
+  width: 50%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+
+  @media only screen and (max-width: 500px) {
+    width: 100%;
+    border-radius: 0;
+  }
+`;
+
+const MainTitle = styled.span`
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 1.6rem;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    top: 0px;
+    left: -20px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: ${colorCode['blue']};
+  }
+
+  @media only screen and (max-width: 500px) {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin: 20px 0;
+  }
+`;
+
 export default MyPage;
