@@ -41,24 +41,23 @@ const MyPage = ({ userInfo, pageName = 'My Reviews', children }: Props) => {
 };
 
 const Container = styled.section`
-  display: grid;
-  grid-template-columns: minmax(10px, 1fr) minmax(10px, 3fr);
-  grid-template-rows: min-content min-content 1fr min-content;
-  gap: 1px;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media only screen and (max-width: 500px) {
-    grid-template-columns: 100%;
-    grid-template-rows: auto;
+    flex-direction: column;
   }
 `;
 
-const SideContainer = styled.article`
+const SideContainer = styled.aside`
+  width: 250px;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 250px;
-  height: 80%;
   margin-right: 25px;
   @media only screen and (max-width: 500px) {
     width: 100%;
@@ -67,15 +66,17 @@ const SideContainer = styled.article`
 `;
 
 const MainContainer = styled.article`
-  width: 60%;
+  width: 50%;
   height: 80%;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+
   @media only screen and (max-width: 500px) {
     width: 100%;
     border-radius: 0;
