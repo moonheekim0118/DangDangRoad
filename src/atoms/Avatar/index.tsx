@@ -36,6 +36,7 @@ const Container = styled.div<Props>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 `;
 
 const StyledAvatar = styled.img<Props>`
