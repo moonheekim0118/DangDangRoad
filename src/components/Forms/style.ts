@@ -3,22 +3,14 @@ import { colorCode } from 'types/colorCode';
 
 export const Form = styled.form<{ signUp?: boolean }>`
   width: 600px;
-  height: ${(props) => (props.signUp ? '100%' : '600px')};
+  height: 90%;
   padding: 15px 25px;
   border-radius: 20px;
   background-color: #fff;
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
+  display: grid;
+  place-items: center;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
 
   @media only screen and (max-width: 780px) {

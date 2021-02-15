@@ -41,14 +41,15 @@ const MyPage = ({ userInfo, pageName = 'My Reviews', children }: Props) => {
 };
 
 const Container = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(10px, 1fr) minmax(10px, 3fr);
+  grid-template-rows: min-content min-content 1fr min-content;
+  gap: 1px;
   width: 100%;
   height: 100%;
   @media only screen and (max-width: 500px) {
-    flex-direction: column;
-    margin-top: 50px;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
   }
 `;
 

@@ -46,10 +46,8 @@ const Container = styled.main`
   height: 100%;
   background-color: #0277bc;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
 
   color: #fff;
 `;
