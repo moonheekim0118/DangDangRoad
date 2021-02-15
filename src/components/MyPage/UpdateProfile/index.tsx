@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from 'components/Loading';
 import Avatar from 'atoms/Avatar';
+import Button from 'atoms/Button';
 import Input from 'atoms/Input';
 import Icon from 'atoms/Icon';
 import { inputId } from 'types/inputIds';
@@ -10,7 +11,6 @@ import styled from '@emotion/styled';
 /**
  * 닉네임 수정 가능
  * 아바타 수정 가능
- *
  */
 
 interface Props {
@@ -37,6 +37,9 @@ const UpdateProfile = ({ userInfo }: Props) => {
         value={userInfo.nickname}
         inputChangeHandler={temp}
       />
+      <Button color="blue" hoverColor="light-blue" type="button">
+        SAVE
+      </Button>
     </ProfileContainer>
   ) : (
     <Loading />
