@@ -7,7 +7,7 @@ import Icon from 'atoms/Icon';
 import { inputId } from 'types/inputIds';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
-
+import * as S from '../style';
 /**
  * 닉네임 수정 가능
  * 아바타 수정 가능
@@ -22,7 +22,7 @@ interface Props {
 const UpdateProfile = ({ userInfo }: Props) => {
   function temp() {}
   return userInfo ? (
-    <ProfileContainer>
+    <S.ContentsContainer>
       <div>
         <AvatarEditor />
         <IconContainer>
@@ -40,18 +40,11 @@ const UpdateProfile = ({ userInfo }: Props) => {
       <Button color="blue" hoverColor="light-blue" type="button">
         SAVE
       </Button>
-    </ProfileContainer>
+    </S.ContentsContainer>
   ) : (
     <Loading />
   );
 };
-
-const ProfileContainer = styled.div`
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const IconContainer = styled.div`
   position: absolute;
