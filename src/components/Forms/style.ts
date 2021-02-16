@@ -3,7 +3,7 @@ import { colorCode } from 'types/Color';
 
 export const Form = styled.form<{ signUp?: boolean }>`
   width: 600px;
-  height: 90%;s
+  height: 90%;
   padding: 15px 25px;
   border-radius: 20px;
   background-color: #fff;
