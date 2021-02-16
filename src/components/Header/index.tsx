@@ -17,7 +17,7 @@ const Header = (): React.ReactElement => {
   const router = useRouter();
   const pathname = router.pathname;
   const signOutHandler = useSignOut();
-  const { isLoggedIn, isLoaded } = useLoginInfoState();
+  const { isLoaded, isLoggedIn } = useLoginInfoState();
   const [openNavigation, NavigationToggler] = useToggle();
 
   return (
@@ -38,49 +38,52 @@ const Header = (): React.ReactElement => {
         <SearchBar color="blue" focus={true} />
       </SearchBarContainer>
       <SideContainer>
-        {isLoaded && isLoggedIn && (
+        {isLoaded && (
           <>
-            <ExtraMenuContainer>
-              <Anchor
-                fontsize={1.2}
-                color="white"
-                hoverColor="light-gray"
-                margin="0 20px 0 0"
-                path="/myPage">
-                MYPAGE
-              </Anchor>
-            </ExtraMenuContainer>
-            <Span
-              fontsize={1.2}
-              color="white"
-              hoverColor="light-gray"
-              cursor="pointer"
-              spanClickHandler={signOutHandler}
-              bold={true}>
-              LOGOUT
-            </Span>
-          </>
-        )}
-        {isLoaded && !isLoggedIn && (
-          <>
-            {pathname !== '/login' && (
-              <Anchor
-                fontsize={1.2}
-                color="white"
-                hoverColor="light-gray"
-                margin="0 20px 0 0"
-                path="/login">
-                LogIn
-              </Anchor>
-            )}
-            {pathname !== '/signUp' && (
-              <Anchor
-                fontsize={1.2}
-                color="white"
-                hoverColor="light-gray"
-                path="/signUp">
-                SignUp
-              </Anchor>
+            {isLoggedIn ? (
+              <>
+                <ExtraMenuContainer>
+                  <Anchor
+                    fontsize={1.2}
+                    color="white"
+                    hoverColor="light-gray"
+                    margin="0 20px 0 0"
+                    path="/myPage">
+                    MYPAGE
+                  </Anchor>
+                </ExtraMenuContainer>
+                <Span
+                  fontsize={1.2}
+                  color="white"
+                  hoverColor="light-gray"
+                  cursor="pointer"
+                  spanClickHandler={signOutHandler}
+                  bold={true}>
+                  LOGOUT
+                </Span>
+              </>
+            ) : (
+              <>
+                {pathname !== '/login' && (
+                  <Anchor
+                    fontsize={1.2}
+                    color="white"
+                    hoverColor="light-gray"
+                    margin="0 20px 0 0"
+                    path="/login">
+                    LogIn
+                  </Anchor>
+                )}
+                {pathname !== '/signUp' && (
+                  <Anchor
+                    fontsize={1.2}
+                    color="white"
+                    hoverColor="light-gray"
+                    path="/signUp">
+                    SignUp
+                  </Anchor>
+                )}
+              </>
             )}
           </>
         )}

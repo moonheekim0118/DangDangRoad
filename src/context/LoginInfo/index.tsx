@@ -1,33 +1,47 @@
 import React, { useReducer, createContext, useContext } from 'react';
+import { UserType } from 'types/user';
 
 /**
- *  state : isLoggedIn 현재 로그인 여부
+ *  state 에 isLoogedIn status 와
+ *  유저 정보를 저장해놓는다.
  */
 
-interface Action {
-  type: 'login' | 'logout';
-  data: string;
+interface LoginAction {
+  type: 'login';
+  data: UserType;
 }
-interface State {
-  isLoggedIn: boolean;
+
+interface State extends UserType {
   isLoaded: boolean;
-  userId: string;
 }
+
+interface LogoutAction {
+  type: 'logout';
+}
+
 interface LoginInfoProviderProps {
   children: React.ReactNode;
 }
-type Dispatch = (action: Action) => void;
+
+type Dispatch = (action: LoginAction | LogoutAction) => void;
 
 const LoginStateContext = createContext<State | undefined>(undefined);
 const LoginDispatchContext = createContext<Dispatch | undefined>(undefined);
 
-const LoginInfoReducer = (state: State, action: Action) => {
+const LoginInfoReducer = (state: State, action: LoginAction | LogoutAction) => {
   switch (action.type) {
     case 'login': {
-      return { isLoggedIn: true, isLoaded: true, userId: action.data };
+      return { isLoaded: true, ...action.data };
     }
     case 'logout': {
-      return { isLoggedIn: false, isLoaded: true, userId: '' };
+      return {
+        isLoaded: true,
+        isLoggedIn: false,
+        userId: '',
+        email: '',
+        nickname: '',
+        profilePic: '',
+      };
     }
     default: {
       throw new Error(`Unhandled action type`);
@@ -37,9 +51,12 @@ const LoginInfoReducer = (state: State, action: Action) => {
 
 const LoginInfoProvider = ({ children }: LoginInfoProviderProps) => {
   const [state, dispatch] = useReducer(LoginInfoReducer, {
-    isLoggedIn: false,
     isLoaded: false,
+    isLoggedIn: false,
     userId: '',
+    email: '',
+    nickname: '',
+    profilePic: '',
   });
 
   return (
