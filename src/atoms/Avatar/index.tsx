@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Icon from 'atoms/Icon';
-import { colorCode } from 'types/colorCode';
+import { colorCode } from 'types/Color';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 enum AvatarSize {

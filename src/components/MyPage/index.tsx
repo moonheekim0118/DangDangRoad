@@ -2,16 +2,13 @@ import React from 'react';
 import PageMenu from './PageMenu';
 import UserCard from './UserCard';
 import Loading from 'components/Loading';
-import { colorCode } from 'types/colorCode';
+import { colorCode } from 'types/Color';
+import { UserType } from 'types/User';
 import * as Menus from 'util/myPageDatas';
 import styled from '@emotion/styled';
 
 interface Props {
-  userInfo: {
-    nickname: string;
-    email: string;
-    profilePic: string;
-  };
+  userInfo: UserType;
   pageName?: string;
   children: React.ReactNode;
 }

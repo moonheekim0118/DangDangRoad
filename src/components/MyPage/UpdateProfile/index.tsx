@@ -4,7 +4,7 @@ import Avatar from 'atoms/Avatar';
 import Button from 'atoms/Button';
 import Input from 'atoms/Input';
 import Icon from 'atoms/Icon';
-import { inputId } from 'types/inputIds';
+import { inputId } from 'types/Input';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import * as S from '../style';

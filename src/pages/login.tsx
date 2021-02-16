@@ -1,14 +1,12 @@
 import React from 'react';
 import Loading from 'components/Loading';
-import useLoginCheck from 'hooks/useLoginCheck';
 import LoginForm from 'components/Forms/LoginForm';
-import useWithNotAuth from 'hooks/useWithNotAuth';
+import useUser from 'libs/useUser';
 
 const Login = (): React.ReactElement => {
-  useLoginCheck();
-  const renderable = useWithNotAuth();
+  const { user } = useUser({ redirectTo: '/', redirectIfFound: true });
 
-  return renderable ? <LoginForm /> : <Loading />;
+  return user && !user.isLoggedIn ? <LoginForm /> : <Loading />;
 };
 
 export default Login;

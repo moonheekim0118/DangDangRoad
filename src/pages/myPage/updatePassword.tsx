@@ -2,19 +2,13 @@ import React from 'react';
 import MyPage from 'components/MyPage';
 import UpdatePassword from 'components/MyPage/UpdatePassword';
 import Loading from 'components/Loading';
-import useLoginCheck from 'hooks/useLoginCheck';
-import useWithAuth from 'hooks/useWithAuth';
-import useUser from 'hooks/useUser';
-import { useLoginInfoState } from 'context/LoginInfo';
+import useUser from 'libs/useUser';
 
 const updatePassword = () => {
-  useLoginCheck();
-  const { userId } = useLoginInfoState();
-  const [userInfo] = useUser({ userId });
-  const renderable = useWithAuth();
+  const { user } = useUser({ redirectTo: '/login' });
 
-  return renderable ? (
-    <MyPage userInfo={userInfo} pageName="update Password">
+  return user && user.isLoggedIn ? (
+    <MyPage userInfo={user}>
       <UpdatePassword />
     </MyPage>
   ) : (

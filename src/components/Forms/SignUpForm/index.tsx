@@ -3,7 +3,7 @@ import Input from 'atoms/Input';
 import Button from 'atoms/Button';
 import Alert from 'atoms/Alert';
 import useSignUp from 'hooks/useSignUp';
-import { inputId } from 'types/inputIds';
+import { inputId } from 'types/Input';
 import * as S from '../style';
 
 const SignUpForm = (): React.ReactElement => {

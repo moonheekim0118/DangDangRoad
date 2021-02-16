@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'types/colorCode';
+import { colorCode } from 'types/Color';
 
 export const Form = styled.form<{ signUp?: boolean }>`
   width: 600px;
-  height: 90%;
+  height: 90%;s
   padding: 15px 25px;
   border-radius: 20px;
   background-color: #fff;
