@@ -1,21 +1,15 @@
 import React from 'react';
 import MyPage from 'components/MyPage';
 import Loading from 'components/Loading';
-
 import MyReviews from 'components/MyPage/MyReviews';
-import useLoginCheck from 'hooks/useLoginCheck';
-import useWithAuth from 'hooks/useWithAuth';
-import useUser from 'hooks/useUser';
-import { useLoginInfoState } from 'context/LoginInfo';
+import useUser from 'libs/useUser';
 
 const myPage = (): React.ReactElement => {
-  useLoginCheck();
-  const { userId } = useLoginInfoState();
-  const [userInfo] = useUser({ userId });
-  const renderable = useWithAuth();
+  const { user } = useUser({ redirectTo: '/login' });
 
-  return renderable ? (
-    <MyPage userInfo={userInfo}>
+  console.log(user);
+  return user && user.isLoggedIn ? (
+    <MyPage userInfo={user}>
       <MyReviews />
     </MyPage>
   ) : (
