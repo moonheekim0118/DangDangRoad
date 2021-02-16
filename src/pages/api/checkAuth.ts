@@ -4,19 +4,17 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 // check and verify Session Cookie
 const checkAuth = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const propsObject = {
-      authenticated: false,
-      userId: '',
+    let authInfo = {
+      isLoggedIn: false,
     };
     const cookie = req.cookies;
     if (cookie.user) {
       const authentication = await verifyCookie(cookie.user);
-      propsObject.authenticated = authentication
-        ? authentication.authenticated
-        : false;
-      propsObject.userId = authentication ? authentication.userId : '';
+      if (authentication) {
+        authInfo = authentication;
+      }
     }
-    res.status(200).send(propsObject);
+    res.status(200).send(authInfo);
   } catch (error) {
     res.status(401).send(error);
   }

@@ -1,4 +1,5 @@
 import 'firebase/auth';
+import db from 'firebaseConfigs/db';
 import getFirebaseAdmin from 'firebaseConfigs/admin';
 import { AuthResult } from 'types/API';
 
@@ -8,16 +9,15 @@ const verifyCookie = async (cookie: string): Promise<null | AuthResult> => {
     const admin = await getFirebaseAdmin();
     if (!admin) return null;
     let userId = '';
-    let bAuth = false;
+    let userInfo;
     const decodedClaims = await admin.auth().verifySessionCookie(cookie, true);
     if (decodedClaims) {
-      bAuth = true;
       userId = decodedClaims.uid;
+      userInfo = await db.collection('users').doc(userId).get();
+      userInfo.userId = userId;
+      userInfo.isLoggedIn = true;
     }
-    return {
-      authenticated: bAuth,
-      userId,
-    };
+    return userInfo;
   } catch (error) {
     return null;
   }

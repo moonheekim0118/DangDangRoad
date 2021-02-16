@@ -4,6 +4,9 @@ export interface ReqResult {
 }
 
 export interface AuthResult {
-  authenticated: boolean;
+  isLoggedIn: boolean;
   userId: string;
+  nickname: string;
+  email: string;
+  profilePic: string;
 }
