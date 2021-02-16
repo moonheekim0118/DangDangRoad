@@ -13,7 +13,13 @@ const verifyCookie = async (cookie: string): Promise<null | AuthResult> => {
     const decodedClaims = await admin.auth().verifySessionCookie(cookie, true);
     if (decodedClaims) {
       userId = decodedClaims.uid;
-      userInfo = await db.collection('users').doc(userId).get();
+      // get User Data from firebase
+      const userData = await db.collection('users').doc(userId).get();
+      if (!userData.exists) {
+        throw 'No User';
+      } else {
+        userInfo = userData.data();
+      }
       userInfo.userId = userId;
       userInfo.isLoggedIn = true;
     }
