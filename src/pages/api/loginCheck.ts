@@ -1,8 +1,8 @@
-import verifyCookie from 'api/verifyCookie';
+import verifyCookie from 'libs/verifyCookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // check and verify Session Cookie
-const checkAuth = async (req: NextApiRequest, res: NextApiResponse) => {
+const loginCheck = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     let authInfo = {
       isLoggedIn: false,
@@ -14,10 +14,10 @@ const checkAuth = async (req: NextApiRequest, res: NextApiResponse) => {
         authInfo = authentication;
       }
     }
-    res.status(200).send(authInfo);
+    res.status(200).json(authInfo);
   } catch (error) {
-    res.status(401).send(error);
+    res.status(401).json({ isLoggedIn: false });
   }
 };
 
-export default checkAuth;
+export default loginCheck;

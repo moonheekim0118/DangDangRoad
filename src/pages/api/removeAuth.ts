@@ -1,7 +1,7 @@
 import { serialize } from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// remove Session-Cookie
+// remove Session-Cookie for logging out
 const removeAuth = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader(
     'Set-Cookie',

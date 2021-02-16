@@ -5,7 +5,9 @@ import { UserType } from 'types/user';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
 
 interface Props {
+  /** path for redirection */
   redirectTo?: string;
+  /** true if it should be redirected when user is found */
   redirectIfFound?: boolean;
 }
 
@@ -13,16 +15,17 @@ const useUser = ({ redirectTo, redirectIfFound = false }: Props = {}): {
   user: UserType;
 } => {
   const dispatch = useLoginInfoDispatch();
-  const { data: user } = useSWR('/api/checkAuth');
+  const { data: user } = useSWR('/api/loginCheck');
 
   useEffect(() => {
-    // 페칭 후 context 에 정보 저장
+    // after getting data, dispatch this data to Context
     if (user && user.isLoggedIn) dispatch({ type: 'login', data: user });
     if (user && !user.isLoggedIn) dispatch({ type: 'logout' });
 
-    // 데이터 페칭 전
+    // if data is not yet here
     if (!redirectTo || !user) return;
 
+    /** when it needs to be redirected */
     if (
       (redirectTo && !redirectIfFound && !user.isLoggedIn) ||
       (redirectIfFound && user.isLoggedIn)

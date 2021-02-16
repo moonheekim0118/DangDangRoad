@@ -3,7 +3,7 @@ import db from 'firebaseConfigs/db';
 import getFirebaseAdmin from 'firebaseConfigs/admin';
 import { AuthResult } from 'types/API';
 
-/** 파이어베이스 관리자 권한으로 쿠키 인증 */
+/** Verify Cookie with Firebase Admin */
 const verifyCookie = async (cookie: string): Promise<null | AuthResult> => {
   try {
     const admin = await getFirebaseAdmin();
