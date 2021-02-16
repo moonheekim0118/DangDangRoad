@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from 'atoms/Input';
 import Button from 'atoms/Button';
-import { inputId } from 'types/inputIds';
+import { inputId } from 'types/Input';
 import * as S from '../style';
 
 const UpdatePassword = () => {

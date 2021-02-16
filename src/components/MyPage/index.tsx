@@ -2,8 +2,8 @@ import React from 'react';
 import PageMenu from './PageMenu';
 import UserCard from './UserCard';
 import Loading from 'components/Loading';
-import { colorCode } from 'types/colorCode';
-import { UserType } from 'types/user';
+import { colorCode } from 'types/Color';
+import { UserType } from 'types/User';
 import * as Menus from 'util/myPageDatas';
 import styled from '@emotion/styled';
 

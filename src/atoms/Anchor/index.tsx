@@ -1,17 +1,17 @@
 import React, { memo } from 'react';
 import Link from 'next/Link';
-import { colorCode, colorTypes } from 'types/colorCode';
+import { colorCode, ColorType } from 'types/Color';
 import styled from '@emotion/styled';
 
 interface Props {
   /** font size */
   fontsize: number;
   /** color of anchor element */
-  color?: colorTypes;
+  color?: ColorType;
   /** font weight */
   fontbold?: boolean;
   /** optional hover color of element */
-  hoverColor?: colorTypes;
+  hoverColor?: ColorType;
   /** optional margin of element */
   margin?: string;
   /** text of element */

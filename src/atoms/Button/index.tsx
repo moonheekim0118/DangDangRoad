@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { colorCode, colorTypes } from 'types/colorCode';
+import { colorCode, ColorType } from 'types/Color';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   /** color of button */
   color: 'blue' | 'white';
   /** hoverColor */
-  hoverColor?: colorTypes;
+  hoverColor?: ColorType;
   /** type of button */
   type?: 'button' | 'submit' | 'reset';
   /** onClick event function */

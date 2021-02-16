@@ -3,7 +3,7 @@ import Icon from 'atoms/Icon';
 import Span from 'atoms/Span';
 import useInput from 'hooks/useInput';
 import styled from '@emotion/styled';
-import { colorCode } from 'types/colorCode';
+import { colorCode } from 'types/Color';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {

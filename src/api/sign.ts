@@ -11,16 +11,17 @@ import { ReqResult } from 'types/API';
  */
 
 const firebase = getFirebase();
+const auth = firebase.auth();
 
 /** add UserInfo in firestore */
 const addUser = async (
-  uid: string,
+  id: string,
   email: string,
   nickname: string,
   profilePic: string = ''
 ) => {
   try {
-    await db.collection('users').doc(uid).set({ email, nickname, profilePic });
+    await db.collection('users').doc(id).set({ email, nickname, profilePic });
   } catch (error) {
     throw error;
   }
@@ -29,7 +30,6 @@ const addUser = async (
 /** Google-Auth Login */
 export const googleSignIn = async (): Promise<ReqResult> => {
   try {
-    const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
       const response = await auth.signInWithPopup(provider);
@@ -39,12 +39,12 @@ export const googleSignIn = async (): Promise<ReqResult> => {
         const nickname = user.displayName || '';
         const profilePic = user.photoURL || '';
         const token = await user.getIdToken(); // get Firebase User Token
-        const uid = user.uid; // User id
+        const id = user.uid; // User id
         // Check if this user is stored in Firestore's user db
-        const snapshot = await db.collection('users').doc(uid).get();
+        const snapshot = await db.collection('users').doc(id).get();
         if (!snapshot.exists) {
           // if it's new user
-          await addUser(uid, email, nickname, profilePic);
+          await addUser(id, email, nickname, profilePic);
         }
         await createUserToken(token); // to persist Auth
       }
@@ -65,7 +65,6 @@ export const signIn = async (
   password: string
 ): Promise<ReqResult> => {
   try {
-    const auth = firebase.auth();
     const response = await auth.signInWithEmailAndPassword(email, password);
     if (response && response.user) {
       // check if User's Email is verifed or not
@@ -90,7 +89,6 @@ export const signUp = async (
   password: string
 ): Promise<ReqResult> => {
   try {
-    const auth = firebase.auth();
     const userCredential = await auth.createUserWithEmailAndPassword(
       email,
       password
@@ -115,7 +113,6 @@ export const signUp = async (
 /** Sign out function */
 export const signOut = async (): Promise<ReqResult> => {
   try {
-    const auth = firebase.auth();
     await auth.signOut(); // sign out
     await removeCookie(); // remove Session-Cookie
     return { isError: false };

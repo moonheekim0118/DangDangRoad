@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Router from 'next/router';
 import useSWR from 'swr';
-import { UserType } from 'types/user';
+import { UserType } from 'types/User';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
 
 interface Props {

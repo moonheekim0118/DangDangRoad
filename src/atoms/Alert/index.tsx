@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from 'atoms/Icon';
 import styled from '@emotion/styled';
-import { colorCode } from 'types/colorCode';
+import { colorCode } from 'types/Color';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {

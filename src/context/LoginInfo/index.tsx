@@ -1,10 +1,5 @@
 import React, { useReducer, createContext, useContext } from 'react';
-import { UserType } from 'types/user';
-
-/**
- *  state 에 isLoogedIn status 와
- *  유저 정보를 저장해놓는다.
- */
+import { UserType } from 'types/User';
 
 interface LoginAction {
   type: 'login';

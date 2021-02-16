@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
-import { colorCode, colorTypes } from 'types/colorCode';
+import { colorCode, ColorType } from 'types/Color';
 import styled from '@emotion/styled';
 
 interface Props {
   /** size of span by rem */
   fontsize: number;
   /** color of span if theres no color, it will be inherited*/
-  color?: colorTypes;
+  color?: ColorType;
   /** color of hover effects */
-  hoverColor?: colorTypes;
+  hoverColor?: ColorType;
   /** true = font-weight:bold  */
   bold?: boolean;
   /** contents of span*/
