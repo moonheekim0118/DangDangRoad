@@ -6,10 +6,11 @@ import useAlert from 'hooks/useAlert';
 import useUser from 'libs/useUser';
 import useValidation from './useValidation';
 
+/** update profile logics  */
 const useUpdateProfile = () => {
   const { user } = useUser();
 
-  // alert
+  /** alert controller */
   const {
     alertMessage,
     setAlertMessage,
@@ -18,13 +19,13 @@ const useUpdateProfile = () => {
     closeAlertHandler,
   } = useAlert();
 
-  // Image Input Ref
+  /** Image Input Ref */
   const imageInput = useRef<HTMLInputElement>(null);
 
-  // Image File
+  /** Image url */
   const [imageUrl, setImageUrl] = useState<string | undefined>();
 
-  // Nickname Input
+  /** nickname */
   const {
     value: nickname,
     error: nicknameError,
@@ -41,14 +42,14 @@ const useUpdateProfile = () => {
     }
   }, [user]);
 
-  // Image Input onClick Handler
+  /** Image Input onClick Handler */
   const ClickImageUploadHandler = useCallback(() => {
     if (imageInput.current) {
       imageInput.current.click();
     }
   }, []);
 
-  // Upload Image Handler
+  /** Upload Image Handler */
   const UploadImageHanlder = useCallback(async (e) => {
     const file = e.target.files[0];
     const response = await uploadImage(file);
@@ -60,7 +61,7 @@ const useUpdateProfile = () => {
     }
   }, []);
 
-  // sumbit save
+  /** sumbit save */
   const SaveHandler = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       try {

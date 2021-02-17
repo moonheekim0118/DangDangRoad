@@ -7,10 +7,16 @@ import useInput from 'hooks/useInput';
 
 /** sign in logics */
 const useSignIn = () => {
+  /** alert Message Controller  */
   const { alertMessage, setAlertMessage, closeAlertHandler } = useAlert();
+
+  /** email */
   const [email, emailChangeHandler] = useInput();
+
+  /** password */
   const [password, PasswordChangeHandler] = useInput();
 
+  /** submit handler */
   const SignInHandler = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -26,6 +32,7 @@ const useSignIn = () => {
     [email, password]
   );
 
+  /** Google sign in handler */
   const GoogleSignInHandler = useCallback(async () => {
     const response = await googleSignIn();
     if (response.errorMessage) {

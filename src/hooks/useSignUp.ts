@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/router';
+import { useCallback } from 'react';
+import Router from 'next/router';
 import { signUp } from 'api/sign';
 import * as checkers from 'util/signUpValidations';
 import useAlert from 'hooks/useAlert';
@@ -7,11 +7,12 @@ import useValidation from 'hooks/useValidation';
 import useMatch from 'hooks/useMatch';
 import useInput from 'hooks/useInput';
 
+// sign up logic
 const useSignUp = () => {
+  // alert message controller
   const { alertMessage, setAlertMessage, closeAlertHandler } = useAlert();
 
   /** email */
-  const router = useRouter();
   const {
     value: email,
     error: emailError,
@@ -20,6 +21,7 @@ const useSignUp = () => {
   } = useValidation({
     characterCheck: checkers.checkEmail,
   });
+
   /** nickname */
   const {
     value: nickname,
@@ -29,6 +31,7 @@ const useSignUp = () => {
   } = useValidation({
     characterCheck: checkers.nicknameValidator,
   });
+
   /** password */
   const {
     value: password,
@@ -41,8 +44,10 @@ const useSignUp = () => {
   /** password check */
   const [passwordCheck, PasswordCheckChangeHandler] = useInput();
 
+  /** password match checker */
   const passwordMatch = useMatch({ value: passwordCheck, target: password });
 
+  /** submit handler */
   const SubmitHanlder = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -65,7 +70,7 @@ const useSignUp = () => {
       if (response.errorMessage) {
         return setAlertMessage(response.errorMessage);
       }
-      router.push('/signUpInProcess');
+      Router.push('/signUpInProcess');
     },
     [
       email,
