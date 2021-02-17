@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
-import Button from 'atoms/Button';
 import useUser from 'libs/useUser';
 import styled from '@emotion/styled';
+import { Button } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
 
 const Index = (): React.ReactElement => {

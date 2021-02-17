@@ -2,9 +2,8 @@ import { useEffect, useCallback, useState, useRef } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { uploadImage } from 'api/storage';
 import { updateProfile } from 'api/user';
-import useAlert from 'hooks/useAlert';
+import { useAlert, useValidation } from 'hooks';
 import useUser from 'libs/useUser';
-import useValidation from './useValidation';
 
 /** update profile logics  */
 const useUpdateProfile = () => {

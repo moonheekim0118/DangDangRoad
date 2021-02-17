@@ -28,7 +28,7 @@ const Anchor = ({
   margin,
   children,
   path,
-}: Props) => {
+}: Props): React.ReactElement => {
   return (
     <Link href={path}>
       <Title

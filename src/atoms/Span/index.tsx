@@ -30,7 +30,7 @@ const Span = ({
   cursor,
   margin,
   spanClickHandler,
-}: Props) => {
+}: Props): React.ReactElement => {
   return (
     <StyledSpan
       fontsize={fontsize}

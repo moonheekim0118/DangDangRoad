@@ -21,7 +21,7 @@ const Button = ({
   hoverColor,
   type = 'button',
   onClick,
-}: Props) => {
+}: Props): React.ReactElement => {
   return (
     <Container
       type={type}

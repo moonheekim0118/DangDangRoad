@@ -1,17 +1,13 @@
 import React from 'react';
 import Loading from 'components/Loading';
-import Avatar from 'atoms/Avatar';
-import Button from 'atoms/Button';
-import Input from 'atoms/Input';
-import Icon from 'atoms/Icon';
-import Alert from 'atoms/Alert';
-import useUpdaetProfile from 'hooks/useUpdateProfile';
+import { useUpdaetProfile } from 'hooks';
+import { Avatar, Button, Input, Icon, Alert } from 'atoms';
 import { inputId } from 'types/Input';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import * as S from '../style';
 
-const UpdateProfile = () => {
+const UpdateProfile = (): React.ReactElement => {
   const data = useUpdaetProfile();
 
   return data.user ? (

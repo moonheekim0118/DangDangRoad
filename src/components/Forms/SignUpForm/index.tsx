@@ -1,8 +1,6 @@
 import React from 'react';
-import Input from 'atoms/Input';
-import Button from 'atoms/Button';
-import Alert from 'atoms/Alert';
-import useSignUp from 'hooks/useSignUp';
+import { useSignUp } from 'hooks';
+import { Input, Button, Alert } from 'atoms';
 import { inputId } from 'types/Input';
 import * as S from '../style';
 

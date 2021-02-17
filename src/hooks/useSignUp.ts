@@ -1,11 +1,8 @@
 import { useCallback } from 'react';
 import Router from 'next/router';
 import { signUp } from 'api/sign';
+import { useAlert, useValidation, useMatch, useInput } from 'hooks';
 import * as checkers from 'util/signUpValidations';
-import useAlert from 'hooks/useAlert';
-import useValidation from 'hooks/useValidation';
-import useMatch from 'hooks/useMatch';
-import useInput from 'hooks/useInput';
 
 // sign up logic
 const useSignUp = () => {

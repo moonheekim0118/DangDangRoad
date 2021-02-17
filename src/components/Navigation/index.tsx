@@ -1,6 +1,6 @@
 import React from 'react';
 import { colorCode } from 'types/Color';
-import Anchor from 'atoms/Anchor';
+import { Anchor } from 'atoms';
 import styled from '@emotion/styled';
 
 interface Props {

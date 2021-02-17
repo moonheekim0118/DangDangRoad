@@ -1,10 +1,9 @@
 import React from 'react';
-import Input from 'atoms/Input';
-import Button from 'atoms/Button';
+import { Input, Button } from 'atoms';
 import { inputId } from 'types/Input';
 import * as S from '../style';
 
-const UpdatePassword = () => {
+const UpdatePassword = (): React.ReactElement => {
   function temp() {}
   return (
     <S.ContentsContainer>

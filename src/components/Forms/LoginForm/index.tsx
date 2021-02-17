@@ -1,10 +1,8 @@
 import React from 'react';
 import GoogleButton from 'react-google-button';
-import Input from 'atoms/Input';
-import Button from 'atoms/Button';
-import Alert from 'atoms/Alert';
-import useSignIn from 'hooks/useSignIn';
+import { Input, Button, Alert } from 'atoms';
 import { inputId } from 'types/Input';
+import { useSignIn } from 'hooks';
 import * as S from '../style';
 
 const LoginForm = (): React.ReactElement => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Icon from 'atoms/Icon';
+import { Icon } from 'atoms';
 import { colorCode } from 'types/Color';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
@@ -17,7 +17,10 @@ interface Props {
   size: 'small' | 'normal' | 'large';
 }
 
-const Avatar = ({ imgUrl = '', size = 'normal' }: Props) => {
+const Avatar = ({
+  imgUrl = '',
+  size = 'normal',
+}: Props): React.ReactElement => {
   return imgUrl ? (
     <StyledAvatar src={imgUrl} size={size} />
   ) : (

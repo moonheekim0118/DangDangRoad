@@ -1,8 +1,7 @@
 import React from 'react';
-import Span from 'atoms/Span';
-import Anchor from 'atoms/Anchor';
+import Router from 'next/router';
+import { Span, Anchor } from 'atoms';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 
 interface DataTypes {
   key: number;
@@ -16,9 +15,8 @@ interface Props {
   datas: Array<DataTypes>;
 }
 
-const PageMenu = ({ datas }: Props) => {
-  const router = useRouter();
-  const pathname = router.pathname;
+const PageMenu = ({ datas }: Props): React.ReactElement => {
+  const pathname = Router.pathname;
 
   return (
     <Container>

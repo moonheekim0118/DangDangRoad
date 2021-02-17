@@ -1,8 +1,7 @@
 import React from 'react';
-import Icon from 'atoms/Icon';
-import Span from 'atoms/Span';
 import useInput from 'hooks/useInput';
 import styled from '@emotion/styled';
+import { Icon, Span } from 'atoms';
 import { colorCode } from 'types/Color';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
