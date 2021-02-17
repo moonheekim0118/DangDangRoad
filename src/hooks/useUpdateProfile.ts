@@ -2,11 +2,21 @@ import { useEffect, useCallback, useState, useRef } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { uploadImage } from 'api/storage';
 import { updateProfile } from 'api/user';
+import useAlert from 'hooks/useAlert';
 import useUser from 'libs/useUser';
 import useValidation from './useValidation';
 
 const useUpdateProfile = () => {
   const { user } = useUser();
+
+  // alert
+  const [
+    alertMessage,
+    setAlertMessage,
+    alertType,
+    setAlertType,
+    closeAlertHandler,
+  ] = useAlert();
 
   // Image Input Ref
   const imageInput = useRef<HTMLInputElement>(null);
@@ -24,9 +34,6 @@ const useUpdateProfile = () => {
   ] = useValidation({
     characterCheck: nicknameValidatorForUpdate,
   });
-
-  // alert message
-  const [alertType, setAlertType] = useState<'error' | 'noti' | ''>('');
 
   useEffect(() => {
     if (user && user.isLoggedIn) {
@@ -80,8 +87,10 @@ const useUpdateProfile = () => {
         const response = await updateProfile(user.userId, updateContets);
         if (!response.isError) {
           setAlertType('noti');
+          setAlertMessage('수정되었습니다.');
         } else {
           setAlertType('error');
+          setAlertMessage('잠시후 다시 시도해주세요');
         }
       } catch (error) {
         setAlertType('error');
@@ -99,7 +108,9 @@ const useUpdateProfile = () => {
     ClickImageUploadHandler,
     imageUrl,
     UploadImageHanlder,
+    alertMessage,
     alertType,
+    closeAlertHandler,
     SaveHandler,
   ] as const;
 };

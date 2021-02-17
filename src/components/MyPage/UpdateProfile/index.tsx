@@ -21,20 +21,18 @@ const UpdateProfile = () => {
     ClickImageUploadHandler,
     imageUrl,
     UploadImageHanlder,
+    alertMessage,
     alertType,
+    closeAlertHandler,
     SaveHandler,
   ] = useUpdaetProfile();
 
   return user ? (
     <S.ContentsContainer>
-      {alertType !== '' && (
-        <S.AlertContainer>
-          {alertType === 'noti' ? (
-            <Alert type={alertType}>수정되었습니다.</Alert>
-          ) : (
-            <Alert type={alertType}>잠시후 다시 시도해주세요.</Alert>
-          )}
-        </S.AlertContainer>
+      {alertMessage !== '' && (
+        <Alert type={alertType} closeAlertHandelr={closeAlertHandler}>
+          {alertMessage}
+        </Alert>
       )}
       <div>
         <AvatarEditor />

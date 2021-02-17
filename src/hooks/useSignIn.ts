@@ -1,26 +1,33 @@
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 import { signIn, googleSignIn } from 'api/sign';
+import { checkEmail } from 'util/signUpValidations';
+import Router from 'next/router';
+import useAlert from 'hooks/useAlert';
 import useInput from 'hooks/useInput';
 
 /** sign in logics */
 const useSignIn = () => {
-  const router = useRouter();
+  const [
+    alertMessage,
+    setAlertMessage,
+    alertType,
+    setAlertType,
+    closeAlertHandler,
+  ] = useAlert();
   const [email, emailChangeHandler] = useInput();
   const [password, PasswordChangeHandler] = useInput();
-  const [ErrorMessage, setErrorMessage] = useState<string>('');
 
   const SignInHandler = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      if (email.length === 0 || password.length === 0) {
-        return setErrorMessage('정보를 올바르게 입력해주세요');
+      if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
+        return setAlertMessage('정보를 올바르게 입력해주세요');
       }
       const response = await signIn(email, password);
       if (response.errorMessage) {
-        return setErrorMessage(response.errorMessage);
+        return setAlertMessage(response.errorMessage);
       }
-      router.push('/'); // push to index page
+      Router.push('/'); // push to index page
     },
     [email, password]
   );
@@ -28,9 +35,9 @@ const useSignIn = () => {
   const GoogleSignInHandler = useCallback(async () => {
     const response = await googleSignIn();
     if (response.errorMessage) {
-      return setErrorMessage(response.errorMessage);
+      return setAlertMessage(response.errorMessage);
     }
-    router.push('/');
+    Router.push('/');
   }, []);
 
   return [
@@ -40,7 +47,8 @@ const useSignIn = () => {
     PasswordChangeHandler,
     SignInHandler,
     GoogleSignInHandler,
-    ErrorMessage,
+    alertMessage,
+    closeAlertHandler,
   ] as const;
 };
 
