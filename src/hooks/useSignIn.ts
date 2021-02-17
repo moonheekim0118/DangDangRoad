@@ -1,22 +1,21 @@
 import { useCallback } from 'react';
 import { signIn, googleSignIn } from 'api/sign';
 import { checkEmail } from 'util/signUpValidations';
+import { useAlert, useInput } from 'hooks';
 import Router from 'next/router';
-import useAlert from 'hooks/useAlert';
-import useInput from 'hooks/useInput';
 
 /** sign in logics */
 const useSignIn = () => {
-  const [
-    alertMessage,
-    setAlertMessage,
-    alertType,
-    setAlertType,
-    closeAlertHandler,
-  ] = useAlert();
+  /** alert Message Controller  */
+  const { alertMessage, setAlertMessage, closeAlertHandler } = useAlert();
+
+  /** email */
   const [email, emailChangeHandler] = useInput();
+
+  /** password */
   const [password, PasswordChangeHandler] = useInput();
 
+  /** submit handler */
   const SignInHandler = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -32,6 +31,7 @@ const useSignIn = () => {
     [email, password]
   );
 
+  /** Google sign in handler */
   const GoogleSignInHandler = useCallback(async () => {
     const response = await googleSignIn();
     if (response.errorMessage) {
@@ -40,7 +40,7 @@ const useSignIn = () => {
     Router.push('/');
   }, []);
 
-  return [
+  return {
     email,
     emailChangeHandler,
     password,
@@ -49,7 +49,7 @@ const useSignIn = () => {
     GoogleSignInHandler,
     alertMessage,
     closeAlertHandler,
-  ] as const;
+  };
 };
 
 export default useSignIn;

@@ -2,9 +2,9 @@ import React from 'react';
 import Head from 'next/head';
 import Layout from 'components/Layout';
 import Loading from 'components/Loading';
-import useRouterStatus from 'hooks/useRouterStatus';
 import GlobalStyle from 'globalStyle';
 import fetcher from 'libs/fetcher';
+import { useRouterStatus } from 'hooks';
 import { SWRConfig } from 'swr';
 import { LoginInfoProvider } from 'context/LoginInfo';
 

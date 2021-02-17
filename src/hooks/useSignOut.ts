@@ -6,6 +6,8 @@ import Router from 'next/router';
 /** sign out logic  */
 const useSignOut = () => {
   const dispatch = useLoginInfoDispatch();
+
+  // sign out handler
   const signOutHandler = useCallback(async () => {
     const response = await signOut();
     if (!response.isError) {

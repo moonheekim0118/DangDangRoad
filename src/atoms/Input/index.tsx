@@ -24,7 +24,7 @@ const Input = ({
   error,
   required = false,
   inputChangeHandler,
-}: Props) => {
+}: Props): React.ReactElement => {
   return (
     <Container>
       <Label htmlFor={id} required={required}>

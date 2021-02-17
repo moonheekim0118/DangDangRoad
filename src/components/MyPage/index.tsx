@@ -13,7 +13,11 @@ interface Props {
   children: React.ReactNode;
 }
 
-const MyPage = ({ userInfo, pageName = 'My Reviews', children }: Props) => {
+const MyPage = ({
+  userInfo,
+  pageName = 'My Reviews',
+  children,
+}: Props): React.ReactElement => {
   return (
     <Container>
       <SideContainer>

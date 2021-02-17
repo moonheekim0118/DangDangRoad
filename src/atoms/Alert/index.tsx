@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from 'atoms/Icon';
 import styled from '@emotion/styled';
+import { Icon } from 'atoms';
 import { colorCode } from 'types/Color';
 import {
   faExclamationCircle,
@@ -12,10 +12,14 @@ interface Props {
   /** type of Alert, error or just notification */
   type: 'error' | 'noti';
   /** closing alert handler */
-  closeAlertHandelr: () => void;
+  closeAlertHandler: () => void;
 }
 
-const Alert = ({ children, type, closeAlertHandelr }: Props) => {
+const Alert = ({
+  children,
+  type,
+  closeAlertHandler,
+}: Props): React.ReactElement => {
   // main color
   const mainColor = type === 'error' ? 'red' : 'green';
 
@@ -28,7 +32,7 @@ const Alert = ({ children, type, closeAlertHandelr }: Props) => {
           iconsize={15}
           icon={faTimes}
           color={mainColor}
-          iconClickHandler={closeAlertHandelr}
+          iconClickHandler={closeAlertHandler}
         />
       </CloseIconContainer>
     </Container>

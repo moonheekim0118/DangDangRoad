@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from 'atoms/Avatar';
+import { Avatar } from 'atoms';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -8,7 +8,11 @@ interface Props {
   userImgUrl?: string;
 }
 
-const UserCard = ({ userName, userEmail, userImgUrl }: Props) => {
+const UserCard = ({
+  userName,
+  userEmail,
+  userImgUrl,
+}: Props): React.ReactElement => {
   return (
     <Container>
       <Avatar imgUrl={userImgUrl} size="normal" />

@@ -29,7 +29,7 @@ const Icon = ({
   rotate,
   cursor,
   iconClickHandler,
-}: Props) => {
+}: Props): React.ReactElement => {
   return (
     <StyledIcon
       icon={icon}

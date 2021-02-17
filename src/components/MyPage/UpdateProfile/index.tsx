@@ -1,37 +1,20 @@
 import React from 'react';
 import Loading from 'components/Loading';
-import Avatar from 'atoms/Avatar';
-import Button from 'atoms/Button';
-import Input from 'atoms/Input';
-import Icon from 'atoms/Icon';
-import Alert from 'atoms/Alert';
-import useUpdaetProfile from 'hooks/useUpdateProfile';
+import { useUpdateProfile } from 'hooks';
+import { Avatar, Button, Input, Icon, Alert } from 'atoms';
 import { inputId } from 'types/Input';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import * as S from '../style';
 
-const UpdateProfile = () => {
-  const [
-    user,
-    nickname,
-    nicknameError,
-    NicknameChangeHandler,
-    imageInput,
-    ClickImageUploadHandler,
-    imageUrl,
-    UploadImageHanlder,
-    alertMessage,
-    alertType,
-    closeAlertHandler,
-    SaveHandler,
-  ] = useUpdaetProfile();
+const UpdateProfile = (): React.ReactElement => {
+  const data = useUpdateProfile();
 
-  return user ? (
+  return data.user ? (
     <S.ContentsContainer>
-      {alertMessage !== '' && (
-        <Alert type={alertType} closeAlertHandelr={closeAlertHandler}>
-          {alertMessage}
+      {data.alertMessage !== '' && (
+        <Alert type={data.alertType} closeAlertHandler={data.closeAlertHandler}>
+          {data.alertMessage}
         </Alert>
       )}
       <div>
@@ -42,32 +25,32 @@ const UpdateProfile = () => {
             multiple
             name="image"
             hidden
-            ref={imageInput}
-            onChange={UploadImageHanlder}
+            ref={data.imageInput}
+            onChange={data.UploadImageHanlder}
           />
           <Icon
             iconsize={45}
             icon={faPlus}
             color="white"
             cursor="pointer"
-            iconClickHandler={ClickImageUploadHandler}
+            iconClickHandler={data.ClickImageUploadHandler}
           />
         </IconContainer>
-        <Avatar imgUrl={imageUrl} size="large" />
+        <Avatar imgUrl={data.imageUrl} size="large" />
       </div>
       <Input
         type="text"
         id={inputId.NICKNAME}
-        error={nicknameError}
+        error={data.nicknameError}
         required={true}
-        value={nickname}
-        inputChangeHandler={NicknameChangeHandler}
+        value={data.nickname}
+        inputChangeHandler={data.NicknameChangeHandler}
       />
       <Button
         color="blue"
         hoverColor="light-blue"
         type="submit"
-        onClick={SaveHandler}>
+        onClick={data.SaveHandler}>
         SAVE
       </Button>
     </S.ContentsContainer>

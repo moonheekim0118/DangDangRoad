@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useElement = (id: string) => {
-  const [element, setElement] = useState<Element | null>();
+  const [element, setElement] = useState<Element | null>(null);
 
   useEffect(() => {
     setElement(document.querySelector(`#${id}`));
