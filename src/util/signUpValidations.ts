@@ -29,21 +29,34 @@ export const checkEmptySpace = (value: string): boolean => {
   return !re.test(value);
 };
 
+/** check if there is empty space at the beginning or end
+ *  this will allow value to have Empty Space in the middle of string
+ */
+export const AllowEmptySpaceMiddle = (value: string): boolean => {
+  const re = /^[^\s]+(\s+[^\s]+)*$/;
+  return re.test(value);
+};
+
 /** check if threre is no any spacial characters
  *  return true if there is no special chrarters (passed)
  *  else return false
  */
 export const checkSpecialChars = (value: string): boolean => {
-  const re = /[a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣|0-10]+/;
-  return re.test(value);
+  const re = /[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g;
+  return !re.test(value);
 };
 
 export const nicknameValidator = (value: string): boolean => {
   return (
-    checkLength(value, 10, 2) &&
+    checkLength(value, 20, 2) &&
     checkSpecialChars(value) &&
-    checkEmptySpace(value)
+    AllowEmptySpaceMiddle(value)
   );
+};
+
+/** in Update, empty value could means 'Not gonna change nickname' */
+export const nicknameValidatorForUpdate = (value: string): boolean => {
+  return checkLength(value, 20, 0) && checkSpecialChars(value);
 };
 
 export const passwordValidator = (value: string): boolean => {
