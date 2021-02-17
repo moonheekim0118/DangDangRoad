@@ -13,9 +13,13 @@ interface Props {
 
 const useUser = ({ redirectTo, redirectIfFound = false }: Props = {}): {
   user: UserType;
+  mutateUser: (
+    data?: any,
+    shouldRevalidate?: boolean | undefined
+  ) => Promise<any>;
 } => {
   const dispatch = useLoginInfoDispatch();
-  const { data: user } = useSWR('/api/loginCheck');
+  const { data: user, mutate: mutateUser } = useSWR('/api/loginCheck');
 
   useEffect(() => {
     // after getting data, dispatch this data to Context
@@ -34,7 +38,7 @@ const useUser = ({ redirectTo, redirectIfFound = false }: Props = {}): {
     }
   }, [user, redirectTo, redirectIfFound]);
 
-  return { user };
+  return { user, mutateUser };
 };
 
 export default useUser;
