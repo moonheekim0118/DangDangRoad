@@ -7,13 +7,7 @@ import useInput from 'hooks/useInput';
 
 /** sign in logics */
 const useSignIn = () => {
-  const [
-    alertMessage,
-    setAlertMessage,
-    alertType,
-    setAlertType,
-    closeAlertHandler,
-  ] = useAlert();
+  const { alertMessage, setAlertMessage, closeAlertHandler } = useAlert();
   const [email, emailChangeHandler] = useInput();
   const [password, PasswordChangeHandler] = useInput();
 
@@ -40,7 +34,7 @@ const useSignIn = () => {
     Router.push('/');
   }, []);
 
-  return [
+  return {
     email,
     emailChangeHandler,
     password,
@@ -49,7 +43,7 @@ const useSignIn = () => {
     GoogleSignInHandler,
     alertMessage,
     closeAlertHandler,
-  ] as const;
+  };
 };
 
 export default useSignIn;

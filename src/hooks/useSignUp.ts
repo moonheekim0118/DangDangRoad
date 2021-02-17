@@ -2,39 +2,44 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { signUp } from 'api/sign';
 import * as checkers from 'util/signUpValidations';
+import useAlert from 'hooks/useAlert';
 import useValidation from 'hooks/useValidation';
 import useMatch from 'hooks/useMatch';
 import useInput from 'hooks/useInput';
 
 const useSignUp = () => {
+  const { alertMessage, setAlertMessage, closeAlertHandler } = useAlert();
+
   /** email */
   const router = useRouter();
-  const [email, emailError, EmailChangeHandler, setEmailError] = useValidation({
+  const {
+    value: email,
+    error: emailError,
+    valueChangeHanlder: EmailChangeHandler,
+    setError: setEmailError,
+  } = useValidation({
     characterCheck: checkers.checkEmail,
   });
   /** nickname */
-  const [
-    nickname,
-    nicknameError,
-    NicknameChangeHandler,
-    setNicknameError,
-  ] = useValidation({
+  const {
+    value: nickname,
+    error: nicknameError,
+    valueChangeHanlder: NicknameChangeHandler,
+    setError: setNicknameError,
+  } = useValidation({
     characterCheck: checkers.nicknameValidator,
   });
   /** password */
-  const [
-    password,
-    passwordError,
-    PasswordChangeHandler,
-    setPasswordError,
-  ] = useValidation({
+  const {
+    value: password,
+    error: passwordError,
+    valueChangeHanlder: PasswordChangeHandler,
+    setError: setPasswordError,
+  } = useValidation({
     characterCheck: checkers.passwordValidator,
   });
   /** password check */
   const [passwordCheck, PasswordCheckChangeHandler] = useInput();
-
-  /** general error */
-  const [ErrorMessage, setErrorMessage] = useState<string>('');
 
   const passwordMatch = useMatch({ value: passwordCheck, target: password });
 
@@ -58,7 +63,7 @@ const useSignUp = () => {
       }
       const response = await signUp(email, nickname, password);
       if (response.errorMessage) {
-        return setErrorMessage(response.errorMessage);
+        return setAlertMessage(response.errorMessage);
       }
       router.push('/signUpInProcess');
     },
@@ -74,7 +79,7 @@ const useSignUp = () => {
     ]
   );
 
-  return [
+  return {
     email,
     emailError,
     EmailChangeHandler,
@@ -88,8 +93,9 @@ const useSignUp = () => {
     passwordMatch,
     PasswordCheckChangeHandler,
     SubmitHanlder,
-    ErrorMessage,
-  ] as const;
+    alertMessage,
+    closeAlertHandler,
+  };
 };
 
 export default useSignUp;

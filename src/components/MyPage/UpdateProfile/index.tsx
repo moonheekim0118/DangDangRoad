@@ -12,26 +12,13 @@ import styled from '@emotion/styled';
 import * as S from '../style';
 
 const UpdateProfile = () => {
-  const [
-    user,
-    nickname,
-    nicknameError,
-    NicknameChangeHandler,
-    imageInput,
-    ClickImageUploadHandler,
-    imageUrl,
-    UploadImageHanlder,
-    alertMessage,
-    alertType,
-    closeAlertHandler,
-    SaveHandler,
-  ] = useUpdaetProfile();
+  const data = useUpdaetProfile();
 
-  return user ? (
+  return data.user ? (
     <S.ContentsContainer>
-      {alertMessage !== '' && (
-        <Alert type={alertType} closeAlertHandelr={closeAlertHandler}>
-          {alertMessage}
+      {data.alertMessage !== '' && (
+        <Alert type={data.alertType} closeAlertHandler={data.closeAlertHandler}>
+          {data.alertMessage}
         </Alert>
       )}
       <div>
@@ -42,32 +29,32 @@ const UpdateProfile = () => {
             multiple
             name="image"
             hidden
-            ref={imageInput}
-            onChange={UploadImageHanlder}
+            ref={data.imageInput}
+            onChange={data.UploadImageHanlder}
           />
           <Icon
             iconsize={45}
             icon={faPlus}
             color="white"
             cursor="pointer"
-            iconClickHandler={ClickImageUploadHandler}
+            iconClickHandler={data.ClickImageUploadHandler}
           />
         </IconContainer>
-        <Avatar imgUrl={imageUrl} size="large" />
+        <Avatar imgUrl={data.imageUrl} size="large" />
       </div>
       <Input
         type="text"
         id={inputId.NICKNAME}
-        error={nicknameError}
+        error={data.nicknameError}
         required={true}
-        value={nickname}
-        inputChangeHandler={NicknameChangeHandler}
+        value={data.nickname}
+        inputChangeHandler={data.NicknameChangeHandler}
       />
       <Button
         color="blue"
         hoverColor="light-blue"
         type="submit"
-        onClick={SaveHandler}>
+        onClick={data.SaveHandler}>
         SAVE
       </Button>
     </S.ContentsContainer>

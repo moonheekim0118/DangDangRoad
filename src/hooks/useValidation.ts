@@ -21,7 +21,7 @@ const useValidation = ({ initialValue = '', characterCheck }: Props) => {
     [value]
   );
 
-  return [value, error, valueChangeHanlder, setError, setValue] as const;
+  return { value, error, valueChangeHanlder, setError, setValue };
 };
 
 export default useValidation;

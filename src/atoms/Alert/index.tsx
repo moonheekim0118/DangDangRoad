@@ -12,10 +12,10 @@ interface Props {
   /** type of Alert, error or just notification */
   type: 'error' | 'noti';
   /** closing alert handler */
-  closeAlertHandelr: () => void;
+  closeAlertHandler: () => void;
 }
 
-const Alert = ({ children, type, closeAlertHandelr }: Props) => {
+const Alert = ({ children, type, closeAlertHandler }: Props) => {
   // main color
   const mainColor = type === 'error' ? 'red' : 'green';
 
@@ -28,7 +28,7 @@ const Alert = ({ children, type, closeAlertHandelr }: Props) => {
           iconsize={15}
           icon={faTimes}
           color={mainColor}
-          iconClickHandler={closeAlertHandelr}
+          iconClickHandler={closeAlertHandler}
         />
       </CloseIconContainer>
     </Container>

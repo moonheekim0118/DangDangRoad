@@ -18,13 +18,13 @@ const useAlert = ({ message = '', type = 'error' }: Props = {}) => {
     setAlertMessage('');
   }, []);
 
-  return [
+  return {
     alertMessage,
     setAlertMessage,
     alertType,
     setAlertType,
     closeAlertHandler,
-  ] as const;
+  };
 };
 
 export default useAlert;

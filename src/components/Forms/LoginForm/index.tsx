@@ -8,44 +8,28 @@ import { inputId } from 'types/Input';
 import * as S from '../style';
 
 const LoginForm = (): React.ReactElement => {
-  const [
-    /** email value */
-    email,
-    /** email change handler fucntion */
-    emailChangeHandler,
-    /** password value */
-    password,
-    /** password change handler function */
-    PasswordChangeHandler,
-    /** submit handler function */
-    SubmitHandler,
-    /** google sign in handelr funciton */
-    GoogleSignInHandler,
-    /** error Message */
-    alertMessage,
-    closeAlertHandler,
-  ] = useSignIn();
+  const data = useSignIn();
 
   return (
     <S.Form>
       <S.Title>LOGIN</S.Title>
-      {alertMessage !== '' && (
-        <Alert type="error" closeAlertHandelr={closeAlertHandler}>
-          {alertMessage}
+      {data.alertMessage !== '' && (
+        <Alert type="error" closeAlertHandler={data.closeAlertHandler}>
+          {data.alertMessage}
         </Alert>
       )}
       <Input
         type="text"
         id={inputId.EMAIL}
-        value={email}
-        inputChangeHandler={emailChangeHandler}
+        value={data.email}
+        inputChangeHandler={data.emailChangeHandler}
         required={true}
       />
       <Input
         type="password"
         id={inputId.PASSWORD}
-        value={password}
-        inputChangeHandler={PasswordChangeHandler}
+        value={data.password}
+        inputChangeHandler={data.PasswordChangeHandler}
         required={true}
       />
       <S.ButtonContainer>
@@ -53,10 +37,10 @@ const LoginForm = (): React.ReactElement => {
           color="blue"
           hoverColor="light-blue"
           type="submit"
-          onClick={SubmitHandler}>
+          onClick={data.SignInHandler}>
           LOGIN
         </Button>
-        <GoogleButton onClick={GoogleSignInHandler} />
+        <GoogleButton onClick={data.GoogleSignInHandler} />
       </S.ButtonContainer>
     </S.Form>
   );

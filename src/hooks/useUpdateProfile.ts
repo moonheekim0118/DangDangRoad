@@ -10,28 +10,27 @@ const useUpdateProfile = () => {
   const { user } = useUser();
 
   // alert
-  const [
+  const {
     alertMessage,
     setAlertMessage,
     alertType,
     setAlertType,
     closeAlertHandler,
-  ] = useAlert();
+  } = useAlert();
 
   // Image Input Ref
   const imageInput = useRef<HTMLInputElement>(null);
 
   // Image File
-  const [imageUrl, setImageUrl] = useState<string | undefined>(); // 기본값은..원래 유저 profilePic 값으로 수정하깅
+  const [imageUrl, setImageUrl] = useState<string | undefined>();
 
   // Nickname Input
-  const [
-    nickname,
-    nicknameError,
-    NicknameChangeHandler,
-    setNicknameError,
-    setNickname,
-  ] = useValidation({
+  const {
+    value: nickname,
+    error: nicknameError,
+    valueChangeHanlder: NicknameChangeHandler,
+    setValue: setNickname,
+  } = useValidation({
     characterCheck: nicknameValidatorForUpdate,
   });
 
@@ -99,7 +98,7 @@ const useUpdateProfile = () => {
     [imageUrl, nickname]
   );
 
-  return [
+  return {
     user,
     nickname,
     nicknameError,
@@ -112,7 +111,7 @@ const useUpdateProfile = () => {
     alertType,
     closeAlertHandler,
     SaveHandler,
-  ] as const;
+  };
 };
 
 export default useUpdateProfile;
