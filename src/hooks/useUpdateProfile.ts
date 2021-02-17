@@ -55,7 +55,8 @@ const useUpdateProfile = () => {
     if (!response.isError) {
       setImageUrl(response.url);
     } else {
-      // 에러처리
+      setAlertType('error');
+      setAlertMessage('잠시후 다시 시도해주세요');
     }
   }, []);
 
