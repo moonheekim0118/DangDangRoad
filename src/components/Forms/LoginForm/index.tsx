@@ -22,13 +22,18 @@ const LoginForm = (): React.ReactElement => {
     /** google sign in handelr funciton */
     GoogleSignInHandler,
     /** error Message */
-    ErrorMessage,
+    alertMessage,
+    closeAlertHandler,
   ] = useSignIn();
 
   return (
     <S.Form>
       <S.Title>LOGIN</S.Title>
-      {ErrorMessage.length > 0 && <Alert type="error">{ErrorMessage}</Alert>}
+      {alertMessage !== '' && (
+        <Alert type="error" closeAlertHandelr={closeAlertHandler}>
+          {alertMessage}
+        </Alert>
+      )}
       <Input
         type="text"
         id={inputId.EMAIL}

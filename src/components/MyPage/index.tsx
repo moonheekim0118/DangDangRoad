@@ -84,7 +84,7 @@ const MainTitle = styled.span`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.6rem;
   position: absolute;
-  top: 20px;
+  top: 15px;
   right: 20px;
 
   &::before {

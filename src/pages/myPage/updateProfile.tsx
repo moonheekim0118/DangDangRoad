@@ -9,7 +9,7 @@ const updateProfile = () => {
 
   return user && user.isLoggedIn ? (
     <MyPage userInfo={user}>
-      <UpdateProfile userInfo={user} />
+      <UpdateProfile />
     </MyPage>
   ) : (
     <Loading />
