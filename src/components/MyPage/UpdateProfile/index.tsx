@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from 'components/Loading';
-import { useUpdaetProfile } from 'hooks';
+import { useUpdateProfile } from 'hooks';
 import { Avatar, Button, Input, Icon, Alert } from 'atoms';
 import { inputId } from 'types/Input';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,7 @@ import styled from '@emotion/styled';
 import * as S from '../style';
 
 const UpdateProfile = (): React.ReactElement => {
-  const data = useUpdaetProfile();
+  const data = useUpdateProfile();
 
   return data.user ? (
     <S.ContentsContainer>
