@@ -6,3 +6,7 @@ export const ContentsContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+export const AlertContainer = styled.div`
+  margin: 20px 0;
+`;

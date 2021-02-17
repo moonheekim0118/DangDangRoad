@@ -4,40 +4,72 @@ import Avatar from 'atoms/Avatar';
 import Button from 'atoms/Button';
 import Input from 'atoms/Input';
 import Icon from 'atoms/Icon';
+import Alert from 'atoms/Alert';
+import useUpdaetProfile from 'hooks/useUpdateProfile';
 import { inputId } from 'types/Input';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import * as S from '../style';
-/**
- * 닉네임 수정 가능
- * 아바타 수정 가능
- */
 
-interface Props {
-  userInfo: {
-    nickname: string;
-    profilePic: string;
-  };
-}
-const UpdateProfile = ({ userInfo }: Props) => {
-  function temp() {}
-  return userInfo ? (
+const UpdateProfile = () => {
+  const [
+    user,
+    nickname,
+    nicknameError,
+    NicknameChangeHandler,
+    imageInput,
+    ClickImageUploadHandler,
+    imageUrl,
+    UploadImageHanlder,
+    alertType,
+    SaveHandler,
+  ] = useUpdaetProfile();
+
+  return user ? (
     <S.ContentsContainer>
+      {alertType !== '' && (
+        <S.AlertContainer>
+          {alertType === 'noti' ? (
+            <Alert type={alertType}>수정되었습니다.</Alert>
+          ) : (
+            <Alert type={alertType}>잠시후 다시 시도해주세요.</Alert>
+          )}
+        </S.AlertContainer>
+      )}
       <div>
         <AvatarEditor />
         <IconContainer>
-          <Icon iconsize={45} icon={faPlus} color="white" cursor="pointer" />
+          <input
+            type="file"
+            multiple
+            name="image"
+            hidden
+            ref={imageInput}
+            onChange={UploadImageHanlder}
+          />
+          <Icon
+            iconsize={45}
+            icon={faPlus}
+            color="white"
+            cursor="pointer"
+            iconClickHandler={ClickImageUploadHandler}
+          />
         </IconContainer>
-        <Avatar imgUrl={userInfo.profilePic} size="large" />
+        <Avatar imgUrl={imageUrl} size="large" />
       </div>
       <Input
         type="text"
         id={inputId.NICKNAME}
+        error={nicknameError}
         required={true}
-        value={userInfo.nickname}
-        inputChangeHandler={temp}
+        value={nickname}
+        inputChangeHandler={NicknameChangeHandler}
       />
-      <Button color="blue" hoverColor="light-blue" type="button">
+      <Button
+        color="blue"
+        hoverColor="light-blue"
+        type="submit"
+        onClick={SaveHandler}>
         SAVE
       </Button>
     </S.ContentsContainer>
