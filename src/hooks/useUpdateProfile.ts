@@ -2,12 +2,12 @@ import { useEffect, useCallback, useState, useRef } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { uploadImage } from 'api/storage';
 import { updateProfile } from 'api/user';
+import { useLoginInfoState } from 'context/LoginInfo';
 import { useAlert, useValidation } from 'hooks';
-import useUser from 'libs/useUser';
 
 /** update profile logics  */
 const useUpdateProfile = () => {
-  const { user } = useUser();
+  const user = useLoginInfoState();
 
   /** alert controller */
   const {
@@ -35,7 +35,7 @@ const useUpdateProfile = () => {
   });
 
   useEffect(() => {
-    if (user && user.isLoggedIn) {
+    if (user.isLoaded && user.isLoggedIn) {
       setNickname(user.nickname);
       setImageUrl(user.profilePic);
     }
