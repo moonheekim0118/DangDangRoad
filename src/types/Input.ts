@@ -16,7 +16,7 @@ export const inputContents = {
   [inputId.NICKNAME]: {
     label: '닉네임',
     placeholder: '닉네임을 입력해주세요!',
-    error: '2자~10자 영문, 한글 ,숫자를 사용하세요. ',
+    error: '2자~20자 영문, 한글 ,숫자를 사용하세요. ',
   },
   [inputId.PASSWORD]: {
     label: '비밀번호',
