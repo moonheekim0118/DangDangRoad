@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useModal = (opend) => {
+const useModal = (opend: boolean) => {
   const [showModal, setShowModal] = useState<boolean>(opend);
 
   useEffect(() => {

@@ -43,7 +43,7 @@ const Contents = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 30%);
+  transform: translate(-50%, 150%);
   z-index: 6000;
 `;
 

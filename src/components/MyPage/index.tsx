@@ -1,7 +1,10 @@
 import React from 'react';
 import PageMenu from './PageMenu';
 import UserCard from './UserCard';
+import Modal from 'components/Modal';
 import Loading from 'components/Loading';
+import ConfirmPopUp from 'components/ConfirmPopUp';
+import { useModal } from 'hooks';
 import { colorCode } from 'types/Color';
 import { UserType } from 'types/User';
 import * as Menus from 'util/myPageDatas';
@@ -18,6 +21,8 @@ const MyPage = ({
   pageName = 'My Reviews',
   children,
 }: Props): React.ReactElement => {
+  const [showModal, modalHandler] = useModal(false);
+
   return (
     <Container>
       <SideContainer>
@@ -31,12 +36,18 @@ const MyPage = ({
           <Loading />
         )}
         <PageMenu datas={Menus.GeneralMenu} />
-        <PageMenu datas={Menus.DestoryMenu} />
+        <PageMenu datas={Menus.DestoryMenu} onClick={modalHandler} />
       </SideContainer>
       <MainContainer>
         <MainTitle>{pageName}</MainTitle>
         {children}
       </MainContainer>
+      <Modal showModal={showModal} modalHandler={modalHandler}>
+        <ConfirmPopUp
+          contents="정말 계정을 삭제하시겠습니까?"
+          closeHandler={modalHandler}
+        />
+      </Modal>
     </Container>
   );
 };
