@@ -1,14 +1,17 @@
-import { useEffect, useCallback, useState, useRef } from 'react';
+import { useCallback, useState, useRef } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { uploadImage } from 'api/storage';
 import { updateProfile } from 'api/user';
-import { useLoginInfoState } from 'context/LoginInfo';
 import { useAlert, useValidation } from 'hooks';
+import { UserType, MutateType } from 'types/User';
+
+interface Props {
+  user: UserType;
+  mutate: MutateType;
+}
 
 /** update profile logics  */
-const useUpdateProfile = () => {
-  const user = useLoginInfoState();
-
+const useUpdateProfile = ({ user, mutate }: Props) => {
   /** alert controller */
   const {
     alertMessage,
@@ -22,24 +25,17 @@ const useUpdateProfile = () => {
   const imageInput = useRef<HTMLInputElement>(null);
 
   /** Image url */
-  const [imageUrl, setImageUrl] = useState<string | undefined>();
+  const [imageUrl, setImageUrl] = useState<string>(user.profilePic);
 
   /** nickname */
   const {
     value: nickname,
     error: nicknameError,
     valueChangeHanlder: NicknameChangeHandler,
-    setValue: setNickname,
   } = useValidation({
+    initialValue: user.nickname,
     characterCheck: nicknameValidatorForUpdate,
   });
-
-  useEffect(() => {
-    if (user.isLoaded && user.isLoggedIn) {
-      setNickname(user.nickname);
-      setImageUrl(user.profilePic);
-    }
-  }, [user]);
 
   /** Image Input onClick Handler */
   const ClickImageUploadHandler = useCallback(() => {
@@ -86,6 +82,7 @@ const useUpdateProfile = () => {
         }
         const response = await updateProfile(user.userId, updateContets);
         if (!response.isError) {
+          mutate();
           setAlertType('noti');
           setAlertMessage('수정되었습니다.');
         } else {
