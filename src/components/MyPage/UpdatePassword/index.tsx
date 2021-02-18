@@ -1,34 +1,44 @@
 import React from 'react';
-import { Input, Button } from 'atoms';
+import { Input, Button, Alert } from 'atoms';
 import { inputId } from 'types/Input';
+import { useUpdatePassword } from 'hooks';
 import * as S from '../style';
 
-const UpdatePassword = (): React.ReactElement => {
-  function temp() {}
+interface Props {
+  userId: string;
+}
+
+const UpdatePassword = ({ userId }: Props): React.ReactElement => {
+  const data = useUpdatePassword(userId);
+
   return (
     <S.ContentsContainer>
-      <Input
-        type="password"
-        id={inputId['NOWPASSWORD']}
-        required={true}
-        value={''}
-        inputChangeHandler={temp}
-      />
+      {data.alertMessage !== '' && (
+        <Alert type={data.alertType} closeAlertHandler={data.closeAlertHandler}>
+          {data.alertMessage}
+        </Alert>
+      )}
       <Input
         type="password"
         id={inputId['NEWPASSWORD']}
+        error={data.newPasswordError}
         required={true}
-        value={''}
-        inputChangeHandler={temp}
+        value={data.newPassword}
+        inputChangeHandler={data.NewPasswordChangeHandler}
       />
       <Input
         type="password"
         id={inputId['PASSWORDCHECK']}
+        error={!data.passwordMatch}
         required={true}
-        value={''}
-        inputChangeHandler={temp}
+        value={data.passwordCheck}
+        inputChangeHandler={data.PasswordCheckChangeHandler}
       />
-      <Button color="blue" hoverColor="light-blue" type="button">
+      <Button
+        color="blue"
+        hoverColor="light-blue"
+        type="button"
+        onClick={data.SubmitHanlder}>
         UPDATE
       </Button>
     </S.ContentsContainer>

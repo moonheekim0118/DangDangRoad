@@ -9,7 +9,7 @@ const updatePassword = () => {
 
   return user && user.isLoggedIn ? (
     <MyPage userInfo={user}>
-      <UpdatePassword />
+      <UpdatePassword userId={user.userId} />
     </MyPage>
   ) : (
     <Loading />

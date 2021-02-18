@@ -9,4 +9,5 @@ export { default as useSignOut } from './useSignOut';
 export { default as useSignUp } from './useSignUp';
 export { default as useToggle } from './useToggle';
 export { default as useUpdateProfile } from './useUpdateProfile';
+export { default as useUpdatePassword } from './useUpdatePassword';
 export { default as useValidation } from './useValidation';
