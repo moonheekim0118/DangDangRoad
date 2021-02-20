@@ -6,12 +6,12 @@ interface LoginAction {
   data: UserType;
 }
 
-interface State extends UserType {
-  isLoaded: boolean;
-}
-
 interface LogoutAction {
   type: 'logout';
+}
+
+interface State extends UserType {
+  isLoaded: boolean;
 }
 
 interface LoginInfoProviderProps {
