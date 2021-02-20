@@ -7,11 +7,11 @@ const updatePassword = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
       const userId = req.body.id;
       const newPassword = req.body.newPassword;
-      await updatePasswordAdmin(userId, newPassword);
-      res.status(200).send('ok');
+      const customToken = await updatePasswordAdmin(userId, newPassword);
+      res.status(200).json(customToken);
     }
   } catch (error) {
-    res.status(401).send(error);
+    res.status(401).json(error);
   }
 };
 
