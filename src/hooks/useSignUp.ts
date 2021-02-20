@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import Router from 'next/router';
 import { signUp } from 'api/sign';
-import { useAlert, useValidation, useMatch, useInput } from 'hooks';
+import { useValidation, useMatch, useInput } from 'hooks';
+import { useNotificationDispatch } from 'context/Notification';
 import * as checkers from 'util/signUpValidations';
 
 // sign up logic
 const useSignUp = () => {
-  // alert message controller
-  const { alertMessage, setAlertMessage, closeAlertHandler } = useAlert();
+  const dispatch = useNotificationDispatch();
 
   /** email */
   const {
@@ -65,7 +65,10 @@ const useSignUp = () => {
       }
       const response = await signUp(email, nickname, password);
       if (response.errorMessage) {
-        return setAlertMessage(response.errorMessage);
+        return dispatch({
+          type: 'show',
+          data: { notiType: 'error', message: response.errorMessage },
+        });
       }
       Router.push('/signUpInProcess');
     },
@@ -95,8 +98,6 @@ const useSignUp = () => {
     passwordMatch,
     PasswordCheckChangeHandler,
     SubmitHanlder,
-    alertMessage,
-    closeAlertHandler,
   };
 };
 

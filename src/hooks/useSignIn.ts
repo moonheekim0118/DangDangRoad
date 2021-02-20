@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { signIn, googleSignIn } from 'api/sign';
 import { checkEmail } from 'util/signUpValidations';
-import { useAlert, useInput } from 'hooks';
+import { useInput } from 'hooks';
+import { useNotificationDispatch } from 'context/Notification';
 import Router from 'next/router';
 
 /** sign in logics */
 const useSignIn = () => {
-  /** alert Message Controller  */
-  const { alertMessage, setAlertMessage, closeAlertHandler } = useAlert();
+  const dispatch = useNotificationDispatch();
 
   /** email */
   const [email, emailChangeHandler] = useInput();
@@ -20,11 +20,17 @@ const useSignIn = () => {
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
-        return setAlertMessage('정보를 올바르게 입력해주세요');
+        return dispatch({
+          type: 'show',
+          data: { notiType: 'error', message: '정보를 올바르게 입력해주세요' },
+        });
       }
       const response = await signIn(email, password);
       if (response.errorMessage) {
-        return setAlertMessage(response.errorMessage);
+        return dispatch({
+          type: 'show',
+          data: { notiType: 'error', message: response.errorMessage },
+        });
       }
       Router.push('/'); // push to index page
     },
@@ -35,7 +41,10 @@ const useSignIn = () => {
   const GoogleSignInHandler = useCallback(async () => {
     const response = await googleSignIn();
     if (response.errorMessage) {
-      return setAlertMessage(response.errorMessage);
+      return dispatch({
+        type: 'show',
+        data: { notiType: 'error', message: response.errorMessage },
+      });
     }
     Router.push('/');
   }, []);
@@ -47,8 +56,6 @@ const useSignIn = () => {
     PasswordChangeHandler,
     SignInHandler,
     GoogleSignInHandler,
-    alertMessage,
-    closeAlertHandler,
   };
 };
 

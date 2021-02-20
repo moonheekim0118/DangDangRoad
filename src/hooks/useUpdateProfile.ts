@@ -2,7 +2,8 @@ import { useCallback, useState, useRef } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { uploadImage } from 'api/storage';
 import { updateProfile } from 'api/user';
-import { useAlert, useValidation } from 'hooks';
+import { useValidation } from 'hooks';
+import { useNotificationDispatch } from 'context/Notification';
 import { UserType, MutateType } from 'types/User';
 
 interface Props {
@@ -12,14 +13,7 @@ interface Props {
 
 /** update profile logics  */
 const useUpdateProfile = ({ user, mutate }: Props) => {
-  /** alert controller */
-  const {
-    alertMessage,
-    setAlertMessage,
-    alertType,
-    setAlertType,
-    closeAlertHandler,
-  } = useAlert();
+  const dispatch = useNotificationDispatch();
 
   /** Image Input Ref */
   const imageInput = useRef<HTMLInputElement>(null);
@@ -51,8 +45,13 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
     if (!response.isError) {
       setImageUrl(response.url);
     } else {
-      setAlertType('error');
-      setAlertMessage('잠시후 다시 시도해주세요');
+      return dispatch({
+        type: 'show',
+        data: {
+          notiType: 'noti',
+          message: response.errorMessage || '잠시후 다시 시도해주세요',
+        },
+      });
     }
   }, []);
 
@@ -83,14 +82,24 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
         const response = await updateProfile(user.userId, updateContets);
         if (!response.isError) {
           mutate();
-          setAlertType('noti');
-          setAlertMessage('수정되었습니다.');
+          return dispatch({
+            type: 'show',
+            data: { notiType: 'noti', message: '수정 되었습니다' },
+          });
         } else {
-          setAlertType('error');
-          setAlertMessage('잠시후 다시 시도해주세요');
+          return dispatch({
+            type: 'show',
+            data: {
+              notiType: 'noti',
+              message: response.errorMessage || '잠시후 다시 시도해주세요',
+            },
+          });
         }
       } catch (error) {
-        setAlertType('error');
+        return dispatch({
+          type: 'show',
+          data: { notiType: 'noti', message: '잠시후 다시 시도해주세요' },
+        });
       }
     },
     [imageUrl, nickname]
@@ -105,9 +114,6 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
     ClickImageUploadHandler,
     imageUrl,
     UploadImageHanlder,
-    alertMessage,
-    alertType,
-    closeAlertHandler,
     SaveHandler,
   };
 };

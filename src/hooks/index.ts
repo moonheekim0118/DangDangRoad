@@ -1,4 +1,3 @@
-export { default as useAlert } from './useAlert';
 export { default as useElement } from './useElement';
 export { default as useInput } from './useInput';
 export { default as useMatch } from './useMatch';
