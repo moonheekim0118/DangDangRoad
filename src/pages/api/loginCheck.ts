@@ -1,4 +1,4 @@
-import verifyCookie from 'sdk/verifyCookie';
+import verifyCookie from 'adminSDK/verifyCookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // check and verify Session Cookie

@@ -40,3 +40,22 @@ export const updatePassword = async (
     };
   }
 };
+
+/** Destroy User */
+export const destroyAccount = async (id: string) => {
+  try {
+    const path = '/api/destroyUser';
+    const data = { id };
+    await axios.delete(path, { data });
+    await db.collection('users').doc(id).delete();
+    return {
+      isError: false,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      isError: true,
+      errorMessage: '잠시후 다시 시도해주세요',
+    };
+  }
+};

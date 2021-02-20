@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import updatePasswordAdmin from 'sdk/updatePassword';
+import updatePasswordAdmin from 'adminSDK/updatePassword';
 
 /** update password API for sdk access */
 const updatePassword = async (req: NextApiRequest, res: NextApiResponse) => {
