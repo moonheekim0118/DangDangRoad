@@ -1,19 +1,13 @@
 import { useCallback } from 'react';
-import { useAlert, useValidation, useMatch, useInput } from 'hooks';
+import { useValidation, useMatch, useInput } from 'hooks';
 import { passwordValidator } from 'util/signUpValidations';
+import { useNotificationDispatch } from 'context/Notification';
 import { updatePassword } from 'api/user';
 
 /** user password update logic */
 
 const useUpdatePassword = (userId: string) => {
-  /** alert */
-  const {
-    alertMessage,
-    setAlertMessage,
-    alertType,
-    setAlertType,
-    closeAlertHandler,
-  } = useAlert();
+  const dispatch = useNotificationDispatch();
 
   /** new Password */
   const {
@@ -40,17 +34,25 @@ const useUpdatePassword = (userId: string) => {
         newPasswordError ||
         !passwordMatch
       ) {
-        setAlertType('error');
-        setAlertMessage('정보를 올바르게 입력하세요!');
-        return;
+        return dispatch({
+          type: 'show',
+          data: { notiType: 'error', message: '정보를 올바르게 입력해주세요' },
+        });
       }
       const response = await updatePassword(userId, newPassword);
       if (!response.isError) {
-        setAlertType('noti');
-        setAlertMessage('수정 되었습니다.');
+        return dispatch({
+          type: 'show',
+          data: { notiType: 'noti', message: '수정 되었습니다' },
+        });
       } else {
-        setAlertType('error');
-        setAlertMessage(response.errorMessage || '잠시후 다시 시도해주세요');
+        return dispatch({
+          type: 'show',
+          data: {
+            notiType: 'noti',
+            message: response.errorMessage || '잠시후 다시 시도해주세요',
+          },
+        });
       }
     },
     [newPassword, passwordCheck, newPasswordError, passwordMatch]
@@ -63,9 +65,6 @@ const useUpdatePassword = (userId: string) => {
     passwordCheck,
     PasswordCheckChangeHandler,
     passwordMatch,
-    alertType,
-    alertMessage,
-    closeAlertHandler,
     SubmitHanlder,
   };
 };

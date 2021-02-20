@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSignUp } from 'hooks';
-import { Input, Button, Alert } from 'atoms';
+import { Input, Button } from 'atoms';
 import { inputId } from 'types/Input';
 import * as S from '../style';
 
@@ -9,11 +9,6 @@ const SignUpForm = (): React.ReactElement => {
   return (
     <S.Form signUp={true}>
       <S.Title>SIGN UP</S.Title>
-      {data.alertMessage !== '' && (
-        <Alert type="error" closeAlertHandler={data.closeAlertHandler}>
-          {data.alertMessage}
-        </Alert>
-      )}
       <Input
         type="text"
         id={inputId.EMAIL}

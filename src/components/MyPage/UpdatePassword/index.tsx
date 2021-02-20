@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Button, Alert } from 'atoms';
+import { Input, Button } from 'atoms';
 import { inputId } from 'types/Input';
 import { useUpdatePassword } from 'hooks';
 import * as S from '../style';
@@ -13,11 +13,6 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
 
   return (
     <S.ContentsContainer>
-      {data.alertMessage !== '' && (
-        <Alert type={data.alertType} closeAlertHandler={data.closeAlertHandler}>
-          {data.alertMessage}
-        </Alert>
-      )}
       <Input
         type="password"
         id={inputId['NEWPASSWORD']}

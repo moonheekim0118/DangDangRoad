@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUpdateProfile } from 'hooks';
-import { Avatar, Button, Input, Icon, Alert } from 'atoms';
+import { Avatar, Button, Input, Icon } from 'atoms';
 import { inputId } from 'types/Input';
 import { UserType, MutateType } from 'types/User';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -17,11 +17,6 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
 
   return (
     <S.ContentsContainer>
-      {data.alertMessage !== '' && (
-        <Alert type={data.alertType} closeAlertHandler={data.closeAlertHandler}>
-          {data.alertMessage}
-        </Alert>
-      )}
       <div>
         <AvatarEditor />
         <IconContainer>
