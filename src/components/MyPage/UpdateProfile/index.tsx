@@ -1,16 +1,21 @@
 import React from 'react';
-import Loading from 'components/Loading';
 import { useUpdateProfile } from 'hooks';
 import { Avatar, Button, Input, Icon, Alert } from 'atoms';
 import { inputId } from 'types/Input';
+import { UserType, MutateType } from 'types/User';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import * as S from '../style';
 
-const UpdateProfile = (): React.ReactElement => {
-  const data = useUpdateProfile();
+interface Props {
+  user: UserType;
+  mutate: MutateType;
+}
 
-  return data.user ? (
+const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
+  const data = useUpdateProfile({ user, mutate });
+
+  return (
     <S.ContentsContainer>
       {data.alertMessage !== '' && (
         <Alert type={data.alertType} closeAlertHandler={data.closeAlertHandler}>
@@ -54,8 +59,6 @@ const UpdateProfile = (): React.ReactElement => {
         SAVE
       </Button>
     </S.ContentsContainer>
-  ) : (
-    <Loading />
   );
 };
 

@@ -8,14 +8,14 @@ interface DataTypes {
   icon: React.ReactElement;
   title: string;
   href?: string;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 interface Props {
   datas: Array<DataTypes>;
+  onClick?: () => void;
 }
 
-const PageMenu = ({ datas }: Props): React.ReactElement => {
+const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
   const pathname = Router.pathname;
 
   return (
@@ -23,7 +23,7 @@ const PageMenu = ({ datas }: Props): React.ReactElement => {
       {datas.map((v) => (
         <Menu
           key={v.key}
-          onClick={v.onClick}
+          onClick={onClick}
           warn={v.title === 'destroy account'}
           visiting={pathname === v.href}>
           {v.icon}

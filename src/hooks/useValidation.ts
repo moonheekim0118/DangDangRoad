@@ -4,17 +4,17 @@ interface Props {
   /** initla value for input value */
   initialValue?: string;
   /** input value's character checker function*/
-  characterCheck: (value: string) => boolean;
+  characterCheck?: (value: string) => boolean;
 }
 
-const useValidation = ({ initialValue = '', characterCheck }: Props) => {
+const useValidation = ({ initialValue = '', characterCheck }: Props = {}) => {
   const [value, setValue] = useState<string>(initialValue);
   const [error, setError] = useState<boolean>(false);
 
   const valueChangeHanlder = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const target = (e.target as HTMLInputElement).value;
-      if (!characterCheck(target)) setError(true);
+      if (characterCheck && !characterCheck(target)) setError(true);
       else setError(false);
       setValue(target);
     },

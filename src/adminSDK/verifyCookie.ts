@@ -1,4 +1,3 @@
-import 'firebase/auth';
 import db from 'firebaseConfigs/db';
 import getFirebaseAdmin from 'firebaseConfigs/admin';
 import { AuthResult } from 'types/API';

@@ -5,3 +5,8 @@ export interface UserType {
   nickname: string;
   profilePic: string;
 }
+
+export type MutateType = (
+  data?: any,
+  shouldRevalidate?: boolean | undefined
+) => Promise<any>;
