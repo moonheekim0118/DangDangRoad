@@ -1,5 +1,4 @@
 import React from 'react';
-import Tag from 'components/Tag';
 import { Icon } from 'atoms';
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons';
 import styled from '@emotion/styled';
@@ -7,11 +6,6 @@ import styled from '@emotion/styled';
 const Preview = () => {
   return (
     <Container>
-      <TagContainer>
-        <Tag text="서울" size="large" />
-        <Tag text="서울" size="large" />
-        <Tag text="서울" size="large" />
-      </TagContainer>
       <Post>
         <Overlay>
           <Description>
@@ -28,16 +22,6 @@ const Preview = () => {
     </Container>
   );
 };
-
-const TagContainer = styled.div`
-  width: 100%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  top: -50%;
-  left: 50%;
-  transform: translateX(-50%);
-`;
 
 const Container = styled.div`
   margin-top: 50px;
