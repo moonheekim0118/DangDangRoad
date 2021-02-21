@@ -3,10 +3,14 @@ import { Icon } from 'atoms';
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons';
 import styled from '@emotion/styled';
 
-const Preview = () => {
+interface Props {
+  openPostModal: (e: React.MouseEvent<HTMLDivElement>) => void;
+}
+
+const Preview = ({ openPostModal }: Props) => {
   return (
     <Container>
-      <Post>
+      <Post onClick={openPostModal}>
         <Overlay>
           <Description>
             <div>
