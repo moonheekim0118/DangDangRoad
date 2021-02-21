@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { useElement } from 'hooks';
 import styled from '@emotion/styled';
@@ -16,11 +16,16 @@ const Modal = ({
 }: Props): React.ReactElement => {
   const root = useElement('modal-root');
 
+  const ContentsHandler = useCallback((e) => {
+    e.stopPropagation();
+  }, []);
+
   return showModal && root
     ? ReactDOM.createPortal(
         <>
-          <Overlay onClick={modalHandler} />
-          <Contents>{children}</Contents>
+          <Overlay onClick={modalHandler}>
+            <Contents onClick={ContentsHandler}>{children}</Contents>
+          </Overlay>
         </>,
         root
       )
@@ -35,17 +40,13 @@ const Overlay = styled.div`
   bottom: 0;
   width: 100%;
   height: 100%;
+  display: grid;
+  place-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 5000;
 `;
 
 const Contents = styled.section`
-  position: absolute;
-  top: 150px;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
   z-index: 6000;
 `;
 
