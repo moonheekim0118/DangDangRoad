@@ -3,7 +3,6 @@ import Link from 'next/Link';
 import Image from 'next/image';
 import useUser from 'libs/useUser';
 import styled from '@emotion/styled';
-import Map from 'components/Map';
 import { Button } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
 
@@ -42,7 +41,6 @@ const Index = (): React.ReactElement => {
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
-      <Map />
     </Container>
   );
 };
