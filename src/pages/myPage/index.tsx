@@ -7,7 +7,6 @@ import useUser from 'libs/useUser';
 const myPage = (): React.ReactElement => {
   const { user } = useUser({ redirectTo: '/login' });
 
-  console.log(user);
   return user && user.isLoggedIn ? (
     <MyPage userInfo={user}>
       <MyReviews />
