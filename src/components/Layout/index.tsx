@@ -10,6 +10,7 @@ interface Props {
 const Layout = ({ children }: Props): React.ReactElement => {
   return (
     <Container>
+      <div id="modal-root" />
       <Header />
       <MainContents>{children}</MainContents>
       <Footer />
@@ -21,7 +22,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 0 auto 1fr auto;
   background-color: #fff;
 `;
 

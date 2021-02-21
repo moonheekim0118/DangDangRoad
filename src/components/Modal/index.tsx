@@ -39,11 +39,13 @@ const Overlay = styled.div`
   z-index: 5000;
 `;
 
-const Contents = styled.div`
+const Contents = styled.section`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 150%);
+  top: 150px;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
   z-index: 6000;
 `;
 
