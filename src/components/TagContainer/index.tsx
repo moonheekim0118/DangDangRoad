@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Tag from 'atoms/Tag';
 import styled from '@emotion/styled';
 
@@ -27,4 +27,4 @@ const Container = styled.div`
   align-items: center;
 `;
 
-export default TagContainer;
+export default memo(TagContainer);
