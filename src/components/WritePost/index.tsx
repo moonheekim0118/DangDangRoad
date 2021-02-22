@@ -4,7 +4,7 @@ import Map from 'components/Map';
 import RadioBox from 'components/RadioBox';
 import { useInput } from 'hooks';
 import { colorCode } from 'types/Color';
-import { Title } from 'atoms';
+import { Title, Button } from 'atoms';
 
 const list = [
   { id: 'yes', value: '있어요' },
@@ -33,13 +33,28 @@ const WritePost = () => {
             </Label>
             <TextArea id="description" cols={15}></TextArea>
           </Description>
+          <RadioContainer>
+            <RadioBox
+              selectedValue={parkingLot}
+              selectHandler={parkingLotHandler}
+              title="주차장 잇냐"
+              list={list}
+            />
+            <RadioBox
+              selectedValue={parkingLot}
+              selectHandler={parkingLotHandler}
+              title="주차장 잇냐"
+              list={list}
+            />
+            <RadioBox
+              selectedValue={parkingLot}
+              selectHandler={parkingLotHandler}
+              title="주차장 잇냐"
+              list={list}
+            />
+          </RadioContainer>
+          <Button color="blue">저장하기</Button>
         </ReviewContainer>
-        <RadioBox
-          selectedValue={parkingLot}
-          selectHandler={parkingLotHandler}
-          title="주차장 잇냐"
-          list={list}
-        />
       </MainContainer>
     </Container>
   );
@@ -118,6 +133,13 @@ const TextArea = styled.textarea`
   &:focus {
     outline: none;
   }
+`;
+
+const RadioContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 export default WritePost;
