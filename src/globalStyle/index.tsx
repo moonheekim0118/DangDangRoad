@@ -15,6 +15,7 @@ const GlobalStyle = () => {
         html,
         body,
         #__next {
+          overflow-x: hidden;
           width: 100%;
           height: 100%;
         }
