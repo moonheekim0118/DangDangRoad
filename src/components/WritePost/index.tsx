@@ -1,10 +1,20 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Map from 'components/Map';
+import RadioBox from 'components/RadioBox';
+import { useInput } from 'hooks';
 import { colorCode } from 'types/Color';
 import { Title } from 'atoms';
 
+const list = [
+  { id: 'yes', value: '있어요' },
+  { id: 'no', value: '없어요' },
+  { id: 'dontknow', value: '몰라요' },
+];
+
 const WritePost = () => {
+  const [parkingLot, parkingLotHandler] = useInput();
+
   return (
     <Container>
       <TopContainer>
@@ -24,6 +34,12 @@ const WritePost = () => {
             <TextArea id="description" cols={15}></TextArea>
           </Description>
         </ReviewContainer>
+        <RadioBox
+          selectedValue={parkingLot}
+          selectHandler={parkingLotHandler}
+          title="주차장 잇냐"
+          list={list}
+        />
       </MainContainer>
     </Container>
   );
