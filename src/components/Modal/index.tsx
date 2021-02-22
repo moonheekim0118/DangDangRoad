@@ -16,16 +16,11 @@ const Modal = ({
 }: Props): React.ReactElement => {
   const root = useElement('modal-root');
 
-  const ContentsHandler = useCallback((e) => {
-    e.stopPropagation();
-  }, []);
-
   return showModal && root
     ? ReactDOM.createPortal(
         <>
-          <Overlay onClick={modalHandler}>
-            <Contents onClick={ContentsHandler}>{children}</Contents>
-          </Overlay>
+          <Overlay onClick={modalHandler} />
+          {children}
         </>,
         root
       )
@@ -40,14 +35,8 @@ const Overlay = styled.div`
   bottom: 0;
   width: 100%;
   height: 100%;
-  display: grid;
-  place-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 5000;
-`;
-
-const Contents = styled.section`
-  z-index: 6000;
 `;
 
 export default Modal;

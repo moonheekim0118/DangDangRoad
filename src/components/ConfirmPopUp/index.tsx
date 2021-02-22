@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { baseModalStyle } from 'util/baseStyle';
 
 interface Props {
   /** contents of pop up */
@@ -28,6 +29,7 @@ const ConfirmPopUp = ({ contents, closeHandler, submitHandler }: Props) => {
 };
 
 const Container = styled.div`
+  ${baseModalStyle}
   display: flex;
   flex-direction: column;
   width: 310px;

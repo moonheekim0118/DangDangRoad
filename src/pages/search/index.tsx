@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useModal } from 'hooks';
 import Modal from 'components/Modal';
 import WriteButton from 'components/WriteButton';
+import WritePost from 'components/WritePost';
 import TagContainer from 'components/TagContainer';
 import Router from 'next/router';
 import Preview from 'components/Preview';
@@ -58,7 +59,7 @@ const SearchMain = () => {
       <WriteButton openWriteModal={writeOpenHanlder} />
       <Preview openPostModal={singlePostOpenHanlder} />
       <Modal showModal={showWriteModal} modalHandler={writeModeCloseHandler}>
-        우히히
+        <WritePost />
       </Modal>
       <Modal
         showModal={showSinglePostModal}
