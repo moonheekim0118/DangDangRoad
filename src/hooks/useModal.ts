@@ -9,7 +9,9 @@ const useModal = (opend: boolean) => {
 
   useEffect(() => {
     if (showModal) {
-      document.body.style.overflow = 'hidden'; // modal open 시 overflow 감추기
+      document.body.style.overflowY = 'hidden'; // modal open 시 overflow 감추기
+    } else {
+      document.body.style.overflowY = 'auto';
     }
   }, [showModal]);
 
