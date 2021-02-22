@@ -8,7 +8,7 @@ const updateProfile = () => {
   const { user, mutateUser } = useUser({ redirectTo: '/login' });
 
   return user && user.isLoggedIn ? (
-    <MyPage userInfo={user}>
+    <MyPage userInfo={user} pageName="update Profile">
       <UpdateProfile user={user} mutate={mutateUser} />
     </MyPage>
   ) : (

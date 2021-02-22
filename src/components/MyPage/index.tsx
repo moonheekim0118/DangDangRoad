@@ -4,8 +4,8 @@ import UserCard from './UserCard';
 import Modal from 'components/Modal';
 import Loading from 'components/Loading';
 import ConfirmPopUp from 'components/ConfirmPopUp';
+import { Title } from 'atoms';
 import { useDestroyAccount } from 'hooks';
-import { colorCode } from 'types/Color';
 import { UserType } from 'types/User';
 import * as Menus from 'util/myPageDatas';
 import styled from '@emotion/styled';
@@ -39,7 +39,9 @@ const MyPage = ({
         <PageMenu datas={Menus.DestoryMenu} onClick={data.modalHandler} />
       </SideContainer>
       <MainContainer>
-        <MainTitle>{pageName}</MainTitle>
+        <TitleContainer>
+          <Title>{pageName}</Title>
+        </TitleContainer>
         {children}
       </MainContainer>
       <Modal showModal={data.showModal} modalHandler={data.modalHandler}>
@@ -96,31 +98,10 @@ const MainContainer = styled.article`
   }
 `;
 
-const MainTitle = styled.span`
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 1.6rem;
+const TitleContainer = styled.span`
   position: absolute;
   top: 15px;
   right: 20px;
-
-  &::before {
-    content: '';
-    position: absolute;
-    display: inline-block;
-    top: 0px;
-    left: -20px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: ${colorCode['blue']};
-  }
-
-  @media only screen and (max-width: 500px) {
-    position: relative;
-    top: 0;
-    right: 0;
-    margin: 20px 0;
-  }
 `;
 
 export default MyPage;
