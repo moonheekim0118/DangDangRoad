@@ -33,28 +33,33 @@ const WritePost = () => {
             </Label>
             <TextArea id="description" cols={15}></TextArea>
           </Description>
-          <RadioContainer>
-            <RadioBox
-              selectedValue={parkingLot}
-              selectHandler={parkingLotHandler}
-              title="주차장 잇냐"
-              list={list}
-            />
-            <RadioBox
-              selectedValue={parkingLot}
-              selectHandler={parkingLotHandler}
-              title="주차장 잇냐"
-              list={list}
-            />
-            <RadioBox
-              selectedValue={parkingLot}
-              selectHandler={parkingLotHandler}
-              title="주차장 잇냐"
-              list={list}
-            />
-          </RadioContainer>
-          <Button color="blue">저장하기</Button>
+          <PlaceInfo>
+            <Label>장소에대해 알려주세요 🌠</Label>
+            <RadioContainer>
+              <RadioBox
+                selectedValue={parkingLot}
+                selectHandler={parkingLotHandler}
+                title="주차장 잇냐"
+                list={list}
+              />
+              <RadioBox
+                selectedValue={parkingLot}
+                selectHandler={parkingLotHandler}
+                title="주차장 잇냐"
+                list={list}
+              />
+              <RadioBox
+                selectedValue={parkingLot}
+                selectHandler={parkingLotHandler}
+                title="주차장 잇냐"
+                list={list}
+              />
+            </RadioContainer>
+          </PlaceInfo>
         </ReviewContainer>
+        <ButtonContainer>
+          <Button color="blue">저장하기</Button>
+        </ButtonContainer>
       </MainContainer>
     </Container>
   );
@@ -63,6 +68,7 @@ const WritePost = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 25px;
   width: 100%;
   height: 100%;
   z-index: 5000;
@@ -70,9 +76,8 @@ const Container = styled.div`
 
 const TopContainer = styled.div`
   width: 100%;
-  max-height: 50px;
+  height: 50px;
   padding: 35px 80px;
-  margin-bottom: 20px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -83,7 +88,7 @@ const TopContainer = styled.div`
 const MainContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 100px;
+  gap: 70px;
   flex-wrap: wrap;
 `;
 
@@ -135,11 +140,21 @@ const TextArea = styled.textarea`
   }
 `;
 
+const PlaceInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const RadioContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+`;
+
+const ButtonContainer = styled.div`
+  width: 50%;
 `;
 
 export default WritePost;

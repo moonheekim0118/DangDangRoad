@@ -31,12 +31,13 @@ const RadioBox = ({ selectedValue, selectHandler, title, list }: Props) => {
 };
 
 const Container = styled.div`
-  padding: 25px;
+  padding: 10px 25px;
 `;
-const Title = styled.p`
+
+const Title = styled.span`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.2rem;
-  margin: 15px 0;
+  margin-bottom: 15px;
 `;
 
 export default RadioBox;
