@@ -1,0 +1,109 @@
+import { useEffect, useState, useCallback } from 'react';
+import { useElement, useInput } from 'hooks';
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
+let markers: any[] = [];
+
+const useSearchMap = () => {
+  const container = useElement('map');
+  const [map, setMap] = useState<any>();
+  const [placeData, setPlacesData] = useState<any>();
+  const [pagination, setPagination] = useState<any>();
+  const [keyword, keywordChangeHandler] = useInput();
+  const [ps, setPs] = useState<any>();
+  const [infoWindow, setInfoWindow] = useState<any>();
+
+  useEffect(() => {
+    if (container) {
+      // when client is loaded
+      const { kakao } = window;
+      const options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      };
+      setMap(new kakao.maps.Map(container, options));
+      setPs(new kakao.maps.services.Places());
+      setInfoWindow(new kakao.maps.InfoWindow({ zIndex: 1 }));
+    }
+  }, [container]);
+
+  const addMarkers = useCallback(
+    (position, idx, title) => {
+      if (container) {
+        const { kakao } = window;
+        let imageSrc =
+            'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
+          imageSize = new kakao.maps.Size(36, 37),
+          imgOptions = {
+            spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+            spriteOrigin: new kakao.maps.Point(0, idx * 46 + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+            offset: new kakao.maps.Point(13, 37), // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+          },
+          markerImage = new kakao.maps.MarkerImage(
+            imageSrc,
+            imageSize,
+            imgOptions
+          ),
+          marker = new kakao.maps.Marker({
+            position: position, // 마커의 위치
+            image: markerImage,
+          });
+        marker.setMap(map);
+        markers.push(marker);
+        return marker;
+      }
+    },
+    [container, map]
+  );
+
+  // after search, this cb function will get Infomations about search result
+  // data : search result Data
+  // status : search Status
+  // pagination : result data's pages infos
+  const placeSearchCB = useCallback((data, stauts, pagination) => {
+    if (data.length === 0) {
+      return alert('검색결과가 없습니다.');
+    }
+    console.log(data);
+    console.log(pagination);
+    setPlacesData(data); // update Data States
+    // setPagination(pagination); // update Pagination State
+  }, []);
+
+  // SearchButton Click handler
+  const searchHadler = useCallback(() => {
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+      return alert('키워드를 입력해주세요');
+    }
+    if (ps) {
+      ps.keywordSearch(keyword, placeSearchCB);
+    }
+  }, [keyword, ps]);
+
+  // pagination - page click handler function
+  const pageClickHandler = useCallback(
+    (index: number) => () => {
+      if (pagination) {
+        pagination.gotoPage(index);
+      }
+    },
+    [pagination]
+  );
+
+  return {
+    map,
+    keyword,
+    keywordChangeHandler,
+    searchHadler,
+    placeData,
+    pagination,
+    pageClickHandler,
+  };
+};
+
+export default useSearchMap;

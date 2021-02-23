@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Map from 'components/Map';
+import Map from 'components/Map/SearchMap';
 import RadioBox from 'components/RadioBox';
 import { useWritePost } from 'hooks';
 import { colorCode } from 'types/Color';
