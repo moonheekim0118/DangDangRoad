@@ -1,16 +1,5 @@
 import React, { useReducer, createContext, useContext } from 'react';
-
-interface ShowNotificationAction {
-  type: 'show';
-  data: {
-    notiType: 'error' | 'noti';
-    message: string;
-  }; // message
-}
-
-interface HideNotificationAction {
-  type: 'hide';
-}
+import * as T from 'types/Context';
 
 interface State {
   notiType: 'error' | 'noti' | null;
@@ -22,7 +11,7 @@ interface NotificationProviderProps {
 }
 
 type Dispatch = (
-  action: ShowNotificationAction | HideNotificationAction
+  action: T.ShowNotificationAction | T.HideNotificationAction
 ) => void;
 
 const NotificationStateContext = createContext<State | undefined>(undefined);
@@ -32,7 +21,7 @@ const NotificationDispatchContext = createContext<Dispatch | undefined>(
 
 const NotificationReducer = (
   state: State,
-  action: ShowNotificationAction | HideNotificationAction
+  action: T.ShowNotificationAction | T.HideNotificationAction
 ) => {
   switch (action.type) {
     case 'show': {

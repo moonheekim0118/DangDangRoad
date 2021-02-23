@@ -1,5 +1,6 @@
 import { useCallback, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
+import { showError } from 'action';
 import { useInput, useValidation } from 'hooks';
 
 const freeTextLengthCheck = (value) => {
@@ -35,13 +36,7 @@ const useWritePost = () => {
     const files = e.target.files;
     /** can upload 3 image file */
     if (files.length > 3) {
-      return dispatch({
-        type: 'show',
-        data: {
-          notiType: 'error',
-          message: '이미지는 최대 3장까지 업로드 가능합니다.',
-        },
-      });
+      return dispatch(showError('이미지는 최대 3장까지 업로드 가능합니다.'));
     }
   }, []);
 

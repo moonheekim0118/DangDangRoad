@@ -4,7 +4,8 @@ import { uploadImage } from 'api/storage';
 import { updateProfile } from 'api/user';
 import { useValidation } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
-import { UserType, MutateType } from 'types/User';
+import { UserType, MutateType } from 'types/user';
+import * as Action from 'action';
 
 interface Props {
   user: UserType;
@@ -45,13 +46,9 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
     if (!response.isError) {
       setImageUrl(response.url);
     } else {
-      return dispatch({
-        type: 'show',
-        data: {
-          notiType: 'noti',
-          message: response.errorMessage || '잠시후 다시 시도해주세요',
-        },
-      });
+      return dispatch(
+        Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
+      );
     }
   }, []);
 
@@ -82,24 +79,16 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
         const response = await updateProfile(user.userId, updateContets);
         if (!response.isError) {
           mutate();
-          return dispatch({
-            type: 'show',
-            data: { notiType: 'noti', message: '수정 되었습니다' },
-          });
+          return dispatch(Action.showNoti('수정 되었습니다'));
         } else {
-          return dispatch({
-            type: 'show',
-            data: {
-              notiType: 'noti',
-              message: response.errorMessage || '잠시후 다시 시도해주세요',
-            },
-          });
+          return dispatch(
+            Action.showError(
+              response.errorMessage || '잠시후 다시 시도해주세요'
+            )
+          );
         }
       } catch (error) {
-        return dispatch({
-          type: 'show',
-          data: { notiType: 'noti', message: '잠시후 다시 시도해주세요' },
-        });
+        return dispatch(Action.showError('잠시후 다시 시도해주세요'));
       }
     },
     [imageUrl, nickname]

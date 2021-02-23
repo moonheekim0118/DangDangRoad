@@ -1,5 +1,5 @@
 import React, { useReducer, createContext, useContext } from 'react';
-import { UserType } from 'types/User';
+import { UserType } from 'types/user';
 
 interface LoginAction {
   type: 'login';
