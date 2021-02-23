@@ -11,3 +11,4 @@ export { default as useUpdateProfile } from './useUpdateProfile';
 export { default as useUpdatePassword } from './useUpdatePassword';
 export { default as useDestroyAccount } from './useDestroyAccount';
 export { default as useValidation } from './useValidation';
+export { default as useWritePost } from './useWritePost';

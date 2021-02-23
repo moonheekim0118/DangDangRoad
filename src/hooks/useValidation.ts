@@ -12,8 +12,12 @@ const useValidation = ({ initialValue = '', characterCheck }: Props = {}) => {
   const [error, setError] = useState<boolean>(false);
 
   const valueChangeHanlder = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const target = (e.target as HTMLInputElement).value;
+    (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+      const target = (e.target as HTMLInputElement | HTMLTextAreaElement).value;
       if (characterCheck && !characterCheck(target)) setError(true);
       else setError(false);
       setValue(target);

@@ -2,18 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Map from 'components/Map';
 import RadioBox from 'components/RadioBox';
-import { useInput } from 'hooks';
+import { useWritePost } from 'hooks';
 import { colorCode } from 'types/Color';
 import { Title, Button } from 'atoms';
-
-const list = [
-  { id: 'yes', value: '있어요' },
-  { id: 'no', value: '없어요' },
-  { id: 'dontknow', value: '몰라요' },
-];
+import * as list from 'util/radioList';
 
 const WritePost = () => {
-  const [parkingLot, parkingLotHandler] = useInput();
+  const data = useWritePost();
 
   return (
     <Container>
@@ -23,36 +18,49 @@ const WritePost = () => {
       <MainContainer>
         <Map />
         <ReviewContainer>
-          <UploadImageButton>
-            사진을 업로드📸 <br />
+          <UploadImageButton onClick={data.ClickImageUploadHandler}>
+            사진 업로드📸 <br />
             (최대 3장까지 업로드 가능합니다)
+            <input
+              type="file"
+              multiple
+              name="image"
+              hidden
+              ref={data.imageInput}
+              onChange={data.UploadImageHanlder}
+            />
           </UploadImageButton>
           <Description>
             <Label htmlFor="description">
               자유롭게 장소에 대해 적어주세요 ✨
             </Label>
-            <TextArea id="description" cols={15}></TextArea>
+            <TextArea
+              id="description"
+              cols={15}
+              value={data.freeText}
+              onChange={data.freeTextHandler}
+            />
           </Description>
           <PlaceInfo>
             <Label>장소에대해 알려주세요 🌠</Label>
             <RadioContainer>
               <RadioBox
-                selectedValue={parkingLot}
-                selectHandler={parkingLotHandler}
-                title="주차장 잇냐"
-                list={list}
+                selectedValue={data.hasParkingLot}
+                selectHandler={data.hasParkingLotHandler}
+                title="주차장이 있나요?"
+                list={list.has}
               />
               <RadioBox
-                selectedValue={parkingLot}
-                selectHandler={parkingLotHandler}
-                title="주차장 잇냐"
-                list={list}
+                selectedValue={data.hasOffLeash}
+                selectHandler={data.hasOffLeashHandler}
+                title="오프리쉬 가능한가요?"
+                list={list.available}
               />
               <RadioBox
-                selectedValue={parkingLot}
-                selectHandler={parkingLotHandler}
-                title="주차장 잇냐"
-                list={list}
+                selectedValue={data.recommendation}
+                selectHandler={data.recommendationHandler}
+                title="다른 멍멍이들에게 추천하나요?"
+                list={list.recomendation}
               />
             </RadioContainer>
           </PlaceInfo>
