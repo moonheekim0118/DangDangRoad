@@ -23,6 +23,7 @@ const markerPosition = [
 
 const SearchMap = () => {
   const data = useSearchMap();
+
   return (
     <Container>
       <Search>
@@ -48,6 +49,17 @@ const SearchMap = () => {
               </AdressName>
             </AddressContainer>
           ))}
+        <PaginationContainer>
+          {data.pagination &&
+            Array.from(Array(data.pagination.last), (_, i) => (
+              <Page
+                current={i + 1 === data.pagination.current}
+                key={i}
+                onClick={data.pageClickHandler(i + 1)}>
+                {i + 1}
+              </Page>
+            ))}
+        </PaginationContainer>
       </SearchResult>
     </Container>
   );
@@ -112,5 +124,18 @@ const Marker = styled.span<{ index: number }>`
   background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
     no-repeat;
   background-position: ${(props) => markerPosition[props.index]};
+`;
+
+const PaginationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+
+const Page = styled.span<{ current: boolean }>`
+  font-weight: ${(props) => props.current && 'bold'};
+  cursor: pointer;
 `;
 export default SearchMap;

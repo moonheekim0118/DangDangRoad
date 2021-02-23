@@ -33,8 +33,8 @@ const useSearchMap = () => {
   }, [container]);
 
   const addMarkers = useCallback(
-    (position, idx, title) => {
-      if (container) {
+    (position, idx) => {
+      if (map) {
         const { kakao } = window;
         let imageSrc =
             'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
@@ -61,19 +61,38 @@ const useSearchMap = () => {
     [container, map]
   );
 
+  const drawMap = useCallback(
+    (data) => {
+      if (map) {
+        const { kakao } = window;
+        let placePosition;
+        let bounds = new kakao.maps.LatLngBounds();
+        for (let i = 0; i < data.length; i++) {
+          placePosition = new kakao.maps.LatLng(data[i].y, data[i].x);
+          let marker = addMarkers(placePosition, i);
+          bounds.extend(placePosition);
+        }
+        map.setBounds(bounds);
+        setMap(map);
+      }
+    },
+    [container, map]
+  );
   // after search, this cb function will get Infomations about search result
   // data : search result Data
   // status : search Status
   // pagination : result data's pages infos
-  const placeSearchCB = useCallback((data, stauts, pagination) => {
-    if (data.length === 0) {
-      return alert('검색결과가 없습니다.');
-    }
-    console.log(data);
-    console.log(pagination);
-    setPlacesData(data); // update Data States
-    // setPagination(pagination); // update Pagination State
-  }, []);
+  const placeSearchCB = useCallback(
+    (data, stauts, pagination) => {
+      if (data.length === 0) {
+        return alert('검색결과가 없습니다.');
+      }
+      setPlacesData(data); // update Data States
+      setPagination(pagination); // update Pagination State
+      drawMap(data);
+    },
+    [map]
+  );
 
   // SearchButton Click handler
   const searchHadler = useCallback(() => {
