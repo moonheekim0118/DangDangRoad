@@ -3,6 +3,7 @@ import { signIn, googleSignIn } from 'api/sign';
 import { checkEmail } from 'util/signUpValidations';
 import { useInput } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
+import { showError } from 'action';
 import Router from 'next/router';
 
 /** sign in logics */
@@ -20,17 +21,11 @@ const useSignIn = () => {
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
-        return dispatch({
-          type: 'show',
-          data: { notiType: 'error', message: '정보를 올바르게 입력해주세요' },
-        });
+        return dispatch(showError('정보를 올바르게 입력해주세요'));
       }
       const response = await signIn(email, password);
       if (response.errorMessage) {
-        return dispatch({
-          type: 'show',
-          data: { notiType: 'error', message: response.errorMessage },
-        });
+        return dispatch(showError(response.errorMessage));
       }
       Router.push('/'); // push to index page
     },
@@ -41,10 +36,7 @@ const useSignIn = () => {
   const GoogleSignInHandler = useCallback(async () => {
     const response = await googleSignIn();
     if (response.errorMessage) {
-      return dispatch({
-        type: 'show',
-        data: { notiType: 'error', message: response.errorMessage },
-      });
+      return dispatch(showError(response.errorMessage));
     }
     Router.push('/');
   }, []);

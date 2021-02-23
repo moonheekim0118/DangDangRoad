@@ -7,6 +7,7 @@ import { colorCode, ColorType } from 'types/Color';
 import styled from '@emotion/styled';
 
 type rotationTypes = 0 | 90 | 180 | 270;
+
 interface Props {
   /** icon size */
   iconsize: number;

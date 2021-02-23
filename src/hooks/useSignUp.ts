@@ -3,6 +3,7 @@ import Router from 'next/router';
 import { signUp } from 'api/sign';
 import { useValidation, useMatch, useInput } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
+import { showError } from 'action';
 import * as checkers from 'util/signUpValidations';
 
 // sign up logic
@@ -65,10 +66,7 @@ const useSignUp = () => {
       }
       const response = await signUp(email, nickname, password);
       if (response.errorMessage) {
-        return dispatch({
-          type: 'show',
-          data: { notiType: 'error', message: response.errorMessage },
-        });
+        return dispatch(showError(response.errorMessage));
       }
       Router.push('/signUpInProcess');
     },

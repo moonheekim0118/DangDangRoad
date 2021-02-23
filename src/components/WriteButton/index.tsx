@@ -1,18 +1,18 @@
 import React from 'react';
-import { Icon } from 'atoms';
+import { Icon, Anchor } from 'atoms';
 import { colorCode } from 'types/Color';
 import { faFeather } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 
-interface Props {
-  openWriteModal: (e: React.MouseEvent<HTMLDivElement>) => void;
-}
-
-const WriteButton = ({ openWriteModal }: Props) => {
+const WriteButton = () => {
   return (
-    <Container onClick={openWriteModal}>
-      <Icon icon={faFeather} iconsize={30} />
-      <Description>리뷰 작성하기</Description>
+    <Container>
+      <Anchor fontsize={1.2} fontbold={true} path="/search/write">
+        <Button>
+          <Icon icon={faFeather} iconsize={30} />
+          <Description>리뷰 작성하기</Description>
+        </Button>
+      </Anchor>
     </Container>
   );
 };
@@ -20,14 +20,15 @@ const WriteButton = ({ openWriteModal }: Props) => {
 const Description = styled.span`
   text-align: center;
   display: none;
-  font-size: 1.2rem;
-  font-weight: bold;
 `;
 
 const Container = styled.div`
   position: absolute;
   bottom: 10px;
   right: 50px;
+`;
+
+const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

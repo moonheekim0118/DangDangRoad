@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
+import { hideAlert } from 'action';
 import {
   useNotificationState,
   useNotificationDispatch,
@@ -12,7 +13,7 @@ const Notification = () => {
   useEffect(() => {
     if (notiType) {
       setTimeout(function () {
-        dispatch({ type: 'hide' });
+        dispatch(hideAlert());
       }, 5000);
     }
   }, [notiType]);
