@@ -32,6 +32,18 @@ const useSearchMap = () => {
     }
   }, [container]);
 
+  const displayInfoWindow = useCallback(
+    (marker, title) => {
+      if (infoWindow) {
+        let content =
+          '<div style="padding:5px;z-index:5000">' + title + '</div>';
+        infoWindow.setContent(content);
+        infoWindow.open(map, marker);
+      }
+    },
+    [map, infoWindow]
+  );
+
   const addMarkers = useCallback(
     (position, idx) => {
       if (map) {
@@ -71,12 +83,21 @@ const useSearchMap = () => {
           placePosition = new kakao.maps.LatLng(data[i].y, data[i].x);
           let marker = addMarkers(placePosition, i);
           bounds.extend(placePosition);
+
+          (function (marker, title) {
+            kakao.maps.event.addListener(marker, 'mouseover', () => {
+              displayInfoWindow(marker, title);
+            });
+            kakao.maps.event.addListener(marker, 'mouseout', () => {
+              infoWindow.close();
+            });
+          })(marker, data[i].place_name);
         }
         map.setBounds(bounds);
         setMap(map);
       }
     },
-    [container, map]
+    [container, map, infoWindow]
   );
   // after search, this cb function will get Infomations about search result
   // data : search result Data
@@ -91,7 +112,7 @@ const useSearchMap = () => {
       setPagination(pagination); // update Pagination State
       drawMap(data);
     },
-    [map]
+    [map, infoWindow]
   );
 
   // SearchButton Click handler
