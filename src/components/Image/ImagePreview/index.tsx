@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
+import ImageCarousel from '../ImageCarousel';
+import { useModal } from 'hooks';
 import { Icon } from 'atoms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { colorCode } from 'types/Color';
@@ -15,6 +17,18 @@ const ImagePreview = ({
   imageClickHandler,
   imageUploadHanlder,
 }: Props) => {
+  const [startIndex, setStartIndex] = useState<number>(0);
+  const [showCarousel, carousleHandler] = useModal(false);
+
+  const imageZoomHanlder = useCallback(
+    (index: number) => () => {
+      console.log(index);
+      setStartIndex(index);
+      carousleHandler();
+    },
+    [showCarousel, startIndex]
+  );
+
   return (
     <Container>
       {imageList.length < 3 && (
@@ -22,7 +36,16 @@ const ImagePreview = ({
           <Icon icon={faPlus} iconsize={25} color="blue" />
         </ImagePlusButton>
       )}
-      {imageList && imageList.map((v, i) => <Image src={v} key={v + i} />)}
+      {imageList &&
+        imageList.map((v, i) => (
+          <Image src={v} key={v + i} onClick={imageZoomHanlder(i)} />
+        ))}
+      <ImageCarousel
+        imageList={imageList}
+        startIdx={startIndex}
+        showModal={showCarousel}
+        modalHanlder={carousleHandler}
+      />
     </Container>
   );
 };
