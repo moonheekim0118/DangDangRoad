@@ -2,7 +2,7 @@ import React from 'react';
 import { useUpdateProfile } from 'hooks';
 import { Avatar, Button, Input, Icon } from 'atoms';
 import { inputId } from 'types/Input';
-import { UserType, MutateType } from 'types/User';
+import { UserType, MutateType } from 'types/user';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import * as S from '../style';

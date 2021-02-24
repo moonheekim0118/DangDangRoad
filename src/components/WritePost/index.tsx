@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Map from 'components/Map/SearchMap';
 import RadioBox from 'components/RadioBox';
+import ImagePreview from 'components/Image/ImagePreview';
 import { useWritePost } from 'hooks';
 import { colorCode } from 'types/Color';
 import { Title, Button } from 'atoms';
@@ -34,6 +35,12 @@ const WritePost = () => {
               onChange={data.UploadImageHanlder}
             />
           </UploadImageButton>
+          <ImagePreview
+            imageList={[
+              'https://www.moshimoshi-nippon.jp/wp/wp-content/uploads/2018/12/f26ee12f453e2e6d7a0e93776b143989.jpg',
+              'https://static.billboard.com/files/media/Aimyon-2019-billboard-1548-1024x677.jpg',
+            ]}
+          />
           <Description>
             <Label htmlFor="description">
               자유롭게 장소에 대해 적어주세요 ✨
