@@ -3,18 +3,18 @@ import styled from '@emotion/styled';
 import ImageCarousel from '../ImageCarousel';
 import { useModal } from 'hooks';
 import { Icon } from 'atoms';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { colorCode } from 'types/Color';
 
 interface Props {
   imageList: string[];
-  imageClickHandler?: () => void;
+  imageRemoveHanlder?: () => void;
   imageUploadHanlder?: () => void;
 }
 
 const ImagePreview = ({
   imageList,
-  imageClickHandler,
+  imageRemoveHanlder,
   imageUploadHanlder,
 }: Props) => {
   const [startIndex, setStartIndex] = useState<number>(0);
@@ -38,7 +38,13 @@ const ImagePreview = ({
       )}
       {imageList &&
         imageList.map((v, i) => (
-          <Image src={v} key={v + i} onClick={imageZoomHanlder(i)} />
+          <ImageContainer key={v + i}>
+            <Image src={v} onClick={imageZoomHanlder(i)} />
+            <RemoveImage>
+              {' '}
+              <Icon icon={faTrashAlt} iconsize={25} color="white" />
+            </RemoveImage>
+          </ImageContainer>
         ))}
       <ImageCarousel
         imageList={imageList}
@@ -68,10 +74,22 @@ const ImagePlusButton = styled.div`
   cursor: pointer;
 `;
 
-const Image = styled.img`
+const ImageContainer = styled.div`
   width: calc(100% / 3);
   height: 100%;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  cursor: pointer;
+`;
+
+const RemoveImage = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
   cursor: pointer;
 `;
 
