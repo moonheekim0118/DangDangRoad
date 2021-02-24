@@ -13,3 +13,4 @@ export { default as useDestroyAccount } from './useDestroyAccount';
 export { default as useValidation } from './useValidation';
 export { default as useWritePost } from './useWritePost';
 export { default as useSearchMap } from './useSearchMap';
+export { default as useImageInput } from './useImageInput';

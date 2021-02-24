@@ -26,14 +26,14 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
             name="image"
             hidden
             ref={data.imageInput}
-            onChange={data.UploadImageHanlder}
+            onChange={data.uploadImageHanlder}
           />
           <Icon
             iconsize={45}
             icon={faPlus}
             color="white"
             cursor="pointer"
-            iconClickHandler={data.ClickImageUploadHandler}
+            iconClickHandler={data.uploaderClickHanlder}
           />
         </IconContainer>
         <Avatar imgUrl={data.imageUrl} size="large" />
@@ -44,13 +44,13 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         error={data.nicknameError}
         required={true}
         value={data.nickname}
-        inputChangeHandler={data.NicknameChangeHandler}
+        inputChangeHandler={data.nicknameChangeHandler}
       />
       <Button
         color="blue"
         hoverColor="light-blue"
         type="submit"
-        onClick={data.SaveHandler}>
+        onClick={data.saveHandler}>
         SAVE
       </Button>
     </S.ContentsContainer>

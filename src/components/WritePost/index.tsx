@@ -24,7 +24,7 @@ const WritePost = () => {
         <ReviewContainer>
           <PlaceName>{data.selectedPlace?.place_name}</PlaceName>
           {!data.imageList && (
-            <UploadImageButton onClick={data.ClickImageUploadHandler}>
+            <UploadImageButton onClick={data.uploaderClickHanlder}>
               사진 업로드📸 <br />
               (최대 3장까지 업로드 가능합니다)
               <input
@@ -33,11 +33,18 @@ const WritePost = () => {
                 name="image"
                 hidden
                 ref={data.imageInput}
-                onChange={data.UploadImageHanlder}
+                onChange={data.uploadImageHanlder}
               />
             </UploadImageButton>
           )}
-          {data.imageList && <ImagePreview imageList={data.imageList} />}
+          {data.imageList && (
+            <ImagePreview
+              imageList={data.imageList}
+              uploaderClickHanlder={data.uploaderClickHanlder}
+              imageInput={data.imageInput}
+              imageUploadHanlder={data.addImageHanlder}
+            />
+          )}
           <Description>
             <Label htmlFor="description">
               자유롭게 장소에 대해 적어주세요 ✨

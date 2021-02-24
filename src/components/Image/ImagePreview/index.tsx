@@ -8,12 +8,16 @@ import { colorCode } from 'types/Color';
 
 interface Props {
   imageList: string[];
+  imageInput?: any;
+  uploaderClickHanlder?: any;
   imageRemoveHanlder?: () => void;
-  imageUploadHanlder?: () => void;
+  imageUploadHanlder?: (e: any) => Promise<void>;
 }
 
 const ImagePreview = ({
   imageList,
+  imageInput,
+  uploaderClickHanlder,
   imageRemoveHanlder,
   imageUploadHanlder,
 }: Props) => {
@@ -33,7 +37,20 @@ const ImagePreview = ({
     <Container>
       {imageList.length < 3 && (
         <ImagePlusButton>
-          <Icon icon={faPlus} iconsize={25} color="blue" />
+          <Icon
+            icon={faPlus}
+            iconsize={25}
+            color="blue"
+            iconClickHandler={uploaderClickHanlder}
+          />
+          <input
+            type="file"
+            multiple
+            name="image"
+            hidden
+            ref={imageInput}
+            onChange={imageUploadHanlder}
+          />
         </ImagePlusButton>
       )}
       {imageList &&
