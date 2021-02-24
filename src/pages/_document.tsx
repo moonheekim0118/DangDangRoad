@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
         <Head>
           <script
             type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e336dd1e762e649f21d156b39987df95"></script>
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e336dd1e762e649f21d156b39987df95&libraries=services,clusterer,drawing"></script>
         </Head>
         <body>
           <div id="modal-root" />

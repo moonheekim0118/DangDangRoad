@@ -18,9 +18,10 @@ const RadioBox = ({ selectedValue, selectHandler, title, list }: Props) => {
   return (
     <Container>
       <Title>{title}</Title>
-      {list.map((v) => (
+      {list.map((v, i) => (
         <RadioButton
           id={v.id}
+          key={i}
           value={v.value}
           changed={selectHandler}
           isSelected={v.value === selectedValue}

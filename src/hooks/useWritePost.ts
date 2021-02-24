@@ -1,7 +1,8 @@
-import { useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { useInput, useValidation } from 'hooks';
+import { PlaceType } from 'types/Map';
 
 const freeTextLengthCheck = (value) => {
   return value.length <= 100;
@@ -16,6 +17,8 @@ const useWritePost = () => {
   const [hasOffLeash, hasOffLeashHandler] = useInput();
   /** Recommenation Radio value*/
   const [recommendation, recommendationHandler] = useInput();
+  /** selected Place */
+  const [selectedPlace, setSelectedPlace] = useState<PlaceType | undefined>();
   /** Free text Input value with Validation of Text Length */
   const {
     value: freeText,
@@ -40,6 +43,14 @@ const useWritePost = () => {
     }
   }, []);
 
+  // to store Selected Place
+  const selectPlaceHandler = useCallback(
+    (place: PlaceType) => () => {
+      setSelectedPlace(place);
+    },
+    []
+  );
+
   return {
     hasParkingLot,
     hasParkingLotHandler,
@@ -53,6 +64,8 @@ const useWritePost = () => {
     ClickImageUploadHandler,
     UploadImageHanlder,
     imageInput,
+    selectedPlace,
+    selectPlaceHandler,
   };
 };
 

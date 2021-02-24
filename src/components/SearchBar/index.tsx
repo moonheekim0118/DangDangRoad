@@ -10,6 +10,10 @@ interface Props {
   color: 'blue' | 'white';
   /** have a focus effects or not */
   focus?: boolean;
+  placeholder?: string;
+  keyword?: string;
+  keywordChangeHanlder?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  searchHandler?: () => void;
 }
 
 interface InputProps extends Props {
@@ -19,8 +23,15 @@ interface InputProps extends Props {
 
 const PLACEHOLDER = '지역명을 입력하세요. 예) 강원도 속초시';
 
-const SearchBar = ({ color, focus = false }: Props): React.ReactElement => {
-  const [keyword, keywordChangeHanlder] = useInput();
+const SearchBar = ({
+  color,
+  focus = false,
+  placeholder = PLACEHOLDER,
+  keyword,
+  keywordChangeHanlder,
+  searchHandler,
+}: Props): React.ReactElement => {
+  const [defaultKeyword, defaultKeywordChangeHanlder] = useInput();
 
   /** if it has focus effects, define foucsBack color and fontColor */
   const focusBack = focus ? (color === 'blue' ? 'white' : 'blue') : undefined;
@@ -33,15 +44,19 @@ const SearchBar = ({ color, focus = false }: Props): React.ReactElement => {
         color={color}
         focusBackground={focusBack}
         focusFont={focusFont}
-        value={keyword}
-        onChange={keywordChangeHanlder}
-        placeholder={PLACEHOLDER}
+        value={keyword ? keyword : defaultKeyword}
+        onChange={
+          keywordChangeHanlder
+            ? keywordChangeHanlder
+            : defaultKeywordChangeHanlder
+        }
+        placeholder={placeholder}
       />
       <IconContainer color={color}>
         <Icon icon={faSearch} iconsize={20} rotate={180} />
       </IconContainer>
       <SpanContainer color={color}>
-        <Span fontsize={1} cursor="pointer">
+        <Span fontsize={1} cursor="pointer" spanClickHandler={searchHandler}>
           Go
         </Span>
       </SpanContainer>
