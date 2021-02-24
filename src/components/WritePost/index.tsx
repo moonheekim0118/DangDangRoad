@@ -23,24 +23,21 @@ const WritePost = () => {
         />
         <ReviewContainer>
           <PlaceName>{data.selectedPlace?.place_name}</PlaceName>
-          <UploadImageButton onClick={data.ClickImageUploadHandler}>
-            사진 업로드📸 <br />
-            (최대 3장까지 업로드 가능합니다)
-            <input
-              type="file"
-              multiple
-              name="image"
-              hidden
-              ref={data.imageInput}
-              onChange={data.UploadImageHanlder}
-            />
-          </UploadImageButton>
-          <ImagePreview
-            imageList={[
-              'https://www.moshimoshi-nippon.jp/wp/wp-content/uploads/2018/12/f26ee12f453e2e6d7a0e93776b143989.jpg',
-              'https://static.billboard.com/files/media/Aimyon-2019-billboard-1548-1024x677.jpg',
-            ]}
-          />
+          {!data.imageList && (
+            <UploadImageButton onClick={data.ClickImageUploadHandler}>
+              사진 업로드📸 <br />
+              (최대 3장까지 업로드 가능합니다)
+              <input
+                type="file"
+                multiple
+                name="image"
+                hidden
+                ref={data.imageInput}
+                onChange={data.UploadImageHanlder}
+              />
+            </UploadImageButton>
+          )}
+          {data.imageList && <ImagePreview imageList={data.imageList} />}
           <Description>
             <Label htmlFor="description">
               자유롭게 장소에 대해 적어주세요 ✨

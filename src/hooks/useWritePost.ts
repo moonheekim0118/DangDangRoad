@@ -1,8 +1,9 @@
 import { useState, useCallback, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
-import { showError } from 'action';
+import { uploadPostImage } from 'api/storage';
 import { useInput, useValidation } from 'hooks';
 import { PlaceType } from 'types/Map';
+import * as Action from 'action';
 
 const freeTextLengthCheck = (value) => {
   return value.length <= 100;
@@ -28,6 +29,9 @@ const useWritePost = () => {
   /** Image Input Ref */
   const imageInput = useRef<HTMLInputElement>(null);
 
+  /** image Url */
+  const [imageList, setImageList] = useState<string[] | undefined>();
+
   /** Image Input onClick Handler */
   const ClickImageUploadHandler = useCallback(() => {
     if (imageInput.current) {
@@ -35,12 +39,29 @@ const useWritePost = () => {
     }
   }, []);
 
-  const UploadImageHanlder = useCallback((e) => {
-    const files = e.target.files;
-    /** can upload 3 image file */
-    if (files.length > 3) {
-      return dispatch(showError('이미지는 최대 3장까지 업로드 가능합니다.'));
+  const UploadImageHanlder = useCallback(async (e) => {
+    try {
+      const files = e.target.files;
+      /** can upload 3 image file */
+      if (files.length > 3) {
+        return dispatch(
+          Action.showError('이미지는 최대 3장까지 업로드 가능합니다.')
+        );
+      }
+      const response = await uploadPostImage(files);
+      if (!response.isError) {
+        setImageList(response.url);
+      } else {
+        return dispatch(
+          Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
+        );
+      }
+    } catch (error) {
+      dispatch(Action.showError('잠시후 다시 시도해주세요'));
     }
+    // 이미지 핸들러 추가 필요
+    // 추후에..image List 에 2개 이하 업로드했을 때
+    // 나머지 올릴 수 있는 것..필요
   }, []);
 
   // to store Selected Place
@@ -66,6 +87,7 @@ const useWritePost = () => {
     imageInput,
     selectedPlace,
     selectPlaceHandler,
+    imageList,
   };
 };
 

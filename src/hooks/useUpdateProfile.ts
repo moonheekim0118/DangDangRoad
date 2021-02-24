@@ -1,6 +1,6 @@
 import { useCallback, useState, useRef } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
-import { uploadImage } from 'api/storage';
+import { uploadProfileImage } from 'api/storage';
 import { updateProfile } from 'api/user';
 import { useValidation } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
@@ -41,14 +41,18 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
 
   /** Upload Image Handler */
   const UploadImageHanlder = useCallback(async (e) => {
-    const file = e.target.files[0];
-    const response = await uploadImage(file);
-    if (!response.isError) {
-      setImageUrl(response.url);
-    } else {
-      return dispatch(
-        Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
-      );
+    try {
+      const file = e.target.files[0];
+      const response = await uploadProfileImage(file);
+      if (!response.isError) {
+        setImageUrl(response.url);
+      } else {
+        return dispatch(
+          Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
+        );
+      }
+    } catch (error) {
+      dispatch(Action.showError('잠시후 다시 시도해주세요'));
     }
   }, []);
 
