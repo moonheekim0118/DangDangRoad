@@ -26,7 +26,7 @@ const Notification = () => {
 };
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   left: 50%;
   bottom: 10%;
   transform: translateX(-50%);
