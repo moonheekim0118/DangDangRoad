@@ -10,8 +10,8 @@ interface Props {
   imageList: string[];
   imageInput?: any;
   uploaderClickHanlder?: any;
-  imageRemoveHanlder?: () => void;
-  imageUploadHanlder?: (e: any) => Promise<void>;
+  imageRemoveHanlder: any;
+  imageUploadHanlder: any;
 }
 
 const ImagePreview = ({
@@ -26,7 +26,6 @@ const ImagePreview = ({
 
   const imageZoomHanlder = useCallback(
     (index: number) => () => {
-      console.log(index);
       setStartIndex(index);
       carousleHandler();
     },
@@ -59,7 +58,12 @@ const ImagePreview = ({
             <Image src={v} onClick={imageZoomHanlder(i)} />
             <RemoveImage>
               {' '}
-              <Icon icon={faTrashAlt} iconsize={25} color="white" />
+              <Icon
+                icon={faTrashAlt}
+                iconsize={25}
+                color="white"
+                iconClickHandler={imageRemoveHanlder(i)}
+              />
             </RemoveImage>
           </ImageContainer>
         ))}

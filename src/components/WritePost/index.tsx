@@ -43,6 +43,7 @@ const WritePost = () => {
               uploaderClickHanlder={data.uploaderClickHanlder}
               imageInput={data.imageInput}
               imageUploadHanlder={data.addImageHanlder}
+              imageRemoveHanlder={data.removeImageHanlder}
             />
           )}
           <Description>

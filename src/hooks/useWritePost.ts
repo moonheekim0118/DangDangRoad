@@ -81,6 +81,15 @@ const useWritePost = () => {
     [imageList]
   );
 
+  /** remove Image Handler from imageList by Its index */
+  const removeImageHanlder = useCallback(
+    (index: number) => () => {
+      const filtered = imageList?.filter((_, i) => i !== index);
+      setImageList(filtered);
+    },
+    [imageList]
+  );
+
   // to store Selected Place
   const selectPlaceHandler = useCallback(
     (place: PlaceType) => () => {
@@ -102,6 +111,7 @@ const useWritePost = () => {
     uploaderClickHanlder,
     uploadImageHanlder,
     addImageHanlder,
+    removeImageHanlder,
     imageInput,
     selectedPlace,
     selectPlaceHandler,
