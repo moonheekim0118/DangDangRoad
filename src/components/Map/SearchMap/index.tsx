@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from 'components/SearchBar';
 import { useSearchMap } from 'hooks';
+import { colorCode } from 'types/Color';
 import styled from '@emotion/styled';
 
 const markerPosition = [
@@ -21,7 +22,12 @@ const markerPosition = [
   '0 -654px',
 ];
 
-const SearchMap = () => {
+interface Props {
+  selectPlaceHandler: any;
+  nowSelectedAddress?: string;
+}
+
+const SearchMap = ({ selectPlaceHandler, nowSelectedAddress = '' }: Props) => {
   const data = useSearchMap();
 
   return (
@@ -40,9 +46,11 @@ const SearchMap = () => {
         {data.placeData &&
           data.placeData.map((v, i) => (
             <AddressContainer key={i}>
-              <AddressTitle>
+              <AddressTitle onClick={selectPlaceHandler(v)}>
                 <Marker index={i} />
-                <PlaceName>{v.place_name}</PlaceName>
+                <PlaceName selected={v.place_name === nowSelectedAddress}>
+                  {v.place_name}
+                </PlaceName>
               </AddressTitle>
               <AdressName>
                 {v.address_name} {v.road_address_name}
@@ -53,7 +61,7 @@ const SearchMap = () => {
           {data.pagination &&
             Array.from(Array(data.pagination.last), (_, i) => (
               <Page
-                current={i + 1 === data.pagination.current}
+                current={i + 1 === data.pagination?.current}
                 key={i}
                 onClick={data.pageClickHandler(i + 1)}>
                 {i + 1}
@@ -110,8 +118,9 @@ const AddressTitle = styled.div`
   gap: 5px;
 `;
 
-const PlaceName = styled.span`
+const PlaceName = styled.span<{ selected: boolean }>`
   font-weight: bold;
+  color: ${(props) => props.selected && colorCode['blue']};
 `;
 
 const AdressName = styled.span`

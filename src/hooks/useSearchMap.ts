@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useElement, useInput } from 'hooks';
+import * as T from 'types/Map';
 
 declare global {
   interface Window {
@@ -12,8 +13,8 @@ let markers: any[] = [];
 const useSearchMap = () => {
   const container = useElement('map');
   const [map, setMap] = useState<any>();
-  const [placeData, setPlacesData] = useState<any>();
-  const [pagination, setPagination] = useState<any>();
+  const [placeData, setPlacesData] = useState<T.PlaceType[] | undefined>();
+  const [pagination, setPagination] = useState<T.PaginationType | undefined>();
   const [keyword, keywordChangeHandler] = useInput();
   const [ps, setPs] = useState<any>();
   const [infoWindow, setInfoWindow] = useState<any>();
@@ -99,10 +100,7 @@ const useSearchMap = () => {
     },
     [container, map, infoWindow]
   );
-  // after search, this cb function will get Infomations about search result
-  // data : search result Data
-  // status : search Status
-  // pagination : result data's pages infos
+
   const placeSearchCB = useCallback(
     (data, stauts, pagination) => {
       if (data.length === 0) {

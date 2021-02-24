@@ -16,8 +16,12 @@ const WritePost = () => {
         <Title>리뷰 작성</Title>
       </TopContainer>
       <MainContainer>
-        <Map />
+        <Map
+          selectPlaceHandler={data.selectPlaceHandler}
+          nowSelectedAddress={data.selectedPlace?.place_name}
+        />
         <ReviewContainer>
+          <PlaceName>{data.selectedPlace?.place_name}</PlaceName>
           <UploadImageButton onClick={data.ClickImageUploadHandler}>
             사진 업로드📸 <br />
             (최대 3장까지 업로드 가능합니다)
@@ -130,6 +134,12 @@ const Description = styled.div`
 const Label = styled.label`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.2rem;
+`;
+
+const PlaceName = styled.span`
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 1.5rem;
+  color: ${colorCode['blue']};
 `;
 
 const TextArea = styled.textarea`
