@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useElement, useInput } from 'hooks';
+import { url } from 'util/marker';
 import * as T from 'types/Map';
 
 declare global {
@@ -49,8 +50,7 @@ const useSearchMap = () => {
     (position, idx) => {
       if (map) {
         const { kakao } = window;
-        let imageSrc =
-            'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png',
+        let imageSrc = url,
           imageSize = new kakao.maps.Size(36, 37),
           imgOptions = {
             spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기

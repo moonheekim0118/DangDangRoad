@@ -3,24 +3,7 @@ import SearchBar from 'components/SearchBar';
 import { useSearchMap } from 'hooks';
 import { colorCode } from 'types/Color';
 import styled from '@emotion/styled';
-
-const markerPosition = [
-  '0 -10px',
-  '0 -56px',
-  '0 -102px',
-  '0 -148px',
-  '0 -194px',
-  '0 -240px',
-  '0 -286px',
-  '0 -332px',
-  '0 -378px',
-  '0 -423px',
-  '0 -470px',
-  '0 -516px',
-  '0 -562px',
-  '0 -608px',
-  '0 -654px',
-];
+import * as marker from 'util/marker';
 
 interface Props {
   selectPlaceHandler: any;
@@ -35,7 +18,7 @@ const SearchMap = ({ selectPlaceHandler, nowSelectedAddress = '' }: Props) => {
       <Search>
         <SearchBar
           color="white"
-          placeholder="키워드로 검색하세요! 예) 애견운동장"
+          placeholder="키워드로 검색하세요! 예) 광명 애견운동장"
           keyword={data.keyword}
           keywordChangeHanlder={data.keywordChangeHandler}
           searchHandler={data.searchHadler}
@@ -130,9 +113,8 @@ const AdressName = styled.span`
 const Marker = styled.span<{ index: number }>`
   width: 36px;
   height: 37px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
-    no-repeat;
-  background-position: ${(props) => markerPosition[props.index]};
+  background: ${`url(${marker.url})`} no-repeat;
+  background-position: ${(props) => marker.positions[props.index]};
 `;
 
 const PaginationContainer = styled.div`
