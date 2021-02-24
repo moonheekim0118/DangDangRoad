@@ -8,10 +8,12 @@ import { colorCode } from 'types/Color';
 
 interface Props {
   imageList: string[];
-  imageInput?: any;
-  uploaderClickHanlder?: any;
-  imageRemoveHanlder: any;
-  imageUploadHanlder: any;
+  imageInput: React.RefObject<HTMLInputElement>;
+  uploaderClickHanlder: (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => void;
+  imageRemoveHanlder: (index: number) => () => void;
+  imageUploadHanlder: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 
 const ImagePreview = ({
