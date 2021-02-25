@@ -24,7 +24,7 @@ const Index = (): React.ReactElement => {
           {isLoaded && (
             <>
               {isLoggedIn ? (
-                <Link href="/review">
+                <Link href="/write">
                   <a>
                     <Button color="white">산책로 리뷰하기</Button>
                   </a>
