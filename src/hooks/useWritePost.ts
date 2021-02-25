@@ -5,12 +5,8 @@ import { uploadPostImage } from 'api/storage';
 import { createReview } from 'api/review';
 import { useInput, useValidation, useImageInput } from 'hooks';
 import { PlaceType } from 'types/Map';
-import * as T from 'types/Review';
+import { freeTextLengthCheck } from 'util/reviewTextValidation';
 import * as Action from 'action';
-
-const freeTextLengthCheck = (value) => {
-  return value.length <= 100;
-};
 
 const useWritePost = () => {
   const dispatch = useNotificationDispatch();
@@ -107,7 +103,9 @@ const useWritePost = () => {
       if (!selectedPlace) {
         return dispatch(Action.showError('장소를 선택해주세요!'));
       } else if (freeTextError) {
-        return dispatch(Action.showError('free comment 에러'));
+        return dispatch(
+          Action.showError('글자수는 100자 이하까지 입력 가능합니다.')
+        );
       }
       const data = {
         userId,

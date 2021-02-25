@@ -50,6 +50,9 @@ const WritePost = () => {
             <Label htmlFor="description">
               자유롭게 장소에 대해 적어주세요 ✨
             </Label>
+            <LengthCounter error={data.freeTextError}>
+              {data.freeText.length}/100
+            </LengthCounter>
             <TextArea
               id="description"
               cols={15}
@@ -148,6 +151,12 @@ const Description = styled.div`
 const Label = styled.label`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.2rem;
+`;
+
+const LengthCounter = styled.span<{ error: boolean }>`
+  margin-left: 10px;
+  color: ${(props) => (props.error ? colorCode['red'] : colorCode['green'])};
+  font-weight: bold;
 `;
 
 const PlaceName = styled.span`
