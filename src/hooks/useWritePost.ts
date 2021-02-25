@@ -117,8 +117,12 @@ const useWritePost = () => {
           recommendation,
           freeText,
           imageList: imageList ? imageList : null,
-          coordinateX: selectedPlace.x,
-          coordinateY: selectedPlace.y,
+          placeInfo: {
+            address_name: selectedPlace.address_name,
+            place_name: selectedPlace.place_name,
+            x: selectedPlace.x,
+            y: selectedPlace.y,
+          },
         };
 
         const response = await createReview(data);
