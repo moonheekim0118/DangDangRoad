@@ -6,6 +6,7 @@ import { createReview } from 'api/review';
 import { useInput, useValidation, useImageInput } from 'hooks';
 import { PlaceType } from 'types/Map';
 import { freeTextLengthCheck } from 'util/reviewTextValidation';
+import Router from 'next/router';
 import * as Action from 'action';
 
 const useWritePost = () => {
@@ -98,45 +99,50 @@ const useWritePost = () => {
   );
 
   // sumbit data to DataBase Handler
-  const submitHandler = useCallback(async () => {
-    try {
-      if (!selectedPlace) {
-        return dispatch(Action.showError('장소를 선택해주세요!'));
-      } else if (freeTextError) {
-        return dispatch(
-          Action.showError('글자수는 100자 이하까지 입력 가능합니다.')
-        );
-      }
-      const data = {
-        userId,
-        hasParkingLot,
-        hasOffLeash,
-        recommendation,
-        freeText,
-        imageList: imageList ? imageList : null,
-        coordinateX: selectedPlace.x,
-        coordinateY: selectedPlace.y,
-      };
+  const submitHandler = useCallback(
+    async (e: React.MouseEvent<HTMLButtonElement>) => {
+      try {
+        e.preventDefault();
+        if (!selectedPlace) {
+          return dispatch(Action.showError('장소를 선택해주세요!'));
+        } else if (freeTextError) {
+          return dispatch(
+            Action.showError('글자수는 100자 이하까지 입력 가능합니다.')
+          );
+        }
+        const data = {
+          userId,
+          hasParkingLot,
+          hasOffLeash,
+          recommendation,
+          freeText,
+          imageList: imageList ? imageList : null,
+          coordinateX: selectedPlace.x,
+          coordinateY: selectedPlace.y,
+        };
 
-      const response = await createReview(data);
-      if (!response.isError) {
-      } else {
+        const response = await createReview(data);
+        if (!response.isError) {
+          Router.push('/search');
+        } else {
+          return dispatch(Action.showError('잠시후 다시 시도해주세요'));
+        }
+      } catch (error) {
+        console.log(error);
         return dispatch(Action.showError('잠시후 다시 시도해주세요'));
       }
-    } catch (error) {
-      console.log(error);
-      return dispatch(Action.showError('잠시후 다시 시도해주세요'));
-    }
-  }, [
-    hasParkingLot,
-    hasOffLeash,
-    recommendation,
-    selectedPlace,
-    freeText,
-    freeTextError,
-    imageList,
-    selectedPlace,
-  ]);
+    },
+    [
+      hasParkingLot,
+      hasOffLeash,
+      recommendation,
+      selectedPlace,
+      freeText,
+      freeTextError,
+      imageList,
+      selectedPlace,
+    ]
+  );
 
   return {
     hasParkingLot,
