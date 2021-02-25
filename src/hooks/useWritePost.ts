@@ -1,6 +1,7 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { uploadPostImage } from 'api/storage';
+import { createReview } from 'api/review';
 import { useInput, useValidation, useImageInput } from 'hooks';
 import { PlaceType } from 'types/Map';
 import * as Action from 'action';
@@ -13,11 +14,11 @@ const useWritePost = () => {
   const dispatch = useNotificationDispatch();
 
   /** has Parking lot Radio value*/
-  const [hasParkingLot, hasParkingLotHandler] = useInput();
+  const [hasParkingLot, hasParkingLotHandler] = useInput('몰라요');
   /** off leash Avalibale Raido value */
-  const [hasOffLeash, hasOffLeashHandler] = useInput();
+  const [hasOffLeash, hasOffLeashHandler] = useInput('몰라요');
   /** Recommenation Radio value*/
-  const [recommendation, recommendationHandler] = useInput();
+  const [recommendation, recommendationHandler] = useInput('추천해요');
   /** selected Place */
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | undefined>();
   /** Free text Input value with Validation of Text Length */
