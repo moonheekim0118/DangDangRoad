@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
+import { useLoginInfoState } from 'context/LoginInfo';
 import { uploadPostImage } from 'api/storage';
 import { createReview } from 'api/review';
 import { useInput, useValidation, useImageInput } from 'hooks';
 import { PlaceType } from 'types/Map';
+import * as T from 'types/Review';
 import * as Action from 'action';
 
 const freeTextLengthCheck = (value) => {
@@ -12,7 +14,7 @@ const freeTextLengthCheck = (value) => {
 
 const useWritePost = () => {
   const dispatch = useNotificationDispatch();
-
+  const { userId } = useLoginInfoState();
   /** has Parking lot Radio value*/
   const [hasParkingLot, hasParkingLotHandler] = useInput('몰라요');
   /** off leash Avalibale Raido value */
@@ -99,6 +101,45 @@ const useWritePost = () => {
     []
   );
 
+  // sumbit data to DataBase Handler
+  const submitHandler = useCallback(async () => {
+    try {
+      if (!selectedPlace) {
+        return dispatch(Action.showError('장소를 선택해주세요!'));
+      } else if (freeTextError) {
+        return dispatch(Action.showError('free comment 에러'));
+      }
+      const data = {
+        userId,
+        hasParkingLot,
+        hasOffLeash,
+        recommendation,
+        freeText,
+        imageList: imageList ? imageList : null,
+        coordinateX: selectedPlace.x,
+        coordinateY: selectedPlace.y,
+      };
+
+      const response = await createReview(data);
+      if (!response.isError) {
+      } else {
+        return dispatch(Action.showError('잠시후 다시 시도해주세요'));
+      }
+    } catch (error) {
+      console.log(error);
+      return dispatch(Action.showError('잠시후 다시 시도해주세요'));
+    }
+  }, [
+    hasParkingLot,
+    hasOffLeash,
+    recommendation,
+    selectedPlace,
+    freeText,
+    freeTextError,
+    imageList,
+    selectedPlace,
+  ]);
+
   return {
     hasParkingLot,
     hasParkingLotHandler,
@@ -117,6 +158,7 @@ const useWritePost = () => {
     selectedPlace,
     selectPlaceHandler,
     imageList,
+    submitHandler,
   };
 };
 

@@ -82,7 +82,9 @@ const WritePost = () => {
           </PlaceInfo>
         </ReviewContainer>
         <ButtonContainer>
-          <Button color="blue">저장하기</Button>
+          <Button color="blue" onClick={data.submitHandler}>
+            저장하기
+          </Button>
         </ButtonContainer>
       </MainContainer>
     </Container>

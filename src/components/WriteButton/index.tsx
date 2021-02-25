@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 const WriteButton = () => {
   return (
     <Container>
-      <Anchor fontsize={1.2} fontbold={true} path="/search/write">
+      <Anchor fontsize={1.2} fontbold={true} path="/write">
         <Button>
           <Icon icon={faFeather} iconsize={30} />
           <Description>리뷰 작성하기</Description>
