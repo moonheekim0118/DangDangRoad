@@ -2,7 +2,7 @@ import React from 'react';
 import { useUpdateProfile } from 'hooks';
 import { Avatar, Button, Input, Icon } from 'atoms';
 import { inputId } from 'types/Input';
-import { UserType, MutateType } from 'types/User';
+import { UserType, MutateType } from 'types/user';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 import * as S from '../style';
@@ -26,14 +26,14 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
             name="image"
             hidden
             ref={data.imageInput}
-            onChange={data.UploadImageHanlder}
+            onChange={data.uploadImageHanlder}
           />
           <Icon
             iconsize={45}
             icon={faPlus}
             color="white"
             cursor="pointer"
-            iconClickHandler={data.ClickImageUploadHandler}
+            iconClickHandler={data.uploaderClickHanlder}
           />
         </IconContainer>
         <Avatar imgUrl={data.imageUrl} size="large" />
@@ -44,13 +44,13 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         error={data.nicknameError}
         required={true}
         value={data.nickname}
-        inputChangeHandler={data.NicknameChangeHandler}
+        inputChangeHandler={data.nicknameChangeHandler}
       />
       <Button
         color="blue"
         hoverColor="light-blue"
         type="submit"
-        onClick={data.SaveHandler}>
+        onClick={data.saveHandler}>
         SAVE
       </Button>
     </S.ContentsContainer>

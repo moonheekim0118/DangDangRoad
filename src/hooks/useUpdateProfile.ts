@@ -1,8 +1,8 @@
 import { useCallback, useState, useRef } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
-import { uploadImage } from 'api/storage';
+import { uploadProfileImage } from 'api/storage';
 import { updateProfile } from 'api/user';
-import { useValidation } from 'hooks';
+import { useValidation, useImageInput } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
 import { UserType, MutateType } from 'types/user';
 import * as Action from 'action';
@@ -17,7 +17,7 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
   const dispatch = useNotificationDispatch();
 
   /** Image Input Ref */
-  const imageInput = useRef<HTMLInputElement>(null);
+  const [imageInput, uploaderClickHanlder] = useImageInput();
 
   /** Image url */
   const [imageUrl, setImageUrl] = useState<string>(user.profilePic);
@@ -26,34 +26,31 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
   const {
     value: nickname,
     error: nicknameError,
-    valueChangeHanlder: NicknameChangeHandler,
+    valueChangeHanlder: nicknameChangeHandler,
   } = useValidation({
     initialValue: user.nickname,
     characterCheck: nicknameValidatorForUpdate,
   });
 
-  /** Image Input onClick Handler */
-  const ClickImageUploadHandler = useCallback(() => {
-    if (imageInput.current) {
-      imageInput.current.click();
-    }
-  }, []);
-
   /** Upload Image Handler */
-  const UploadImageHanlder = useCallback(async (e) => {
-    const file = e.target.files[0];
-    const response = await uploadImage(file);
-    if (!response.isError) {
-      setImageUrl(response.url);
-    } else {
-      return dispatch(
-        Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
-      );
+  const uploadImageHanlder = useCallback(async (e) => {
+    try {
+      const file = e.target.files[0];
+      const response = await uploadProfileImage(file);
+      if (!response.isError) {
+        setImageUrl(response.url);
+      } else {
+        return dispatch(
+          Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
+        );
+      }
+    } catch (error) {
+      dispatch(Action.showError('잠시후 다시 시도해주세요'));
     }
   }, []);
 
   /** sumbit save */
-  const SaveHandler = useCallback(
+  const saveHandler = useCallback(
     async (e: React.MouseEvent<HTMLButtonElement>) => {
       try {
         e.preventDefault();
@@ -98,12 +95,12 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
     user,
     nickname,
     nicknameError,
-    NicknameChangeHandler,
+    nicknameChangeHandler,
     imageInput,
-    ClickImageUploadHandler,
+    uploaderClickHanlder,
     imageUrl,
-    UploadImageHanlder,
-    SaveHandler,
+    uploadImageHanlder,
+    saveHandler,
   };
 };
 

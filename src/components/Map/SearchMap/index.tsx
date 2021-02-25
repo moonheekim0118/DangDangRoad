@@ -1,12 +1,13 @@
 import React from 'react';
 import SearchBar from 'components/SearchBar';
 import { useSearchMap } from 'hooks';
+import { PlaceType } from 'types/Map';
 import { colorCode } from 'types/Color';
 import styled from '@emotion/styled';
 import * as marker from 'util/marker';
 
 interface Props {
-  selectPlaceHandler: any;
+  selectPlaceHandler: (place: PlaceType) => () => void;
   nowSelectedAddress?: string;
 }
 

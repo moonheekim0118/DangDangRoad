@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Map from 'components/Map/SearchMap';
 import RadioBox from 'components/RadioBox';
+import ImagePreview from 'components/Image/ImagePreview';
 import { useWritePost } from 'hooks';
 import { colorCode } from 'types/Color';
 import { Title, Button } from 'atoms';
@@ -22,22 +23,36 @@ const WritePost = () => {
         />
         <ReviewContainer>
           <PlaceName>{data.selectedPlace?.place_name}</PlaceName>
-          <UploadImageButton onClick={data.ClickImageUploadHandler}>
-            사진 업로드📸 <br />
-            (최대 3장까지 업로드 가능합니다)
-            <input
-              type="file"
-              multiple
-              name="image"
-              hidden
-              ref={data.imageInput}
-              onChange={data.UploadImageHanlder}
+          {!data.imageList && (
+            <UploadImageButton onClick={data.uploaderClickHanlder}>
+              사진 업로드📸 <br />
+              (최대 3장까지 업로드 가능합니다)
+              <input
+                type="file"
+                multiple
+                name="image"
+                hidden
+                ref={data.imageInput}
+                onChange={data.uploadImageHanlder}
+              />
+            </UploadImageButton>
+          )}
+          {data.imageList && (
+            <ImagePreview
+              imageList={data.imageList}
+              uploaderClickHanlder={data.uploaderClickHanlder}
+              imageInput={data.imageInput}
+              imageUploadHanlder={data.addImageHanlder}
+              imageRemoveHanlder={data.removeImageHanlder}
             />
-          </UploadImageButton>
+          )}
           <Description>
             <Label htmlFor="description">
               자유롭게 장소에 대해 적어주세요 ✨
             </Label>
+            <LengthCounter error={data.freeTextError}>
+              {data.freeText.length}/100
+            </LengthCounter>
             <TextArea
               id="description"
               cols={15}
@@ -70,7 +85,9 @@ const WritePost = () => {
           </PlaceInfo>
         </ReviewContainer>
         <ButtonContainer>
-          <Button color="blue">저장하기</Button>
+          <Button color="blue" onClick={data.submitHandler}>
+            저장하기
+          </Button>
         </ButtonContainer>
       </MainContainer>
     </Container>
@@ -134,6 +151,12 @@ const Description = styled.div`
 const Label = styled.label`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.2rem;
+`;
+
+const LengthCounter = styled.span<{ error: boolean }>`
+  margin-left: 10px;
+  color: ${(props) => (props.error ? colorCode['red'] : colorCode['green'])};
+  font-weight: bold;
 `;
 
 const PlaceName = styled.span`
