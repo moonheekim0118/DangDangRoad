@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useModal } from 'hooks';
-import Modal from 'components/Modal';
-import WriteButton from 'components/WriteButton';
-import TagContainer from 'components/TagContainer';
+import { WriteButton } from 'components/Post';
 import Router from 'next/router';
-import Preview from 'components/Preview';
+import Loading from 'components/Loading';
+import Modal from 'components/Modal';
+import useUser from 'libs/useUser';
 
 const SearchMain = () => {
+  const { user } = useUser();
+
   const [mode, setMode] = useState<string | string[] | undefined>();
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
@@ -19,38 +21,16 @@ const SearchMain = () => {
   // depended on Mode state
   useEffect(() => {
     if (mode === 'singlePost') singlePostModalHanlder();
+    // qeury 에 적힌 id 값에 해당하는 게시글 가져와서 모달 컨텐츠로 만들어주기.
   }, [mode]);
-
-  // back to initial path
-  const backToInitial = useCallback(() => {
-    window.history.replaceState(null, '', '/search');
-    setMode(undefined); // setMode to undefined
-  }, []);
 
   // single Post mode close Handler
   const singlePostModeCloseHanlder = useCallback(() => {
     singlePostModalHanlder();
-    backToInitial();
+    Router.back();
   }, [showSinglePostModal]);
 
-  // single Post Open handler
-  const singlePostOpenHanlder = useCallback(() => {
-    setMode('singlePost');
-    window.history.replaceState(null, '', '/search?mode=singlePost');
-  }, []);
-
-  return (
-    <>
-      <TagContainer />
-      <WriteButton />
-      <Preview openPostModal={singlePostOpenHanlder} />
-      <Modal
-        showModal={showSinglePostModal}
-        modalHandler={singlePostModeCloseHanlder}>
-        우히히zz
-      </Modal>
-    </>
-  );
+  return user ? <>{user.isLoggedIn && <WriteButton />}</> : <Loading />;
 };
 
 export default SearchMain;

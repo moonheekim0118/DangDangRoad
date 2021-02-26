@@ -1,4 +1,3 @@
-import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
 import { ReviewDataType } from 'types/Review';
 

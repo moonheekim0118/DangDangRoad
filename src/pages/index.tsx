@@ -30,9 +30,9 @@ const Index = (): React.ReactElement => {
                   </a>
                 </Link>
               ) : (
-                <Link href="/login">
+                <Link href="/search">
                   <a>
-                    <Button color="white">로그인하고 산책로 리뷰하기</Button>
+                    <Button color="white">산책로 리뷰 보기</Button>
                   </a>
                 </Link>
               )}
