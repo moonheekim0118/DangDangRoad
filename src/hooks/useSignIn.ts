@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import { signIn, googleSignIn } from 'api/sign';
 import { checkEmail } from 'util/signUpValidations';
 import { useInput } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
+import api from 'api';
 import Router from 'next/router';
 
 /** sign in logics */
@@ -23,9 +23,9 @@ const useSignIn = () => {
       if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
         return dispatch(showError('정보를 올바르게 입력해주세요'));
       }
-      const response = await signIn(email, password);
-      if (response.errorMessage) {
-        return dispatch(showError(response.errorMessage));
+      const response = await api.signIn({ email, password });
+      if (response.isError) {
+        return dispatch(showError(response.error));
       }
       Router.push('/'); // push to index page
     },
@@ -34,9 +34,9 @@ const useSignIn = () => {
 
   /** Google sign in handler */
   const GoogleSignInHandler = useCallback(async () => {
-    const response = await googleSignIn();
-    if (response.errorMessage) {
-      return dispatch(showError(response.errorMessage));
+    const response = await api.googleSignIn();
+    if (response.isError) {
+      return dispatch(showError(response.error));
     }
     Router.push('/');
   }, []);

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { signOut } from 'api/sign';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
+import api from 'api';
 import Router from 'next/router';
 
 /** sign out logic  */
@@ -9,7 +9,7 @@ const useSignOut = () => {
 
   // sign out handler
   const signOutHandler = useCallback(async () => {
-    const response = await signOut();
+    const response = await api.signOut();
     if (!response.isError) {
       dispatch({ type: 'logout' }); // login 상태 해지
     }

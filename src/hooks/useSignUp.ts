@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import Router from 'next/router';
-import { signUp } from 'api/sign';
 import { useValidation, useMatch, useInput } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
+import Router from 'next/router';
+import api from 'api';
 import * as checkers from 'util/signUpValidations';
 
 // sign up logic
@@ -64,9 +64,9 @@ const useSignUp = () => {
         if (password.length === 0) setPasswordError(true);
         return;
       }
-      const response = await signUp(email, nickname, password);
-      if (response.errorMessage) {
-        return dispatch(showError(response.errorMessage));
+      const response = await api.signUp({ email, nickname, password });
+      if (response.isError) {
+        return dispatch(showError(response.error));
       }
       Router.push('/signUpInProcess');
     },

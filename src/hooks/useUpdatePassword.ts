@@ -2,7 +2,8 @@ import { useCallback } from 'react';
 import { useValidation, useMatch, useInput } from 'hooks';
 import { passwordValidator } from 'util/signUpValidations';
 import { useNotificationDispatch } from 'context/Notification';
-import { updatePassword } from 'api/user';
+import * as Action from 'action';
+import api from 'api';
 
 /** user password update logic */
 
@@ -34,25 +35,13 @@ const useUpdatePassword = (userId: string) => {
         newPasswordError ||
         !passwordMatch
       ) {
-        return dispatch({
-          type: 'show',
-          data: { notiType: 'error', message: '정보를 올바르게 입력해주세요' },
-        });
+        return dispatch(Action.showError('정보를 올바르게 입력해주세요'));
       }
-      const response = await updatePassword(userId, newPassword);
+      const response = await api.updatePassword({ id: userId, newPassword });
       if (!response.isError) {
-        return dispatch({
-          type: 'show',
-          data: { notiType: 'noti', message: '수정 되었습니다' },
-        });
+        return dispatch(Action.showNoti('수정되었습니다'));
       } else {
-        return dispatch({
-          type: 'show',
-          data: {
-            notiType: 'noti',
-            message: response.errorMessage || '잠시후 다시 시도해주세요',
-          },
-        });
+        return dispatch(Action.showError(response.error));
       }
     },
     [newPassword, passwordCheck, newPasswordError, passwordMatch]

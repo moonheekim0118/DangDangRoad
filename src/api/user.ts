@@ -1,38 +1,30 @@
 import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
-import { ReqResult } from 'types/API';
 import createUserToken from 'libs/createUserToken';
 import axios from 'axios';
+import * as T from 'types/API';
 
 const firebase = getFirebase();
 const auth = firebase.auth();
 
-interface userContents {
-  nickname?: string;
-  profilePic?: string;
-}
-
 /** update profile */
 export const updateProfile = async (
-  id: string,
-  updateContents: userContents
-): Promise<ReqResult> => {
+  data: T.updateProfileParams
+): T.APIResult => {
   try {
-    await db.collection('users').doc(id).update(updateContents);
-    return { isError: false };
+    await db.collection('users').doc(data.id).update(data.updateContents);
+    return { status: 200 };
   } catch (error) {
-    return { isError: true, errorMessage: '잠시후에 다시 시도해주세요' };
+    throw { message: error.code };
   }
 };
 
 /** update password  */
 export const updatePassword = async (
-  id: string,
-  newPassword: string
-): Promise<ReqResult> => {
+  data: T.updatePasswordParams
+): T.APIResult => {
   try {
     const path = '/api/updatePassword';
-    const data = { id, newPassword };
     const headers = { 'Content-Type': 'application/json' };
     const response = await axios.post(path, data, { headers });
     const customToken = response.data; // given Custom token from server
@@ -43,32 +35,21 @@ export const updatePassword = async (
       const IdToken = await User.getIdToken();
       await createUserToken(IdToken); // Re-Auth
     }
-    return {
-      isError: false,
-    };
+    return { status: 200 };
   } catch (error) {
-    return {
-      isError: true,
-      errorMessage: '잠시후 다시 시도해주세요',
-    };
+    throw { message: error.code };
   }
 };
 
 /** Destroy User */
-export const destroyAccount = async (id: string) => {
+export const destroyAccount = async (id: string): T.APIResult => {
   try {
     const path = '/api/destroyUser';
     const data = { id };
     await axios.delete(path, { data });
     await db.collection('users').doc(id).delete();
-    return {
-      isError: false,
-    };
+    return { status: 200 };
   } catch (error) {
-    console.log(error);
-    return {
-      isError: true,
-      errorMessage: '잠시후 다시 시도해주세요',
-    };
+    throw { message: error.code };
   }
 };

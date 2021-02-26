@@ -1,12 +1,11 @@
 import db from 'firebaseConfigs/db';
-import { ReviewDataType } from 'types/Review';
+import * as T from 'types/API';
 
-export const createReview = async (data: ReviewDataType) => {
+export const createReview = async (data: T.writeReviewParams): T.APIResult => {
   try {
     await db.collection('reviews').add(data);
-    return { isError: false };
+    return { status: 200 };
   } catch (error) {
-    console.log(error);
-    return { isError: true };
+    throw { message: error.code };
   }
 };

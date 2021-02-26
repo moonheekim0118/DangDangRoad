@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 import ConfirmPopUp from 'components/ConfirmPopUp';
 import { Title } from 'atoms';
 import { useDestroyAccount } from 'hooks';
-import { UserType } from 'types/User';
+import { UserType } from 'types/user';
 import * as Menus from 'util/myPageDatas';
 import styled from '@emotion/styled';
 

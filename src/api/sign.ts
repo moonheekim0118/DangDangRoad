@@ -1,9 +1,8 @@
 import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
-import errorExTxt from 'util/erreorExTxt';
 import removeCookie from 'libs/removeCookie';
 import createUserToken from 'libs/createUserToken';
-import { ReqResult } from 'types/API';
+import * as T from 'types/API';
 
 /**
  *  API functions related to Sign
@@ -28,7 +27,7 @@ const addUser = async (
 };
 
 /** Google-Auth Login */
-export const googleSignIn = async (): Promise<ReqResult> => {
+export const googleSignIn = async (): T.APIResult => {
   try {
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
@@ -49,23 +48,23 @@ export const googleSignIn = async (): Promise<ReqResult> => {
         await createUserToken(token); // to persist Auth
       }
     }
-    return { isError: false };
+    return { status: 200 };
   } catch (error) {
     // If user closed up the login pop-up , not gonna treat this as error
     if (error.code === 'auth/popup-closed-by-user') {
-      return { isError: false };
+      return { status: 200 };
     }
-    return { isError: true, errorMessage: '잠시후 다시 시도해주세요' };
+    throw { message: error.code };
   }
 };
 
 /** Sign in function  */
-export const signIn = async (
-  email: string,
-  password: string
-): Promise<ReqResult> => {
+export const signIn = async (data: T.signInParams): T.APIResult => {
   try {
-    const response = await auth.signInWithEmailAndPassword(email, password);
+    const response = await auth.signInWithEmailAndPassword(
+      data.email,
+      data.password
+    );
     if (response && response.user) {
       // check if User's Email is verifed or not
       if (!response.user.emailVerified) {
@@ -75,49 +74,42 @@ export const signIn = async (
       const token = await response.user.getIdToken();
       await createUserToken(token);
     }
-    return { isError: false };
+    return { status: 200 };
   } catch (error) {
-    const errorMessage = errorExTxt(error.code);
-    return { isError: true, errorMessage };
+    throw { message: error.code };
   }
 };
 
 /** sign up function */
-export const signUp = async (
-  email: string,
-  nickname: string,
-  password: string
-): Promise<ReqResult> => {
+export const signUp = async (data: T.signUpParams): T.APIResult => {
   try {
     const userCredential = await auth.createUserWithEmailAndPassword(
-      email,
-      password
+      data.email,
+      data.password
     );
     // create User successfully
     if (userCredential.user && auth.currentUser) {
       // add User's full data in firestore
-      await addUser(userCredential.user.uid, email, nickname);
+      await addUser(userCredential.user.uid, data.email, data.nickname);
       const user = await auth.currentUser;
       // send confirm mail for Verification
       await user.sendEmailVerification();
       // signOut
       await signOut();
     }
-    return { isError: false };
+    return { status: 200 };
   } catch (error) {
-    const errorMessage = errorExTxt(error.code);
-    return { isError: true, errorMessage };
+    throw { message: error.code };
   }
 };
 
 /** Sign out function */
-export const signOut = async (): Promise<ReqResult> => {
+export const signOut = async (): T.APIResult => {
   try {
     await auth.signOut(); // sign out
     await removeCookie(); // remove Session-Cookie
-    return { isError: false };
+    return { status: 200 };
   } catch (error) {
-    const errorMessage = errorExTxt(error.code);
-    return { isError: true, errorMessage };
+    throw { message: error.code };
   }
 };
