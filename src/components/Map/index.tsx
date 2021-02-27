@@ -2,13 +2,18 @@ import React, { useEffect } from 'react';
 import { useElement } from 'hooks';
 import styled from '@emotion/styled';
 
+interface Props {
+  coordX: string;
+  coordY: string;
+}
+
 declare global {
   interface Window {
     kakao: any;
   }
 }
 
-const Map = () => {
+const Map = ({ coordX, coordY }: Props) => {
   const container = useElement('map');
 
   useEffect(() => {
@@ -16,21 +21,19 @@ const Map = () => {
       // when client is loaded
       const { kakao } = window;
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(+coordY, +coordX),
         level: 3,
       };
       new kakao.maps.Map(container, options);
     }
   }, [container]);
 
-  return (
-    <Container id="map" style={{ width: '500px', height: '500px' }}></Container>
-  );
+  return <Container id="map"></Container>;
 };
 
 const Container = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 50%;
 `;
 
 export default Map;

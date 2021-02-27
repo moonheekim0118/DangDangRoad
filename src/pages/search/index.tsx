@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useModal } from 'hooks';
-import { WriteButton, PostList } from 'components/Post';
+import { WriteButton, PostList, SinglePost } from 'components/Post';
 import Router from 'next/router';
 import { ReviewData } from 'types/API';
 import Modal from 'components/Modal';
@@ -19,7 +19,7 @@ const SearchMain = ({ reviews }) => {
   const { user } = useUser();
   const [data, setData] = useState(reviews.data); // store review Data
   const [mode, setMode] = useState<string | string[] | undefined>();
-  const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
+  const [showSinglePostModal, singlePostModalHanlder] = useModal(true);
 
   // set Initially, query of path as Mode state
   useEffect(() => {
@@ -44,6 +44,11 @@ const SearchMain = ({ reviews }) => {
     <>
       <PostList reviewData={data.reviews} />
       {user && user.isLoggedIn && <WriteButton />}
+      <Modal
+        showModal={showSinglePostModal}
+        modalHandler={singlePostModalHanlder}>
+        <SinglePost data={data.reviews[0]} />
+      </Modal>
     </>
   );
 };
