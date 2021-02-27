@@ -4,12 +4,9 @@ import Image from 'next/image';
 import useUser from 'libs/useUser';
 import styled from '@emotion/styled';
 import { Button } from 'atoms';
-import { useLoginInfoState } from 'context/LoginInfo';
 
 const Index = (): React.ReactElement => {
   useUser();
-  const { isLoaded, isLoggedIn } = useLoginInfoState();
-
   return (
     <Container>
       <MainContents>
@@ -21,23 +18,11 @@ const Index = (): React.ReactElement => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          {isLoaded && (
-            <>
-              {isLoggedIn ? (
-                <Link href="/write">
-                  <a>
-                    <Button color="white">산책로 리뷰하기</Button>
-                  </a>
-                </Link>
-              ) : (
-                <Link href="/search">
-                  <a>
-                    <Button color="white">산책로 리뷰 보기</Button>
-                  </a>
-                </Link>
-              )}
-            </>
-          )}
+          <Link href="/search">
+            <a>
+              <Button color="white">산책로 리뷰 보기</Button>
+            </a>
+          </Link>
         </SubContetns>
         <Image src="/logo.png" alt="" width="600" height="500" />
       </MainContents>
