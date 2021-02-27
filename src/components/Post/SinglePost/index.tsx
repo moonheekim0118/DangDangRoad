@@ -14,12 +14,12 @@ const SinglePost = ({ data }: Props) => {
   return (
     <Container>
       <InfoContainer>
+        {data.imageList && <ImageSlider imageList={data.imageList} />}
+      </InfoContainer>
+      <InfoContainer>
         <PlaceName>{data.placeInfo.place_name}</PlaceName>
         <PlaceDetail>{data.placeInfo.address_name}</PlaceDetail>
         <Map coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
-      </InfoContainer>
-      <InfoContainer>
-        {data.imageList && <ImageSlider imageList={data.imageList} />}
       </InfoContainer>
     </Container>
   );
@@ -29,7 +29,6 @@ const Container = styled.div`
   width: 80%;
   height: 80%;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   padding: 25px;
   gap: 20px;
@@ -37,6 +36,11 @@ const Container = styled.div`
   border-radius: 20px;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   ${baseModalStyle}
+
+  @media only screen and (max-width: 1024px) {
+    flex-direction: column;
+    overflow-y: scroll;
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -47,6 +51,21 @@ const InfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 25px;
+
+  @media only screen and (max-width: 1024px) {
+    width: 100%;
+    height: 300px;
+  }
+`;
+
+const ImageContainer = styled.div`
+  width: 80%;
+  height: 80%;
+
+  @media only screen and (max-width: 1024px) {
+    width: 40%;
+    height: 100%;
+  }
 `;
 
 const PlaceName = styled.span`
@@ -60,6 +79,10 @@ const PlaceDetail = styled.span`
   text-align: center;
   font-size: 0.9rem;
   color: ${colorCode['dark-gray']};
+`;
+
+const Images = styled.div`
+  height: 70%;
 `;
 
 export default SinglePost;

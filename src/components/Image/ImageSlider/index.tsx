@@ -73,20 +73,22 @@ const ImageSlider = ({ imageList }: Props) => {
 };
 
 const Container = styled.div`
-  width: 350px;
-  height: 350px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 `;
 
 const Slide = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: contain;
+  background-color: black;
 `;
 
 const Move = styled.div<{ left?: boolean }>`
