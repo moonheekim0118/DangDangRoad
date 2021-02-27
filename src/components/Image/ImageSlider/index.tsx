@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
+import { useImageSlide } from 'hooks';
 import { Icon } from 'atoms';
 import {
   faChevronLeft,
@@ -11,61 +12,43 @@ interface Props {
 }
 
 const ImageSlider = ({ imageList }: Props) => {
-  const [index, setIndex] = useState<number>(0);
-  const slideRef = useRef<any>(null);
-
-  useEffect(() => {
-    slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${index}00%)`;
-  }, [index]);
-
-  const toLeft = useCallback(() => {
-    setIndex(index - 1);
-  }, [index]);
-
-  const toRight = useCallback(() => {
-    setIndex(index + 1);
-  }, [index]);
-
-  const changeIndex = useCallback(
-    (index: number) => () => {
-      setIndex(index);
-    },
-    []
-  );
+  const data = useImageSlide({ totalSlide: imageList.length });
 
   return (
     <Container>
-      <Slide ref={slideRef}>
+      <Slide ref={data.slideRef}>
         {imageList.map((img) => (
           <Image src={img} />
         ))}
       </Slide>
-      {index > 0 && (
+      {data.index > 0 && (
         <Move left={true}>
           <Icon
             color="white"
             icon={faChevronLeft}
             iconsize={35}
-            iconClickHandler={toLeft}
+            iconClickHandler={data.toPrev}
             cursor="pointer"
           />
         </Move>
       )}
-      {index < imageList.length - 1 && (
+      {data.index < imageList.length - 1 && (
         <Move>
           <Icon
             color="white"
             icon={faChevronRight}
             iconsize={35}
-            iconClickHandler={toRight}
+            iconClickHandler={data.toNext}
             cursor="pointer"
           />
         </Move>
       )}
       <NavigatorContainer>
         {imageList.map((_, i) => (
-          <Navigator onClick={changeIndex(i)} current={i === index} />
+          <Navigator
+            onClick={data.changeIndexHandler(i)}
+            current={i === data.index}
+          />
         ))}
       </NavigatorContainer>
     </Container>

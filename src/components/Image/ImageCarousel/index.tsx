@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import Modal from 'components/Modal';
+import { useImageSlide } from 'hooks';
 import { Icon } from 'atoms';
 import {
   faChevronLeft,
@@ -21,33 +22,10 @@ const ImageCarousel = ({
   showModal,
   modalHanlder,
 }: Props) => {
-  // showing image's index;
-  const [index, setIndex] = useState<number>(startIdx);
-
-  useEffect(() => {
-    setIndex(startIdx);
-  }, [startIdx]);
-
-  // left button click handler
-  const toLeft = useCallback(() => {
-    // if 0 , go to last image
-    if (index === 0) {
-      setIndex(imageList.length - 1);
-    } else {
-      setIndex(index - 1);
-    }
-  }, [index]);
-
-  // right button click handler
-  const toRight = useCallback(() => {
-    // if it's last image, go to first image
-    if (index === imageList.length - 1) {
-      setIndex(0);
-    } else {
-      setIndex(index + 1);
-    }
-  }, [index]);
-
+  const data = useImageSlide({
+    initialIndex: startIdx,
+    totalSlide: imageList.length,
+  });
   return (
     <Modal showModal={showModal} modalHandler={modalHanlder}>
       <Containter>
@@ -56,17 +34,17 @@ const ImageCarousel = ({
             color="white"
             icon={faChevronLeft}
             iconsize={35}
-            iconClickHandler={toLeft}
+            iconClickHandler={data.toPrev}
             cursor="pointer"
           />
         </Move>
-        <Image src={imageList[index]} />
+        <Image src={imageList[data.index]} />
         <Move>
           <Icon
             color="white"
             icon={faChevronRight}
             iconsize={35}
-            iconClickHandler={toRight}
+            iconClickHandler={data.toNext}
             cursor="pointer"
           />
         </Move>
