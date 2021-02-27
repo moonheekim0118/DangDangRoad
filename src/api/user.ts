@@ -53,3 +53,18 @@ export const destroyAccount = async (id: string): T.APIResult => {
     throw { message: error.code };
   }
 };
+
+/** get User info by Id */
+export const getUserById = async (id: string): T.APIResult => {
+  try {
+    const response = await db.collection('users').doc(id).get();
+    const data = response.data();
+    let userData = { profilePic: '', nickname: '탈퇴한 사용자' };
+    if (data) {
+      userData = { profilePic: data.profilePic, nickname: data.nickname };
+    }
+    return { status: 200, contents: userData };
+  } catch (error) {
+    throw { message: error.code };
+  }
+};

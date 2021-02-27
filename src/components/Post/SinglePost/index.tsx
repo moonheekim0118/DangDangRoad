@@ -26,6 +26,9 @@ const SinglePost = ({ data }: Props) => {
       <InfoContainer>
         {data.imageList && <ImageSlider imageList={data.imageList} />}
       </InfoContainer>
+      <InfoContainer>
+        <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
+      </InfoContainer>
     </Container>
   );
 };
@@ -90,6 +93,12 @@ const CommonInfo = styled.span`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.1rem;
   color: ${colorCode['gray']};
+`;
+
+const FreeCommentContainer = styled.div`
+  border: 1px solid ${colorCode['light-gray']};
+  border-radius: 25px;
+  padding: 15px;
 `;
 
 export default SinglePost;

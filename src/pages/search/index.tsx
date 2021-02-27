@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useModal } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
 import Router from 'next/router';
-import { ReviewData } from 'types/API';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
 import api from 'api';
@@ -25,7 +24,9 @@ const SearchMain = ({ reviews }) => {
   useEffect(() => {
     const query = Router.query.mode;
     setMode(query);
-    // 전체 게시글 가져오기
+    const user = api.getUserById(data.reviews[0].userId).then((result) => {
+      if (!result.isError) console.log(result.data);
+    });
   }, []);
 
   // depended on Mode state

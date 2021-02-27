@@ -133,6 +133,17 @@ const api = {
       return failResponse(error.message);
     }
   },
+
+  // get User by Id
+  getUserById: async (id: string): T.APIResponse => {
+    try {
+      const response = await user.getUserById(id);
+      successResponse.data = response.contents;
+      return successResponse;
+    } catch (error) {
+      return failResponse(error.message);
+    }
+  },
 };
 
 export default api;
