@@ -111,6 +111,28 @@ const api = {
       return failResponse(error.message);
     }
   },
+
+  // get Review Datas first
+  getReviewsFirst: async (): T.APIResponse => {
+    try {
+      const response = await review.getReviewsFirst();
+      successResponse.data = response.contents;
+      return successResponse;
+    } catch (error) {
+      return failResponse(error.message);
+    }
+  },
+
+  // get Review Datas for More Button
+  getReviewsMore: async (key: string): T.APIResponse => {
+    try {
+      const response = await review.getReviewsMore(key);
+      successResponse.data = response.contents;
+      return successResponse;
+    } catch (error) {
+      return failResponse(error.message);
+    }
+  },
 };
 
 export default api;

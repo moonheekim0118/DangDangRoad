@@ -11,4 +11,5 @@ export interface ReviewDataType {
     x: string;
     y: string;
   };
+  createdAt: any;
 }

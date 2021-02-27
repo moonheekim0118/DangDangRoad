@@ -37,6 +37,11 @@ export interface writeReviewParams {
     x: string;
     y: string;
   };
+  createdAt?: any;
+}
+
+export interface ReviewData extends writeReviewParams {
+  docId: string;
 }
 
 interface userContents {
@@ -60,5 +65,5 @@ export type APIResponse = Promise<failType | successType>;
 
 export type APIResult = Promise<{
   status: number;
-  contents?: string | string[];
+  contents?: any;
 }>;
