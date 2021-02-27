@@ -1,41 +1,34 @@
 import React from 'react';
 import { Icon } from 'atoms';
-import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons';
+import { faComment } from '@fortawesome/free-regular-svg-icons';
 import styled from '@emotion/styled';
 
 interface Props {
-  openPostModal: (e: React.MouseEvent<HTMLDivElement>) => void;
+  previewClickHanlder?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  thumnail?: string | undefined;
+  placeName: string;
 }
 
-const Preview = ({ openPostModal }: Props) => {
+const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
   return (
-    <Container>
-      <Post onClick={openPostModal}>
-        <Overlay>
-          <Description>
-            <div>
-              <Icon icon={faHeart} iconsize={25} /> 0
-            </div>
-            <div>
-              <Icon icon={faComment} iconsize={25} /> 12
-            </div>
-          </Description>
-        </Overlay>
-        <Image src="https://i0.wp.com/www.society19.com/wp-content/uploads/2018/10/ls.jpg?fit=1000%2C750&ssl=1" />
-      </Post>
-    </Container>
+    <Post onClick={previewClickHanlder}>
+      <Overlay>
+        <Description>
+          <PlaceName>{placeName}</PlaceName>
+          <div>
+            <Icon icon={faComment} iconsize={25} /> 12
+          </div>
+        </Description>
+      </Overlay>
+      <Image
+        src={
+          thumnail ||
+          'https://superawesomevectors.com/wp-content/uploads/2018/05/danny-dog-peppa-pig-character-free-vector-800x566.jpg'
+        }
+      />
+    </Post>
   );
 };
-
-const Container = styled.div`
-  margin-top: 50px;
-  width: 70%;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fill, 250px);
-  column-gap: 25px;
-  row-gap: 25px;
-`;
 
 const Post = styled.div`
   width: 250px;
@@ -70,9 +63,20 @@ const Overlay = styled.div`
 `;
 
 const Description = styled.div`
-  width: 50%;
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+
+const PlaceName = styled.span`
+  max-height: 80px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export default Preview;

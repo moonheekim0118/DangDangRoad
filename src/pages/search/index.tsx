@@ -1,14 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useModal } from 'hooks';
-import { WriteButton } from 'components/Post';
+import { WriteButton, PostList } from 'components/Post';
 import Router from 'next/router';
-import Loading from 'components/Loading';
+import { ReviewData } from 'types/API';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
+import api from 'api';
 
-const SearchMain = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      reviews: await api.getReviewsFirst(),
+    },
+  };
+}
+
+const SearchMain = ({ reviews }) => {
   const { user } = useUser();
-
+  const [data, setData] = useState(reviews.data); // store review Data
   const [mode, setMode] = useState<string | string[] | undefined>();
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
@@ -16,6 +25,7 @@ const SearchMain = () => {
   useEffect(() => {
     const query = Router.query.mode;
     setMode(query);
+    // 전체 게시글 가져오기
   }, []);
 
   // depended on Mode state
@@ -30,7 +40,12 @@ const SearchMain = () => {
     Router.back();
   }, [showSinglePostModal]);
 
-  return user ? <>{user.isLoggedIn && <WriteButton />}</> : <Loading />;
+  return (
+    <>
+      <PostList reviewData={data.reviews} />
+      {user && user.isLoggedIn && <WriteButton />}
+    </>
+  );
 };
 
 export default SearchMain;

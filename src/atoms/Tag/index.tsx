@@ -9,15 +9,15 @@ enum fontSize {
 
 interface Props {
   /** inner Text */
-  text: string;
+  children: React.ReactNode;
   /** font size*/
   size: 'normal' | 'large';
 }
 
-const Tag = ({ text, size }: Props) => {
+const Tag = ({ children, size }: Props) => {
   return (
     <Container color={colorGenerator()} fontSize={fontSize[size]}>
-      #{text}
+      #{children}
     </Container>
   );
 };
