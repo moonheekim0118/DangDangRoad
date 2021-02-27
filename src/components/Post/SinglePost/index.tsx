@@ -14,12 +14,17 @@ const SinglePost = ({ data }: Props) => {
   return (
     <Container>
       <InfoContainer>
-        {data.imageList && <ImageSlider imageList={data.imageList} />}
-      </InfoContainer>
-      <InfoContainer>
         <PlaceName>{data.placeInfo.place_name}</PlaceName>
         <PlaceDetail>{data.placeInfo.address_name}</PlaceDetail>
         <Map coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
+        <CommonInfoContainer>
+          <CommonInfo>✅ 주차장 {data.hasParkingLot}</CommonInfo>
+          <CommonInfo>✅ 오프리쉬 {data.hasOffLeash}</CommonInfo>
+          <CommonInfo>🐶 {data.recommendation}</CommonInfo>
+        </CommonInfoContainer>
+      </InfoContainer>
+      <InfoContainer>
+        {data.imageList && <ImageSlider imageList={data.imageList} />}
       </InfoContainer>
     </Container>
   );
@@ -58,16 +63,6 @@ const InfoContainer = styled.div`
   }
 `;
 
-const ImageContainer = styled.div`
-  width: 80%;
-  height: 80%;
-
-  @media only screen and (max-width: 1024px) {
-    width: 40%;
-    height: 100%;
-  }
-`;
-
 const PlaceName = styled.span`
   text-align: cetner;
   font-family: 'Do Hyeon', sans-serif;
@@ -81,8 +76,20 @@ const PlaceDetail = styled.span`
   color: ${colorCode['dark-gray']};
 `;
 
-const Images = styled.div`
-  height: 70%;
+const CommonInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media only screen and (max-width: 1024px) {
+    flex-direction: row;
+  }
+`;
+
+const CommonInfo = styled.span`
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 1.1rem;
+  color: ${colorCode['gray']};
 `;
 
 export default SinglePost;
