@@ -9,9 +9,11 @@ interface Props {
   searchKeyword?: string;
   /** fetched datas to show */
   reviewData: ReviewData[];
+  /** open Single Post */
+  openSinglePost: (postId: string) => () => void;
 }
 
-const PostList = ({ searchKeyword, reviewData }: Props) => {
+const PostList = ({ searchKeyword, reviewData, openSinglePost }: Props) => {
   return (
     <Container>
       <TagContainer>
@@ -25,6 +27,7 @@ const PostList = ({ searchKeyword, reviewData }: Props) => {
         {reviewData.map((v) => (
           <PreviewPost
             key={v.docId}
+            previewClickHanlder={openSinglePost(v.docId)}
             placeName={v.placeInfo.place_name}
             thumnail={v.imageList ? v.imageList[0] : undefined}
           />
