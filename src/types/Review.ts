@@ -5,6 +5,11 @@ export interface ReviewDataType {
   recommendation: string;
   freeText: string;
   imageList: string[] | null;
-  coordinateX: string;
-  coordinateY: string;
+  placeInfo: {
+    address_name: string;
+    place_name: string;
+    x: string;
+    y: string;
+  };
+  createdAt: any;
 }

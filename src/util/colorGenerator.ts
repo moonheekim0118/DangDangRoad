@@ -29,7 +29,5 @@ const colorList = [
   '#8d5524',
   '#c68642',
 ];
-const colorGenerator = () =>
-  colorList[Math.floor(Math.random() * colorList.length)];
 
-export default colorGenerator;
+export default colorList;

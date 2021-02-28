@@ -1,5 +1,5 @@
 import React from 'react';
-import WritePost from 'components/WritePost';
+import WritePost from 'components/Post/WritePost';
 import Loading from 'components/Loading';
 import useUser from 'libs/useUser';
 

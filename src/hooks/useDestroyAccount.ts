@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { useModal } from 'hooks';
-import { signOut } from 'api/sign';
-import { destroyAccount } from 'api/user';
+import api from 'api';
 import Router from 'next/router';
 
 const useDestroyAccount = (userId: string) => {
@@ -9,9 +8,9 @@ const useDestroyAccount = (userId: string) => {
   const [showModal, modalHandler] = useModal(false);
 
   const DestroyHandler = useCallback(async () => {
-    const response = await destroyAccount(userId);
+    const response = await api.destroyAccount(userId);
     if (!response.isError) {
-      await signOut();
+      await api.signOut();
       Router.push('/');
     }
     modalHandler();

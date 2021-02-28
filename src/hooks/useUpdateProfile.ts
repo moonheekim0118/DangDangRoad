@@ -1,10 +1,9 @@
-import { useCallback, useState, useRef } from 'react';
+import { useCallback, useState } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
-import { uploadProfileImage } from 'api/storage';
-import { updateProfile } from 'api/user';
 import { useValidation, useImageInput } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
 import { UserType, MutateType } from 'types/user';
+import api from 'api';
 import * as Action from 'action';
 
 interface Props {
@@ -15,7 +14,6 @@ interface Props {
 /** update profile logics  */
 const useUpdateProfile = ({ user, mutate }: Props) => {
   const dispatch = useNotificationDispatch();
-
   /** Image Input Ref */
   const [imageInput, uploaderClickHanlder] = useImageInput();
 
@@ -36,13 +34,11 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
   const uploadImageHanlder = useCallback(async (e) => {
     try {
       const file = e.target.files[0];
-      const response = await uploadProfileImage(file);
+      const response = await api.uploadProfileImage(file);
       if (!response.isError) {
-        setImageUrl(response.url);
+        setImageUrl(response.data);
       } else {
-        return dispatch(
-          Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
-        );
+        return dispatch(Action.showError(response.error));
       }
     } catch (error) {
       dispatch(Action.showError('잠시후 다시 시도해주세요'));
@@ -57,31 +53,24 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
         const trimedNickname = nickname.trim();
         const ImageChanged = imageUrl !== user.profilePic;
         const NicknameChanged =
-          trimedNickname.length !== 0 && trimedNickname !== user.nickname;
-        let updateContets = {};
+          trimedNickname.length > 0 && trimedNickname !== user.nickname;
         // if url and nickname were not changed ,(not send request)
         if (!ImageChanged && !NicknameChanged) return;
-        // if only url changed
-        else if (ImageChanged && !NicknameChanged) {
-          updateContets['profilePic'] = imageUrl;
-        }
-        // if only nickname changed
-        else if (!ImageChanged && NicknameChanged) {
-          updateContets['nickname'] = nickname;
-        } else {
-          // if both of them changed
-          updateContets['profilePic'] = imageUrl;
-          updateContets['nickname'] = nickname;
-        }
-        const response = await updateProfile(user.userId, updateContets);
+        let updateContents = {
+          profilePic: imageUrl,
+          nickname: trimedNickname,
+        };
+        const response = await api.updateProfile({
+          id: user.userId,
+          updateContents,
+        });
         if (!response.isError) {
-          mutate();
+          // mutation without revalidation
+          await mutate({ ...user, ...updateContents }, false);
           return dispatch(Action.showNoti('수정 되었습니다'));
         } else {
           return dispatch(
-            Action.showError(
-              response.errorMessage || '잠시후 다시 시도해주세요'
-            )
+            Action.showError(response.error || '잠시후 다시 시도해주세요')
           );
         }
       } catch (error) {

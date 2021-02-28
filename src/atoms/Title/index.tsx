@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { colorCode } from 'types/Color';
 import styled from '@emotion/styled';
 
@@ -34,4 +34,4 @@ const Container = styled.span`
   }
 `;
 
-export default Title;
+export default memo(Title);

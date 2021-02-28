@@ -23,9 +23,10 @@ const Description = styled.span`
 `;
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 50px;
+  z-index: 1000;
 `;
 
 const Button = styled.div`

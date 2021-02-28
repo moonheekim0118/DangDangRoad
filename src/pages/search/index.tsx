@@ -1,53 +1,80 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useModal } from 'hooks';
+import { WriteButton, PostList, SinglePost } from 'components/Post';
+import { reviewData } from 'types/API';
 import Modal from 'components/Modal';
-import WriteButton from 'components/WriteButton';
-import TagContainer from 'components/TagContainer';
-import Router from 'next/router';
-import Preview from 'components/Preview';
+import useUser from 'libs/useUser';
+import api from 'api';
 
-const SearchMain = () => {
-  const [mode, setMode] = useState<string | string[] | undefined>();
+export async function getStaticProps() {
+  return {
+    props: {
+      reviews: await api.getReviewsFirst(),
+    },
+  };
+}
+
+const SearchMain = ({ reviews }) => {
+  const { user } = useUser();
+  const [lastKey, setLastKey] = useState<string>(reviews.data.lastKey);
+  const [loadedReviews, setLoadedReviews] = useState<reviewData[]>(
+    reviews.data.reviews
+  ); // store review Data
+  const [index, setIndex] = useState<number>(0);
+  const [singlePost, setSinglePost] = useState<reviewData>(reviews.data);
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
-  // set Initially, query of path as Mode state
-  useEffect(() => {
-    const query = Router.query.mode;
-    setMode(query);
-  }, []);
+  // open Single Post Modal
+  const openSinglePost = useCallback(
+    (postId: string) => () => {
+      window.history.replaceState(null, '', `/search/${postId}`);
+      // find Specific Post by Id
+      const idx = loadedReviews.findIndex((doc) => doc.docId === postId);
+      if (idx !== -1) {
+        setSinglePost(loadedReviews[idx]);
+        setIndex(idx);
+      }
+      singlePostModalHanlder();
+    },
+    [loadedReviews, showSinglePostModal]
+  );
 
-  // depended on Mode state
-  useEffect(() => {
-    if (mode === 'singlePost') singlePostModalHanlder();
-  }, [mode]);
-
-  // back to initial path
-  const backToInitial = useCallback(() => {
+  // close Modal
+  const closeModal = useCallback(() => {
     window.history.replaceState(null, '', '/search');
-    setMode(undefined); // setMode to undefined
-  }, []);
-
-  // single Post mode close Handler
-  const singlePostModeCloseHanlder = useCallback(() => {
     singlePostModalHanlder();
-    backToInitial();
   }, [showSinglePostModal]);
 
-  // single Post Open handler
-  const singlePostOpenHanlder = useCallback(() => {
-    setMode('singlePost');
-    window.history.replaceState(null, '', '/search?mode=singlePost');
-  }, []);
+  // move to prev Post in modal
+  const prevHandler = useCallback(() => {
+    const prevPostId = loadedReviews[index - 1].docId;
+    setSinglePost(loadedReviews[index - 1]);
+    setIndex(index - 1);
+    window.history.replaceState(null, '', `/search/${prevPostId}`);
+  }, [loadedReviews, index]);
+
+  // move to next Post in modal
+  const nextHandler = useCallback(() => {
+    const nextPostId = loadedReviews[index + 1].docId;
+    setSinglePost(loadedReviews[index + 1]);
+    setIndex(index + 1);
+    window.history.replaceState(null, '', `/search/${nextPostId}`);
+  }, [loadedReviews, index]);
 
   return (
     <>
-      <TagContainer />
-      <WriteButton />
-      <Preview openPostModal={singlePostOpenHanlder} />
-      <Modal
-        showModal={showSinglePostModal}
-        modalHandler={singlePostModeCloseHanlder}>
-        우히히zz
+      <PostList reviewData={loadedReviews} openSinglePost={openSinglePost} />
+      {user && user.isLoggedIn && <WriteButton />}
+      <Modal showModal={showSinglePostModal} modalHandler={closeModal}>
+        <SinglePost
+          data={singlePost}
+          NavigationInfo={{
+            hasPrev: index > 0,
+            hasNext: index < loadedReviews.length - 1,
+            prevHandler,
+            nextHandler,
+          }}
+        />
       </Modal>
     </>
   );

@@ -1,11 +1,10 @@
 import { useState, useCallback } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { uploadPostImage } from 'api/storage';
-import { createReview } from 'api/review';
 import { useInput, useValidation, useImageInput } from 'hooks';
 import { PlaceType } from 'types/Map';
 import { freeTextLengthCheck } from 'util/reviewTextValidation';
+import api from 'api';
 import Router from 'next/router';
 import * as Action from 'action';
 
@@ -41,13 +40,11 @@ const useWritePost = () => {
           Action.showError('이미지는 최대 3장까지 업로드 가능합니다.')
         );
       }
-      const response = await uploadPostImage(files);
+      const response = await api.uploadPostImage(files);
       if (!response.isError) {
-        setImageList(response.url);
+        setImageList(response.data);
       } else {
-        return dispatch(
-          Action.showError(response.errorMessage || '잠시후 다시 시도해주세요')
-        );
+        return dispatch(Action.showError(response.error));
       }
     } catch (error) {
       dispatch(Action.showError('잠시후 다시 시도해주세요'));
@@ -63,16 +60,12 @@ const useWritePost = () => {
             Action.showError('이미지는 최대 3장까지 업로드 가능합니다.')
           );
         }
-        const response = await uploadPostImage(files);
-        if (!response.isError && response.url) {
+        const response = await api.uploadPostImage(files);
+        if (!response.isError) {
           // add to previous file
-          setImageList(imageList?.concat(response.url));
+          setImageList(imageList?.concat(response.data));
         } else {
-          return dispatch(
-            Action.showError(
-              response.errorMessage || '잠시후 다시 시도해주세요'
-            )
-          );
+          return dispatch(Action.showError(response.error));
         }
       } catch (error) {
         dispatch(Action.showError('잠시후 다시 시도해주세요'));
@@ -111,24 +104,26 @@ const useWritePost = () => {
           );
         }
         const data = {
-          userId,
           hasParkingLot,
           hasOffLeash,
           recommendation,
           freeText,
           imageList: imageList ? imageList : null,
-          coordinateX: selectedPlace.x,
-          coordinateY: selectedPlace.y,
+          placeInfo: {
+            address_name: selectedPlace.address_name,
+            place_name: selectedPlace.place_name,
+            x: selectedPlace.x,
+            y: selectedPlace.y,
+          },
         };
 
-        const response = await createReview(data);
+        const response = await api.createReview(data, userId);
         if (!response.isError) {
           Router.push('/search');
         } else {
-          return dispatch(Action.showError('잠시후 다시 시도해주세요'));
+          return dispatch(Action.showError(response.error));
         }
       } catch (error) {
-        console.log(error);
         return dispatch(Action.showError('잠시후 다시 시도해주세요'));
       }
     },
