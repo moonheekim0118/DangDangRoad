@@ -26,7 +26,7 @@ const Map = ({ coordX, coordY }: Props) => {
       };
       new kakao.maps.Map(container, options);
     }
-  }, [container]);
+  }, [container, coordX, coordY]);
 
   return <Container id="map"></Container>;
 };

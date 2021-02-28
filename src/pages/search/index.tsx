@@ -16,6 +16,7 @@ export async function getStaticProps() {
 const SearchMain = ({ reviews }) => {
   const { user } = useUser();
   const [data, setData] = useState(reviews.data); // store review Data
+  const [index, setIndex] = useState<number>(0);
   const [singlePost, setSinglePost] = useState(reviews.data);
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
@@ -27,10 +28,11 @@ const SearchMain = ({ reviews }) => {
       const idx = data.reviews.findIndex((doc) => doc.docId === postId);
       if (idx !== -1) {
         setSinglePost(data.reviews[idx]);
+        setIndex(idx);
       }
       singlePostModalHanlder();
     },
-    [showSinglePostModal]
+    [data, showSinglePostModal]
   );
 
   // close Modal
@@ -39,12 +41,32 @@ const SearchMain = ({ reviews }) => {
     singlePostModalHanlder();
   }, [showSinglePostModal]);
 
+  const goPrevHandler = useCallback(() => {
+    const prevPostId = data.reviews[index - 1].docId;
+    setSinglePost(data.reviews[index - 1]);
+    setIndex(index - 1);
+    window.history.replaceState(null, '', `/search/${prevPostId}`);
+  }, [data, index]);
+
+  const goNextHandler = useCallback(() => {
+    const nextPostId = data.reviews[index + 1].docId;
+    setSinglePost(data.reviews[index + 1]);
+    setIndex(index + 1);
+    window.history.replaceState(null, '', `/search/${nextPostId}`);
+  }, [data, index]);
+
   return (
     <>
       <PostList reviewData={data.reviews} openSinglePost={openSinglePost} />
       {user && user.isLoggedIn && <WriteButton />}
       <Modal showModal={showSinglePostModal} modalHandler={closeModal}>
-        <SinglePost data={singlePost} />
+        <SinglePost
+          data={singlePost}
+          hasPrev={index > 0}
+          hasNext={index < data.reviews.length - 1}
+          goToPrevHandler={goPrevHandler}
+          goToNextHandler={goNextHandler}
+        />
       </Modal>
     </>
   );
