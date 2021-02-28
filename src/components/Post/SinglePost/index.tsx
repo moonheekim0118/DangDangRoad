@@ -3,6 +3,7 @@ import { baseModalStyle } from 'util/baseStyle';
 import { reviewData } from 'types/API';
 import { colorCode } from 'types/Color';
 import { NavigationInfo } from 'types/Navigation';
+import { WriterInfo } from 'components/Post';
 import PrevNextButton from 'components/PrevNextButton';
 import ImageSlider from 'components/Image/ImageSlider';
 import Map from 'components/Map';
@@ -37,6 +38,7 @@ const SinglePost = ({ data, isModal = true, NavigationInfo }: Props) => {
           </InfoContainer>
         )}
         <InfoContainer>
+          <WriterInfo userData={data.userData} createdAt={data.createdAt} />
           <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
         </InfoContainer>
       </Contents>
@@ -67,6 +69,7 @@ const Contents = styled.div`
   padding: 25px;
   @media only screen and (max-width: 1024px) {
     flex-direction: column;
+    justify-content: space-between;
     overflow-y: scroll;
   }
 `;
@@ -82,7 +85,7 @@ const InfoContainer = styled.div`
 
   @media only screen and (max-width: 1024px) {
     width: 100%;
-    height: 300px;
+    min-height: 300px;
   }
 `;
 
