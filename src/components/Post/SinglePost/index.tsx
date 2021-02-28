@@ -31,9 +31,11 @@ const SinglePost = ({ data, isModal = true, NavigationInfo }: Props) => {
             <CommonInfo>🐶 {data.recommendation}</CommonInfo>
           </CommonInfoContainer>
         </InfoContainer>
-        <InfoContainer>
-          {data.imageList && <ImageSlider imageList={data.imageList} />}
-        </InfoContainer>
+        {data.imageList && (
+          <InfoContainer>
+            <ImageSlider imageList={data.imageList} />
+          </InfoContainer>
+        )}
         <InfoContainer>
           <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
         </InfoContainer>
@@ -59,6 +61,7 @@ const Contents = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 20px;
   padding: 25px;
