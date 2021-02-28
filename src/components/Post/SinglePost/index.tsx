@@ -1,6 +1,6 @@
 import React from 'react';
 import { baseModalStyle } from 'util/baseStyle';
-import { ReviewData } from 'types/API';
+import { reviewData } from 'types/API';
 import { colorCode } from 'types/Color';
 import { NavigationInfo } from 'types/Navigation';
 import PrevNextButton from 'components/PrevNextButton';
@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 
 interface Props {
   /** single Review Data */
-  data: ReviewData;
+  data: reviewData;
   /** indicate if it's modal or not */
   isModal?: boolean;
   /** Navigation info */

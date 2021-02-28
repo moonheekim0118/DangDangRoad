@@ -25,7 +25,6 @@ export interface updatePasswordParams {
 }
 
 export interface writeReviewParams {
-  userId: string;
   hasParkingLot: string;
   hasOffLeash: string;
   recommendation: string;
@@ -40,11 +39,17 @@ export interface writeReviewParams {
   createdAt?: any;
 }
 
-export interface ReviewData extends writeReviewParams {
-  docId: string;
+export interface reviewResult {
+  reviews: reviewData[];
+  lastKey: string;
 }
 
-interface userContents {
+export interface reviewData extends writeReviewParams {
+  docId: string;
+  userData: userContents;
+}
+
+export interface userContents {
   nickname?: string;
   profilePic?: string;
 }

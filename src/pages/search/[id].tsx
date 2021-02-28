@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { SinglePost, PostList } from 'components/Post';
-import { ReviewData } from 'types/API';
+import { reviewData } from 'types/API';
 import { Anchor } from 'atoms';
 import Loading from 'components/Loading';
 import Router from 'next/router';
@@ -23,7 +23,7 @@ export async function getStaticProps() {
 
 const singlePost = ({ reviews }) => {
   // useEffect 에서 parmas 에 따라서 single Review 가져오기
-  const [singlePost, setSinglePost] = useState<ReviewData | undefined>();
+  const [singlePost, setSinglePost] = useState<reviewData | undefined>();
 
   useEffect(() => {
     const postId = Router.query.id;

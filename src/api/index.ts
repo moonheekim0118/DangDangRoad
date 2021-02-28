@@ -52,9 +52,12 @@ const api = {
     }
   },
   // create Review
-  createReview: async (data: T.writeReviewParams): T.APIResponse => {
+  createReview: async (
+    data: T.writeReviewParams,
+    userId: string
+  ): T.APIResponse => {
     try {
-      await review.createReview(data);
+      await review.createReview(data, userId);
       return successResponse;
     } catch (error) {
       return failResponse(error.message);

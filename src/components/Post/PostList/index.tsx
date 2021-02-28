@@ -1,6 +1,6 @@
 import React from 'react';
 import { PreviewPost } from 'components/Post';
-import { ReviewData } from 'types/API';
+import { reviewData } from 'types/API';
 import { Tag } from 'atoms';
 import styled from '@emotion/styled';
 
@@ -8,7 +8,7 @@ interface Props {
   /** search keyword */
   searchKeyword?: string;
   /** fetched datas to show */
-  reviewData: ReviewData[];
+  reviewData: reviewData[];
   /** open Single Post */
   openSinglePost: (postId: string) => () => void;
 }

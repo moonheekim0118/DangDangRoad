@@ -104,7 +104,6 @@ const useWritePost = () => {
           );
         }
         const data = {
-          userId,
           hasParkingLot,
           hasOffLeash,
           recommendation,
@@ -118,7 +117,7 @@ const useWritePost = () => {
           },
         };
 
-        const response = await api.createReview(data);
+        const response = await api.createReview(data, userId);
         if (!response.isError) {
           Router.push('/search');
         } else {

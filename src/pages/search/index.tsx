@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useModal } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
+import { reviewData } from 'types/API';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
 import api from 'api';
@@ -15,9 +16,12 @@ export async function getStaticProps() {
 
 const SearchMain = ({ reviews }) => {
   const { user } = useUser();
-  const [data, setData] = useState(reviews.data); // store review Data
+  const [lastKey, setLastKey] = useState<string>(reviews.data.lastKey);
+  const [loadedReviews, setLoadedReviews] = useState<reviewData[]>(
+    reviews.data.reviews
+  ); // store review Data
   const [index, setIndex] = useState<number>(0);
-  const [singlePost, setSinglePost] = useState(reviews.data);
+  const [singlePost, setSinglePost] = useState<reviewData>(reviews.data);
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
   // open Single Post Modal
@@ -25,14 +29,14 @@ const SearchMain = ({ reviews }) => {
     (postId: string) => () => {
       window.history.replaceState(null, '', `/search/${postId}`);
       // find Specific Post by Id
-      const idx = data.reviews.findIndex((doc) => doc.docId === postId);
+      const idx = loadedReviews.findIndex((doc) => doc.docId === postId);
       if (idx !== -1) {
-        setSinglePost(data.reviews[idx]);
+        setSinglePost(loadedReviews[idx]);
         setIndex(idx);
       }
       singlePostModalHanlder();
     },
-    [data, showSinglePostModal]
+    [loadedReviews, showSinglePostModal]
   );
 
   // close Modal
@@ -41,30 +45,32 @@ const SearchMain = ({ reviews }) => {
     singlePostModalHanlder();
   }, [showSinglePostModal]);
 
+  // move to prev Post in modal
   const prevHandler = useCallback(() => {
-    const prevPostId = data.reviews[index - 1].docId;
-    setSinglePost(data.reviews[index - 1]);
+    const prevPostId = loadedReviews[index - 1].docId;
+    setSinglePost(loadedReviews[index - 1]);
     setIndex(index - 1);
     window.history.replaceState(null, '', `/search/${prevPostId}`);
-  }, [data, index]);
+  }, [loadedReviews, index]);
 
+  // move to next Post in modal
   const nextHandler = useCallback(() => {
-    const nextPostId = data.reviews[index + 1].docId;
-    setSinglePost(data.reviews[index + 1]);
+    const nextPostId = loadedReviews[index + 1].docId;
+    setSinglePost(loadedReviews[index + 1]);
     setIndex(index + 1);
     window.history.replaceState(null, '', `/search/${nextPostId}`);
-  }, [data, index]);
+  }, [loadedReviews, index]);
 
   return (
     <>
-      <PostList reviewData={data.reviews} openSinglePost={openSinglePost} />
+      <PostList reviewData={loadedReviews} openSinglePost={openSinglePost} />
       {user && user.isLoggedIn && <WriteButton />}
       <Modal showModal={showSinglePostModal} modalHandler={closeModal}>
         <SinglePost
           data={singlePost}
           NavigationInfo={{
             hasPrev: index > 0,
-            hasNext: index < data.reviews.length - 1,
+            hasNext: index < loadedReviews.length - 1,
             prevHandler,
             nextHandler,
           }}
