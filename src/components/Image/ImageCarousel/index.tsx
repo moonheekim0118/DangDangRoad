@@ -1,11 +1,7 @@
 import React from 'react';
 import Modal from 'components/Modal';
+import PrevNextButton from 'components/PrevNextButton';
 import { useImageSlide } from 'hooks';
-import { Icon } from 'atoms';
-import {
-  faChevronLeft,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
 import { baseModalStyle } from 'util/baseStyle';
 import styled from '@emotion/styled';
 
@@ -29,25 +25,13 @@ const ImageCarousel = ({
   return (
     <Modal showModal={showModal} modalHandler={modalHanlder}>
       <Containter>
-        <Move left={true}>
-          <Icon
-            color="white"
-            icon={faChevronLeft}
-            iconsize={35}
-            iconClickHandler={data.toPrev}
-            cursor="pointer"
-          />
-        </Move>
+        <PrevNextButton
+          prevHandler={data.toPrev}
+          hasPrev={true}
+          nextHandler={data.toNext}
+          hasNext={true}
+        />
         <Image src={imageList[data.index]} />
-        <Move>
-          <Icon
-            color="white"
-            icon={faChevronRight}
-            iconsize={35}
-            iconClickHandler={data.toNext}
-            cursor="pointer"
-          />
-        </Move>
       </Containter>
     </Modal>
   );
@@ -55,7 +39,7 @@ const ImageCarousel = ({
 
 const Containter = styled.div`
   width: 50%;
-  height: 80%;
+  height: 100%;
   display: grid;
   place-items: center;
   ${baseModalStyle}
@@ -67,17 +51,9 @@ const Containter = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 100%;
+  height: 80%;
   padding: 20px;
   object-fit: cover;
-`;
-
-const Move = styled.div<{ left?: boolean }>`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: ${(props) => props.left && '-40px'};
-  right: ${(props) => !props.left && '-40px'};
 `;
 
 export default ImageCarousel;

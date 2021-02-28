@@ -2,11 +2,8 @@ import React from 'react';
 import { baseModalStyle } from 'util/baseStyle';
 import { ReviewData } from 'types/API';
 import { colorCode } from 'types/Color';
-import { Icon } from 'atoms';
-import {
-  faChevronLeft,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { NavigationInfo } from 'types/Navigation';
+import PrevNextButton from 'components/PrevNextButton';
 import ImageSlider from 'components/Image/ImageSlider';
 import Map from 'components/Map';
 import styled from '@emotion/styled';
@@ -16,24 +13,11 @@ interface Props {
   data: ReviewData;
   /** indicate if it's modal or not */
   isModal?: boolean;
-  /** prev Avaiable? */
-  hasPrev?: boolean;
-  /** next Available */
-  hasNext?: boolean;
-  /** goToPrevHandler */
-  goToPrevHandler?: () => void;
-  /** goToNextHandler */
-  goToNextHandler?: () => void;
+  /** Navigation info */
+  NavigationInfo?: NavigationInfo;
 }
 
-const SinglePost = ({
-  data,
-  isModal = true,
-  hasPrev,
-  hasNext,
-  goToPrevHandler,
-  goToNextHandler,
-}: Props) => {
+const SinglePost = ({ data, isModal = true, NavigationInfo }: Props) => {
   return (
     <Container isModal={isModal}>
       <Contents>
@@ -54,28 +38,7 @@ const SinglePost = ({
           <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
         </InfoContainer>
       </Contents>
-      {hasPrev && (
-        <Move left={true}>
-          <Icon
-            color="white"
-            icon={faChevronLeft}
-            iconsize={35}
-            iconClickHandler={goToPrevHandler}
-            cursor="pointer"
-          />
-        </Move>
-      )}
-      {hasNext && (
-        <Move>
-          <Icon
-            color="white"
-            icon={faChevronRight}
-            iconsize={35}
-            iconClickHandler={goToNextHandler}
-            cursor="pointer"
-          />
-        </Move>
-      )}
+      {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
     </Container>
   );
 };
@@ -153,23 +116,6 @@ const FreeCommentContainer = styled.div`
   border: 1px solid ${colorCode['light-gray']};
   border-radius: 25px;
   padding: 15px;
-`;
-
-const Move = styled.div<{ left?: boolean }>`
-  display: grid;
-  place-items: center;
-  z-index: 7500;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: ${(props) => props.left && '-50px'};
-  right: ${(props) => !props.left && '-50px'};
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
 `;
 
 export default SinglePost;

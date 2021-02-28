@@ -41,14 +41,14 @@ const SearchMain = ({ reviews }) => {
     singlePostModalHanlder();
   }, [showSinglePostModal]);
 
-  const goPrevHandler = useCallback(() => {
+  const prevHandler = useCallback(() => {
     const prevPostId = data.reviews[index - 1].docId;
     setSinglePost(data.reviews[index - 1]);
     setIndex(index - 1);
     window.history.replaceState(null, '', `/search/${prevPostId}`);
   }, [data, index]);
 
-  const goNextHandler = useCallback(() => {
+  const nextHandler = useCallback(() => {
     const nextPostId = data.reviews[index + 1].docId;
     setSinglePost(data.reviews[index + 1]);
     setIndex(index + 1);
@@ -62,10 +62,12 @@ const SearchMain = ({ reviews }) => {
       <Modal showModal={showSinglePostModal} modalHandler={closeModal}>
         <SinglePost
           data={singlePost}
-          hasPrev={index > 0}
-          hasNext={index < data.reviews.length - 1}
-          goToPrevHandler={goPrevHandler}
-          goToNextHandler={goNextHandler}
+          NavigationInfo={{
+            hasPrev: index > 0,
+            hasNext: index < data.reviews.length - 1,
+            prevHandler,
+            nextHandler,
+          }}
         />
       </Modal>
     </>

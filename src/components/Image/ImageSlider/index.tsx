@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import PrevNextButton from 'components/PrevNextButton';
 import { useImageSlide } from 'hooks';
-import { Icon } from 'atoms';
-import {
-  faChevronLeft,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   imageList: string[];
@@ -21,28 +17,13 @@ const ImageSlider = ({ imageList }: Props) => {
           <Image src={img} key={img} />
         ))}
       </Slide>
-      {data.index > 0 && (
-        <Move left={true}>
-          <Icon
-            color="white"
-            icon={faChevronLeft}
-            iconsize={35}
-            iconClickHandler={data.toPrev}
-            cursor="pointer"
-          />
-        </Move>
-      )}
-      {data.index < imageList.length - 1 && (
-        <Move>
-          <Icon
-            color="white"
-            icon={faChevronRight}
-            iconsize={35}
-            iconClickHandler={data.toNext}
-            cursor="pointer"
-          />
-        </Move>
-      )}
+      <PrevNextButton
+        prevHandler={data.toPrev}
+        hasPrev={data.index > 0}
+        nextHandler={data.toNext}
+        hasNext={data.index < imageList.length - 1}
+        location={0}
+      />
       <NavigatorContainer>
         {imageList.map((_, i) => (
           <Navigator
@@ -73,24 +54,6 @@ const Image = styled.img`
   min-height: 100%;
   object-fit: contain;
   background-color: black;
-`;
-
-const Move = styled.div<{ left?: boolean }>`
-  display: grid;
-  place-items: center;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: ${(props) => props.left && '0px'};
-  right: ${(props) => !props.left && '0px'};
-  z-index: 7000;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-  }
 `;
 
 const NavigatorContainer = styled.div`
