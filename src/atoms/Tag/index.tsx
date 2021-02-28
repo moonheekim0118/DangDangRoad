@@ -1,5 +1,5 @@
 import React from 'react';
-import colorGenerator from 'util/colorGenerator';
+import colorList from 'util/colorGenerator';
 import styled from '@emotion/styled';
 
 enum fontSize {
@@ -12,11 +12,13 @@ interface Props {
   children: React.ReactNode;
   /** font size*/
   size: 'normal' | 'large';
+  /** colorRandom or not */
+  colorIndex?: number;
 }
 
-const Tag = ({ children, size }: Props) => {
+const Tag = ({ children, size, colorIndex = 0 }: Props) => {
   return (
-    <Container color={colorGenerator()} fontSize={fontSize[size]}>
+    <Container color={colorList[colorIndex]} fontSize={fontSize[size]}>
       #{children}
     </Container>
   );
