@@ -134,6 +134,16 @@ const api = {
     }
   },
 
+  getReviewById: async (id: string): T.APIResponse => {
+    try {
+      const response = await review.getReviewById(id);
+      successResponse.data = response.contents;
+      return successResponse;
+    } catch (error) {
+      return failResponse(error.message);
+    }
+  },
+
   // get User by Id
   getUserById: async (id: string): T.APIResponse => {
     try {

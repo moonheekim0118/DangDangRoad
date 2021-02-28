@@ -13,6 +13,16 @@ export const createReview = async (data: T.writeReviewParams): T.APIResult => {
   }
 };
 
+export const getReviewById = async (id: string): T.APIResult => {
+  try {
+    const response = await db.collection('reviews').doc(id).get();
+    const data = response.data();
+    return { status: 200, contents: data };
+  } catch (error) {
+    throw { message: error.code };
+  }
+};
+
 /**
  *  this function for first data fetch
  *

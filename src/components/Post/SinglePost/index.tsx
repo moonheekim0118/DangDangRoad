@@ -7,12 +7,15 @@ import Map from 'components/Map';
 import styled from '@emotion/styled';
 
 interface Props {
+  /** single Review Data */
   data: ReviewData;
+  /** indicate if it's modal or not */
+  isModal?: boolean;
 }
 
-const SinglePost = ({ data }: Props) => {
+const SinglePost = ({ data, isModal = true }: Props) => {
   return (
-    <Container>
+    <Container isModal={isModal}>
       <InfoContainer>
         <PlaceName>{data.placeInfo.place_name}</PlaceName>
         <PlaceDetail>{data.placeInfo.address_name}</PlaceDetail>
@@ -33,17 +36,20 @@ const SinglePost = ({ data }: Props) => {
   );
 };
 
-const Container = styled.div`
-  width: 80%;
-  height: 80%;
+const Container = styled.div<{ isModal: boolean }>`
+  width: 80vw;
+  height: 80vh;
   display: flex;
   align-items: center;
   padding: 25px;
+  margin: ${(props) => !props.isModal && '25px 0'};
   gap: 20px;
   background-color: #fff;
   border-radius: 20px;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  ${baseModalStyle}
+  border: ${(props) => !props.isModal && '2px solid #f4f4f4'};
+  box-shadow: ${(props) =>
+    props.isModal && '0px 0px 5px 0px rgba(0, 0, 0, 0.75)'};
+  ${(props) => props.isModal && baseModalStyle};
 
   @media only screen and (max-width: 1024px) {
     flex-direction: column;
