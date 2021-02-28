@@ -18,7 +18,7 @@ const ImageSlider = ({ imageList }: Props) => {
     <Container>
       <Slide ref={data.slideRef}>
         {imageList.map((img) => (
-          <Image src={img} />
+          <Image src={img} key={img} />
         ))}
       </Slide>
       {data.index > 0 && (
@@ -46,6 +46,7 @@ const ImageSlider = ({ imageList }: Props) => {
       <NavigatorContainer>
         {imageList.map((_, i) => (
           <Navigator
+            key={i}
             onClick={data.changeIndexHandler(i)}
             current={i === data.index}
           />
@@ -95,9 +96,10 @@ const Move = styled.div<{ left?: boolean }>`
 const NavigatorContainer = styled.div`
   position: absolute;
   bottom: 25px;
-  width: 100px;
+  width: 30%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 25px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 7000;
