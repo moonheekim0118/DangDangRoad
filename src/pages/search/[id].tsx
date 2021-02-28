@@ -25,6 +25,9 @@ const singlePost = ({ reviews }) => {
   // useEffect 에서 parmas 에 따라서 single Review 가져오기
   const [singlePost, setSinglePost] = useState<reviewData | undefined>();
 
+  // loaded or not 구분하는 hooks 만들어서,
+  // !loaded && !singlePost 면 로딩 컴포넌트 내보내주고,
+  // loaded && !sinlgePost면 '없는 게시글' 컴포넌트 내보내주기
   useEffect(() => {
     const postId = Router.query.id;
     if (typeof postId === 'string') {

@@ -25,6 +25,7 @@ export interface updatePasswordParams {
 }
 
 export interface writeReviewParams {
+  userId: string;
   hasParkingLot: string;
   hasOffLeash: string;
   recommendation: string;

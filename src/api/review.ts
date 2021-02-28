@@ -3,26 +3,13 @@ import * as T from 'types/API';
 
 const DATA_LIMIT = 15;
 
-export const createReview = async (
-  data: T.writeReviewParams,
-  userId: string
-): T.APIResult => {
+export const createReview = async (data: T.writeReviewParams): T.APIResult => {
   try {
     data['createdAt'] = Date.now();
     // add User Ref by user Id
-    data['userRef'] = db.collection('users').doc(userId);
+    data['userRef'] = db.collection('users').doc(data.userId);
     await db.collection('reviews').add(data);
     return { status: 200 };
-  } catch (error) {
-    throw { message: error.code };
-  }
-};
-
-export const getReviewById = async (id: string): T.APIResult => {
-  try {
-    const response = await db.collection('reviews').doc(id).get();
-    const data = response.data();
-    return { status: 200, contents: data };
   } catch (error) {
     throw { message: error.code };
   }
@@ -51,6 +38,7 @@ const extractReviewData = async (response): Promise<T.reviewResult> => {
       const data = doc.data();
       const review = {
         docId: doc.id,
+        userId: data.userId,
         userData: data.userRef,
         hasParkingLot: data.hasParkingLot,
         hasOffLeash: data.hasOffLeash,
@@ -102,6 +90,20 @@ export const getReviewsMore = async (key: string): T.APIResult => {
       .get();
     const contents = await extractReviewData(response);
     return { status: 200, contents };
+  } catch (error) {
+    throw { message: error.code };
+  }
+};
+
+/** get sinlge Review By Id */
+export const getReviewById = async (id: string): T.APIResult => {
+  try {
+    const response = await db.collection('reviews').doc(id).get();
+    const data = response.data();
+    if (data) {
+      data['userData'] = await getUserData(data['userRef']);
+    }
+    return { status: 200, contents: data };
   } catch (error) {
     throw { message: error.code };
   }
