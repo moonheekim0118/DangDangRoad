@@ -137,6 +137,9 @@ const api = {
   getReviewById: async (id: string): T.APIResponse => {
     try {
       const response = await review.getReviewById(id);
+      if (!response.contents) {
+        return failResponse('Not exists data');
+      }
       successResponse.data = response.contents;
       return successResponse;
     } catch (error) {

@@ -9,6 +9,8 @@ const errorExTxt = (errorCode: string): string => {
       return '존재하지 않는 이메일 입니다.';
     case 'Not verfied':
       return '이메일 인증을 완료해주세요';
+    case 'Not exists data':
+      return '존재하지 않는 페이지입니다';
     default:
       return '잠시후 다시 시도해주세요';
   }

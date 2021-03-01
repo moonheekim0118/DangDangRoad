@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { SinglePost, PostList } from 'components/Post';
-import { reviewData } from 'types/API';
+import { useAPI } from 'hooks';
 import { Anchor } from 'atoms';
+import * as T from 'types/API';
 import Loading from 'components/Loading';
 import Router from 'next/router';
 import api from 'api';
@@ -22,20 +23,13 @@ export async function getStaticProps() {
 }
 
 const singlePost = ({ reviews }) => {
-  // useEffect 에서 parmas 에 따라서 single Review 가져오기
-  const [singlePost, setSinglePost] = useState<reviewData | undefined>();
+  const [sendRequest, responseState] = useAPI(T.APITypes.GET_REVIEW_BY_ID);
+  const [singleReview, setSingleReview] = useState<T.reviewData>();
 
-  // loaded or not 구분하는 hooks 만들어서,
-  // !loaded && !singlePost 면 로딩 컴포넌트 내보내주고,
-  // loaded && !sinlgePost면 '없는 게시글' 컴포넌트 내보내주기
   useEffect(() => {
     const postId = Router.query.id;
     if (typeof postId === 'string') {
-      api.getReviewById(postId).then((result) => {
-        if (!result.isError) {
-          setSinglePost(result.data);
-        }
-      });
+      sendRequest(postId).then((data) => setSingleReview(data));
     }
   }, []);
 
@@ -46,10 +40,12 @@ const singlePost = ({ reviews }) => {
     []
   );
 
-  return (
+  return responseState.error ? (
+    <span>{responseState.error}</span>
+  ) : (
     <>
-      {singlePost ? (
-        <SinglePost data={singlePost} isModal={false} />
+      {singleReview ? (
+        <SinglePost data={singleReview} isModal={false} />
       ) : (
         <Loading />
       )}

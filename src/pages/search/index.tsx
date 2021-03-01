@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { useModal } from 'hooks';
+import { useModal, useAPI } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
-import { reviewData } from 'types/API';
+import * as T from 'types/API';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
 import api from 'api';
@@ -16,12 +16,13 @@ export async function getStaticProps() {
 
 const SearchMain = ({ reviews }) => {
   const { user } = useUser();
+  const [sendRequest, responseState] = useAPI(T.APITypes.GET_REIVEW_MORE);
   const [lastKey, setLastKey] = useState<string>(reviews.data.lastKey);
-  const [loadedReviews, setLoadedReviews] = useState<reviewData[]>(
+  const [loadedReviews, setLoadedReviews] = useState<T.reviewData[]>(
     reviews.data.reviews
   ); // store review Data
   const [index, setIndex] = useState<number>(0);
-  const [singlePost, setSinglePost] = useState<reviewData>(reviews.data);
+  const [singlePost, setSinglePost] = useState<T.reviewData>(reviews.data);
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
   // open Single Post Modal
