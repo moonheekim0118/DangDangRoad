@@ -1,5 +1,5 @@
 import React from 'react';
-import { useInfiniteScroll, useSearchData } from 'hooks';
+import { useSearchData } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
 import * as S from 'globalStyle/PostStyle';
 import Loading from 'components/Loading';
@@ -25,8 +25,6 @@ const SearchMain = ({ reviews }) => {
     originPath: '/search',
   });
 
-  const [observerTarget] = useInfiniteScroll(data.fetchMutipleReview);
-
   return (
     <>
       <PostList reviewData={data.reviews} openSinglePost={data.openModal} />
@@ -48,7 +46,7 @@ const SearchMain = ({ reviews }) => {
           )}
         </S.SinglePostContainer>
       </Modal>
-      <div ref={observerTarget}>
+      <div ref={data.observerTarget}>
         {data.fetchMutipleReviewState.loading && <Loading />}
       </div>
     </>

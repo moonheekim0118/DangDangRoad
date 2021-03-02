@@ -147,6 +147,16 @@ const api = {
     }
   },
 
+  // get Review By keyword
+  getReviewByKeyword: async (keyword: string): T.APIResponse => {
+    try {
+      const response = await review.getReveiwByKeyword(keyword);
+      return successResponse;
+    } catch (error) {
+      return failResponse(error.message);
+    }
+  },
+
   // get User by Id
   getUserById: async (id: string): T.APIResponse => {
     try {
