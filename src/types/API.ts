@@ -25,6 +25,7 @@ export interface updatePasswordParams {
 }
 
 export interface writeReviewParams {
+  userId: string;
   hasParkingLot: string;
   hasOffLeash: string;
   recommendation: string;
@@ -72,3 +73,20 @@ export type APIResult = Promise<{
   status: number;
   contents?: any;
 }>;
+
+export enum APITypes {
+  SIGNUP = 'signUp',
+  SIGNIN = 'signIn',
+  GOOGLE_SIGNIN = 'googleSignIn',
+  SIGNOUT = 'signOut',
+  CREATE_REVIEW = 'createReview',
+  UPLOAD_PROFILE_IMAGE = 'uploadProfileImage',
+  UPLOAD_POST_IMAGE = 'uploadPostImage',
+  UPDATE_PROFILE = 'updateProfile',
+  UPDATE_PASSWORD = 'updatePassword',
+  DESTROY_ACCOUNT = 'destroyAccount',
+  GET_REVIEW_FIRST = 'getReviewsFirst',
+  GET_REIVEW_MORE = 'getReviewsMore',
+  GET_REVIEW_BY_ID = 'getReviewById',
+  GET_USER_BY_ID = 'getUserById',
+}

@@ -52,12 +52,9 @@ const api = {
     }
   },
   // create Review
-  createReview: async (
-    data: T.writeReviewParams,
-    userId: string
-  ): T.APIResponse => {
+  createReview: async (data: T.writeReviewParams): T.APIResponse => {
     try {
-      await review.createReview(data, userId);
+      await review.createReview(data);
       return successResponse;
     } catch (error) {
       return failResponse(error.message);
@@ -140,6 +137,9 @@ const api = {
   getReviewById: async (id: string): T.APIResponse => {
     try {
       const response = await review.getReviewById(id);
+      if (!response.contents) {
+        return failResponse('Not exists data');
+      }
       successResponse.data = response.contents;
       return successResponse;
     } catch (error) {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { baseModalStyle } from 'util/baseStyle';
 import { reviewData } from 'types/API';
 import { colorCode } from 'types/Color';
 import { NavigationInfo } from 'types/Navigation';
@@ -12,15 +11,13 @@ import styled from '@emotion/styled';
 interface Props {
   /** single Review Data */
   data: reviewData;
-  /** indicate if it's modal or not */
-  isModal?: boolean;
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
 }
 
-const SinglePost = ({ data, isModal = true, NavigationInfo }: Props) => {
+const SinglePost = ({ data, NavigationInfo }: Props) => {
   return (
-    <Container isModal={isModal}>
+    <>
       <Contents>
         <InfoContainer>
           <PlaceName>{data.placeInfo.place_name}</PlaceName>
@@ -43,21 +40,9 @@ const SinglePost = ({ data, isModal = true, NavigationInfo }: Props) => {
         </InfoContainer>
       </Contents>
       {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
-    </Container>
+    </>
   );
 };
-
-const Container = styled.div<{ isModal: boolean }>`
-  width: 80vw;
-  height: 80vh;
-  margin: ${(props) => !props.isModal && '25px 0'};
-  background-color: #fff;
-  border-radius: 20px;
-  border: ${(props) => !props.isModal && '2px solid #f4f4f4'};
-  box-shadow: ${(props) =>
-    props.isModal && '0px 0px 5px 0px rgba(0, 0, 0, 0.75)'};
-  ${(props) => props.isModal && baseModalStyle};
-`;
 
 const Contents = styled.div`
   width: 100%;

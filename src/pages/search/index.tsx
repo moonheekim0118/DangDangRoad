@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { useModal } from 'hooks';
+import { useModal, useFetchState, useInfiniteScroll } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
-import { reviewData } from 'types/API';
+import * as T from 'types/API';
+import * as S from 'globalStyle/PostStyle';
+import Loading from 'components/Loading';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
 import api from 'api';
@@ -16,13 +18,33 @@ export async function getStaticProps() {
 
 const SearchMain = ({ reviews }) => {
   const { user } = useUser();
+  const [fetchState, setLoading, setDone, setError] = useFetchState();
   const [lastKey, setLastKey] = useState<string>(reviews.data.lastKey);
-  const [loadedReviews, setLoadedReviews] = useState<reviewData[]>(
+  const [loadedReviews, setLoadedReviews] = useState<T.reviewData[]>(
     reviews.data.reviews
   ); // store review Data
   const [index, setIndex] = useState<number>(0);
-  const [singlePost, setSinglePost] = useState<reviewData>(reviews.data);
+  const [singlePost, setSinglePost] = useState<T.reviewData>();
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
+
+  const fetchPost = useCallback(async () => {
+    try {
+      if (!fetchState.loading) {
+        setLoading();
+        const response = await api.getReviewsMore(lastKey);
+        if (!response.isError) {
+          setLastKey(response.data.lastKey);
+          const reviews = loadedReviews.concat(response.data.reviews);
+          setLoadedReviews(reviews);
+          setDone();
+        }
+      }
+    } catch (error) {
+      setError(error);
+    }
+  }, [fetchState, loadedReviews, lastKey]);
+
+  const [observerTarget] = useInfiniteScroll(fetchPost);
 
   // open Single Post Modal
   const openSinglePost = useCallback(
@@ -66,16 +88,23 @@ const SearchMain = ({ reviews }) => {
       <PostList reviewData={loadedReviews} openSinglePost={openSinglePost} />
       {user && user.isLoggedIn && <WriteButton />}
       <Modal showModal={showSinglePostModal} modalHandler={closeModal}>
-        <SinglePost
-          data={singlePost}
-          NavigationInfo={{
-            hasPrev: index > 0,
-            hasNext: index < loadedReviews.length - 1,
-            prevHandler,
-            nextHandler,
-          }}
-        />
+        <S.SinglePostContainer isModal={true}>
+          {singlePost ? (
+            <SinglePost
+              data={singlePost}
+              NavigationInfo={{
+                hasPrev: index > 0,
+                hasNext: index < loadedReviews.length - 1,
+                prevHandler,
+                nextHandler,
+              }}
+            />
+          ) : (
+            <Loading />
+          )}
+        </S.SinglePostContainer>
       </Modal>
+      <div ref={observerTarget}>{fetchState.loading && <Loading />}</div>
     </>
   );
 };

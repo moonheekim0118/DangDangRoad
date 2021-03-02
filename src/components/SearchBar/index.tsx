@@ -1,7 +1,7 @@
 import React from 'react';
 import useInput from 'hooks/useInput';
 import styled from '@emotion/styled';
-import { Icon, Span } from 'atoms';
+import { Icon, Button } from 'atoms';
 import { colorCode } from 'types/Color';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,7 +13,7 @@ interface Props {
   placeholder?: string;
   keyword?: string;
   keywordChangeHanlder?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  searchHandler?: () => void;
+  searchHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
 interface InputProps extends Props {
@@ -55,11 +55,11 @@ const SearchBar = ({
       <IconContainer color={color}>
         <Icon icon={faSearch} iconsize={20} rotate={180} />
       </IconContainer>
-      <SpanContainer color={color}>
-        <Span fontsize={1} cursor="pointer" spanClickHandler={searchHandler}>
+      <ButtonContainer color={color}>
+        <Button type="submit" onClick={searchHandler} shadow={false}>
           Go
-        </Span>
-      </SpanContainer>
+        </Button>
+      </ButtonContainer>
     </Form>
   );
 };
@@ -77,7 +77,7 @@ const IconContainer = styled.div<Props>`
   left: 10px;
 `;
 
-const SpanContainer = styled.div<Props>`
+const ButtonContainer = styled.div<Props>`
   position: absolute;
   color: ${(props) =>
     props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
@@ -113,7 +113,11 @@ const Input = styled.input<InputProps>`
     color: ${(props) => props.focusFont && colorCode[props.focusFont]};
   }
 
-  &:focus ~ ${SpanContainer}, &:focus ~ ${IconContainer}, &:focus::placeholder {
+  &:focus
+    ~ ${ButtonContainer},
+    &:focus
+    ~ ${IconContainer},
+    &:focus::placeholder {
     color: ${(props) => props.focusFont && colorCode[props.focusFont]};
   }
 

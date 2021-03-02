@@ -114,14 +114,18 @@ const useSearchMap = () => {
   );
 
   // SearchButton Click handler
-  const searchHadler = useCallback(() => {
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-      return alert('키워드를 입력해주세요');
-    }
-    if (ps) {
-      ps.keywordSearch(keyword, placeSearchCB);
-    }
-  }, [keyword, ps]);
+  const searchHadler = useCallback(
+    (e: React.MouseEvent<HTMLSpanElement>) => {
+      e.preventDefault();
+      if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        return alert('키워드를 입력해주세요');
+      }
+      if (ps) {
+        ps.keywordSearch(keyword, placeSearchCB);
+      }
+    },
+    [keyword, ps]
+  );
 
   // pagination - page click handler function
   const pageClickHandler = useCallback(
