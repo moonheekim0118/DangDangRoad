@@ -1,5 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { useModal, useFetchState, useInfiniteScroll } from 'hooks';
+import {
+  useModal,
+  useFetchState,
+  useInfiniteScroll,
+  useSingleReviewFetch,
+} from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
 import * as T from 'types/API';
 import * as S from 'globalStyle/PostStyle';
@@ -18,13 +23,17 @@ export async function getStaticProps() {
 
 const SearchMain = ({ reviews }) => {
   const { user } = useUser();
+  const [
+    singleReview,
+    fetchSingleReviewState,
+    fetchSingleReview,
+  ] = useSingleReviewFetch(false);
   const [fetchState, setLoading, setDone, setError] = useFetchState();
   const [lastKey, setLastKey] = useState<string>(reviews.data.lastKey);
   const [loadedReviews, setLoadedReviews] = useState<T.lightReviewData[]>(
     reviews.data.reviews
   ); // store review Data
   const [index, setIndex] = useState<number>(0);
-  const [singlePost, setSinglePost] = useState<T.reviewData>();
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
   const fetchMutilplePost = useCallback(async () => {
@@ -44,15 +53,6 @@ const SearchMain = ({ reviews }) => {
     }
   }, [fetchState, loadedReviews, lastKey]);
 
-  const fetchSinglePost = useCallback(async (postId: string) => {
-    try {
-      const response = await api.getReviewById(postId);
-      if (!response.isError) {
-        setSinglePost(response.data);
-      }
-    } catch (error) {}
-  }, []);
-
   const [observerTarget] = useInfiniteScroll(fetchMutilplePost);
 
   // open Single Post Modal
@@ -64,10 +64,9 @@ const SearchMain = ({ reviews }) => {
         // find Specific Post by Id
         const idx = loadedReviews.findIndex((doc) => doc.docId === postId);
         if (idx !== -1) {
-          // setSinglePost(loadedReviews[idx]);
           setIndex(idx);
         }
-        await fetchSinglePost(postId);
+        await fetchSingleReview(postId);
         singlePostModalHanlder();
       } catch (error) {}
     },
@@ -84,7 +83,7 @@ const SearchMain = ({ reviews }) => {
   const prevHandler = useCallback(async () => {
     try {
       const prevPostId = loadedReviews[index - 1].docId;
-      await fetchSinglePost(prevPostId);
+      await fetchSingleReview(prevPostId);
       setIndex(index - 1);
       window.history.replaceState(null, '', `/search/${prevPostId}`);
     } catch (error) {}
@@ -94,7 +93,7 @@ const SearchMain = ({ reviews }) => {
   const nextHandler = useCallback(async () => {
     try {
       const nextPostId = loadedReviews[index + 1].docId;
-      await fetchSinglePost(nextPostId);
+      await fetchSingleReview(nextPostId);
       setIndex(index + 1);
       window.history.replaceState(null, '', `/search/${nextPostId}`);
     } catch (error) {}
@@ -106,9 +105,9 @@ const SearchMain = ({ reviews }) => {
       {user && user.isLoggedIn && <WriteButton />}
       <Modal showModal={showSinglePostModal} modalHandler={closeModal}>
         <S.SinglePostContainer isModal={true}>
-          {singlePost ? (
+          {singleReview ? (
             <SinglePost
-              data={singlePost}
+              data={singleReview}
               NavigationInfo={{
                 hasPrev: index > 0,
                 hasNext: index < loadedReviews.length - 1,

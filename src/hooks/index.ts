@@ -17,3 +17,4 @@ export { default as useImageInput } from './useImageInput';
 export { default as useImageSlide } from './useImageSlide';
 export { default as useFetchState } from './useFetchState';
 export { default as useInfiniteScroll } from './useInfiniteScroll';
+export { default as useSingleReviewFetch } from './useSingleReviewFetch';
