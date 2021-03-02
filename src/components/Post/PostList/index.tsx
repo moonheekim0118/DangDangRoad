@@ -1,6 +1,6 @@
 import React from 'react';
 import { PreviewPost } from 'components/Post';
-import { reviewData } from 'types/API';
+import { lightReviewData } from 'types/API';
 import { Tag } from 'atoms';
 import styled from '@emotion/styled';
 
@@ -8,7 +8,7 @@ interface Props {
   /** search keyword */
   searchKeyword?: string;
   /** fetched datas to show */
-  reviewData: reviewData[];
+  reviewData: lightReviewData[];
   /** open Single Post */
   openSinglePost: (postId: string) => () => void;
 }
@@ -28,8 +28,8 @@ const PostList = ({ searchKeyword, reviewData, openSinglePost }: Props) => {
           <PreviewPost
             key={v.docId}
             previewClickHanlder={openSinglePost(v.docId)}
-            placeName={v.placeInfo.place_name}
-            thumnail={v.imageList ? v.imageList[0] : undefined}
+            placeName={v.placeName}
+            thumnail={v.thumbNail}
           />
         ))}
       </ReviewContainer>

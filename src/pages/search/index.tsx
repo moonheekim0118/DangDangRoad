@@ -20,14 +20,14 @@ const SearchMain = ({ reviews }) => {
   const { user } = useUser();
   const [fetchState, setLoading, setDone, setError] = useFetchState();
   const [lastKey, setLastKey] = useState<string>(reviews.data.lastKey);
-  const [loadedReviews, setLoadedReviews] = useState<T.reviewData[]>(
+  const [loadedReviews, setLoadedReviews] = useState<T.lightReviewData[]>(
     reviews.data.reviews
   ); // store review Data
   const [index, setIndex] = useState<number>(0);
   const [singlePost, setSinglePost] = useState<T.reviewData>();
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
-  const fetchPost = useCallback(async () => {
+  const fetchMutilplePost = useCallback(async () => {
     try {
       if (!fetchState.loading) {
         setLoading();
@@ -44,19 +44,32 @@ const SearchMain = ({ reviews }) => {
     }
   }, [fetchState, loadedReviews, lastKey]);
 
-  const [observerTarget] = useInfiniteScroll(fetchPost);
+  const fetchSinglePost = useCallback(async (postId: string) => {
+    try {
+      const response = await api.getReviewById(postId);
+      if (!response.isError) {
+        setSinglePost(response.data);
+      }
+    } catch (error) {}
+  }, []);
+
+  const [observerTarget] = useInfiniteScroll(fetchMutilplePost);
 
   // open Single Post Modal
   const openSinglePost = useCallback(
-    (postId: string) => () => {
-      window.history.replaceState(null, '', `/search/${postId}`);
-      // find Specific Post by Id
-      const idx = loadedReviews.findIndex((doc) => doc.docId === postId);
-      if (idx !== -1) {
-        setSinglePost(loadedReviews[idx]);
-        setIndex(idx);
-      }
-      singlePostModalHanlder();
+    (postId: string) => async () => {
+      try {
+        // change url
+        window.history.replaceState(null, '', `/search/${postId}`);
+        // find Specific Post by Id
+        const idx = loadedReviews.findIndex((doc) => doc.docId === postId);
+        if (idx !== -1) {
+          // setSinglePost(loadedReviews[idx]);
+          setIndex(idx);
+        }
+        await fetchSinglePost(postId);
+        singlePostModalHanlder();
+      } catch (error) {}
     },
     [loadedReviews, showSinglePostModal]
   );
@@ -68,19 +81,23 @@ const SearchMain = ({ reviews }) => {
   }, [showSinglePostModal]);
 
   // move to prev Post in modal
-  const prevHandler = useCallback(() => {
-    const prevPostId = loadedReviews[index - 1].docId;
-    setSinglePost(loadedReviews[index - 1]);
-    setIndex(index - 1);
-    window.history.replaceState(null, '', `/search/${prevPostId}`);
+  const prevHandler = useCallback(async () => {
+    try {
+      const prevPostId = loadedReviews[index - 1].docId;
+      await fetchSinglePost(prevPostId);
+      setIndex(index - 1);
+      window.history.replaceState(null, '', `/search/${prevPostId}`);
+    } catch (error) {}
   }, [loadedReviews, index]);
 
   // move to next Post in modal
-  const nextHandler = useCallback(() => {
-    const nextPostId = loadedReviews[index + 1].docId;
-    setSinglePost(loadedReviews[index + 1]);
-    setIndex(index + 1);
-    window.history.replaceState(null, '', `/search/${nextPostId}`);
+  const nextHandler = useCallback(async () => {
+    try {
+      const nextPostId = loadedReviews[index + 1].docId;
+      await fetchSinglePost(nextPostId);
+      setIndex(index + 1);
+      window.history.replaceState(null, '', `/search/${nextPostId}`);
+    } catch (error) {}
   }, [loadedReviews, index]);
 
   return (
