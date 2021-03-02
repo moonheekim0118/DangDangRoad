@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useModal, useFetchState, useInfiniteScroll } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
 import * as T from 'types/API';
+import * as S from 'globalStyle/PostStyle';
 import Loading from 'components/Loading';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
@@ -23,7 +24,7 @@ const SearchMain = ({ reviews }) => {
     reviews.data.reviews
   ); // store review Data
   const [index, setIndex] = useState<number>(0);
-  const [singlePost, setSinglePost] = useState<T.reviewData>(reviews.data);
+  const [singlePost, setSinglePost] = useState<T.reviewData>();
   const [showSinglePostModal, singlePostModalHanlder] = useModal(false);
 
   const fetchPost = useCallback(async () => {
@@ -87,15 +88,21 @@ const SearchMain = ({ reviews }) => {
       <PostList reviewData={loadedReviews} openSinglePost={openSinglePost} />
       {user && user.isLoggedIn && <WriteButton />}
       <Modal showModal={showSinglePostModal} modalHandler={closeModal}>
-        <SinglePost
-          data={singlePost}
-          NavigationInfo={{
-            hasPrev: index > 0,
-            hasNext: index < loadedReviews.length - 1,
-            prevHandler,
-            nextHandler,
-          }}
-        />
+        <S.SinglePostContainer isModal={true}>
+          {singlePost ? (
+            <SinglePost
+              data={singlePost}
+              NavigationInfo={{
+                hasPrev: index > 0,
+                hasNext: index < loadedReviews.length - 1,
+                prevHandler,
+                nextHandler,
+              }}
+            />
+          ) : (
+            <Loading />
+          )}
+        </S.SinglePostContainer>
       </Modal>
       <div ref={observerTarget}>{fetchState.loading && <Loading />}</div>
     </>

@@ -1,7 +1,7 @@
 import db from 'firebaseConfigs/db';
 import * as T from 'types/API';
 
-const DATA_LIMIT = 10;
+const DATA_LIMIT = 8;
 
 export const createReview = async (data: T.writeReviewParams): T.APIResult => {
   try {

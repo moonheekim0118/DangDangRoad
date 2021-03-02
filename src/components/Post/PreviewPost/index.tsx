@@ -31,8 +31,8 @@ const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
 };
 
 const Post = styled.div`
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   cursor: pointer;
 `;
 const Image = styled.img`
@@ -46,8 +46,8 @@ const Overlay = styled.div`
   opacity: 0;
   display: grid;
   place-items: center;
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;

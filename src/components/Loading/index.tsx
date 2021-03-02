@@ -20,6 +20,9 @@ const Loader = styled.div`
     position:relative;
     width: 100%;
     height: 100%;
+    background-color:inherit;
+
+    z-index:2000;
 
     &:after{
         content: " ";

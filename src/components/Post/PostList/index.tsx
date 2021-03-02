@@ -60,7 +60,7 @@ const ReviewContainer = styled.div`
   width: 100%;
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fill, 250px);
+  grid-template-columns: repeat(auto-fill, 300px);
   column-gap: 30px;
   row-gap: 30px;
 `;
