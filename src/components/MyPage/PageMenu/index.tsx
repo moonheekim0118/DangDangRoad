@@ -11,6 +11,7 @@ interface DataTypes {
 }
 
 interface Props {
+  /** each menu data */
   datas: Array<DataTypes>;
   onClick?: () => void;
 }

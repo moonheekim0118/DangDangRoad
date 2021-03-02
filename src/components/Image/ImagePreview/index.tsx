@@ -7,12 +7,17 @@ import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { colorCode } from 'types/Color';
 
 interface Props {
+  /** image url List for Preview */
   imageList: string[];
+  /** this is for uploading image */
   imageInput: React.RefObject<HTMLInputElement>;
+  /** to pop up file uploader */
   uploaderClickHanlder: (
     e: React.MouseEvent<SVGSVGElement, MouseEvent>
   ) => void;
+  /** funciton to remove image with specific index */
   imageRemoveHanlder: (index: number) => () => void;
+  /** function to upload image */
   imageUploadHanlder: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 

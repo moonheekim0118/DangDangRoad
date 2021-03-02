@@ -6,9 +6,9 @@ interface Props {
   /** contents of pop up */
   contents: string;
   /** close button handler */
-  closeHandler?: () => void;
+  closeHandler: () => void;
   /** yes button handler  */
-  submitHandler?: () => void;
+  submitHandler: () => void;
 }
 
 /** confrim pop up atom */

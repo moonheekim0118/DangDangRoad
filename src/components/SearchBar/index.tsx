@@ -11,8 +11,11 @@ interface Props {
   /** have a focus effects or not */
   focus?: boolean;
   placeholder?: string;
+  /** default keyword */
   keyword?: string;
+  /** key word value handler */
   keywordChangeHanlder?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /** submit search handler */
   searchHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 

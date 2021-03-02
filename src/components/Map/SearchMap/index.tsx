@@ -7,7 +7,9 @@ import styled from '@emotion/styled';
 import * as marker from 'util/marker';
 
 interface Props {
+  /** function to change user select Place to review */
   selectPlaceHandler: (place: PlaceType) => () => void;
+  /** place name which is selected by user */
   nowSelectedAddress?: string;
 }
 

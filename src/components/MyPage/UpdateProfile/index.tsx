@@ -8,7 +8,9 @@ import styled from '@emotion/styled';
 import * as S from '../style';
 
 interface Props {
+  /** user data */
   user: UserType;
+  /** mutate function to mutate User's data when it's changed */
   mutate: MutateType;
 }
 

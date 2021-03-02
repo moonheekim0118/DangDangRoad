@@ -6,9 +6,13 @@ import { baseModalStyle } from 'util/baseStyle';
 import styled from '@emotion/styled';
 
 interface Props {
+  /** image Url list to show */
   imageList: string[];
+  /** start index of list */
   startIdx: number;
+  /** show this modal or not */
   showModal: boolean;
+  /** fucntion to close image carousel */
   modalHanlder: () => void;
 }
 

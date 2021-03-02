@@ -2,12 +2,16 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 interface Props {
+  /** id for input */
   id: string;
+  /** value for input */
   value: string;
-  changed: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /** change Hanlder function */
+  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /** to know if this radio button is selected one */
   isSelected: boolean;
 }
-const RadioButton = ({ id, value, changed, isSelected }: Props) => {
+const RadioButton = ({ id, value, changeHandler, isSelected }: Props) => {
   return (
     <Label htmlFor={id}>
       {value}
@@ -15,7 +19,7 @@ const RadioButton = ({ id, value, changed, isSelected }: Props) => {
         type="radio"
         id={id}
         value={value}
-        onChange={changed}
+        onChange={changeHandler}
         checked={isSelected}
       />
       <CheckMark />

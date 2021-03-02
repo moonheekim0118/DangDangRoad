@@ -4,6 +4,7 @@ import PrevNextButton from 'components/PrevNextButton';
 import { useImageSlide } from 'hooks';
 
 interface Props {
+  /** list of image url */
   imageList: string[];
 }
 

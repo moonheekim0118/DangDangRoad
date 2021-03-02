@@ -4,7 +4,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
 
 interface Props {
-  closeHanlder?: () => void;
+  closeHanlder: () => void;
 }
 
 const Close = ({ closeHanlder }: Props) => {

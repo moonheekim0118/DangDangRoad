@@ -3,6 +3,7 @@ import { useElement } from 'hooks';
 import styled from '@emotion/styled';
 
 interface Props {
+  /** coordination for get Position of map to draw */
   coordX: string;
   coordY: string;
 }

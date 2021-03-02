@@ -1,11 +1,14 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { useElement } from 'hooks';
 import styled from '@emotion/styled';
 
 interface Props {
+  /** Modal's inner contents */
   children: React.ReactNode;
+  /** show modal or not */
   showModal: boolean;
+  /** close / open modal handler */
   modalHandler: () => void;
 }
 

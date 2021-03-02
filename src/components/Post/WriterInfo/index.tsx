@@ -6,7 +6,7 @@ import formatDate from 'util/formatDate';
 import styled from '@emotion/styled';
 interface Props {
   userData: userContents;
-  createdAt: string;
+  createdAt: number;
 }
 
 const WriterInfo = ({ userData, createdAt }: Props) => {

@@ -8,9 +8,13 @@ interface listType {
 }
 
 interface Props {
+  /** now selected value */
   selectedValue: string;
+  /** select hanlder function */
   selectHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /** title of radio box */
   title: string;
+  /** raido buttons list */
   list: listType[];
 }
 

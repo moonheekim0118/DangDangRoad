@@ -5,7 +5,7 @@ import * as user from './user';
 import * as T from 'types/API';
 import errorExTxt from 'util/erreorExTxt';
 
-const successResponse: T.successType = { isError: false, data: '' };
+const successResponse: T.successType = { isError: false, data: null };
 
 const failResponse = (message: string): T.failType => {
   return {

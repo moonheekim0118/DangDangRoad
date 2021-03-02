@@ -4,12 +4,15 @@ import { faComment } from '@fortawesome/free-regular-svg-icons';
 import styled from '@emotion/styled';
 
 interface Props {
-  previewClickHanlder?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  thumnail?: string | null;
+  /** onClick for this component */
+  previewClickHanlder: (e: React.MouseEvent<HTMLDivElement>) => void;
+  /** thumNail image */
+  thumnail?: string;
+  /** place name to be shown in Preview */
   placeName: string;
 }
 
-const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
+const Preview = ({ previewClickHanlder, thumnail = '', placeName }: Props) => {
   return (
     <Post onClick={previewClickHanlder}>
       <Overlay>
