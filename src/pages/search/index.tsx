@@ -1,5 +1,5 @@
 import React from 'react';
-import { useInfiniteScroll, useSearchData } from 'hooks';
+import { useSearchData } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
 import * as S from 'globalStyle/PostStyle';
 import Loading from 'components/Loading';
