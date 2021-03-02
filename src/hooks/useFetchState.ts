@@ -1,31 +1,26 @@
 import { useCallback, useReducer } from 'react';
-import api from 'api';
-import * as T from 'types/API';
 
 /**
  *  this is hooks for give loading / done /fail status for reqeust
- *
+ *  and also can handle states
  */
 
-const useAPI = (apiType: T.APITypes) => {
+const useFetchState = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const sendRequest = useCallback(async (params) => {
-    try {
-      dispatch({ type: 'loading' });
-      const response = await api[apiType](params);
-      if (!response.isError) {
-        dispatch({ type: 'done' });
-        return response.data;
-      } else {
-        dispatch({ type: 'fail', error: response.error });
-      }
-    } catch (error) {
-      dispatch({ type: 'fail', error: '잠시후 다시 시도해주세요' });
-    }
+  const setLoading = useCallback(() => {
+    dispatch({ type: 'loading' });
   }, []);
 
-  return [sendRequest, state] as const;
+  const setDone = useCallback(() => {
+    dispatch({ type: 'done' });
+  }, []);
+
+  const setError = useCallback((error: string) => {
+    dispatch({ type: 'fail', error });
+  }, []);
+
+  return [state, setLoading, setDone, setError] as const;
 };
 
 interface State {
@@ -79,4 +74,4 @@ const reducer = (
   }
 };
 
-export default useAPI;
+export default useFetchState;
