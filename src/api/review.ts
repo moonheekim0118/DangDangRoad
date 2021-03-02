@@ -32,29 +32,19 @@ const getUserData = async (userRef): Promise<T.userContents> => {
 
 const extractReviewData = async (response): Promise<T.reviewResult> => {
   try {
-    let reviews: T.reviewData[] = [];
+    let reviews: T.lightReviewData[] = [];
     let lastKey = '';
     response.forEach((doc) => {
       const data = doc.data();
       const review = {
         docId: doc.id,
-        userId: data.userId,
-        userData: data.userRef,
-        hasParkingLot: data.hasParkingLot,
-        hasOffLeash: data.hasOffLeash,
-        recommendation: data.recommendation,
-        freeText: data.freeText,
-        imageList: data.imageList,
-        placeInfo: data.placeInfo,
+        thumbNail: data.imageList ? data.imageList[0] : null,
+        placeName: data.placeInfo.place_name,
         createdAt: data.createdAt,
       };
       reviews.push(review);
       lastKey = data.createdAt;
     });
-    // Trim Review
-    for (let docs of reviews) {
-      docs['userData'] = await getUserData(docs['userData']);
-    }
     return { reviews, lastKey };
   } catch (error) {
     throw error;

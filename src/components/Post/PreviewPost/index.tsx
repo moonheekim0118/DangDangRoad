@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 interface Props {
   previewClickHanlder?: (e: React.MouseEvent<HTMLDivElement>) => void;
-  thumnail?: string | undefined;
+  thumnail?: string | null;
   placeName: string;
 }
 

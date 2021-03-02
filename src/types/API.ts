@@ -37,17 +37,24 @@ export interface writeReviewParams {
     x: string;
     y: string;
   };
-  createdAt?: any;
+  createdAt?: number;
 }
 
 export interface reviewResult {
-  reviews: reviewData[];
+  reviews: lightReviewData[];
   lastKey: string;
 }
 
 export interface reviewData extends writeReviewParams {
   docId: string;
   userData: userContents;
+}
+
+export interface lightReviewData {
+  docId: string;
+  thumbNail: string | null;
+  placeName: string;
+  createdAt: number;
 }
 
 export interface userContents {
