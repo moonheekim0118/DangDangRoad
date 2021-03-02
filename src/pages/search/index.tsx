@@ -25,8 +25,6 @@ const SearchMain = ({ reviews }) => {
     originPath: '/search',
   });
 
-  const [observerTarget] = useInfiniteScroll(data.fetchMutipleReview);
-
   return (
     <>
       <PostList reviewData={data.reviews} openSinglePost={data.openModal} />
@@ -48,7 +46,7 @@ const SearchMain = ({ reviews }) => {
           )}
         </S.SinglePostContainer>
       </Modal>
-      <div ref={observerTarget}>
+      <div ref={data.observerTarget}>
         {data.fetchMutipleReviewState.loading && <Loading />}
       </div>
     </>

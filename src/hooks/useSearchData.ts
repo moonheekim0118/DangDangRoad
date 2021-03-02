@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useFetchState, useModal, useSingleReviewFetch } from 'hooks';
 import * as T from 'types/API';
 
@@ -19,6 +19,7 @@ const useSearchData = ({
   fetcher,
   originPath,
 }: Props) => {
+  const observerTarget = useRef(null); // for infinite scrolling
   const [lastKey, setLastKey] = useState<string>(initLastKey || '');
   const [reviews, setReviews] = useState<T.lightReviewData[]>(
     initReviews || []
@@ -36,16 +37,19 @@ const useSearchData = ({
     fetchSingleReview,
   ] = useSingleReviewFetch(false); // single Review which will be shown in modal
   const [index, setIndex] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true); // let us know if there is more data to fetch in db
 
   /** actual data fetch & store in state fucntion */
   const fetchMutipleReview = useCallback(async () => {
     try {
-      if (!fetchMutipleReviewState.loading) {
+      if (!fetchMutipleReviewState.loading && hasMore) {
         setLoading();
         const response = await fetcher(lastKey);
         if (!response.isError) {
           setLastKey(response.data.lastKey);
+          const newReviews = response.data.reviews;
           const mergedData = reviews.concat(response.data.reviews);
+          setHasMore(newReviews.length === 8);
           setReviews(mergedData);
           setDone();
         } else {
@@ -55,7 +59,25 @@ const useSearchData = ({
     } catch (error) {
       setError('잠시후 다시 시도해주세요');
     }
-  }, [fetchMutipleReviewState, reviews, lastKey]);
+  }, [fetchMutipleReviewState, reviews, lastKey, hasMore]);
+
+  const onIntersect = useCallback(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        fetchMutipleReview();
+      }
+    },
+    [hasMore, fetchMutipleReviewState]
+  );
+
+  useEffect(() => {
+    let observer;
+    if (observerTarget && observerTarget.current) {
+      observer = new IntersectionObserver(onIntersect, { threshold: 1 });
+      observer.observe(observerTarget.current);
+    }
+    return () => observer && observer.disconnect();
+  }, [observerTarget, hasMore, fetchMutipleReviewState]);
 
   // open Single Post Modal
   const openModal = useCallback(
@@ -114,6 +136,7 @@ const useSearchData = ({
     closeModal,
     prevHandler,
     nextHandler,
+    observerTarget,
   };
 };
 
