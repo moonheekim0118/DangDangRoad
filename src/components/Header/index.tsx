@@ -4,7 +4,7 @@ import SearchBar from 'components/SearchBar';
 import Navigation from 'components/Navigation';
 import { useToggle, useSignOut } from 'hooks';
 import { Icon, Anchor, Span } from 'atoms';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { useRouter } from 'next/router';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';

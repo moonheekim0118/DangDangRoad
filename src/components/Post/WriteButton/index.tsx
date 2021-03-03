@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Anchor } from 'atoms';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { faFeather } from '@fortawesome/free-solid-svg-icons';
 import { WRITE_REVIEW_BUTTON_CAPTION } from 'common/constant/string';
 import routes from 'common/constant/routes';

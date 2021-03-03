@@ -1,5 +1,5 @@
 import React from 'react';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { Anchor } from 'atoms';
 import { MENU_MYPAGE_TITLE, MENU_SIGNUP_TITLE } from 'common/constant/string';
 import styled from '@emotion/styled';

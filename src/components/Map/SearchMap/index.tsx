@@ -2,7 +2,7 @@ import React from 'react';
 import SearchBar from 'components/SearchBar';
 import { useSearchMap } from 'hooks';
 import { PlaceType } from 'types/Map';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { MAP_SEARCH_PLACEHOLDER } from 'common/constant/string';
 import styled from '@emotion/styled';
 import { MARKER_URL, MARKER_POSITIONS } from 'common/constant/images';

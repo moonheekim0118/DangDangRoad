@@ -1,5 +1,5 @@
 import React from 'react';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import Image from 'next/image';
 import { SENT_EMAIL_IMAGE, SENT_EMAIL_IMAGE_ALT } from 'common/constant/images';
 import { EMAIL_VERFY_TITLE, EMAIL_VERFY_DESC } from 'common/constant/string';

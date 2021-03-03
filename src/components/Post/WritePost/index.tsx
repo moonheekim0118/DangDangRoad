@@ -4,7 +4,7 @@ import Map from 'components/Map/SearchMap';
 import RadioBox from 'components/RadioBox';
 import ImagePreview from 'components/Image/ImagePreview';
 import { useWritePost } from 'hooks';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { Title, Button } from 'atoms';
 import {
   WRITE_REVIEW_TITLE,

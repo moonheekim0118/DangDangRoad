@@ -3,7 +3,7 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from '@fortawesome/react-fontawesome';
-import { colorCode, ColorType } from 'types/Color';
+import { colorCode, colorType } from 'common/style/color';
 import styled from '@emotion/styled';
 
 type rotationTypes = 0 | 90 | 180 | 270;
@@ -14,7 +14,7 @@ interface Props {
   /** actual icon */
   icon: FontAwesomeIconProps['icon'];
   /** icon color */
-  color?: ColorType;
+  color?: colorType;
   /** rotate degree */
   rotate?: rotationTypes;
   /** cursor pointer */

@@ -2,7 +2,7 @@ import React from 'react';
 import useInput from 'hooks/useInput';
 import styled from '@emotion/styled';
 import { Icon, Button } from 'atoms';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import {
   REVIEW_SEARCH_PLACEHODLER,
   SEARCH_BUTTON_CAPTION,

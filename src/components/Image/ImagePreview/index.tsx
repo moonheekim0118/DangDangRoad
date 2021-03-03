@@ -4,7 +4,7 @@ import ImageCarousel from '../ImageCarousel';
 import { useModal } from 'hooks';
 import { Icon } from 'atoms';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
 
 interface Props {

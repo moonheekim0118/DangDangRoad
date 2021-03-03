@@ -1,6 +1,6 @@
 import React from 'react';
 import { reviewData } from 'types/API';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { Button, Anchor } from 'atoms';

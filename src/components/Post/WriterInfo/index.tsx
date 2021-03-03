@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar } from 'atoms';
 import { userContents } from 'types/API';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import formatDate from 'util/formatDate';
 import styled from '@emotion/styled';
 interface Props {
