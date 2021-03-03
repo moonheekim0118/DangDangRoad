@@ -2,6 +2,8 @@ import React from 'react';
 import { reviewData } from 'types/API';
 import { colorCode } from 'types/Color';
 import { NavigationInfo } from 'types/Navigation';
+import { useLoginInfoState } from 'context/LoginInfo';
+import { Button, Anchor } from 'atoms';
 import { WriterInfo } from 'components/Post';
 import PrevNextButton from 'components/PrevNextButton';
 import ImageSlider from 'components/Image/ImageSlider';
@@ -16,6 +18,10 @@ interface Props {
 }
 
 const SinglePost = ({ data, NavigationInfo }: Props) => {
+  const { userId } = useLoginInfoState();
+
+  console.log(data);
+
   return (
     <>
       <Contents>
@@ -37,6 +43,11 @@ const SinglePost = ({ data, NavigationInfo }: Props) => {
         <InfoContainer>
           <WriterInfo userData={data.userData} createdAt={data.createdAt} />
           <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
+          {data.userId === userId && (
+            <Anchor path={`/update_post/${data.docId}`}>
+              <Button color="blue">수정하기</Button>
+            </Anchor>
+          )}
         </InfoContainer>
       </Contents>
       {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
@@ -93,7 +104,7 @@ const CommonInfoContainer = styled.div`
   gap: 10px;
 
   @media only screen and (max-width: 1024px) {
-    flex-direction: row;
+    flex-direction: row;s
   }
 `;
 

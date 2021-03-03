@@ -92,6 +92,7 @@ export const getReviewById = async (id: string): T.APIResult => {
     const data = response.data();
     if (data) {
       data['userData'] = await getUserData(data['userRef']);
+      data['docId'] = id;
     }
     return { status: 200, contents: data };
   } catch (error) {

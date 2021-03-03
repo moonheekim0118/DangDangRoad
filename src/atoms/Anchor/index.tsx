@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 interface Props {
   /** font size */
-  fontsize: number;
+  fontsize?: number;
   /** color of anchor element */
   color?: ColorType;
   /** font weight */
@@ -45,14 +45,15 @@ const Anchor = ({
 
 const Title = styled.a<{
   color?: string;
-  fontsize: number;
+  fontsize?: number;
   fontbold?: boolean;
   hoverColor?: string;
   margin?: string;
 }>`
   display: inline;
   color: ${(props) => (props.color ? colorCode[props.color] : 'inherit')};
-  font-size: ${(props) => props.fontsize}rem;
+  font-size: ${(props) =>
+    props.fontsize ? `${props.fontsize}rem` : 'inherit'};
   font-weight: ${(props) => props.fontbold && 'bold'};
   margin: ${(props) => props.margin};
   cursor: pointer;
