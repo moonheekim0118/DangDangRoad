@@ -1,5 +1,5 @@
 import React from 'react';
-import { inputId, inputContents } from 'types/Input';
+import { inputId, inputContents } from 'common/constant/input';
 import styled from '@emotion/styled';
 
 interface Props {

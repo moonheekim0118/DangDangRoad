@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSignUp } from 'hooks';
 import { Input, Button } from 'atoms';
-import { inputId } from 'types/Input';
+import { inputId } from 'common/constant/input';
 import {
   MENU_SIGNUP_TITLE,
   SIGNUP_BUTTON_CAPTION,

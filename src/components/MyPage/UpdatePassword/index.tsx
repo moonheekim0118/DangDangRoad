@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Button } from 'atoms';
-import { inputId } from 'types/Input';
+import { inputId } from 'common/constant/input';
 import { useUpdatePassword } from 'hooks';
 import { SAVE_CAPTION } from 'common/constant/string';
 import * as S from '../style';
