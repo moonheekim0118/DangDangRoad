@@ -2,6 +2,7 @@ import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
 import createUserToken from 'libs/createUserToken';
 import { EMPTY_USER_NICKNAME } from 'common/constant/string';
+import api from 'common/constant/api';
 import axios from 'axios';
 import * as T from 'types/API';
 
@@ -25,9 +26,8 @@ export const updatePassword = async (
   data: T.updatePasswordParams
 ): T.APIResponse => {
   try {
-    const path = '/api/updatePassword';
     const headers = { 'Content-Type': 'application/json' };
-    const response = await axios.post(path, data, { headers });
+    const response = await axios.post(api.UPDATE_PASSWORD, data, { headers });
     const customToken = response.data; // given Custom token from server
     // get User from Custom token
     const User = await (await auth.signInWithCustomToken(customToken)).user;
@@ -45,9 +45,8 @@ export const updatePassword = async (
 /** Destroy User */
 export const destroyAccount = async (id: string): T.APIResponse => {
   try {
-    const path = '/api/destroyUser';
     const data = { id };
-    await axios.delete(path, { data });
+    await axios.delete(api.DESTROY_USER, { data });
     await db.collection('users').doc(id).delete();
     return T.defaultSuccess;
   } catch (error) {
