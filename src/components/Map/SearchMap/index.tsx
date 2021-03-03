@@ -5,7 +5,7 @@ import { PlaceType } from 'types/Map';
 import { colorCode } from 'types/Color';
 import { MAP_SEARCH_PLACEHOLDER } from 'common/constant/string';
 import styled from '@emotion/styled';
-import * as marker from 'util/marker';
+import { MARKER_URL, MARKER_POSITIONS } from 'common/constant/images';
 
 interface Props {
   /** function to change user select Place to review */
@@ -117,8 +117,8 @@ const AdressName = styled.span`
 const Marker = styled.span<{ index: number }>`
   width: 36px;
   height: 37px;
-  background: ${`url(${marker.url})`} no-repeat;
-  background-position: ${(props) => marker.positions[props.index]};
+  background: ${`url(${MARKER_URL})`} no-repeat;
+  background-position: ${(props) => MARKER_POSITIONS[props.index]};
 `;
 
 const PaginationContainer = styled.div`

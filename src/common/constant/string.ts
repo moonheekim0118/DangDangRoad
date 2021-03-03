@@ -31,6 +31,7 @@ export const DESTROY_ACCOUNT_CAPTION = '정말 계정을 삭제하시겠습니�
 export const MYPAGE_MENU_DEFAULT = '내가 작성한 리뷰';
 export const MYPAGE_MENU_UPDATE_PASSWORD = '비밀번호 변경';
 export const MYPAGE_MENU_UPDATE_PROFILE = '회원정보 변경';
+export const MYPAGE_MENU_DESTROY_ACCOUNT = '회원정보 변경';
 
 export const WRITE_REVIEW_BUTTON_CAPTION = '리뷰 작성하기';
 export const WRITE_REVIEW_TITLE = '리뷰 작성';

@@ -4,7 +4,7 @@ import { useSingleReview } from 'hooks';
 import { Anchor } from 'atoms';
 import { getReviewsFirst } from 'api/review';
 import routes from 'common/constant/routes';
-import * as S from 'globalStyle/PostStyle';
+import * as S from 'common/style/post';
 import Loading from 'components/Loading';
 import Router from 'next/router';
 

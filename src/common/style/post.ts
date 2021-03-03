@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { baseModalStyle } from 'util/baseStyle';
+import { baseModalStyle } from 'common/style/baseStyle';
 
 export const SinglePostContainer = styled.div<{ isModal: boolean }>`
   width: 80vw;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { baseModalStyle } from 'util/baseStyle';
+import { baseModalStyle } from 'common/style/baseStyle';
 import {
   CLOSE_BUTTON_CAPTION,
   KEEP_BUTTON_CAPTION,

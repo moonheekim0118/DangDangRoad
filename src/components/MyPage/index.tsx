@@ -8,7 +8,7 @@ import { Title } from 'atoms';
 import { useDestroyAccount } from 'hooks';
 import { UserType } from 'types/user';
 import { DESTROY_ACCOUNT_CAPTION } from 'common/constant/string';
-import * as Menus from 'util/myPageDatas';
+import * as menus from 'common/constant/mypageDatas';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -36,8 +36,8 @@ const MyPage = ({
         ) : (
           <Loading />
         )}
-        <PageMenu datas={Menus.GeneralMenu} />
-        <PageMenu datas={Menus.DestoryMenu} onClick={data.modalHandler} />
+        <PageMenu datas={menus.GeneralMenu} />
+        <PageMenu datas={menus.DestoryMenu} onClick={data.modalHandler} />
       </SideContainer>
       <MainContainer>
         <TitleContainer>
