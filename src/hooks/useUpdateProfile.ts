@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { useValidation, useImageUpload } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
-import { UserType, MutateType } from 'types/user';
+import { UserType, MutateType } from 'types/User';
 import { userContents } from 'types/API';
 import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { updateProfile } from 'api/user';
