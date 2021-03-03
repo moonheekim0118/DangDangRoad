@@ -1,9 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
-import { useValidation, useImageInput } from 'hooks';
+import { useValidation, useImageUpload } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
 import { UserType, MutateType } from 'types/user';
-import api from 'api';
+import { userContents } from 'types/API';
+import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import { updateProfile } from 'api/user';
 import * as Action from 'action';
 
 interface Props {
@@ -14,11 +16,22 @@ interface Props {
 /** update profile logics  */
 const useUpdateProfile = ({ user, mutate }: Props) => {
   const dispatch = useNotificationDispatch();
-  /** Image Input Ref */
-  const [imageInput, uploaderClickHanlder] = useImageInput();
-
-  /** Image url */
-  const [imageUrl, setImageUrl] = useState<string>(user.profilePic);
+  const [
+    updateProfileResult,
+    updateProfileDispatch,
+    setDefaultProfile,
+  ] = useApiFetch<userContents>(updateProfile);
+  const [
+    imageInput,
+    imageUrl,
+    uploaderClickHanlder,
+    uploadImageHanlder,
+    removeImageHanlder,
+  ] = useImageUpload({
+    initialImages: user.profilePic ? [user.profilePic] : [],
+    imageLimit: 1,
+    dispatch,
+  });
 
   /** nickname */
   const {
@@ -30,52 +43,35 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
     characterCheck: nicknameValidatorForUpdate,
   });
 
-  /** Upload Image Handler */
-  const uploadImageHanlder = useCallback(async (e) => {
-    try {
-      const file = e.target.files[0];
-      const response = await api.uploadProfileImage(file);
-      if (!response.isError) {
-        setImageUrl(response.data);
-      } else {
-        return dispatch(Action.showError(response.error));
-      }
-    } catch (error) {
-      dispatch(Action.showError('잠시후 다시 시도해주세요'));
+  useEffect(() => {
+    switch (updateProfileResult.type) {
+      case SUCCESS:
+        mutate({ ...user, ...updateProfileResult.data }, false).then(() => {
+          dispatch(Action.showNoti('수정 되었습니다'));
+          setDefaultProfile();
+        });
+        break;
+      case FAILURE:
+        dispatch(Action.showError(updateProfileResult.error));
     }
-  }, []);
+  }, [updateProfileResult]);
 
   /** sumbit save */
   const saveHandler = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
-      try {
-        e.preventDefault();
-        const trimedNickname = nickname.trim();
-        const ImageChanged = imageUrl !== user.profilePic;
-        const NicknameChanged =
-          trimedNickname.length > 0 && trimedNickname !== user.nickname;
-        // if url and nickname were not changed ,(not send request)
-        if (!ImageChanged && !NicknameChanged) return;
-        let updateContents = {
-          profilePic: imageUrl,
-          nickname: trimedNickname,
-        };
-        const response = await api.updateProfile({
-          id: user.userId,
-          updateContents,
-        });
-        if (!response.isError) {
-          // mutation without revalidation
-          await mutate({ ...user, ...updateContents }, false);
-          return dispatch(Action.showNoti('수정 되었습니다'));
-        } else {
-          return dispatch(
-            Action.showError(response.error || '잠시후 다시 시도해주세요')
-          );
-        }
-      } catch (error) {
-        return dispatch(Action.showError('잠시후 다시 시도해주세요'));
-      }
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      const trimedNickname = nickname.trim();
+      const ImageChanged = imageUrl[0] !== user.profilePic;
+      const NicknameChanged =
+        trimedNickname.length > 0 && trimedNickname !== user.nickname;
+      // if url and nickname were not changed ,(not send request)
+      if (!ImageChanged && !NicknameChanged) return;
+      let updateContents = {
+        profilePic: imageUrl[0],
+        nickname: trimedNickname,
+      };
+      const data = { id: user.userId, updateContents };
+      updateProfileDispatch({ type: REQUEST, params: [data] });
     },
     [imageUrl, nickname]
   );

@@ -1,14 +1,26 @@
-import { useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useValidation, useMatch, useInput } from 'hooks';
+import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
+import { signUp } from 'api/sign';
 import Router from 'next/router';
-import api from 'api';
 import * as checkers from 'util/signUpValidations';
 
 // sign up logic
 const useSignUp = () => {
   const dispatch = useNotificationDispatch();
+  const [fetchResult, fetchDispatch] = useApiFetch(signUp);
+
+  useEffect(() => {
+    switch (fetchResult.type) {
+      case SUCCESS:
+        Router.push('/signUpInProcess');
+        break;
+      case FAILURE:
+        dispatch(showError(fetchResult.error));
+    }
+  }, [fetchResult]);
 
   /** email */
   const {
@@ -47,7 +59,7 @@ const useSignUp = () => {
 
   /** submit handler */
   const SubmitHanlder = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (
         email.length === 0 ||
@@ -64,11 +76,7 @@ const useSignUp = () => {
         if (password.length === 0) setPasswordError(true);
         return;
       }
-      const response = await api.signUp({ email, nickname, password });
-      if (response.isError) {
-        return dispatch(showError(response.error));
-      }
-      Router.push('/signUpInProcess');
+      fetchDispatch({ type: REQUEST, params: [{ email, nickname, password }] });
     },
     [
       email,

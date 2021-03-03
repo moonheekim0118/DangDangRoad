@@ -10,19 +10,19 @@ const auth = firebase.auth();
 /** update profile */
 export const updateProfile = async (
   data: T.updateProfileParams
-): T.APIResult => {
+): T.APIResponse<T.userContents> => {
   try {
     await db.collection('users').doc(data.id).update(data.updateContents);
-    return T.defaultSuccess;
+    return { isError: false, data: data.updateContents };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** update password  */
 export const updatePassword = async (
   data: T.updatePasswordParams
-): T.APIResult => {
+): T.APIResponse => {
   try {
     const path = '/api/updatePassword';
     const headers = { 'Content-Type': 'application/json' };
@@ -37,12 +37,12 @@ export const updatePassword = async (
     }
     return T.defaultSuccess;
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** Destroy User */
-export const destroyAccount = async (id: string): T.APIResult => {
+export const destroyAccount = async (id: string): T.APIResponse => {
   try {
     const path = '/api/destroyUser';
     const data = { id };
@@ -50,12 +50,14 @@ export const destroyAccount = async (id: string): T.APIResult => {
     await db.collection('users').doc(id).delete();
     return T.defaultSuccess;
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** get User info by Id */
-export const getUserById = async (id: string): T.APIResult<T.userContents> => {
+export const getUserById = async (
+  id: string
+): T.APIResponse<T.userContents> => {
   try {
     const response = await db.collection('users').doc(id).get();
     const data = response.data();
@@ -63,8 +65,8 @@ export const getUserById = async (id: string): T.APIResult<T.userContents> => {
     if (data) {
       userData = { profilePic: data.profilePic, nickname: data.nickname };
     }
-    return { status: 200, contents: userData };
+    return { isError: false, data: userData };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };

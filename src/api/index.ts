@@ -3,7 +3,7 @@ import * as review from './review';
 import * as storage from './storage';
 import * as user from './user';
 import * as T from 'types/API';
-import errorExTxt from 'util/erreorExTxt';
+import errorExTxt from 'util/errorExTxt';
 
 const successResponse: T.successType<null> = { isError: false, data: null };
 

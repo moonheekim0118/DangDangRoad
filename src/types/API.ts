@@ -1,3 +1,5 @@
+import errorExTxt from 'util/errorExTxt';
+
 export interface AuthResult {
   userId: string;
   isLoggedIn: boolean;
@@ -62,23 +64,13 @@ export interface userContents {
   profilePic?: string;
 }
 
-export interface failType {
-  isError: true;
-  error: string;
-}
-
-export interface successType<T> {
+export interface successType<T = null> {
   isError: false;
   data: T;
 }
 
 export type fileType = Blob | Uint8Array | ArrayBuffer;
 
-export type APIResponse<T = null> = Promise<failType | successType<T>>;
+export type APIResponse<T = null> = Promise<successType<T>>;
 
-export type APIResult<T = null> = Promise<{
-  status: number;
-  contents: T;
-}>;
-
-export const defaultSuccess = { status: 200, contents: null };
+export const defaultSuccess: successType = { isError: false, data: null };

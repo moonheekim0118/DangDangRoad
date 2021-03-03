@@ -1,6 +1,8 @@
 import * as T from 'types/Context';
 
-export const showError = (message: string): T.ShowNotificationAction => {
+export const showError = (
+  message: string = '잠시 후 다시 시도해주세요'
+): T.ShowNotificationAction => {
   return {
     type: 'show',
     data: {

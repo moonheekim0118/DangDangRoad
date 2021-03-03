@@ -1,19 +1,24 @@
-import { useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
+import useApiFetch, { REQUEST, SUCCESS } from 'hooks/useApiFetch';
+import { signOut } from 'api/sign';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
-import api from 'api';
 import Router from 'next/router';
 
 /** sign out logic  */
 const useSignOut = () => {
   const dispatch = useLoginInfoDispatch();
+  const [fetchResult, fetchDispatch] = useApiFetch(signOut);
+
+  useEffect(() => {
+    if (fetchResult.type === SUCCESS) {
+      dispatch({ type: 'logout' });
+      Router.push('/');
+    }
+  }, [fetchResult]);
 
   // sign out handler
-  const signOutHandler = useCallback(async () => {
-    const response = await api.signOut();
-    if (!response.isError) {
-      dispatch({ type: 'logout' }); // login 상태 해지
-    }
-    Router.push('/');
+  const signOutHandler = useCallback(() => {
+    fetchDispatch({ type: REQUEST });
   }, []);
 
   return signOutHandler;

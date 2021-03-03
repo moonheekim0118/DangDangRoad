@@ -5,15 +5,15 @@ const DATA_LIMIT = 8;
 
 export const createReview = async (
   data: T.writeReviewParams
-): T.APIResult<null> => {
+): T.APIResponse<null> => {
   try {
     data['createdAt'] = Date.now();
     // add User Ref by user Id
     data['userRef'] = db.collection('users').doc(data.userId);
     await db.collection('reviews').add(data);
-    return { status: 200, contents: null };
+    return T.defaultSuccess;
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
@@ -53,7 +53,7 @@ const extractReviewData = async (response): Promise<T.reviewResult> => {
   }
 };
 
-export const getReviewsFirst = async (): T.APIResult<T.reviewResult> => {
+export const getReviewsFirst = async (): T.APIResponse<T.reviewResult> => {
   try {
     const response = await db
       .collection('reviews')
@@ -61,10 +61,10 @@ export const getReviewsFirst = async (): T.APIResult<T.reviewResult> => {
       .limit(DATA_LIMIT)
       .get();
 
-    const contents = await extractReviewData(response);
-    return { status: 200, contents };
+    const data = await extractReviewData(response);
+    return { isError: false, data };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
@@ -74,7 +74,7 @@ export const getReviewsFirst = async (): T.APIResult<T.reviewResult> => {
  */
 export const getReviewsMore = async (
   key: string
-): T.APIResult<T.reviewResult> => {
+): T.APIResponse<T.reviewResult> => {
   try {
     const response = await db
       .collection('reviews')
@@ -82,17 +82,17 @@ export const getReviewsMore = async (
       .startAfter(key)
       .limit(DATA_LIMIT)
       .get();
-    const contents = await extractReviewData(response);
-    return { status: 200, contents };
+    const data = await extractReviewData(response);
+    return { isError: false, data };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** get sinlge Review By Id */
 export const getReviewById = async (
   id: string
-): T.APIResult<T.reviewData | null> => {
+): T.APIResponse<T.reviewData | null> => {
   try {
     const response = await db.collection('reviews').doc(id).get();
     const data = response.data();
@@ -101,9 +101,9 @@ export const getReviewById = async (
       data['userData'] = await getUserData(data['userRef']);
     }
 
-    return { status: 200, contents: (data as T.reviewData) || null };
+    return { isError: false, data: (data as T.reviewData) || null };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 

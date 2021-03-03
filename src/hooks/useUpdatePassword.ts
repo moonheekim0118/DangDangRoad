@@ -1,14 +1,16 @@
-import { useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useValidation, useMatch, useInput } from 'hooks';
+import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { passwordValidator } from 'util/signUpValidations';
 import { useNotificationDispatch } from 'context/Notification';
+import { updatePassword } from 'api/user';
 import * as Action from 'action';
-import api from 'api';
 
 /** user password update logic */
 
 const useUpdatePassword = (userId: string) => {
   const dispatch = useNotificationDispatch();
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(updatePassword);
 
   /** new Password */
   const {
@@ -25,9 +27,21 @@ const useUpdatePassword = (userId: string) => {
   /** password match checker*/
   const passwordMatch = useMatch({ value: passwordCheck, target: newPassword });
 
+  useEffect(() => {
+    switch (fetchResult.type) {
+      case SUCCESS:
+        dispatch(Action.showNoti('수정되었습니다'));
+        setDefault();
+        break;
+      case FAILURE:
+        dispatch(Action.showError(fetchResult.error));
+        break;
+    }
+  }, [fetchResult]);
+
   /** submit handler */
   const SubmitHanlder = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (
         newPassword.length === 0 ||
@@ -37,12 +51,7 @@ const useUpdatePassword = (userId: string) => {
       ) {
         return dispatch(Action.showError('정보를 올바르게 입력해주세요'));
       }
-      const response = await api.updatePassword({ id: userId, newPassword });
-      if (!response.isError) {
-        return dispatch(Action.showNoti('수정되었습니다'));
-      } else {
-        return dispatch(Action.showError(response.error));
-      }
+      fetchDispatch({ type: REQUEST, params: [{ id: userId, newPassword }] });
     },
     [newPassword, passwordCheck, newPasswordError, passwordMatch]
   );

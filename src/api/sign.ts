@@ -27,7 +27,7 @@ const addUser = async (
 };
 
 /** Google-Auth Login */
-export const googleSignIn = async (): T.APIResult => {
+export const googleSignIn = async (): T.APIResponse => {
   try {
     const provider = new firebase.auth.GoogleAuthProvider();
     if (provider) {
@@ -54,12 +54,12 @@ export const googleSignIn = async (): T.APIResult => {
     if (error.code === 'auth/popup-closed-by-user') {
       return T.defaultSuccess;
     }
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** Sign in function  */
-export const signIn = async (data: T.signInParams): T.APIResult => {
+export const signIn = async (data: T.signInParams): T.APIResponse => {
   try {
     const response = await auth.signInWithEmailAndPassword(
       data.email,
@@ -76,12 +76,12 @@ export const signIn = async (data: T.signInParams): T.APIResult => {
     }
     return T.defaultSuccess;
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** sign up function */
-export const signUp = async (data: T.signUpParams): T.APIResult => {
+export const signUp = async (data: T.signUpParams): T.APIResponse => {
   try {
     const userCredential = await auth.createUserWithEmailAndPassword(
       data.email,
@@ -99,17 +99,17 @@ export const signUp = async (data: T.signUpParams): T.APIResult => {
     }
     return T.defaultSuccess;
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** Sign out function */
-export const signOut = async (): T.APIResult => {
+export const signOut = async (): T.APIResponse => {
   try {
     await auth.signOut(); // sign out
     await removeCookie(); // remove Session-Cookie
     return T.defaultSuccess;
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };

@@ -18,7 +18,7 @@ interface Props {
   /** funciton to remove image with specific index */
   imageRemoveHanlder: (index: number) => () => void;
   /** function to upload image */
-  imageUploadHanlder: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  imageUploadHanlder: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ImagePreview = ({

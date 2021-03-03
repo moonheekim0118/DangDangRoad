@@ -28,7 +28,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
             name="image"
             hidden
             ref={data.imageInput}
-            onChange={data.uploadImageHanlder}
+            onChange={data.uploadImageHanlder('new')}
           />
           <Icon
             iconsize={45}
@@ -38,7 +38,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
             iconClickHandler={data.uploaderClickHanlder}
           />
         </IconContainer>
-        <Avatar imgUrl={data.imageUrl} size="large" />
+        <Avatar imgUrl={data.imageUrl[0]} size="large" />
       </div>
       <Input
         type="text"

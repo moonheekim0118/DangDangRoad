@@ -23,7 +23,7 @@ const WritePost = () => {
         />
         <ReviewContainer>
           <PlaceName>{data.selectedPlace?.place_name}</PlaceName>
-          {data.imageList.length <= 0 ? (
+          {data.imageUrl.length <= 0 ? (
             <UploadImageButton onClick={data.uploaderClickHanlder}>
               사진 업로드📸 <br />
               (최대 3장까지 업로드 가능합니다)
@@ -33,15 +33,15 @@ const WritePost = () => {
                 name="image"
                 hidden
                 ref={data.imageInput}
-                onChange={data.uploadImageHanlder}
+                onChange={data.uploadImageHanlder('new')}
               />
             </UploadImageButton>
           ) : (
             <ImagePreview
-              imageList={data.imageList}
+              imageList={data.imageUrl}
               uploaderClickHanlder={data.uploaderClickHanlder}
               imageInput={data.imageInput}
-              imageUploadHanlder={data.addImageHanlder}
+              imageUploadHanlder={data.uploadImageHanlder('add')}
               imageRemoveHanlder={data.removeImageHanlder}
             />
           )}
