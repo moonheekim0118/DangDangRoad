@@ -1,18 +1,20 @@
+import * as MESSAGE from 'common/constant/string';
+
 /** transform error code to Korean Message */
 const errorExTxt = (errorCode: string): string => {
   switch (errorCode) {
     case 'auth/email-already-in-use':
-      return '이미 사용중인 이메일 입니다';
+      return MESSAGE.EMAIL_ALREADY_IN_USE_ERROR;
     case 'auth/wrong-password':
-      return '잘못된 비밀번호 입니다.';
+      return MESSAGE.WRONG_PASSWORD_ERROR;
     case 'auth/user-not-found':
-      return '존재하지 않는 이메일 입니다.';
+      return MESSAGE.USER_NOT_FOUND_ERROR;
     case 'Not verfied':
-      return '이메일 인증을 완료해주세요';
+      return MESSAGE.NOT_VERIFIED_ERROR;
     case 'Not exists data':
-      return '존재하지 않는 페이지입니다';
+      return MESSAGE.NOT_EXISTS_DATA;
     default:
-      return '잠시후 다시 시도해주세요';
+      return MESSAGE.DEFAULT_ERROR;
   }
 };
 

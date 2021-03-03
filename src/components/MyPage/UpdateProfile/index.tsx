@@ -4,6 +4,7 @@ import { Avatar, Button, Input, Icon } from 'atoms';
 import { inputId } from 'types/Input';
 import { UserType, MutateType } from 'types/user';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { SAVE_CAPTION } from 'common/constant/string';
 import styled from '@emotion/styled';
 import * as S from '../style';
 
@@ -38,7 +39,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
             iconClickHandler={data.uploaderClickHanlder}
           />
         </IconContainer>
-        <Avatar imgUrl={data.imageUrl[0]} size="large" />
+        <Avatar imageUrl={data.imageUrl[0]} size="large" />
       </div>
       <Input
         type="text"
@@ -53,7 +54,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         hoverColor="light-blue"
         type="submit"
         onClick={data.saveHandler}>
-        SAVE
+        {SAVE_CAPTION}
       </Button>
     </S.ContentsContainer>
   );

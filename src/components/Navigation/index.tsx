@@ -1,6 +1,7 @@
 import React from 'react';
 import { colorCode } from 'types/Color';
 import { Anchor } from 'atoms';
+import { MENU_MYPAGE_TITLE, MENU_SIGNUP_TITLE } from 'common/constant/string';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -17,7 +18,7 @@ const Navigation = ({ isLoggedIn }: Props): React.ReactElement => {
               color="white"
               hoverColor="light-gray"
               path="/myPage">
-              MYPAGE
+              {MENU_MYPAGE_TITLE}
             </Anchor>
           </Item>
         </>
@@ -29,7 +30,7 @@ const Navigation = ({ isLoggedIn }: Props): React.ReactElement => {
               color="white"
               hoverColor="light-gray"
               path="/signUp">
-              SIGNUP
+              {MENU_SIGNUP_TITLE}
             </Anchor>
           </Item>
         </>

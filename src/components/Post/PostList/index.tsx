@@ -2,6 +2,7 @@ import React from 'react';
 import { PreviewPost } from 'components/Post';
 import { lightReviewData } from 'types/API';
 import { Tag } from 'atoms';
+import { DEFAULT_KEYWORD } from 'common/constant/string';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -20,7 +21,7 @@ const PostList = ({ searchKeyword, reviewData, openSinglePost }: Props) => {
         {searchKeyword ? (
           <Tag size="large">{searchKeyword}</Tag>
         ) : (
-          <Tag size="large">강아지 산책로</Tag>
+          <Tag size="large">{DEFAULT_KEYWORD}</Tag>
         )}
       </TagContainer>
       <ReviewContainer>

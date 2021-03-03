@@ -6,7 +6,19 @@ import ImagePreview from 'components/Image/ImagePreview';
 import { useWritePost } from 'hooks';
 import { colorCode } from 'types/Color';
 import { Title, Button } from 'atoms';
-import * as list from 'util/radioList';
+import {
+  WRITE_REVIEW_TITLE,
+  IMAGE_UPLOAD_LABEL,
+  IMAGE_UPLOAD_DESC,
+  FREE_TEXT_LABEL,
+  RADIO_BOX_LABEL,
+  RADIO_TITLE_PARKING_LOT,
+  RADIO_TITLE_OFFLEASH,
+  RADIO_TITLE_RECOMMENDATION,
+  SAVE_CAPTION,
+  RADIO_LIST,
+} from 'common/constant/string';
+import { FREE_TEXT_LIMIT } from 'common/constant/number';
 
 const WritePost = () => {
   const data = useWritePost();
@@ -14,7 +26,7 @@ const WritePost = () => {
   return (
     <Container>
       <TopContainer>
-        <Title>리뷰 작성</Title>
+        <Title>{WRITE_REVIEW_TITLE}</Title>
       </TopContainer>
       <MainContainer>
         <Map
@@ -25,8 +37,8 @@ const WritePost = () => {
           <PlaceName>{data.selectedPlace?.place_name}</PlaceName>
           {data.imageUrl.length <= 0 ? (
             <UploadImageButton onClick={data.uploaderClickHanlder}>
-              사진 업로드📸 <br />
-              (최대 3장까지 업로드 가능합니다)
+              {IMAGE_UPLOAD_LABEL} <br />
+              {IMAGE_UPLOAD_DESC}
               <input
                 type="file"
                 multiple
@@ -46,11 +58,9 @@ const WritePost = () => {
             />
           )}
           <Description>
-            <Label htmlFor="description">
-              자유롭게 장소에 대해 적어주세요 ✨
-            </Label>
+            <Label htmlFor="description">{FREE_TEXT_LABEL}</Label>
             <LengthCounter error={data.freeTextError}>
-              {data.freeText.length}/100
+              {data.freeText.length}/{FREE_TEXT_LIMIT}
             </LengthCounter>
             <TextArea
               id="description"
@@ -60,32 +70,32 @@ const WritePost = () => {
             />
           </Description>
           <PlaceInfo>
-            <Label>장소에대해 알려주세요 🌠</Label>
+            <Label>{RADIO_BOX_LABEL}</Label>
             <RadioContainer>
               <RadioBox
                 selectedValue={data.hasParkingLot}
                 selectHandler={data.hasParkingLotHandler}
-                title="주차장이 있나요?"
-                list={list.has}
+                title={RADIO_TITLE_PARKING_LOT}
+                list={RADIO_LIST.has}
               />
               <RadioBox
                 selectedValue={data.hasOffLeash}
                 selectHandler={data.hasOffLeashHandler}
-                title="오프리쉬 가능한가요?"
-                list={list.available}
+                title={RADIO_TITLE_OFFLEASH}
+                list={RADIO_LIST.available}
               />
               <RadioBox
                 selectedValue={data.recommendation}
                 selectHandler={data.recommendationHandler}
-                title="다른 멍멍이들에게 추천하나요?"
-                list={list.recomendation}
+                title={RADIO_TITLE_RECOMMENDATION}
+                list={RADIO_LIST.recomendation}
               />
             </RadioContainer>
           </PlaceInfo>
         </ReviewContainer>
         <ButtonContainer>
           <Button color="blue" onClick={data.submitHandler}>
-            저장하기
+            {SAVE_CAPTION}
           </Button>
         </ButtonContainer>
       </MainContainer>

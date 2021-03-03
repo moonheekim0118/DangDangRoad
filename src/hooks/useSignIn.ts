@@ -5,6 +5,8 @@ import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signIn, googleSignIn } from 'api/sign';
+import { NOT_FULL_INFO_ERROR } from 'common/constant/string';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 
 /** sign in logics */
@@ -22,7 +24,7 @@ const useSignIn = () => {
   useEffect(() => {
     switch (signInResult.type) {
       case SUCCESS:
-        Router.push('/');
+        Router.push(routes.HOME);
         break;
       case FAILURE:
         dispatch(showError(signInResult.error));
@@ -32,7 +34,7 @@ const useSignIn = () => {
   useEffect(() => {
     switch (googleSignInResult.type) {
       case SUCCESS:
-        Router.push('/');
+        Router.push(routes.HOME);
         break;
       case FAILURE:
         dispatch(showError(googleSignInResult.error));
@@ -44,7 +46,7 @@ const useSignIn = () => {
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
-        return dispatch(showError('정보를 올바르게 입력해주세요'));
+        return dispatch(showError(NOT_FULL_INFO_ERROR));
       }
       signInDispatch({ type: REQUEST, params: [{ email, password }] });
     },

@@ -3,6 +3,7 @@ import GoogleButton from 'react-google-button';
 import { Input, Button } from 'atoms';
 import { inputId } from 'types/Input';
 import { useSignIn } from 'hooks';
+import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import * as S from '../style';
 
 const LoginForm = (): React.ReactElement => {
@@ -10,7 +11,7 @@ const LoginForm = (): React.ReactElement => {
 
   return (
     <S.Form>
-      <S.Title>LOGIN</S.Title>
+      <S.Title>{MENU_LOGIN_TITLE}</S.Title>
       <Input
         type="text"
         id={inputId.EMAIL}
@@ -31,7 +32,7 @@ const LoginForm = (): React.ReactElement => {
           hoverColor="light-blue"
           type="submit"
           onClick={data.SignInHandler}>
-          LOGIN
+          {MENU_LOGIN_TITLE}
         </Button>
         <GoogleButton onClick={data.GoogleSignInHandler} />
       </S.ButtonContainer>

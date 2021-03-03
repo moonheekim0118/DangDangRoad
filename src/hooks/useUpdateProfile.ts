@@ -6,6 +6,7 @@ import { UserType, MutateType } from 'types/user';
 import { userContents } from 'types/API';
 import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { updateProfile } from 'api/user';
+import { UPDATE_MESSAGE } from 'common/constant/string';
 import * as Action from 'action';
 
 interface Props {
@@ -47,7 +48,7 @@ const useUpdateProfile = ({ user, mutate }: Props) => {
     switch (updateProfileResult.type) {
       case SUCCESS:
         mutate({ ...user, ...updateProfileResult.data }, false).then(() => {
-          dispatch(Action.showNoti('수정 되었습니다'));
+          dispatch(Action.showNoti(UPDATE_MESSAGE));
           setDefaultProfile();
         });
         break;

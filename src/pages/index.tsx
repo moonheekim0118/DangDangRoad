@@ -3,6 +3,8 @@ import Link from 'next/Link';
 import Image from 'next/image';
 import useUser from 'libs/useUser';
 import styled from '@emotion/styled';
+import routes from 'common/constant/routes';
+import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
 import { Button } from 'atoms';
 
 const Index = (): React.ReactElement => {
@@ -18,13 +20,13 @@ const Index = (): React.ReactElement => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Link href="/search">
+          <Link href={routes.SEARCH}>
             <a>
               <Button color="white">산책로 리뷰 보기</Button>
             </a>
           </Link>
         </SubContetns>
-        <Image src="/logo.png" alt="" width="600" height="500" />
+        <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
     </Container>
   );

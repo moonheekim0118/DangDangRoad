@@ -3,6 +3,7 @@ import { SinglePost, PostList } from 'components/Post';
 import { useSingleReview } from 'hooks';
 import { Anchor } from 'atoms';
 import { getReviewsFirst } from 'api/review';
+import routes from 'common/constant/routes';
 import * as S from 'globalStyle/PostStyle';
 import Loading from 'components/Loading';
 import Router from 'next/router';
@@ -27,7 +28,7 @@ const singlePost = ({ reviews }) => {
 
   const openSinglePost = useCallback(
     (id: string) => () => {
-      Router.push(`/search/${id}`);
+      Router.push(`${routes.POST}/${id}`);
     },
     []
   );
@@ -39,7 +40,7 @@ const singlePost = ({ reviews }) => {
       <S.SinglePostContainer isModal={false}>
         {singleReview ? <SinglePost data={singleReview} /> : <Loading />}
       </S.SinglePostContainer>
-      <Anchor fontsize={1} path="/search">
+      <Anchor fontsize={1} path={routes.SEARCH}>
         산책로 리뷰 더 보기
       </Anchor>
       <PostList

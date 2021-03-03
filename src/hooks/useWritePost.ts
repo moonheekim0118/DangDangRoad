@@ -6,7 +6,14 @@ import { PlaceType } from 'types/Map';
 import { freeTextLengthCheck } from 'util/reviewTextValidation';
 import { createReview } from 'api/review';
 import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
-
+import {
+  NOT_SELECT_PLACE_ERROR,
+  FREE_TEXT_LIMIT_ERROR,
+  RAIDO_HAS_DONTKNOW_VALUE,
+  RAIDO_AVAILABLE_DONTKNOW_VALUE,
+  RAIDO_RECOMMENDATION_SOSO_VALUE,
+} from 'common/constant/string';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as Action from 'action';
 
@@ -15,11 +22,17 @@ const useWritePost = () => {
   const [fetchResult, fetchDispatch] = useApiFetch(createReview);
   const { userId } = useLoginInfoState();
   /** has Parking lot Radio value*/
-  const [hasParkingLot, hasParkingLotHandler] = useInput('몰라요');
+  const [hasParkingLot, hasParkingLotHandler] = useInput(
+    RAIDO_HAS_DONTKNOW_VALUE
+  );
   /** off leash Avalibale Raido value */
-  const [hasOffLeash, hasOffLeashHandler] = useInput('몰라요');
+  const [hasOffLeash, hasOffLeashHandler] = useInput(
+    RAIDO_AVAILABLE_DONTKNOW_VALUE
+  );
   /** Recommenation Radio value*/
-  const [recommendation, recommendationHandler] = useInput('추천해요');
+  const [recommendation, recommendationHandler] = useInput(
+    RAIDO_RECOMMENDATION_SOSO_VALUE
+  );
   /** selected Place */
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
   /** Free text Input value with Validation of Text Length */
@@ -44,7 +57,7 @@ const useWritePost = () => {
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
-        Router.push('/search');
+        Router.push(routes.SEARCH);
         break;
       case FAILURE:
         dispatch(Action.showError(fetchResult.error));
@@ -64,11 +77,9 @@ const useWritePost = () => {
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (!selectedPlace) {
-        return dispatch(Action.showError('장소를 선택해주세요!'));
+        return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
       } else if (freeTextError) {
-        return dispatch(
-          Action.showError('글자수는 100자 이하까지 입력 가능합니다.')
-        );
+        return dispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
       }
       const data = {
         userId,

@@ -5,6 +5,7 @@ import { useModal } from 'hooks';
 import { Icon } from 'atoms';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { colorCode } from 'types/Color';
+import { POST_IMAGE_LIMIT } from 'common/constant/number';
 
 interface Props {
   /** image url List for Preview */
@@ -41,7 +42,7 @@ const ImagePreview = ({
 
   return (
     <Container>
-      {imageList.length < 3 && (
+      {imageList.length < POST_IMAGE_LIMIT && (
         <ImagePlusButton>
           <Icon
             icon={faPlus}

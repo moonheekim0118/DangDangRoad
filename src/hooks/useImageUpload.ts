@@ -2,6 +2,7 @@ import { useEffect, useCallback, useRef, useState } from 'react';
 import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { uploadImage } from 'api/storage';
 import { showError } from 'action';
+import { IMAGE_LIMIT_ERROR } from 'common/constant/string';
 
 interface Props {
   /** initial image list */
@@ -47,9 +48,7 @@ const useImageUpload = ({ initialImages, imageLimit, dispatch }: Props) => {
       const length =
         type === 'add' ? files.length + imageUrl.length : imageUrl.length;
       if (length > imageLimit) {
-        return dispatch(
-          showError(`이미지는 최대 ${imageLimit}장까지 업로드 가능합니다.`)
-        );
+        return dispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
       }
       fetchDispatch({ type: REQUEST, params: [files] });
     },

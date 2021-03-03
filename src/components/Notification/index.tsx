@@ -5,6 +5,7 @@ import {
   useNotificationState,
   useNotificationDispatch,
 } from 'context/Notification';
+import { NOTI_TIME } from 'common/constant/number';
 
 const Notification = () => {
   const { notiType, notiMessage } = useNotificationState();
@@ -14,7 +15,7 @@ const Notification = () => {
     if (notiType) {
       setTimeout(function () {
         dispatch(hideAlert());
-      }, 5000);
+      }, NOTI_TIME);
     }
   }, [notiType]);
 

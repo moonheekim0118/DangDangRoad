@@ -5,6 +5,7 @@ import * as S from 'globalStyle/PostStyle';
 import Loading from 'components/Loading';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
+import routes from 'common/constant/routes';
 import { getReviewsMore, getReviewsFirst } from 'api/review';
 
 export async function getStaticProps() {
@@ -22,7 +23,7 @@ const SearchMain = ({ reviews }) => {
     initReviews: reviews.data.reviews,
     initLastKey: reviews.data.lastKey,
     fetcher: getReviewsMore,
-    originPath: '/search',
+    originPath: routes.SEARCH,
   });
 
   return (

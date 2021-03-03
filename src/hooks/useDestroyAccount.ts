@@ -2,6 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { useModal } from 'hooks';
 import { destroyAccount } from 'api/user';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/useApiFetch';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 
 const useDestroyAccount = (userId: string) => {
@@ -11,7 +12,7 @@ const useDestroyAccount = (userId: string) => {
 
   useEffect(() => {
     if (destroyResult.type === SUCCESS) {
-      Router.push('/');
+      Router.push(routes.HOME);
       modalHandler();
     }
   }, [destroyResult.type]);

@@ -2,13 +2,17 @@ import React from 'react';
 import { useSignUp } from 'hooks';
 import { Input, Button } from 'atoms';
 import { inputId } from 'types/Input';
+import {
+  MENU_SIGNUP_TITLE,
+  SIGNUP_BUTTON_CAPTION,
+} from 'common/constant/string';
 import * as S from '../style';
 
 const SignUpForm = (): React.ReactElement => {
   const data = useSignUp();
   return (
     <S.Form signUp={true}>
-      <S.Title>SIGN UP</S.Title>
+      <S.Title>{MENU_SIGNUP_TITLE}</S.Title>
       <Input
         type="text"
         id={inputId.EMAIL}
@@ -47,7 +51,7 @@ const SignUpForm = (): React.ReactElement => {
           hoverColor="light-blue"
           type="submit"
           onClick={data.SubmitHanlder}>
-          JOIN
+          {SIGNUP_BUTTON_CAPTION}
         </Button>
       </S.ButtonContainer>
     </S.Form>

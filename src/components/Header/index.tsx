@@ -8,6 +8,13 @@ import { colorCode } from 'types/Color';
 import { useRouter } from 'next/router';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
+import {
+  MENU_MYPAGE_TITLE,
+  MENU_LOGOUT_TITLE,
+  MENU_LOGIN_TITLE,
+  MENU_SIGNUP_TITLE,
+} from 'common/constant/string';
+import routes from 'common/constant/routes';
 import styled from '@emotion/styled';
 
 const Header = (): React.ReactElement => {
@@ -45,8 +52,8 @@ const Header = (): React.ReactElement => {
                     color="white"
                     hoverColor="light-gray"
                     margin="0 20px 0 0"
-                    path="/myPage">
-                    MYPAGE
+                    path={routes.MYPAGE}>
+                    {MENU_MYPAGE_TITLE}
                   </Anchor>
                 </ExtraMenuContainer>
                 <Span
@@ -56,28 +63,28 @@ const Header = (): React.ReactElement => {
                   cursor="pointer"
                   spanClickHandler={signOutHandler}
                   bold={true}>
-                  LOGOUT
+                  {MENU_LOGOUT_TITLE}
                 </Span>
               </>
             ) : (
               <>
-                {pathname !== '/login' && (
+                {pathname !== routes.LOGIN && (
                   <Anchor
                     fontsize={1.2}
                     color="white"
                     hoverColor="light-gray"
                     margin="0 20px 0 0"
-                    path="/login">
-                    LogIn
+                    path={routes.LOGIN}>
+                    {MENU_LOGIN_TITLE}
                   </Anchor>
                 )}
-                {pathname !== '/signUp' && (
+                {pathname !== routes.SIGNUP && (
                   <Anchor
                     fontsize={1.2}
                     color="white"
                     hoverColor="light-gray"
-                    path="/signUp">
-                    SignUp
+                    path={routes.SIGNUP}>
+                    {MENU_SIGNUP_TITLE}
                   </Anchor>
                 )}
               </>
@@ -88,7 +95,7 @@ const Header = (): React.ReactElement => {
       {openNavigation && (
         <NavigationContainer>
           <SearchBar color="blue" focus={true} />
-          {pathname !== '/signUp' && pathname !== '/login' && (
+          {pathname !== routes.SIGNUP && pathname !== routes.LOGIN && (
             <Navigation isLoggedIn={isLoggedIn} />
           )}
         </NavigationContainer>

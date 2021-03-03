@@ -3,6 +3,10 @@ import useInput from 'hooks/useInput';
 import styled from '@emotion/styled';
 import { Icon, Button } from 'atoms';
 import { colorCode } from 'types/Color';
+import {
+  REVIEW_SEARCH_PLACEHODLER,
+  SEARCH_BUTTON_CAPTION,
+} from 'common/constant/string';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -24,12 +28,10 @@ interface InputProps extends Props {
   focusFont?: 'blue' | 'white';
 }
 
-const PLACEHOLDER = '지역명을 입력하세요. 예) 강원도 속초시';
-
 const SearchBar = ({
   color,
   focus = false,
-  placeholder = PLACEHOLDER,
+  placeholder = REVIEW_SEARCH_PLACEHODLER,
   keyword,
   keywordChangeHanlder,
   searchHandler,
@@ -60,7 +62,7 @@ const SearchBar = ({
       </IconContainer>
       <ButtonContainer color={color}>
         <Button type="submit" onClick={searchHandler} shadow={false}>
-          Go
+          {SEARCH_BUTTON_CAPTION}
         </Button>
       </ButtonContainer>
     </Form>

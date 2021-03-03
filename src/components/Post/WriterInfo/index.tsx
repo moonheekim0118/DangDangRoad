@@ -12,7 +12,7 @@ interface Props {
 const WriterInfo = ({ userData, createdAt }: Props) => {
   return (
     <Container>
-      <Avatar imgUrl={userData.profilePic} size={'normal'} />
+      <Avatar imageUrl={userData.profilePic} size={'normal'} />
       <Info>
         <Nickname>{userData.nickname}</Nickname>
         <TimeStamp>{formatDate(createdAt)}</TimeStamp>

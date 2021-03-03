@@ -5,6 +5,14 @@ import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { Button, Anchor } from 'atoms';
 import { WriterInfo } from 'components/Post';
+import {
+  PARKING_LOT_CAPTION,
+  OFFLEASH_CAPTION,
+  RECOMMENDATION_CAPTION,
+  UPDATE_BUTTON_CAPTION,
+  DELETE_BUTTON_CAPTION,
+} from 'common/constant/string';
+import routes from 'common/constant/routes';
 import PrevNextButton from 'components/PrevNextButton';
 import ImageSlider from 'components/Image/ImageSlider';
 import Map from 'components/Map';
@@ -30,9 +38,18 @@ const SinglePost = ({ data, NavigationInfo }: Props) => {
           <PlaceDetail>{data.placeInfo.address_name}</PlaceDetail>
           <Map coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
           <CommonInfoContainer>
-            <CommonInfo>✅ 주차장 {data.hasParkingLot}</CommonInfo>
-            <CommonInfo>✅ 오프리쉬 {data.hasOffLeash}</CommonInfo>
-            <CommonInfo>🐶 {data.recommendation}</CommonInfo>
+            <CommonInfo>
+              {PARKING_LOT_CAPTION}
+              {data.hasParkingLot}
+            </CommonInfo>
+            <CommonInfo>
+              {OFFLEASH_CAPTION}
+              {data.hasOffLeash}
+            </CommonInfo>
+            <CommonInfo>
+              {RECOMMENDATION_CAPTION}
+              {data.recommendation}
+            </CommonInfo>
           </CommonInfoContainer>
         </InfoContainer>
         {data.imageList && (
@@ -44,8 +61,8 @@ const SinglePost = ({ data, NavigationInfo }: Props) => {
           <WriterInfo userData={data.userData} createdAt={data.createdAt} />
           <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
           {data.userId === userId && (
-            <Anchor path={`/update_post/${data.docId}`}>
-              <Button color="blue">수정하기</Button>
+            <Anchor path={`${routes.UPDATE_POST}/${data.docId}`}>
+              <Button color="blue">{UPDATE_BUTTON_CAPTION}</Button>
             </Anchor>
           )}
         </InfoContainer>

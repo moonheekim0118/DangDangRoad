@@ -1,16 +1,21 @@
 import React from 'react';
 import { colorCode } from 'types/Color';
 import Image from 'next/image';
+import { SENT_EMAIL_IMAGE, SENT_EMAIL_IMAGE_ALT } from 'common/constant/images';
+import { EMAIL_VERFY_TITLE, EMAIL_VERFY_DESC } from 'common/constant/string';
 import styled from '@emotion/styled';
 
 const SignUpProcess = (): React.ReactElement => {
   return (
     <Container>
-      <Image src="/sentEmailImage.png" alt="" width="300" height="200" />
-      <Title>이메일 인증</Title>
-      <Contents>
-        가입하신 메일로 인증 메일을 보냈습니다. 인증을 완료해주세요.
-      </Contents>
+      <Image
+        src={SENT_EMAIL_IMAGE}
+        alt={SENT_EMAIL_IMAGE_ALT}
+        width="300"
+        height="200"
+      />
+      <Title>{EMAIL_VERFY_TITLE}</Title>
+      <Contents>{EMAIL_VERFY_DESC}</Contents>
     </Container>
   );
 };

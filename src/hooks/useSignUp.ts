@@ -4,6 +4,7 @@ import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as checkers from 'util/signUpValidations';
 
@@ -15,7 +16,7 @@ const useSignUp = () => {
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
-        Router.push('/signUpInProcess');
+        Router.push(routes.SIGNUP_PROCESS);
         break;
       case FAILURE:
         dispatch(showError(fetchResult.error));

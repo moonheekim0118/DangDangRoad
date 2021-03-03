@@ -1,4 +1,5 @@
 import db from 'firebaseConfigs/db';
+import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 import * as T from 'types/API';
 
 const DATA_LIMIT = 8;
@@ -25,7 +26,7 @@ const getUserData = async (userRef): Promise<T.userContents> => {
     if (userData) {
       return userData;
     } else {
-      return { profilePic: undefined, nickname: '탈퇴한 사용자' };
+      return { profilePic: undefined, nickname: EMPTY_USER_NICKNAME };
     }
   } catch (error) {
     throw error;

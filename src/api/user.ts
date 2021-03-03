@@ -1,6 +1,7 @@
 import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
 import createUserToken from 'libs/createUserToken';
+import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 import axios from 'axios';
 import * as T from 'types/API';
 
@@ -61,7 +62,7 @@ export const getUserById = async (
   try {
     const response = await db.collection('users').doc(id).get();
     const data = response.data();
-    let userData = { profilePic: '', nickname: '탈퇴한 사용자' };
+    let userData = { profilePic: '', nickname: EMPTY_USER_NICKNAME };
     if (data) {
       userData = { profilePic: data.profilePic, nickname: data.nickname };
     }

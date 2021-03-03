@@ -4,6 +4,7 @@ import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import { passwordValidator } from 'util/signUpValidations';
 import { useNotificationDispatch } from 'context/Notification';
 import { updatePassword } from 'api/user';
+import { UPDATE_MESSAGE, NOT_FULL_INFO_ERROR } from 'common/constant/string';
 import * as Action from 'action';
 
 /** user password update logic */
@@ -30,7 +31,7 @@ const useUpdatePassword = (userId: string) => {
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
-        dispatch(Action.showNoti('수정되었습니다'));
+        dispatch(Action.showNoti(UPDATE_MESSAGE));
         setDefault();
         break;
       case FAILURE:
@@ -49,7 +50,7 @@ const useUpdatePassword = (userId: string) => {
         newPasswordError ||
         !passwordMatch
       ) {
-        return dispatch(Action.showError('정보를 올바르게 입력해주세요'));
+        return dispatch(Action.showError(NOT_FULL_INFO_ERROR));
       }
       fetchDispatch({ type: REQUEST, params: [{ id: userId, newPassword }] });
     },

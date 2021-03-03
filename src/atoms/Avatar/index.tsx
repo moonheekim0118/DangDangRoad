@@ -12,17 +12,17 @@ enum AvatarSize {
 
 interface Props {
   /** image url for Avatar */
-  imgUrl?: string;
+  imageUrl?: string;
   /** size of Avatar */
   size: 'small' | 'normal' | 'large';
 }
 
 const Avatar = ({
-  imgUrl = '',
+  imageUrl = '',
   size = 'normal',
 }: Props): React.ReactElement => {
-  return imgUrl ? (
-    <StyledAvatar src={imgUrl} size={size} />
+  return imageUrl ? (
+    <StyledAvatar src={imageUrl} size={size} />
   ) : (
     <Container size={size}>
       <Icon iconsize={AvatarSize[size] - 25} icon={faUser} color="white" />

@@ -2,6 +2,7 @@ import { useEffect, useCallback } from 'react';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/useApiFetch';
 import { signOut } from 'api/sign';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 
 /** sign out logic  */
@@ -12,7 +13,7 @@ const useSignOut = () => {
   useEffect(() => {
     if (fetchResult.type === SUCCESS) {
       dispatch({ type: 'logout' });
-      Router.push('/');
+      Router.push(routes.HOME);
     }
   }, [fetchResult]);
 

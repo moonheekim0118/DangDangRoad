@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useModal, useSingleReview } from 'hooks';
 import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import { REVIEW_DATA_LIMIT } from 'common/constant/number';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 
 import * as T from 'types/API';
@@ -51,7 +53,7 @@ const useSearchData = ({
           setLastKey(fetchResult.data.lastKey);
           const newReviews = fetchResult.data.reviews;
           setReviews(reviews.concat(newReviews));
-          setHasMore(newReviews.length === 8);
+          setHasMore(newReviews.length === REVIEW_DATA_LIMIT);
         }
         setDefault();
         break;
@@ -100,7 +102,7 @@ const useSearchData = ({
     (postId: string) => async () => {
       try {
         // change url
-        window.history.replaceState(null, '', `/post/${postId}`);
+        window.history.replaceState(null, '', `${routes.POST}/${postId}`);
         // find Specific Post by Id
         const idx = reviews.findIndex((doc) => doc.docId === postId);
         if (idx !== -1) {
@@ -125,7 +127,7 @@ const useSearchData = ({
       const prevPostId = reviews[index - 1].docId;
       fetchSingleReview(prevPostId);
       setIndex(index - 1);
-      window.history.replaceState(null, '', `/post/${prevPostId}`);
+      window.history.replaceState(null, '', `${routes.POST}/${prevPostId}`);
     } catch (error) {}
   }, [reviews, index]);
 
@@ -135,7 +137,7 @@ const useSearchData = ({
       const nextPostId = reviews[index + 1].docId;
       fetchSingleReview(nextPostId);
       setIndex(index + 1);
-      window.history.replaceState(null, '', `/post/${nextPostId}`);
+      window.history.replaceState(null, '', `${routes.POST}/${nextPostId}`);
     } catch (error) {}
   }, [reviews, index]);
 
