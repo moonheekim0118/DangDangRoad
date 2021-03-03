@@ -13,7 +13,7 @@ export const updateProfile = async (
 ): T.APIResult => {
   try {
     await db.collection('users').doc(data.id).update(data.updateContents);
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
     throw { message: error.code };
   }
@@ -35,7 +35,7 @@ export const updatePassword = async (
       const IdToken = await User.getIdToken();
       await createUserToken(IdToken); // Re-Auth
     }
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
     throw { message: error.code };
   }
@@ -48,14 +48,14 @@ export const destroyAccount = async (id: string): T.APIResult => {
     const data = { id };
     await axios.delete(path, { data });
     await db.collection('users').doc(id).delete();
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
     throw { message: error.code };
   }
 };
 
 /** get User info by Id */
-export const getUserById = async (id: string): T.APIResult => {
+export const getUserById = async (id: string): T.APIResult<T.userContents> => {
   try {
     const response = await db.collection('users').doc(id).get();
     const data = response.data();

@@ -5,7 +5,7 @@ import * as user from './user';
 import * as T from 'types/API';
 import errorExTxt from 'util/erreorExTxt';
 
-const successResponse: T.successType = { isError: false, data: null };
+const successResponse: T.successType<null> = { isError: false, data: null };
 
 const failResponse = (message: string): T.failType => {
   return {
@@ -43,7 +43,7 @@ const api = {
     }
   },
   // sign Out
-  signOut: async (): T.APIResponse => {
+  signOut: async (): T.APIResponse<null> => {
     try {
       await sign.signOut();
       return successResponse;
@@ -61,22 +61,20 @@ const api = {
     }
   },
   // upload Profile image
-  uploadProfileImage: async (file: T.fileType): T.APIResponse => {
+  uploadProfileImage: async (file: T.fileType): T.APIResponse<string> => {
     try {
       const data = await storage.uploadProfileImage(file);
-      successResponse.data = data.contents;
-      return successResponse;
+      return { isError: false, data: data.contents };
     } catch (error) {
       return failResponse(error.message);
     }
   },
 
   // upload Post Images
-  uploadPostImage: async (file: T.fileType[]): T.APIResponse => {
+  uploadPostImage: async (file: T.fileType[]): T.APIResponse<string[]> => {
     try {
       const data = await storage.uploadPostImage(file);
-      successResponse.data = data.contents;
-      return successResponse;
+      return { isError: false, data: data.contents };
     } catch (error) {
       return failResponse(error.message);
     }
@@ -113,56 +111,52 @@ const api = {
   },
 
   // get Review Datas first
-  getReviewsFirst: async (): T.APIResponse => {
+  getReviewsFirst: async (): T.APIResponse<T.reviewResult> => {
     try {
       const response = await review.getReviewsFirst();
-      successResponse.data = response.contents;
-      return successResponse;
+      return { isError: false, data: response.contents };
     } catch (error) {
       return failResponse(error.message);
     }
   },
 
   // get Review Datas for More Button
-  getReviewsMore: async (key: string): T.APIResponse => {
+  getReviewsMore: async (key: string): T.APIResponse<T.reviewResult> => {
     try {
       const response = await review.getReviewsMore(key);
-      successResponse.data = response.contents;
-      return successResponse;
+      return { isError: false, data: response.contents };
     } catch (error) {
       return failResponse(error.message);
     }
   },
 
-  getReviewById: async (id: string): T.APIResponse => {
+  getReviewById: async (id: string): T.APIResponse<T.reviewData> => {
     try {
       const response = await review.getReviewById(id);
       if (!response.contents) {
         return failResponse('Not exists data');
       }
-      successResponse.data = response.contents;
-      return successResponse;
+      return { isError: false, data: response.contents };
     } catch (error) {
       return failResponse(error.message);
     }
   },
 
-  // get Review By keyword
-  getReviewByKeyword: async (keyword: string): T.APIResponse => {
-    try {
-      const response = await review.getReveiwByKeyword(keyword);
-      return successResponse;
-    } catch (error) {
-      return failResponse(error.message);
-    }
-  },
+  // // get Review By keyword
+  // getReviewByKeyword: async (keyword: string): T.APIResponse<T.reviewData> => {
+  //   try {
+  //     const response = await review.getReveiwByKeyword(keyword);
+  //     return successResponse;
+  //   } catch (error) {
+  //     return failResponse(error.message);
+  //   }
+  // },
 
   // get User by Id
-  getUserById: async (id: string): T.APIResponse => {
+  getUserById: async (id: string): T.APIResponse<T.userContents> => {
     try {
       const response = await user.getUserById(id);
-      successResponse.data = response.contents;
-      return successResponse;
+      return { isError: false, data: response.contents };
     } catch (error) {
       return failResponse(error.message);
     }

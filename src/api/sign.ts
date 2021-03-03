@@ -48,11 +48,11 @@ export const googleSignIn = async (): T.APIResult => {
         await createUserToken(token); // to persist Auth
       }
     }
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
     // If user closed up the login pop-up , not gonna treat this as error
     if (error.code === 'auth/popup-closed-by-user') {
-      return { status: 200 };
+      return T.defaultSuccess;
     }
     throw { message: error.code };
   }
@@ -74,7 +74,7 @@ export const signIn = async (data: T.signInParams): T.APIResult => {
       const token = await response.user.getIdToken();
       await createUserToken(token);
     }
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
     throw { message: error.code };
   }
@@ -97,7 +97,7 @@ export const signUp = async (data: T.signUpParams): T.APIResult => {
       // signOut
       await signOut();
     }
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
     throw { message: error.code };
   }
@@ -108,7 +108,7 @@ export const signOut = async (): T.APIResult => {
   try {
     await auth.signOut(); // sign out
     await removeCookie(); // remove Session-Cookie
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
     throw { message: error.code };
   }

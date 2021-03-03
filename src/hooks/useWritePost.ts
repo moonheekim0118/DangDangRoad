@@ -18,7 +18,7 @@ const useWritePost = () => {
   /** Recommenation Radio value*/
   const [recommendation, recommendationHandler] = useInput('추천해요');
   /** selected Place */
-  const [selectedPlace, setSelectedPlace] = useState<PlaceType | undefined>();
+  const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
   /** Free text Input value with Validation of Text Length */
   const {
     value: freeText,
@@ -29,7 +29,7 @@ const useWritePost = () => {
   const [imageInput, uploaderClickHanlder] = useImageInput();
 
   /** image Url */
-  const [imageList, setImageList] = useState<string[] | undefined>();
+  const [imageList, setImageList] = useState<string[]>([]);
 
   const uploadImageHanlder = useCallback(async (e) => {
     try {

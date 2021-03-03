@@ -6,7 +6,9 @@ const firebase = getFirebase();
 const storage = firebase.storage();
 
 /** upload Image in firebase Storage and get URL */
-export const uploadProfileImage = async (file: T.fileType): T.APIResult => {
+export const uploadProfileImage = async (
+  file: T.fileType
+): T.APIResult<string> => {
   try {
     const storageRef = storage.ref('');
     const uniqueName = uuidv4(); // make unique id for file name
@@ -22,7 +24,9 @@ export const uploadProfileImage = async (file: T.fileType): T.APIResult => {
 };
 
 /** upload Image in firebase Storage and get URL */
-export const uploadPostImage = async (file: T.fileType[]): T.APIResult => {
+export const uploadPostImage = async (
+  file: T.fileType[]
+): T.APIResult<string[]> => {
   try {
     const url: string[] = [];
     for (let i = 0; i < file.length; i++) {
