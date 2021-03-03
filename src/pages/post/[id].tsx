@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { SinglePost, PostList } from 'components/Post';
-import { useSingleReviewFetch } from 'hooks';
+import { useSingleReview } from 'hooks';
 import { Anchor } from 'atoms';
+import { getReviewsFirst } from 'api/review';
 import * as S from 'globalStyle/PostStyle';
 import Loading from 'components/Loading';
 import Router from 'next/router';
-import api from 'api';
 
 export async function getStaticPaths() {
   return {
@@ -17,13 +17,13 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   return {
     props: {
-      reviews: await api.getReviewsFirst(),
+      reviews: await getReviewsFirst(),
     },
   };
 }
 
 const singlePost = ({ reviews }) => {
-  const [singleReview, fetchState] = useSingleReviewFetch(true);
+  const [singleReview, fetchResult] = useSingleReview(true);
 
   const openSinglePost = useCallback(
     (id: string) => () => {
@@ -32,8 +32,8 @@ const singlePost = ({ reviews }) => {
     []
   );
 
-  return fetchState.error ? (
-    <span>{fetchState.error}</span>
+  return fetchResult.error ? (
+    <span>{fetchResult.error}</span>
   ) : (
     <>
       <S.SinglePostContainer isModal={false}>

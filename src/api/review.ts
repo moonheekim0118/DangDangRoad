@@ -92,16 +92,17 @@ export const getReviewsMore = async (
 /** get sinlge Review By Id */
 export const getReviewById = async (
   id: string
-): T.APIResponse<T.reviewData | null> => {
+): T.APIResponse<T.reviewData> => {
   try {
     const response = await db.collection('reviews').doc(id).get();
     const data = response.data();
     if (data) {
       data['docId'] = id;
       data['userData'] = await getUserData(data['userRef']);
+      return { isError: false, data: data as T.reviewData };
+    } else {
+      throw { code: 'Not exists data' };
     }
-
-    return { isError: false, data: (data as T.reviewData) || null };
   } catch (error) {
     throw error;
   }

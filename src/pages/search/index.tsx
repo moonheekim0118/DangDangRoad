@@ -5,12 +5,12 @@ import * as S from 'globalStyle/PostStyle';
 import Loading from 'components/Loading';
 import Modal from 'components/Modal';
 import useUser from 'libs/useUser';
-import api from 'api';
+import { getReviewsMore, getReviewsFirst } from 'api/review';
 
 export async function getStaticProps() {
   return {
     props: {
-      reviews: await api.getReviewsFirst(),
+      reviews: await getReviewsFirst(),
     },
   };
 }
@@ -21,7 +21,7 @@ const SearchMain = ({ reviews }) => {
   const data = useSearchData({
     initReviews: reviews.data.reviews,
     initLastKey: reviews.data.lastKey,
-    fetcher: api.getReviewsMore,
+    fetcher: getReviewsMore,
     originPath: '/search',
   });
 
@@ -47,7 +47,7 @@ const SearchMain = ({ reviews }) => {
         </S.SinglePostContainer>
       </Modal>
       <div ref={data.observerTarget}>
-        {data.fetchMutipleReviewState.loading && <Loading />}
+        {data.fetchResult.type === 'REQEUST' && <Loading />}
       </div>
     </>
   );
