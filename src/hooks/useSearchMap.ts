@@ -1,6 +1,10 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useElement, useInput } from 'hooks';
-import { url } from 'util/marker';
+import { MARKER_URL } from 'common/constant/images';
+import {
+  NO_SEARCH_RESULT_ERROR,
+  NO_KEYWORD_ERROR,
+} from 'common/constant/string';
 import * as T from 'types/Map';
 
 declare global {
@@ -50,7 +54,7 @@ const useSearchMap = () => {
     (position, idx) => {
       if (map) {
         const { kakao } = window;
-        let imageSrc = url,
+        let imageSrc = MARKER_URL,
           imageSize = new kakao.maps.Size(36, 37),
           imgOptions = {
             spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
@@ -104,7 +108,7 @@ const useSearchMap = () => {
   const placeSearchCB = useCallback(
     (data, stauts, pagination) => {
       if (data.length === 0) {
-        return alert('검색결과가 없습니다.');
+        return alert(NO_SEARCH_RESULT_ERROR);
       }
       setPlacesData(data); // update Data States
       setPagination(pagination); // update Pagination State
@@ -118,7 +122,7 @@ const useSearchMap = () => {
     (e: React.MouseEvent<HTMLSpanElement>) => {
       e.preventDefault();
       if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        return alert('키워드를 입력해주세요');
+        return alert(NO_KEYWORD_ERROR);
       }
       if (ps) {
         ps.keywordSearch(keyword, placeSearchCB);

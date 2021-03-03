@@ -1,16 +1,18 @@
 import React from 'react';
 import { Icon, Anchor } from 'atoms';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { faFeather } from '@fortawesome/free-solid-svg-icons';
+import { WRITE_REVIEW_BUTTON_CAPTION } from 'common/constant/string';
+import routes from 'common/constant/routes';
 import styled from '@emotion/styled';
 
 const WriteButton = () => {
   return (
     <Container>
-      <Anchor fontsize={1.2} fontbold={true} path="/write">
+      <Anchor fontsize={1.2} fontbold={true} path={routes.WRITE_REIVEW}>
         <Button>
           <Icon icon={faFeather} iconsize={30} />
-          <Description>리뷰 작성하기</Description>
+          <Description>{WRITE_REVIEW_BUTTON_CAPTION}</Description>
         </Button>
       </Anchor>
     </Container>

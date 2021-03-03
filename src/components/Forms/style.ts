@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 
 export const Form = styled.form<{ signUp?: boolean }>`
   width: 600px;

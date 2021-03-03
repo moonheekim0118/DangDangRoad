@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Icon } from 'atoms';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 enum AvatarSize {
@@ -12,17 +12,17 @@ enum AvatarSize {
 
 interface Props {
   /** image url for Avatar */
-  imgUrl?: string;
+  imageUrl?: string;
   /** size of Avatar */
   size: 'small' | 'normal' | 'large';
 }
 
 const Avatar = ({
-  imgUrl = '',
+  imageUrl = '',
   size = 'normal',
 }: Props): React.ReactElement => {
-  return imgUrl ? (
-    <StyledAvatar src={imgUrl} size={size} />
+  return imageUrl ? (
+    <StyledAvatar src={imageUrl} size={size} />
   ) : (
     <Container size={size}>
       <Icon iconsize={AvatarSize[size] - 25} icon={faUser} color="white" />

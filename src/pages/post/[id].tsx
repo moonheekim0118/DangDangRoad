@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import { SinglePost, PostList } from 'components/Post';
-import { useSingleReviewFetch } from 'hooks';
+import { useSingleReview } from 'hooks';
 import { Anchor } from 'atoms';
-import * as S from 'globalStyle/PostStyle';
+import { getReviewsFirst } from 'api/review';
+import routes from 'common/constant/routes';
+import * as S from 'common/style/post';
 import Loading from 'components/Loading';
 import Router from 'next/router';
-import api from 'api';
 
 export async function getStaticPaths() {
   return {
@@ -17,29 +18,29 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   return {
     props: {
-      reviews: await api.getReviewsFirst(),
+      reviews: await getReviewsFirst(),
     },
   };
 }
 
 const singlePost = ({ reviews }) => {
-  const [singleReview, fetchState] = useSingleReviewFetch(true);
+  const [singleReview, fetchResult] = useSingleReview(true);
 
   const openSinglePost = useCallback(
     (id: string) => () => {
-      Router.push(`/search/${id}`);
+      Router.push(`${routes.POST}/${id}`);
     },
     []
   );
 
-  return fetchState.error ? (
-    <span>{fetchState.error}</span>
+  return fetchResult.error ? (
+    <span>{fetchResult.error}</span>
   ) : (
     <>
       <S.SinglePostContainer isModal={false}>
         {singleReview ? <SinglePost data={singleReview} /> : <Loading />}
       </S.SinglePostContainer>
-      <Anchor fontsize={1} path="/search">
+      <Anchor fontsize={1} path={routes.SEARCH}>
         산책로 리뷰 더 보기
       </Anchor>
       <PostList

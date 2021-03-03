@@ -1,17 +1,20 @@
 import db from 'firebaseConfigs/db';
+import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 import * as T from 'types/API';
 
 const DATA_LIMIT = 8;
 
-export const createReview = async (data: T.writeReviewParams): T.APIResult => {
+export const createReview = async (
+  data: T.writeReviewParams
+): T.APIResponse<null> => {
   try {
     data['createdAt'] = Date.now();
     // add User Ref by user Id
     data['userRef'] = db.collection('users').doc(data.userId);
     await db.collection('reviews').add(data);
-    return { status: 200 };
+    return T.defaultSuccess;
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
@@ -23,7 +26,7 @@ const getUserData = async (userRef): Promise<T.userContents> => {
     if (userData) {
       return userData;
     } else {
-      return { profilePic: undefined, nickname: '탈퇴한 사용자' };
+      return { profilePic: undefined, nickname: EMPTY_USER_NICKNAME };
     }
   } catch (error) {
     throw error;
@@ -51,7 +54,7 @@ const extractReviewData = async (response): Promise<T.reviewResult> => {
   }
 };
 
-export const getReviewsFirst = async (): T.APIResult => {
+export const getReviewsFirst = async (): T.APIResponse<T.reviewResult> => {
   try {
     const response = await db
       .collection('reviews')
@@ -59,10 +62,10 @@ export const getReviewsFirst = async (): T.APIResult => {
       .limit(DATA_LIMIT)
       .get();
 
-    const contents = await extractReviewData(response);
-    return { status: 200, contents };
+    const data = await extractReviewData(response);
+    return { isError: false, data };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
@@ -70,7 +73,9 @@ export const getReviewsFirst = async (): T.APIResult => {
  *  this function is for data fetch when user
  *  clicked 'More' button
  */
-export const getReviewsMore = async (key: string): T.APIResult => {
+export const getReviewsMore = async (
+  key: string
+): T.APIResponse<T.reviewResult> => {
   try {
     const response = await db
       .collection('reviews')
@@ -78,43 +83,48 @@ export const getReviewsMore = async (key: string): T.APIResult => {
       .startAfter(key)
       .limit(DATA_LIMIT)
       .get();
-    const contents = await extractReviewData(response);
-    return { status: 200, contents };
+    const data = await extractReviewData(response);
+    return { isError: false, data };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
 /** get sinlge Review By Id */
-export const getReviewById = async (id: string): T.APIResult => {
+export const getReviewById = async (
+  id: string
+): T.APIResponse<T.reviewData> => {
   try {
     const response = await db.collection('reviews').doc(id).get();
     const data = response.data();
     if (data) {
+      data['docId'] = id;
       data['userData'] = await getUserData(data['userRef']);
+      return { isError: false, data: data as T.reviewData };
+    } else {
+      throw { code: 'Not exists data' };
     }
-    return { status: 200, contents: data };
   } catch (error) {
-    throw { message: error.code };
+    throw error;
   }
 };
 
-/** get Reivews by Search-Keyword */
-/** should use third-party */
-export const getReveiwByKeyword = async (keyword: string): T.APIResult => {
-  try {
-    const response = await db
-      .collection('reviews')
-      .where('placeInfo.address_name', '>=', keyword)
-      .orderBy('createdAt', 'desc')
-      .limit(DATA_LIMIT)
-      .get();
+// /** get Reivews by Search-Keyword */
+// /** should use third-party */
+// export const getReveiwByKeyword = async (keyword: string): T.APIResult => {
+//   try {
+//     const response = await db
+//       .collection('reviews')
+//       .where('placeInfo.address_name', '>=', keyword)
+//       .orderBy('createdAt', 'desc')
+//       .limit(DATA_LIMIT)
+//       .get();
 
-    const contents = await extractReviewData(response);
-    console.log(contents);
-    return { status: 200, contents };
-  } catch (error) {
-    console.log(error);
-    throw { message: error.code };
-  }
-};
+//     const contents = await extractReviewData(response);
+//     console.log(contents);
+//     return { status: 200, contents };
+//   } catch (error) {
+//     console.log(error);
+//     throw { message: error.code };
+//   }
+// };

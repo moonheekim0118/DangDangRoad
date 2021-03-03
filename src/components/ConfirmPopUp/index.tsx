@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { baseModalStyle } from 'util/baseStyle';
+import { baseModalStyle } from 'common/style/baseStyle';
+import {
+  CLOSE_BUTTON_CAPTION,
+  KEEP_BUTTON_CAPTION,
+} from 'common/constant/string';
 
 interface Props {
   /** contents of pop up */
@@ -18,10 +22,10 @@ const ConfirmPopUp = ({ contents, closeHandler, submitHandler }: Props) => {
       <Title>{contents}</Title>
       <ButtonContainer>
         <Button title="close" onClick={closeHandler}>
-          CLOSE
+          {CLOSE_BUTTON_CAPTION}
         </Button>
         <Button title="keep" onClick={submitHandler}>
-          SUBMIT
+          {KEEP_BUTTON_CAPTION}
         </Button>
       </ButtonContainer>
     </Container>

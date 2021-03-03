@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { FOOTER_CONTENTS } from 'common/constant/string';
 
 const Footer = (): React.ReactElement => {
   return (
     <Container>
-      <Text>Copyright © moonhee kim dangdang road </Text>
+      <Text>{FOOTER_CONTENTS}</Text>
     </Container>
   );
 };

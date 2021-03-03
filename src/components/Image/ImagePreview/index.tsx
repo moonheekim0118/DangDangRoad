@@ -4,7 +4,8 @@ import ImageCarousel from '../ImageCarousel';
 import { useModal } from 'hooks';
 import { Icon } from 'atoms';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
+import { POST_IMAGE_LIMIT } from 'common/constant/number';
 
 interface Props {
   /** image url List for Preview */
@@ -18,7 +19,7 @@ interface Props {
   /** funciton to remove image with specific index */
   imageRemoveHanlder: (index: number) => () => void;
   /** function to upload image */
-  imageUploadHanlder: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  imageUploadHanlder: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ImagePreview = ({
@@ -41,7 +42,7 @@ const ImagePreview = ({
 
   return (
     <Container>
-      {imageList.length < 3 && (
+      {imageList.length < POST_IMAGE_LIMIT && (
         <ImagePlusButton>
           <Icon
             icon={faPlus}

@@ -1,18 +1,19 @@
 import React from 'react';
 import { Icon } from 'atoms';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
+import { DEFAULT_IMAGE_URL } from 'common/constant/images';
 import styled from '@emotion/styled';
 
 interface Props {
   /** onClick for this component */
   previewClickHanlder: (e: React.MouseEvent<HTMLDivElement>) => void;
   /** thumNail image */
-  thumnail?: string;
+  thumnail: string | null;
   /** place name to be shown in Preview */
   placeName: string;
 }
 
-const Preview = ({ previewClickHanlder, thumnail = '', placeName }: Props) => {
+const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
   return (
     <Post onClick={previewClickHanlder}>
       <Overlay>
@@ -23,12 +24,7 @@ const Preview = ({ previewClickHanlder, thumnail = '', placeName }: Props) => {
           </div>
         </Description>
       </Overlay>
-      <Image
-        src={
-          thumnail ||
-          'https://superawesomevectors.com/wp-content/uploads/2018/05/danny-dog-peppa-pig-character-free-vector-800x566.jpg'
-        }
-      />
+      <Image src={thumnail || DEFAULT_IMAGE_URL} />
     </Post>
   );
 };

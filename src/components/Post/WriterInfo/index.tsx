@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar } from 'atoms';
 import { userContents } from 'types/API';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
 import formatDate from 'util/formatDate';
 import styled from '@emotion/styled';
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 const WriterInfo = ({ userData, createdAt }: Props) => {
   return (
     <Container>
-      <Avatar imgUrl={userData.profilePic} size={'normal'} />
+      <Avatar imageUrl={userData.profilePic} size={'normal'} />
       <Info>
         <Nickname>{userData.nickname}</Nickname>
         <TimeStamp>{formatDate(createdAt)}</TimeStamp>

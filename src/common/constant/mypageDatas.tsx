@@ -1,5 +1,12 @@
 import Icon from 'atoms/Icon';
 import {
+  MYPAGE_MENU_DEFAULT,
+  MYPAGE_MENU_UPDATE_PASSWORD,
+  MYPAGE_MENU_UPDATE_PROFILE,
+  MYPAGE_MENU_DESTROY_ACCOUNT,
+} from 'common/constant/string';
+import routes from 'common/constant/routes';
+import {
   faFileAlt,
   faEdit,
   faUserCircle,
@@ -10,20 +17,20 @@ export const GeneralMenu = [
   {
     key: 0,
     icon: <Icon iconsize={20} icon={faFileAlt} />,
-    title: 'My reviews',
-    href: '/myPage',
+    title: MYPAGE_MENU_DEFAULT,
+    href: routes.MYPAGE,
   },
   {
     key: 1,
     icon: <Icon iconsize={20} icon={faUserCircle} />,
-    title: 'update profile',
-    href: '/myPage/updateProfile',
+    title: MYPAGE_MENU_UPDATE_PROFILE,
+    href: routes.MYPAGE_UPDATE_PROFILE,
   },
   {
     key: 2,
     icon: <Icon iconsize={20} icon={faEdit} />,
-    title: 'update password',
-    href: '/myPage/updatePassword',
+    title: MYPAGE_MENU_UPDATE_PASSWORD,
+    href: routes.MYPAGE_UPDATE_PASSWORD,
   },
 ];
 
@@ -31,6 +38,6 @@ export const DestoryMenu = [
   {
     key: 3,
     icon: <Icon iconsize={20} icon={faSadTear} color="red" />,
-    title: 'destroy account',
+    title: MYPAGE_MENU_DESTROY_ACCOUNT,
   },
 ];

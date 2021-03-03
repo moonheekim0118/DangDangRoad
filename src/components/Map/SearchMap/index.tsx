@@ -2,9 +2,10 @@ import React from 'react';
 import SearchBar from 'components/SearchBar';
 import { useSearchMap } from 'hooks';
 import { PlaceType } from 'types/Map';
-import { colorCode } from 'types/Color';
+import { colorCode } from 'common/style/color';
+import { MAP_SEARCH_PLACEHOLDER } from 'common/constant/string';
 import styled from '@emotion/styled';
-import * as marker from 'util/marker';
+import { MARKER_URL, MARKER_POSITIONS } from 'common/constant/images';
 
 interface Props {
   /** function to change user select Place to review */
@@ -21,7 +22,7 @@ const SearchMap = ({ selectPlaceHandler, nowSelectedAddress = '' }: Props) => {
       <Search>
         <SearchBar
           color="white"
-          placeholder="키워드로 검색하세요! 예) 광명 애견운동장"
+          placeholder={MAP_SEARCH_PLACEHOLDER}
           keyword={data.keyword}
           keywordChangeHanlder={data.keywordChangeHandler}
           searchHandler={data.searchHadler}
@@ -116,8 +117,8 @@ const AdressName = styled.span`
 const Marker = styled.span<{ index: number }>`
   width: 36px;
   height: 37px;
-  background: ${`url(${marker.url})`} no-repeat;
-  background-position: ${(props) => marker.positions[props.index]};
+  background: ${`url(${MARKER_URL})`} no-repeat;
+  background-position: ${(props) => MARKER_POSITIONS[props.index]};
 `;
 
 const PaginationContainer = styled.div`

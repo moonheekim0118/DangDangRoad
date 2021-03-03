@@ -6,19 +6,20 @@ import Loading from 'components/Loading';
 import ConfirmPopUp from 'components/ConfirmPopUp';
 import { Title } from 'atoms';
 import { useDestroyAccount } from 'hooks';
-import { UserType } from 'types/user';
-import * as Menus from 'util/myPageDatas';
+import { UserType } from 'types/User';
+import { DESTROY_ACCOUNT_CAPTION } from 'common/constant/string';
+import * as menus from 'common/constant/mypageDatas';
 import styled from '@emotion/styled';
 
 interface Props {
   userInfo: UserType;
-  pageName?: string;
+  pageName: string;
   children: React.ReactNode;
 }
 
 const MyPage = ({
   userInfo,
-  pageName = 'My Reviews',
+  pageName,
   children,
 }: Props): React.ReactElement => {
   const data = useDestroyAccount(userInfo.userId);
@@ -35,8 +36,8 @@ const MyPage = ({
         ) : (
           <Loading />
         )}
-        <PageMenu datas={Menus.GeneralMenu} />
-        <PageMenu datas={Menus.DestoryMenu} onClick={data.modalHandler} />
+        <PageMenu datas={menus.GeneralMenu} />
+        <PageMenu datas={menus.DestoryMenu} onClick={data.modalHandler} />
       </SideContainer>
       <MainContainer>
         <TitleContainer>
@@ -46,7 +47,7 @@ const MyPage = ({
       </MainContainer>
       <Modal showModal={data.showModal} modalHandler={data.modalHandler}>
         <ConfirmPopUp
-          contents="정말 계정을 삭제하시겠습니까?"
+          contents={DESTROY_ACCOUNT_CAPTION}
           closeHandler={data.modalHandler}
           submitHandler={data.DestroyHandler}
         />

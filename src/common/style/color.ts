@@ -10,7 +10,7 @@ export enum colorCode {
   'black' = '#00000',
 }
 
-export type ColorType =
+export type colorType =
   | 'white'
   | 'blue'
   | 'light-blue'

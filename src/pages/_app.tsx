@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Layout from 'components/Layout';
 import Loading from 'components/Loading';
 import Notification from 'components/Notification';
-import GlobalStyle from 'globalStyle';
+import GlobalStyle from 'common/style/globalStyle';
 import fetcher from 'libs/fetcher';
 import { useRouterStatus } from 'hooks';
 import { SWRConfig } from 'swr';

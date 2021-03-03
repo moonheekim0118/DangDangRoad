@@ -37,7 +37,6 @@ export interface writeReviewParams {
     x: string;
     y: string;
   };
-  createdAt: number;
 }
 
 export interface reviewResult {
@@ -48,6 +47,7 @@ export interface reviewResult {
 export interface reviewData extends writeReviewParams {
   docId: string;
   userData: userContents;
+  createdAt: number;
 }
 
 export interface lightReviewData {
@@ -62,27 +62,13 @@ export interface userContents {
   profilePic?: string;
 }
 
-export interface failType {
-  isError: true;
-  error: string;
-}
-
-export interface successType {
+export interface successType<T = null> {
   isError: false;
-  data:
-    | lightReviewData[]
-    | reviewResult
-    | reviewData
-    | userContents
-    | null
-    | undefined;
+  data: T;
 }
 
 export type fileType = Blob | Uint8Array | ArrayBuffer;
 
-export type APIResponse = Promise<failType | successType>;
+export type APIResponse<T = null> = Promise<successType<T>>;
 
-export type APIResult = Promise<{
-  status: number;
-  contents?: lightReviewData[] | reviewResult | reviewData | userContents;
-}>;
+export const defaultSuccess: successType = { isError: false, data: null };

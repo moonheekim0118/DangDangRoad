@@ -1,19 +1,24 @@
-import { useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useModal } from 'hooks';
-import api from 'api';
+import { destroyAccount } from 'api/user';
+import useApiFetch, { REQUEST, SUCCESS } from 'hooks/useApiFetch';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 
 const useDestroyAccount = (userId: string) => {
   /** Remove Confirm Modal */
   const [showModal, modalHandler] = useModal(false);
+  const [destroyResult, destroyDispatch] = useApiFetch(destroyAccount);
 
-  const DestroyHandler = useCallback(async () => {
-    const response = await api.destroyAccount(userId);
-    if (!response.isError) {
-      await api.signOut();
-      Router.push('/');
+  useEffect(() => {
+    if (destroyResult.type === SUCCESS) {
+      Router.push(routes.HOME);
+      modalHandler();
     }
-    modalHandler();
+  }, [destroyResult.type]);
+
+  const DestroyHandler = useCallback(() => {
+    destroyDispatch({ type: REQUEST, params: [userId] });
   }, []);
 
   return { showModal, modalHandler, DestroyHandler };

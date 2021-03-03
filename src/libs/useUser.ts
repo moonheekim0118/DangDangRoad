@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import Router from 'next/router';
 import useSWR from 'swr';
-import { UserType } from 'types/user';
+import { UserType } from 'types/User';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
+import api from 'common/constant/api';
 
 interface Props {
   /** path for redirection */
@@ -19,7 +20,7 @@ const useUser = ({ redirectTo, redirectIfFound = false }: Props = {}): {
   ) => Promise<any>;
 } => {
   const dispatch = useLoginInfoDispatch();
-  const { data: user, mutate: mutateUser } = useSWR('/api/loginCheck');
+  const { data: user, mutate: mutateUser } = useSWR(api.LOGIN_CHECK);
 
   useEffect(() => {
     // after getting data, dispatch this data to Context

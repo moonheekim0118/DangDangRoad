@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useFetchState, useModal, useSingleReviewFetch } from 'hooks';
+import { useModal, useSingleReview } from 'hooks';
+import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import { REVIEW_DATA_LIMIT } from 'common/constant/number';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 
 import * as T from 'types/API';
@@ -10,7 +13,7 @@ interface Props {
   /** initial last key data from static props */
   initLastKey?: string;
   /** api fetcher to get multiple reviews */
-  fetcher: (key: string) => T.APIResponse;
+  fetcher: (key: string) => T.APIResponse<T.reviewResult>;
   /** when modal close, go back to origin path */
   originPath: string;
   /** does it needs initial fetch or not */
@@ -24,48 +27,48 @@ const useSearchData = ({
   originPath,
   initialFetch = false,
 }: Props) => {
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.reviewResult>(
+    fetcher
+  );
   const observerTarget = useRef(null); // for infinite scrolling
   const [lastKey, setLastKey] = useState<string>(initLastKey || '');
   const [reviews, setReviews] = useState<T.lightReviewData[]>(
     initReviews || []
   );
-  const [
-    fetchMutipleReviewState,
-    setLoading,
-    setDone,
-    setError,
-  ] = useFetchState();
+
   const [showModal, modalHandler] = useModal(false);
   const [
     singleReview,
-    fetchSingleReviewState,
+    fetchSingleReviewResult,
     fetchSingleReview,
-  ] = useSingleReviewFetch(false); // single Review which will be shown in modal
+  ] = useSingleReview(false); // single Review which will be shown in modal
   const [index, setIndex] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true); // let us know if there is more data to fetch in db
   const [keyword, setKeyword] = useState<string>(''); // search Keyword
 
-  /** actual data fetch & store in state fucntion */
-  const fetchMutipleReview = useCallback(async () => {
-    try {
-      if (!fetchMutipleReviewState.loading && hasMore) {
-        setLoading();
-        const response = await fetcher(lastKey);
-        if (!response.isError) {
-          setLastKey(response.data.lastKey);
-          const newReviews = response.data.reviews;
-          const mergedData = reviews.concat(response.data.reviews);
-          setHasMore(newReviews.length === 8);
-          setReviews(mergedData);
-          setDone();
-        } else {
-          setError(response.error);
+  useEffect(() => {
+    switch (fetchResult.type) {
+      case SUCCESS:
+        if (fetchResult.data) {
+          setLastKey(fetchResult.data.lastKey);
+          const newReviews = fetchResult.data.reviews;
+          setReviews(reviews.concat(newReviews));
+          setHasMore(newReviews.length === REVIEW_DATA_LIMIT);
         }
-      }
-    } catch (error) {
-      setError('잠시후 다시 시도해주세요');
+        setDefault();
+        break;
+      case FAILURE:
     }
-  }, [fetchMutipleReviewState, reviews, lastKey, hasMore]);
+  }, [fetchResult, reviews]);
+
+  /** actual data fetch & store in state fucntion */
+  const fetchMutipleReview = useCallback(() => {
+    if (hasMore) {
+      initialFetch
+        ? fetchDispatch({ type: REQUEST, params: [lastKey, keyword] })
+        : fetchDispatch({ type: REQUEST, params: [lastKey] });
+    }
+  }, [reviews, lastKey, hasMore, keyword]);
 
   const onIntersect = useCallback(
     ([entry]) => {
@@ -73,7 +76,7 @@ const useSearchData = ({
         fetchMutipleReview();
       }
     },
-    [hasMore, fetchMutipleReviewState]
+    [hasMore]
   );
 
   useEffect(() => {
@@ -92,20 +95,20 @@ const useSearchData = ({
       observer.observe(observerTarget.current);
     }
     return () => observer && observer.disconnect();
-  }, [observerTarget, hasMore, fetchMutipleReviewState]);
+  }, [observerTarget, hasMore]);
 
   // open Single Post Modal
   const openModal = useCallback(
     (postId: string) => async () => {
       try {
         // change url
-        window.history.replaceState(null, '', `/post/${postId}`);
+        window.history.replaceState(null, '', `${routes.POST}/${postId}`);
         // find Specific Post by Id
         const idx = reviews.findIndex((doc) => doc.docId === postId);
         if (idx !== -1) {
           setIndex(idx);
         }
-        await fetchSingleReview(postId);
+        fetchSingleReview(postId);
         modalHandler();
       } catch (error) {}
     },
@@ -122,9 +125,9 @@ const useSearchData = ({
   const prevHandler = useCallback(async () => {
     try {
       const prevPostId = reviews[index - 1].docId;
-      await fetchSingleReview(prevPostId);
+      fetchSingleReview(prevPostId);
       setIndex(index - 1);
-      window.history.replaceState(null, '', `/post/${prevPostId}`);
+      window.history.replaceState(null, '', `${routes.POST}/${prevPostId}`);
     } catch (error) {}
   }, [reviews, index]);
 
@@ -132,20 +135,20 @@ const useSearchData = ({
   const nextHandler = useCallback(async () => {
     try {
       const nextPostId = reviews[index + 1].docId;
-      await fetchSingleReview(nextPostId);
+      fetchSingleReview(nextPostId);
       setIndex(index + 1);
-      window.history.replaceState(null, '', `/post/${nextPostId}`);
+      window.history.replaceState(null, '', `${routes.POST}/${nextPostId}`);
     } catch (error) {}
   }, [reviews, index]);
 
   return {
     reviews,
     index,
-    fetchMutipleReviewState,
     showModal,
+    fetchResult,
     modalHandler,
     singleReview,
-    fetchSingleReviewState,
+    fetchSingleReviewResult,
     fetchMutipleReview,
     openModal,
     closeModal,
