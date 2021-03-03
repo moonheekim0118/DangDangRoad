@@ -1,5 +1,3 @@
-import errorExTxt from 'util/errorExTxt';
-
 export interface AuthResult {
   userId: string;
   isLoggedIn: boolean;
