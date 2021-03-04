@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import useApiFetch, { REQUEST, SUCCESS } from 'hooks/useApiFetch';
+import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import Router from 'next/router';
 import { getReviewById } from 'api/review';
 import * as T from 'types/API';

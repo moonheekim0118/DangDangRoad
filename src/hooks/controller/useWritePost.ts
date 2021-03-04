@@ -6,7 +6,11 @@ import { PlaceType } from 'types/Map';
 import { reviewData } from 'types/API';
 import { freeTextLengthCheck } from 'util/reviewTextValidation';
 import { createReview, updateReview } from 'api/review';
-import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import {
   NOT_SELECT_PLACE_ERROR,
   FREE_TEXT_LIMIT_ERROR,

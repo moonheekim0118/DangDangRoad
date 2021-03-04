@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useElement } from 'hooks';
+import { useElement } from 'hooks/common';
 import styled from '@emotion/styled';
 
 interface Props {

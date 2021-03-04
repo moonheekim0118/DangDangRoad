@@ -4,7 +4,11 @@ import { useValidation, useImageUpload } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
 import { UserType, MutateType } from 'types/User';
 import { userContents } from 'types/API';
-import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import { updateProfile } from 'api/user';
 import { UPDATE_MESSAGE } from 'common/constant/string';
 import * as Action from 'action';

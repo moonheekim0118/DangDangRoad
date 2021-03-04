@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchBar from 'components/common/SearchBar';
-import { useSearchMap } from 'hooks';
+import { useSearchMap } from 'hooks/controller';
 import { PlaceType } from 'types/Map';
 import { colorCode } from 'common/style/color';
 import { MAP_SEARCH_PLACEHOLDER } from 'common/constant/string';

@@ -1,7 +1,11 @@
 import { useEffect, useCallback } from 'react';
 import { checkEmail } from 'util/signUpValidations';
 import { useInput } from 'hooks';
-import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signIn, googleSignIn } from 'api/sign';

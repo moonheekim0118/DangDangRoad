@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { SearchMap } from 'components/map';
 import RadioBox from 'components/ui/RadioBox';
 import { ImagePreview } from 'components/image';
-import { useWritePost } from 'hooks';
+import { useWritePost } from 'hooks/controller';
 import { colorCode } from 'common/style/color';
 import { Title, Button } from 'atoms';
 import { reviewData } from 'types/API';

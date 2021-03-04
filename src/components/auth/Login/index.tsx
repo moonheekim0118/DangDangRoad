@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleButton from 'react-google-button';
 import { Input, Button } from 'atoms';
 import { inputId } from 'common/constant/input';
-import { useSignIn } from 'hooks';
+import { useSignIn } from 'hooks/controller';
 import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import * as S from '../style';
 
