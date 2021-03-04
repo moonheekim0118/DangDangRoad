@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/Link';
 import Image from 'next/image';
-import useUser from 'libs/useUser';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
+import { useUser } from 'hooks';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
 import { Button } from 'atoms';
 

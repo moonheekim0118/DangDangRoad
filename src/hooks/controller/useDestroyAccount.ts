@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
-import { useModal } from 'hooks/common';
+import { useModal, useApiFetch } from 'hooks';
 import { destroyAccount } from 'api/user';
-import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
+import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 

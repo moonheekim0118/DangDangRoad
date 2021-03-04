@@ -1,5 +1,5 @@
 import React from 'react';
-import { useInput } from 'hooks/common';
+import { useInput } from 'hooks';
 import styled from '@emotion/styled';
 import { Icon, Button } from 'atoms';
 import { colorCode } from 'common/style/color';

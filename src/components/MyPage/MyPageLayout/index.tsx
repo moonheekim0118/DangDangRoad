@@ -5,7 +5,7 @@ import Modal from 'components/ui/Modal';
 import Loading from 'components/ui/Loading';
 import ConfirmPopUp from 'components/ui/ConfirmPopUp';
 import { Title } from 'atoms';
-import { useDestroyAccount } from 'hooks/controller';
+import { useDestroyAccount } from 'hooks';
 import { UserType } from 'types/User';
 import { DESTROY_ACCOUNT_CAPTION } from 'common/constant/string';
 import * as menus from 'common/constant/mypageDatas';

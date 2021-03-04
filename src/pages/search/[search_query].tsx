@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useUser } from 'hooks';
 // import api from 'api';
 const SearchResult = () => {
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import useUser from 'libs/useUser';
+import { useUser } from 'hooks';
 import { useSingleReview } from 'hooks';
 import { WritePost } from 'components/post';
 import Loading from 'components/ui/Loading';

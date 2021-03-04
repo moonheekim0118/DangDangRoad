@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUpdateProfile } from 'hooks/controller';
+import { useUpdateProfile } from 'hooks';
 import { Avatar, Button, Input, Icon } from 'atoms';
 import { inputId } from 'common/constant/input';
 import { UserType, MutateType } from 'types/User';

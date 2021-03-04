@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'components/ui/Modal';
 import PrevNextButton from 'components/ui/PrevNextButton';
-import { useImageSlide } from 'hooks/controller';
+import { useImageSlide } from 'hooks';
 import { baseModalStyle } from 'common/style/baseStyle';
 import styled from '@emotion/styled';
 

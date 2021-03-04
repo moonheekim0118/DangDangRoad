@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignUp } from 'hooks/controller';
+import { useSignUp } from 'hooks';
 import { Input, Button } from 'atoms';
 import { inputId } from 'common/constant/input';
 import {
