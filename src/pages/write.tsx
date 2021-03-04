@@ -7,7 +7,7 @@ import useUser from 'libs/useUser';
 const Write = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
 
-  return user && user.isLoggedIn ? <WritePost /> : <Loading />;
+  return user && user.isLoggedIn ? <WritePost mode="create" /> : <Loading />;
 };
 
 export default Write;

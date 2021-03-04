@@ -12,10 +12,17 @@ interface Props {
   selectPlaceHandler: (place: PlaceType) => () => void;
   /** place name which is selected by user */
   nowSelectedAddress?: string;
+  initialCoordX?: string;
+  initialCoordY?: string;
 }
 
-const SearchMap = ({ selectPlaceHandler, nowSelectedAddress = '' }: Props) => {
-  const data = useSearchMap();
+const SearchMap = ({
+  selectPlaceHandler,
+  nowSelectedAddress = '',
+  initialCoordX,
+  initialCoordY,
+}: Props) => {
+  const data = useSearchMap({ initialCoordX, initialCoordY });
 
   return (
     <Container>
@@ -40,7 +47,7 @@ const SearchMap = ({ selectPlaceHandler, nowSelectedAddress = '' }: Props) => {
                 </PlaceName>
               </AddressTitle>
               <AdressName>
-                {v.address_name} {v.road_address_name}
+                {v.address_name} {v?.road_address_name}
               </AdressName>
             </AddressContainer>
           ))}

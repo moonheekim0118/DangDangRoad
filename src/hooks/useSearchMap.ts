@@ -15,7 +15,12 @@ declare global {
 
 let markers: any[] = [];
 
-const useSearchMap = () => {
+interface Props {
+  initialCoordX?: string;
+  initialCoordY?: string;
+}
+
+const useSearchMap = ({ initialCoordX, initialCoordY }: Props) => {
   const container = useElement('map');
   const [map, setMap] = useState<any>();
   const [placeData, setPlacesData] = useState<T.PlaceType[] | undefined>();
@@ -29,7 +34,10 @@ const useSearchMap = () => {
       // when client is loaded
       const { kakao } = window;
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(
+          initialCoordY ? +initialCoordY : 33.450701,
+          initialCoordX ? +initialCoordX : 126.570667
+        ),
         level: 3,
       };
       setMap(new kakao.maps.Map(container, options));
@@ -47,7 +55,7 @@ const useSearchMap = () => {
         infoWindow.open(map, marker);
       }
     },
-    [map, infoWindow]
+    [map, infoWindow, initialCoordX, initialCoordY]
   );
 
   const addMarkers = useCallback(

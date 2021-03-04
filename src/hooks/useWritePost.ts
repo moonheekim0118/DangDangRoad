@@ -3,8 +3,9 @@ import { useNotificationDispatch } from 'context/Notification';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { useInput, useValidation, useImageUpload } from 'hooks';
 import { PlaceType } from 'types/Map';
+import { reviewData } from 'types/API';
 import { freeTextLengthCheck } from 'util/reviewTextValidation';
-import { createReview } from 'api/review';
+import { createReview, updateReview } from 'api/review';
 import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
 import {
   NOT_SELECT_PLACE_ERROR,
@@ -17,30 +18,42 @@ import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as Action from 'action';
 
-const useWritePost = () => {
+interface Props {
+  mode: 'create' | 'update';
+  initialData?: reviewData;
+}
+
+const useWritePost = ({ mode, initialData }: Props) => {
   const dispatch = useNotificationDispatch();
-  const [fetchResult, fetchDispatch] = useApiFetch(createReview);
+  const [fetchResult, fetchDispatch] = useApiFetch(
+    mode === 'create' ? createReview : updateReview
+  );
   const { userId } = useLoginInfoState();
   /** has Parking lot Radio value*/
   const [hasParkingLot, hasParkingLotHandler] = useInput(
-    RAIDO_HAS_DONTKNOW_VALUE
+    initialData ? initialData.hasParkingLot : RAIDO_HAS_DONTKNOW_VALUE
   );
   /** off leash Avalibale Raido value */
   const [hasOffLeash, hasOffLeashHandler] = useInput(
-    RAIDO_AVAILABLE_DONTKNOW_VALUE
+    initialData ? initialData.hasOffLeash : RAIDO_AVAILABLE_DONTKNOW_VALUE
   );
   /** Recommenation Radio value*/
   const [recommendation, recommendationHandler] = useInput(
-    RAIDO_RECOMMENDATION_SOSO_VALUE
+    initialData ? initialData.recommendation : RAIDO_RECOMMENDATION_SOSO_VALUE
   );
   /** selected Place */
-  const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(
+    initialData ? initialData.placeInfo : null
+  );
   /** Free text Input value with Validation of Text Length */
   const {
     value: freeText,
     error: freeTextError,
     valueChangeHanlder: freeTextHandler,
-  } = useValidation({ characterCheck: freeTextLengthCheck });
+  } = useValidation({
+    initialValue: initialData ? initialData.freeText : '',
+    characterCheck: freeTextLengthCheck,
+  });
 
   const [
     imageInput,
@@ -49,7 +62,7 @@ const useWritePost = () => {
     uploadImageHanlder,
     removeImageHanlder,
   ] = useImageUpload({
-    initialImages: [],
+    initialImages: initialData?.imageList ? initialData.imageList : [],
     imageLimit: 3,
     dispatch,
   });
@@ -95,7 +108,10 @@ const useWritePost = () => {
           y: selectedPlace.y,
         },
       };
-      fetchDispatch({ type: REQUEST, params: [data] });
+      fetchDispatch({
+        type: REQUEST,
+        params: mode === 'create' ? [data] : [initialData?.docId, data],
+      });
     },
     [
       hasParkingLot,

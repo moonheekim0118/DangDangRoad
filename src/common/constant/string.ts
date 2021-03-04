@@ -67,14 +67,20 @@ export const SIGNUP_BUTTON_CAPTION = '가입하기';
 export const RAIDO_HAS_YES_VALUE = '있어요';
 export const RAIDO_HAS_NO_VALUE = '없어요';
 export const RAIDO_HAS_DONTKNOW_VALUE = '몰라요';
+export type RADIO_PARKING_LOT_TYPE = '있어요' | '없어요' | '몰라요';
 
 export const RAIDO_AVAILABLE_YES_VALUE = '가능해요';
 export const RAIDO_AVAILABLE_NO_VALUE = '불가능해요';
 export const RAIDO_AVAILABLE_DONTKNOW_VALUE = '몰라요';
+export type RADIO_OFFLEASH_TYPE = '가능해요' | '불가능해요' | '몰라요';
 
 export const RAIDO_RECOMMENDATION_GOOD_VALUE = '추천해요';
 export const RAIDO_RECOMMENDATION_SOSO_VALUE = '그럭저럭이에요';
 export const RAIDO_RECOMMENDATION_BAD_VALUE = '별로예요';
+export type RADIO_RECOMMENDATION_TYPE =
+  | '추천해요'
+  | '그럭저럭이에요'
+  | '별로예요';
 
 export const RADIO_LIST = {
   has: [
