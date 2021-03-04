@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from 'components/SearchBar';
+import SearchBar from 'components/common/SearchBar';
 import { useSearchMap } from 'hooks';
 import { PlaceType } from 'types/Map';
 import { colorCode } from 'common/style/color';

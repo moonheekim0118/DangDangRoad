@@ -1,7 +1,7 @@
 import React from 'react';
-import Logo from 'components/Logo';
-import SearchBar from 'components/SearchBar';
-import Navigation from 'components/Navigation';
+import Logo from 'components/ui/Logo';
+import SearchBar from 'components/common/SearchBar';
+import Navigation from 'components/common/Navigation';
 import { useToggle, useSignOut } from 'hooks';
 import { Icon, Anchor, Span } from 'atoms';
 import { colorCode } from 'common/style/color';

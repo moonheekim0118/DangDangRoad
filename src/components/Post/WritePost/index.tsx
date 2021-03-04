@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Map from 'components/Map/SearchMap';
-import RadioBox from 'components/RadioBox';
-import ImagePreview from 'components/Image/ImagePreview';
+import { SearchMap } from 'components/map';
+import RadioBox from 'components/ui/RadioBox';
+import { ImagePreview } from 'components/image';
 import { useWritePost } from 'hooks';
 import { colorCode } from 'common/style/color';
 import { Title, Button } from 'atoms';
@@ -34,7 +34,7 @@ const WritePost = ({ mode, initialData }: Props) => {
         <Title>{WRITE_REVIEW_TITLE}</Title>
       </TopContainer>
       <MainContainer>
-        <Map
+        <SearchMap
           selectPlaceHandler={data.selectPlaceHandler}
           nowSelectedAddress={data.selectedPlace?.place_name}
           initialCoordX={data.selectedPlace?.x}

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
-import ImageCarousel from '../ImageCarousel';
+import { ImageCarousel } from 'components/image';
 import { useModal } from 'hooks';
 import { Icon } from 'atoms';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';

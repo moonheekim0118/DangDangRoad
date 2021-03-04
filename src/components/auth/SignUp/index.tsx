@@ -8,7 +8,7 @@ import {
 } from 'common/constant/string';
 import * as S from '../style';
 
-const SignUpForm = (): React.ReactElement => {
+const SignUp = (): React.ReactElement => {
   const data = useSignUp();
   return (
     <S.Form signUp={true}>
@@ -58,4 +58,4 @@ const SignUpForm = (): React.ReactElement => {
   );
 };
 
-export default SignUpForm;
+export default SignUp;

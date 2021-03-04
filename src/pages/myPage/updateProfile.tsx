@@ -1,7 +1,6 @@
 import React from 'react';
-import MyPage from 'components/MyPage';
-import UpdateProfile from 'components/MyPage/UpdateProfile';
-import Loading from 'components/Loading';
+import { MyPageLayout, UpdateProfile } from 'components/mypage';
+import Loading from 'components/ui/Loading';
 import useUser from 'libs/useUser';
 import routes from 'common/constant/routes';
 
@@ -11,9 +10,9 @@ const updateProfile = () => {
   const { user, mutateUser } = useUser({ redirectTo: routes.LOGIN });
 
   return user && user.isLoggedIn ? (
-    <MyPage userInfo={user} pageName={MYPAGE_MENU_UPDATE_PROFILE}>
+    <MyPageLayout userInfo={user} pageName={MYPAGE_MENU_UPDATE_PROFILE}>
       <UpdateProfile user={user} mutate={mutateUser} />
-    </MyPage>
+    </MyPageLayout>
   ) : (
     <Loading />
   );

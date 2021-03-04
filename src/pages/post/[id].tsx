@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { SinglePost, PostList } from 'components/Post';
+import { SinglePost, PostList } from 'components/post';
 import { useSingleReview } from 'hooks';
 import { Anchor } from 'atoms';
 import { getReviewsFirst } from 'api/review';
 import routes from 'common/constant/routes';
 import * as S from 'common/style/post';
-import Loading from 'components/Loading';
+import Loading from 'components/ui/Loading';
 import Router from 'next/router';
 
 export async function getStaticPaths() {

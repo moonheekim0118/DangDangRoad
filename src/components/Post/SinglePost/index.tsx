@@ -4,7 +4,7 @@ import { colorCode } from 'common/style/color';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { Button, Anchor } from 'atoms';
-import { WriterInfo } from 'components/Post';
+import { WriterInfo } from 'components/post';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -13,9 +13,9 @@ import {
   DELETE_BUTTON_CAPTION,
 } from 'common/constant/string';
 import routes from 'common/constant/routes';
-import PrevNextButton from 'components/PrevNextButton';
-import ImageSlider from 'components/Image/ImageSlider';
-import Map from 'components/Map';
+import PrevNextButton from 'components/ui/PrevNextButton';
+import { ImageSlider } from 'components/image';
+import { BasicMap } from 'components/map';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -36,7 +36,7 @@ const SinglePost = ({ data, NavigationInfo }: Props) => {
         <InfoContainer>
           <PlaceName>{data.placeInfo.place_name}</PlaceName>
           <PlaceDetail>{data.placeInfo.address_name}</PlaceDetail>
-          <Map coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
+          <BasicMap coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
           <CommonInfoContainer>
             <CommonInfo>
               {PARKING_LOT_CAPTION}

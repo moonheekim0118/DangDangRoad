@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import useUser from 'libs/useUser';
 import { useSingleReview } from 'hooks';
-import { WritePost } from 'components/Post';
-import Loading from 'components/Loading';
+import { WritePost } from 'components/post';
+import Loading from 'components/ui/Loading';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 
