@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import useApiFetch, { REQUEST, SUCCESS } from 'hooks/useApiFetch';
+import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { signOut } from 'api/sign';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
 import routes from 'common/constant/routes';

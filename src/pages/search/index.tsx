@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSearchData } from 'hooks';
-import { WriteButton, PostList, SinglePost } from 'components/Post';
+import { WriteButton, PostList, SinglePost } from 'components/post';
+import { useUser } from 'hooks';
 import * as S from 'common/style/post';
-import Loading from 'components/Loading';
-import Modal from 'components/Modal';
-import useUser from 'libs/useUser';
+import Loading from 'components/ui/Loading';
+import Modal from 'components/ui/Modal';
 import routes from 'common/constant/routes';
 import { getReviewsMore, getReviewsFirst } from 'api/review';
 

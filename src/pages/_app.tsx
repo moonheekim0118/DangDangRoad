@@ -1,8 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
-import Layout from 'components/Layout';
-import Loading from 'components/Loading';
-import Notification from 'components/Notification';
+import Layout from 'components/common/Layout';
+import Loading from 'components/ui/Loading';
+import Notification from 'components/common/Notification';
 import GlobalStyle from 'common/style/globalStyle';
 import fetcher from 'libs/fetcher';
 import { useRouterStatus } from 'hooks';

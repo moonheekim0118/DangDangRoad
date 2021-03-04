@@ -1,9 +1,9 @@
 import React from 'react';
-import PageMenu from './PageMenu';
-import UserCard from './UserCard';
-import Modal from 'components/Modal';
-import Loading from 'components/Loading';
-import ConfirmPopUp from 'components/ConfirmPopUp';
+import PageMenu from '../PageMenu';
+import UserCard from '../UserCard';
+import Modal from 'components/ui/Modal';
+import Loading from 'components/ui/Loading';
+import ConfirmPopUp from 'components/ui/ConfirmPopUp';
 import { Title } from 'atoms';
 import { useDestroyAccount } from 'hooks';
 import { UserType } from 'types/User';

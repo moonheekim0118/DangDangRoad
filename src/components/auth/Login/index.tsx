@@ -6,7 +6,7 @@ import { useSignIn } from 'hooks';
 import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import * as S from '../style';
 
-const LoginForm = (): React.ReactElement => {
+const Login = (): React.ReactElement => {
   const data = useSignIn();
 
   return (
@@ -40,4 +40,4 @@ const LoginForm = (): React.ReactElement => {
   );
 };
 
-export default LoginForm;
+export default Login;

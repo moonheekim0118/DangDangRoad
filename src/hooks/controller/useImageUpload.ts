@@ -1,5 +1,9 @@
 import { useEffect, useCallback, useRef, useState } from 'react';
-import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import { uploadImage } from 'api/storage';
 import { showError } from 'action';
 import { IMAGE_LIMIT_ERROR } from 'common/constant/string';

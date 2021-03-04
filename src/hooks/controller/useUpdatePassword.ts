@@ -1,6 +1,10 @@
 import { useEffect, useCallback } from 'react';
 import { useValidation, useMatch, useInput } from 'hooks';
-import useApiFetch, { REQUEST, SUCCESS, FAILURE } from 'hooks/useApiFetch';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import { passwordValidator } from 'util/signUpValidations';
 import { useNotificationDispatch } from 'context/Notification';
 import { updatePassword } from 'api/user';

@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useUser } from 'hooks';
+import { useSingleReview } from 'hooks';
+import { WritePost } from 'components/post';
+import Loading from 'components/ui/Loading';
+import routes from 'common/constant/routes';
 import Router from 'next/router';
 
-// query 로 데이터를 가져온다.
-// 가져온 데이터를 wriet page에 넣어준다.............~~
-// 'ㅂ'
-
 const UpdatePost = () => {
-  return <></>;
+  const { user } = useUser({ redirectTo: routes.LOGIN });
+  const [singleReview, fetchResult, fetchData] = useSingleReview(true);
+
+  useEffect(() => {
+    if (user && singleReview && singleReview.userId !== user.userId) {
+      Router.back();
+    }
+  }, [user, singleReview]);
+
+  return !singleReview ? (
+    <Loading />
+  ) : (
+    <WritePost mode="update" initialData={singleReview} />
+  );
 };
 
 export default UpdatePost;

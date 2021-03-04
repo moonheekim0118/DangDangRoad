@@ -1,13 +1,13 @@
 import React from 'react';
-import Loading from 'components/Loading';
-import SignUpForm from 'components/Forms/SignUpForm';
+import Loading from 'components/ui/Loading';
+import { SignUp } from 'components/auth';
+import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
-import useUser from 'libs/useUser';
 
-const SignUp = (): React.ReactElement => {
+const SignUpPage = (): React.ReactElement => {
   const { user } = useUser({ redirectTo: routes.HOME, redirectIfFound: true });
 
-  return user && !user.isLoggedIn ? <SignUpForm /> : <Loading />;
+  return user && !user.isLoggedIn ? <SignUp /> : <Loading />;
 };
 
-export default SignUp;
+export default SignUpPage;

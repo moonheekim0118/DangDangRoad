@@ -1,13 +1,13 @@
 import React from 'react';
-import Loading from 'components/Loading';
-import LoginForm from 'components/Forms/LoginForm';
+import Loading from 'components/ui/Loading';
+import { Login } from 'components/auth';
+import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
-import useUser from 'libs/useUser';
 
-const Login = (): React.ReactElement => {
+const LoginPage = (): React.ReactElement => {
   const { user } = useUser({ redirectTo: routes.HOME, redirectIfFound: true });
 
-  return user && !user.isLoggedIn ? <LoginForm /> : <Loading />;
+  return user && !user.isLoggedIn ? <Login /> : <Loading />;
 };
 
-export default Login;
+export default LoginPage;

@@ -1,8 +1,7 @@
 import db from 'firebaseConfigs/db';
+import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 import * as T from 'types/API';
-
-const DATA_LIMIT = 8;
 
 export const createReview = async (
   data: T.writeReviewParams
@@ -12,6 +11,16 @@ export const createReview = async (
     // add User Ref by user Id
     data['userRef'] = db.collection('users').doc(data.userId);
     await db.collection('reviews').add(data);
+    return T.defaultSuccess;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateReview = async (id: string, data: T.writeReviewParams) => {
+  try {
+    data['createdAt'] = Date.now();
+    await db.collection('reviews').doc(id).update(data);
     return T.defaultSuccess;
   } catch (error) {
     throw error;
@@ -59,7 +68,7 @@ export const getReviewsFirst = async (): T.APIResponse<T.reviewResult> => {
     const response = await db
       .collection('reviews')
       .orderBy('createdAt', 'desc')
-      .limit(DATA_LIMIT)
+      .limit(REVIEW_DATA_LIMIT)
       .get();
 
     const data = await extractReviewData(response);
@@ -81,7 +90,7 @@ export const getReviewsMore = async (
       .collection('reviews')
       .orderBy('createdAt', 'desc')
       .startAfter(key)
-      .limit(DATA_LIMIT)
+      .limit(REVIEW_DATA_LIMIT)
       .get();
     const data = await extractReviewData(response);
     return { isError: false, data };

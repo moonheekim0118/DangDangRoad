@@ -1,18 +1,17 @@
 import React from 'react';
-import MyPage from 'components/MyPage';
-import UpdatePassword from 'components/MyPage/UpdatePassword';
+import { MyPageLayout, UpdatePassword } from 'components/mypage';
 import { MYPAGE_MENU_UPDATE_PASSWORD } from 'common/constant/string';
+import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
-import Loading from 'components/Loading';
-import useUser from 'libs/useUser';
+import Loading from 'components/ui/Loading';
 
 const updatePassword = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
 
   return user && user.isLoggedIn ? (
-    <MyPage userInfo={user} pageName={MYPAGE_MENU_UPDATE_PASSWORD}>
+    <MyPageLayout userInfo={user} pageName={MYPAGE_MENU_UPDATE_PASSWORD}>
       <UpdatePassword userId={user.userId} />
-    </MyPage>
+    </MyPageLayout>
   ) : (
     <Loading />
   );

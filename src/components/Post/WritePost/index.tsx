@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Map from 'components/Map/SearchMap';
-import RadioBox from 'components/RadioBox';
-import ImagePreview from 'components/Image/ImagePreview';
+import { SearchMap } from 'components/map';
+import RadioBox from 'components/ui/RadioBox';
+import { ImagePreview } from 'components/image';
 import { useWritePost } from 'hooks';
 import { colorCode } from 'common/style/color';
 import { Title, Button } from 'atoms';
+import { reviewData } from 'types/API';
 import {
   WRITE_REVIEW_TITLE,
   IMAGE_UPLOAD_LABEL,
@@ -20,18 +21,24 @@ import {
 } from 'common/constant/string';
 import { FREE_TEXT_LIMIT } from 'common/constant/number';
 
-const WritePost = () => {
-  const data = useWritePost();
+interface Props {
+  mode: 'create' | 'update';
+  initialData?: reviewData;
+}
 
+const WritePost = ({ mode, initialData }: Props) => {
+  const data = useWritePost({ mode, initialData });
   return (
     <Container>
       <TopContainer>
         <Title>{WRITE_REVIEW_TITLE}</Title>
       </TopContainer>
       <MainContainer>
-        <Map
+        <SearchMap
           selectPlaceHandler={data.selectPlaceHandler}
           nowSelectedAddress={data.selectedPlace?.place_name}
+          initialCoordX={data.selectedPlace?.x}
+          initialCoordY={data.selectedPlace?.y}
         />
         <ReviewContainer>
           <PlaceName>{data.selectedPlace?.place_name}</PlaceName>

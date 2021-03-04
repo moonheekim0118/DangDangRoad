@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import PrevNextButton from 'components/PrevNextButton';
+import PrevNextButton from 'components/ui/PrevNextButton';
 import { useImageSlide } from 'hooks';
 
 interface Props {
