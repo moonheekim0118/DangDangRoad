@@ -23,12 +23,12 @@ interface Props {
   data: reviewData;
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
+  /** remove Handler */
+  removeHanlder?: () => void;
 }
 
-const SinglePost = ({ data, NavigationInfo }: Props) => {
+const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
   const { userId } = useLoginInfoState();
-
-  console.log(data);
 
   return (
     <>
@@ -61,9 +61,14 @@ const SinglePost = ({ data, NavigationInfo }: Props) => {
           <WriterInfo userData={data.userData} createdAt={data.createdAt} />
           <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
           {data.userId === userId && (
-            <Anchor path={`${routes.UPDATE_POST}/${data.docId}`}>
-              <Button color="blue">{UPDATE_BUTTON_CAPTION}</Button>
-            </Anchor>
+            <>
+              <Anchor path={`${routes.UPDATE_POST}/${data.docId}`}>
+                <Button color="blue">{UPDATE_BUTTON_CAPTION}</Button>
+              </Anchor>
+              <Button color="blue" onClick={removeHanlder}>
+                {DELETE_BUTTON_CAPTION}
+              </Button>
+            </>
           )}
         </InfoContainer>
       </Contents>

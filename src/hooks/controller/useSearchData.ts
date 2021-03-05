@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useModal, useSingleReview, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
+import { removeReview } from 'api/review';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 
@@ -29,7 +30,15 @@ const useSearchData = ({
 }: Props) => {
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.reviewResult>(
     fetcher
-  );
+  ); // review data fetching
+
+  // reivew data removing
+  const [
+    fetchRemoveResult,
+    fetchRemoveDispatch,
+    setRemoveDefault,
+  ] = useApiFetch(removeReview);
+
   const observerTarget = useRef(null); // for infinite scrolling
   const [lastKey, setLastKey] = useState<string>(initLastKey || '');
   const [reviews, setReviews] = useState<T.lightReviewData[]>(
@@ -60,6 +69,20 @@ const useSearchData = ({
       case FAILURE:
     }
   }, [fetchResult, reviews]);
+
+  useEffect(() => {
+    switch (fetchRemoveResult.type) {
+      case SUCCESS:
+        const newReviews = reviews.filter(
+          (v) => v.docId !== singleReview?.docId
+        );
+        setReviews(newReviews);
+        setRemoveDefault();
+        closeModal();
+        break;
+      case FAILURE:
+    }
+  }, [fetchRemoveResult, reviews, singleReview]);
 
   /** actual data fetch & store in state fucntion */
   const fetchMutipleReview = useCallback(() => {
@@ -96,6 +119,11 @@ const useSearchData = ({
     }
     return () => observer && observer.disconnect();
   }, [observerTarget, hasMore]);
+
+  // onClick Remove Button
+  const removeHanlder = useCallback(() => {
+    fetchRemoveDispatch({ type: REQUEST, params: [singleReview?.docId] });
+  }, [singleReview]);
 
   // open Single Post Modal
   const openModal = useCallback(
@@ -147,6 +175,7 @@ const useSearchData = ({
     showModal,
     fetchResult,
     modalHandler,
+    removeHanlder,
     singleReview,
     fetchSingleReviewResult,
     fetchMutipleReview,
