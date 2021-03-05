@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { SinglePost, PostList } from 'components/post';
 import { useSingleReview } from 'hooks';
-import { Anchor } from 'atoms';
+import { Button } from 'atoms';
 import { getReviewsFirst } from 'api/review';
 import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
@@ -41,9 +41,7 @@ const singlePost = ({ reviews }) => {
       <S.SinglePostContainer isModal={false}>
         {singleReview ? <SinglePost data={singleReview} /> : <Loading />}
       </S.SinglePostContainer>
-      <Anchor fontsize={1} path={routes.SEARCH}>
-        산책로 리뷰 더 보기
-      </Anchor>
+      <Button href={routes.SEARCH}>산책로 리뷰 더 보기</Button>
       <PostList
         reviewData={reviews.data.reviews}
         openSinglePost={openSinglePost}

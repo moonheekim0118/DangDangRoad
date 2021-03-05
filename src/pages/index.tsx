@@ -1,9 +1,11 @@
 import React from 'react';
-import Link from 'next/Link';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
+import { css } from '@emotion/react';
 import { useUser } from 'hooks';
+import { colorCode } from 'common/style/color';
+import { baseButtonStyle } from 'common/style/baseStyle';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
 import { Button } from 'atoms';
 
@@ -20,17 +22,25 @@ const Index = (): React.ReactElement => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Link href={routes.SEARCH}>
-            <a>
-              <Button color="white">산책로 리뷰 보기</Button>
-            </a>
-          </Link>
+          <Button href={routes.SEARCH} linkStyle={buttonStyle}>
+            산책로 리뷰 보기
+          </Button>
         </SubContetns>
         <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
     </Container>
   );
 };
+
+const buttonStyle = css`
+  background-color: #fff;
+  color: ${colorCode['blue']};
+  ${baseButtonStyle}
+
+  &:hover {
+    box-shadow: 0px 0px 5px 0px rgba(244, 244, 244, 0.75);
+  }
+`;
 
 const Container = styled.main`
   width: 100%;

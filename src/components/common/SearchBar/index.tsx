@@ -1,6 +1,7 @@
 import React from 'react';
-import { useInput } from 'hooks';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { useInput } from 'hooks';
 import { Icon, Button } from 'atoms';
 import { colorCode } from 'common/style/color';
 import {
@@ -58,16 +59,20 @@ const SearchBar = ({
         placeholder={placeholder}
       />
       <IconContainer color={color}>
-        <Icon icon={faSearch} iconsize={20} rotate={180} />
+        <Icon icon={faSearch} className="searchIcon" css={iconStyle} />
       </IconContainer>
       <ButtonContainer color={color}>
-        <Button type="submit" onClick={searchHandler} shadow={false}>
+        <Button type="submit" onClick={searchHandler}>
           {SEARCH_BUTTON_CAPTION}
         </Button>
       </ButtonContainer>
     </Form>
   );
 };
+
+const iconStyle = css`
+  transform: rotateY(180deg);
+`;
 
 const Form = styled.form`
   width: 100%;

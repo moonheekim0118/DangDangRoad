@@ -1,4 +1,6 @@
 import React from 'react';
+import { css } from '@emotion/react';
+import { saveBtnStyle } from 'common/style/baseStyle';
 import { useUpdateProfile } from 'hooks';
 import { Avatar, Button, Input, Icon } from 'atoms';
 import { inputId } from 'common/constant/input';
@@ -32,11 +34,10 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
             onChange={data.uploadImageHanlder('new')}
           />
           <Icon
-            iconsize={45}
             icon={faPlus}
-            color="white"
-            cursor="pointer"
-            iconClickHandler={data.uploaderClickHanlder}
+            className="uploadIcon"
+            css={iconStyle}
+            onClick={data.uploaderClickHanlder}
           />
         </IconContainer>
         <Avatar imageUrl={data.imageUrl[0]} size="large" />
@@ -47,11 +48,11 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         error={data.nicknameError}
         required={true}
         value={data.nickname}
-        inputChangeHandler={data.nicknameChangeHandler}
+        onChange={data.nicknameChangeHandler}
       />
       <Button
-        color="blue"
-        hoverColor="light-blue"
+        className="saveBtn"
+        css={saveBtnStyle}
         type="submit"
         onClick={data.saveHandler}>
         {SAVE_CAPTION}
@@ -59,6 +60,13 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
     </S.ContentsContainer>
   );
 };
+
+const iconStyle = css`
+  width: 45px;
+  height: 45px;
+  color: #fff;
+  cursor: pointer;
+`;
 
 const IconContainer = styled.div`
   position: absolute;

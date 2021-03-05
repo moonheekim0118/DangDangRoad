@@ -1,9 +1,11 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import { reviewData } from 'types/API';
+import { baseButtonStyle } from 'common/style/baseStyle';
 import { colorCode } from 'common/style/color';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Button, Anchor } from 'atoms';
+import { Button } from 'atoms';
 import { WriterInfo } from 'components/post';
 import {
   PARKING_LOT_CAPTION,
@@ -62,10 +64,15 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
           <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
           {data.userId === userId && (
             <>
-              <Anchor path={`${routes.UPDATE_POST}/${data.docId}`}>
-                <Button color="blue">{UPDATE_BUTTON_CAPTION}</Button>
-              </Anchor>
-              <Button color="red" onClick={removeHanlder}>
+              <Button
+                href={`${routes.UPDATE_POST}/${data.docId}`}
+                linkStyle={updateButtonStyle}>
+                {UPDATE_BUTTON_CAPTION}
+              </Button>
+              <Button
+                className="deleteBtn"
+                css={deleteButtonStyle}
+                onClick={removeHanlder}>
                 {DELETE_BUTTON_CAPTION}
               </Button>
             </>
@@ -76,6 +83,17 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
     </>
   );
 };
+
+const updateButtonStyle = css`
+  background-color: ${colorCode['blue']};
+  color: #fff;
+  ${baseButtonStyle}
+`;
+
+const deleteButtonStyle = css`
+  background-color: ${colorCode['red']};
+  color: #fff;
+`;
 
 const Contents = styled.div`
   width: 100%;

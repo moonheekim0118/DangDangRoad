@@ -3,52 +3,39 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from '@fortawesome/react-fontawesome';
-import { colorCode, colorType } from 'common/style/color';
+import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
 
 type rotationTypes = 0 | 90 | 180 | 270;
 
 interface Props {
-  /** icon size */
-  iconsize: number;
   /** actual icon */
   icon: FontAwesomeIconProps['icon'];
-  /** icon color */
-  color?: colorType;
-  /** rotate degree */
-  rotate?: rotationTypes;
-  /** cursor pointer */
-  cursor?: string;
+  /** className */
+  className?: string;
   /** onClick event of icon */
-  iconClickHandler?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+  onClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 }
 
-const Icon = ({
-  iconsize,
-  icon,
-  color,
-  rotate,
-  cursor,
-  iconClickHandler,
-}: Props): React.ReactElement => {
-  return (
-    <StyledIcon
-      icon={icon}
-      iconsize={iconsize}
-      color={color}
-      rotate={rotate}
-      cursor={cursor}
-      onClick={iconClickHandler}
-    />
-  );
+const Icon = ({ icon, className, onClick }: Props): React.ReactElement => {
+  return <Component icon={icon} className={className} onClick={onClick} />;
 };
 
-const StyledIcon = styled(FontAwesomeIcon)<Props>`
-  width: ${(props) => props.iconsize}px;
-  height: ${(props) => props.iconsize}px;
-  color: ${(props) => (props.color ? colorCode[props.color] : 'inherit')};
-  transform: rotateY(${(props) => props.rotate}deg);
-  cursor: ${(props) => props.cursor};
+const Component = styled(FontAwesomeIcon)`
+  width: 20px;
+  height: 20px;
+  color: inherit;
 `;
+
+// const StyledIcon = styled(FontAwesomeIcon)<Props>`
+//   width:1rem;
+//   height:1rem;
+//   color:inherit;
+//   width: ${(props) => props.iconsize}px;
+//   height: ${(props) => props.iconsize}px;
+//   color: ${(props) => (props.color ? colorCode[props.color] : 'inherit')};
+//   transform: rotateY(${(props) => props.rotate}deg);
+//   cursor: ${(props) => props.cursor};
+// `;
 
 export default memo(Icon);

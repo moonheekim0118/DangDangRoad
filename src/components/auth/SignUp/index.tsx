@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSignUp } from 'hooks';
 import { Input, Button } from 'atoms';
+import { saveBtnStyle } from 'common/style/baseStyle';
 import { inputId } from 'common/constant/input';
 import {
   MENU_SIGNUP_TITLE,
@@ -19,7 +20,7 @@ const SignUp = (): React.ReactElement => {
         value={data.email}
         error={data.emailError}
         required={true}
-        inputChangeHandler={data.EmailChangeHandler}
+        onChange={data.EmailChangeHandler}
       />
       <Input
         type="text"
@@ -27,7 +28,7 @@ const SignUp = (): React.ReactElement => {
         value={data.nickname}
         error={data.nicknameError}
         required={true}
-        inputChangeHandler={data.NicknameChangeHandler}
+        onChange={data.NicknameChangeHandler}
       />
       <Input
         type="password"
@@ -35,7 +36,7 @@ const SignUp = (): React.ReactElement => {
         value={data.password}
         error={data.passwordError}
         required={true}
-        inputChangeHandler={data.PasswordChangeHandler}
+        onChange={data.PasswordChangeHandler}
       />
       <Input
         type="password"
@@ -43,12 +44,12 @@ const SignUp = (): React.ReactElement => {
         value={data.passwordCheck}
         error={!data.passwordMatch}
         required={true}
-        inputChangeHandler={data.PasswordCheckChangeHandler}
+        onChange={data.PasswordCheckChangeHandler}
       />
       <S.ButtonContainer>
         <Button
-          color="blue"
-          hoverColor="light-blue"
+          className="signBtn"
+          css={saveBtnStyle}
           type="submit"
           onClick={data.SubmitHanlder}>
           {SIGNUP_BUTTON_CAPTION}

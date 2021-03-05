@@ -12,6 +12,7 @@
     "noUnusedParameters": true,
     "preserveConstEnums": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["@emotion/react/types/css-prop"],
     "lib": ["DOM", "DOM.Iterable", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,

@@ -1,41 +1,34 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { inputId, inputContents } from 'common/constant/input';
 import styled from '@emotion/styled';
 
-interface Props {
-  /** input field type */
-  type: 'text' | 'password';
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** input id */
   id: inputId;
-  /** input filed value */
-  value: string;
   /** error message & show or not */
   error?: boolean;
   /** check if Input filed is required */
   required?: boolean;
   /** input filed change handler func */
-  inputChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({
-  type,
-  id,
-  value,
-  error,
-  required = false,
-  inputChangeHandler,
-}: Props): React.ReactElement => {
+const Input = (props: Props): React.ReactElement => {
+  const { id, required = false, onChange, error, ...rest } = props;
   return (
     <Container>
       <Label htmlFor={id} required={required}>
         {inputContents[id].label}
       </Label>
       <InputField
-        type={type}
         id={id}
-        value={value}
         placeholder={inputContents[id].placeholder}
-        onChange={inputChangeHandler}
+        onChange={onChange}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
+        {...rest}
       />
       {error && <Error>{inputContents[id].error}</Error>}
     </Container>

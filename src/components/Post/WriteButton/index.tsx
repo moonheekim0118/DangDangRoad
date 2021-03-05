@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, Anchor } from 'atoms';
+import { css } from '@emotion/react';
+import { Icon, Button } from 'atoms';
 import { colorCode } from 'common/style/color';
 import { faFeather } from '@fortawesome/free-solid-svg-icons';
 import { WRITE_REVIEW_BUTTON_CAPTION } from 'common/constant/string';
@@ -9,19 +10,26 @@ import styled from '@emotion/styled';
 const WriteButton = () => {
   return (
     <Container>
-      <Anchor fontsize={1.2} fontbold={true} path={routes.WRITE_REIVEW}>
-        <Button>
-          <Icon icon={faFeather} iconsize={30} />
+      <Button href={routes.WRITE_REIVEW}>
+        <WriteComponent>
+          <Icon icon={faFeather} className="writeIcon" css={iconStyle} />
           <Description>{WRITE_REVIEW_BUTTON_CAPTION}</Description>
-        </Button>
-      </Anchor>
+        </WriteComponent>
+      </Button>
     </Container>
   );
 };
 
+const iconStyle = css`
+  width: 30px;
+  height: 30px;
+`;
+
 const Description = styled.span`
   text-align: center;
   display: none;
+  font-size: 1.2rem;
+  font-weight: bold;
 `;
 
 const Container = styled.div`
@@ -31,7 +39,7 @@ const Container = styled.div`
   z-index: 1000;
 `;
 
-const Button = styled.div`
+const WriteComponent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
