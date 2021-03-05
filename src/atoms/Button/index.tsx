@@ -2,11 +2,16 @@ import React, { memo } from 'react';
 import { colorCode, colorType } from 'common/style/color';
 import styled from '@emotion/styled';
 
+/**
+ * white" | "blue" | "light-blue" | "dark-blue"
+ * | "light-gray" | "dark-gray" | "red" | "green" | "black"
+ */
+
 interface Props {
   /** text of button */
   children: React.ReactNode;
   /** color of button */
-  color?: 'blue' | 'white';
+  color?: colorType;
   /** hoverColor */
   hoverColor?: colorType;
   /** type of button */
@@ -47,7 +52,7 @@ const Container = styled.button<{
     props.color ? colorCode[props.color] : 'inherit'};
   color: ${(props) =>
     props.color
-      ? props.color === 'blue'
+      ? props.color === 'blue' || 'red' || 'green' || 'black' || 'dark-blue'
         ? colorCode['white']
         : colorCode['blue']
       : 'inherit'};

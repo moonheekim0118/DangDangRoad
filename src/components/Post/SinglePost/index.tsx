@@ -65,7 +65,7 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
               <Anchor path={`${routes.UPDATE_POST}/${data.docId}`}>
                 <Button color="blue">{UPDATE_BUTTON_CAPTION}</Button>
               </Anchor>
-              <Button color="blue" onClick={removeHanlder}>
+              <Button color="red" onClick={removeHanlder}>
                 {DELETE_BUTTON_CAPTION}
               </Button>
             </>
