@@ -3,6 +3,7 @@ import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 import * as T from 'types/API';
 
+/** create new Review */
 export const createReview = async (
   data: T.writeReviewParams
 ): T.APIResponse<null> => {
@@ -17,10 +18,24 @@ export const createReview = async (
   }
 };
 
-export const updateReview = async (id: string, data: T.writeReviewParams) => {
+/** update reviews */
+export const updateReview = async (
+  id: string,
+  data: T.writeReviewParams
+): T.APIResponse => {
   try {
     data['createdAt'] = Date.now();
     await db.collection('reviews').doc(id).update(data);
+    return T.defaultSuccess;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/** remove review */
+export const removeReview = async (id: string): T.APIResponse => {
+  try {
+    await db.collection('reviews').doc(id).delete();
     return T.defaultSuccess;
   } catch (error) {
     throw error;

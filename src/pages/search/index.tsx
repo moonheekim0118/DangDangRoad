@@ -41,6 +41,7 @@ const SearchMain = ({ reviews }) => {
                 prevHandler: data.prevHandler,
                 nextHandler: data.nextHandler,
               }}
+              removeHanlder={data.removeHanlder}
             />
           ) : (
             <Loading />
