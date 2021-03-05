@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { ImageCarousel } from 'components/image';
 import { useModal } from 'hooks';
 import { Icon } from 'atoms';
@@ -46,9 +47,9 @@ const ImagePreview = ({
         <ImagePlusButton>
           <Icon
             icon={faPlus}
-            iconsize={25}
-            color="blue"
-            iconClickHandler={uploaderClickHanlder}
+            className="addImgIcon"
+            css={iconStyle}
+            onClick={uploaderClickHanlder}
           />
           <input
             type="file"
@@ -68,9 +69,9 @@ const ImagePreview = ({
               {' '}
               <Icon
                 icon={faTrashAlt}
-                iconsize={25}
-                color="white"
-                iconClickHandler={imageRemoveHanlder(i)}
+                className="removeImgIcon"
+                css={iconStyleWhite}
+                onClick={imageRemoveHanlder(i)}
               />
             </RemoveImage>
           </ImageContainer>
@@ -84,6 +85,18 @@ const ImagePreview = ({
     </Container>
   );
 };
+
+const iconStyle = css`
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  color: ${colorCode['blue']};
+`;
+
+const iconStyleWhite = css`
+  ${iconStyle}
+  color:#fff;
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -119,6 +132,7 @@ const RemoveImage = styled.div`
   position: absolute;
   top: 5px;
   right: 5px;
+  color: #fff;
   cursor: pointer;
 `;
 

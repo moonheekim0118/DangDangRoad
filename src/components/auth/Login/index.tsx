@@ -1,9 +1,10 @@
 import React from 'react';
 import GoogleButton from 'react-google-button';
 import { Input, Button } from 'atoms';
+import { saveBtnStyle } from 'common/style/baseStyle';
+import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import { inputId } from 'common/constant/input';
 import { useSignIn } from 'hooks';
-import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import * as S from '../style';
 
 const Login = (): React.ReactElement => {
@@ -16,20 +17,20 @@ const Login = (): React.ReactElement => {
         type="text"
         id={inputId.EMAIL}
         value={data.email}
-        inputChangeHandler={data.emailChangeHandler}
+        onChange={data.emailChangeHandler}
         required={true}
       />
       <Input
         type="password"
         id={inputId.PASSWORD}
         value={data.password}
-        inputChangeHandler={data.PasswordChangeHandler}
+        onChange={data.PasswordChangeHandler}
         required={true}
       />
       <S.ButtonContainer>
         <Button
-          color="blue"
-          hoverColor="light-blue"
+          className="loginBtn"
+          css={saveBtnStyle}
           type="submit"
           onClick={data.SignInHandler}>
           {MENU_LOGIN_TITLE}

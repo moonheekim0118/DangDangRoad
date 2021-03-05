@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import { Icon } from 'atoms';
 import {
   faChevronLeft,
@@ -19,28 +20,33 @@ const PrevNextButton = ({
       {hasPrev && (
         <Container left={true} location={location}>
           <Icon
-            color="white"
             icon={faChevronLeft}
-            iconsize={35}
-            iconClickHandler={prevHandler}
-            cursor="pointer"
+            className="prevIcon"
+            css={iconStyle}
+            onClick={prevHandler}
           />
         </Container>
       )}
       {hasNext && (
         <Container location={location}>
           <Icon
-            color="white"
             icon={faChevronRight}
-            iconsize={35}
-            iconClickHandler={nextHandler}
-            cursor="pointer"
+            className="nextIcon"
+            css={iconStyle}
+            onClick={nextHandler}
           />
         </Container>
       )}
     </>
   );
 };
+
+const iconStyle = css`
+  width: 35px;
+  height: 35px;
+  color: #fff;
+  cursor: pointer;
+`;
 
 const Container = styled.div<{ left?: boolean; location: number }>`
   display: grid;

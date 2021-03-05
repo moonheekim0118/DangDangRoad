@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import { Icon } from 'atoms';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { DEFAULT_IMAGE_URL } from 'common/constant/images';
@@ -20,7 +21,7 @@ const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
         <Description>
           <PlaceName>{placeName}</PlaceName>
           <div>
-            <Icon icon={faComment} iconsize={25} /> 12
+            <Icon icon={faComment} className="commentIcon" css={iconStyle} /> 12
           </div>
         </Description>
       </Overlay>
@@ -28,6 +29,11 @@ const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
     </Post>
   );
 };
+
+const iconStyle = css`
+  width: 25px;
+  height: 25px;
+`;
 
 const Post = styled.div`
   width: 300px;

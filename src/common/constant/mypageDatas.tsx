@@ -1,4 +1,6 @@
 import Icon from 'atoms/Icon';
+import { css } from '@emotion/react';
+
 import {
   MYPAGE_MENU_DEFAULT,
   MYPAGE_MENU_UPDATE_PASSWORD,
@@ -13,22 +15,26 @@ import {
   faSadTear,
 } from '@fortawesome/free-regular-svg-icons';
 
+const destroyStyle = css`
+  color: red;
+`;
+
 export const GeneralMenu = [
   {
     key: 0,
-    icon: <Icon iconsize={20} icon={faFileAlt} />,
+    icon: <Icon icon={faFileAlt} className="myPageIcon" />,
     title: MYPAGE_MENU_DEFAULT,
     href: routes.MYPAGE,
   },
   {
     key: 1,
-    icon: <Icon iconsize={20} icon={faUserCircle} />,
+    icon: <Icon icon={faUserCircle} />,
     title: MYPAGE_MENU_UPDATE_PROFILE,
     href: routes.MYPAGE_UPDATE_PROFILE,
   },
   {
     key: 2,
-    icon: <Icon iconsize={20} icon={faEdit} />,
+    icon: <Icon icon={faEdit} className="updatePWIcon" />,
     title: MYPAGE_MENU_UPDATE_PASSWORD,
     href: routes.MYPAGE_UPDATE_PASSWORD,
   },
@@ -37,7 +43,7 @@ export const GeneralMenu = [
 export const DestoryMenu = [
   {
     key: 3,
-    icon: <Icon iconsize={20} icon={faSadTear} color="red" />,
+    icon: <Icon icon={faSadTear} className="destroyIcon" css={destroyStyle} />,
     title: MYPAGE_MENU_DESTROY_ACCOUNT,
   },
 ];

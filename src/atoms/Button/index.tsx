@@ -1,79 +1,69 @@
-import React, { memo } from 'react';
-import { colorCode, colorType } from 'common/style/color';
+import React, { memo, ButtonHTMLAttributes } from 'react';
+import { SerializedStyles } from '@emotion/react';
+import Link from 'next/Link';
 import styled from '@emotion/styled';
 
-/**
- * white" | "blue" | "light-blue" | "dark-blue"
- * | "light-gray" | "dark-gray" | "red" | "green" | "black"
- */
-
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** text of button */
-  children: React.ReactNode;
-  /** color of button */
-  color?: colorType;
-  /** hoverColor */
-  hoverColor?: colorType;
+  children: string | React.ReactNode;
+  /** routing */
+  href?: string;
+  /** link css styling */
+  linkStyle?: SerializedStyles;
   /** type of button */
   type?: 'button' | 'submit' | 'reset';
+  /** disabled or not */
+  disabled?: boolean;
+  /** loading or not */
+  loading?: boolean;
   /** button border */
-  shadow?: boolean;
-  /** onClick event function */
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button = ({
-  children,
-  color,
-  hoverColor,
-  shadow = true,
-  type = 'button',
-  onClick,
-}: Props): React.ReactElement => {
-  return (
-    <Container
-      type={type}
+const Button = (props: Props): React.ReactElement => {
+  const {
+    children,
+    className,
+    href,
+    linkStyle,
+    loading,
+    disabled = false,
+    onClick,
+    ...rest
+  } = props;
+  return href ? ( // when it needs to be link
+    <Link href={href}>
+      <Anchor css={linkStyle}>{children}</Anchor>
+    </Link>
+  ) : (
+    <Component
+      className={className}
       onClick={onClick}
-      color={color}
-      shadow={shadow}
-      hoverColor={hoverColor}>
+      disabled={disabled}
+      {...rest}>
       {children}
-    </Container>
+    </Component>
   );
 };
 
-const Container = styled.button<{
-  color?: string;
-  hoverColor?: string;
-  shadow?: boolean;
-}>`
-  width: 100%;
-  background-color: ${(props) =>
-    props.color ? colorCode[props.color] : 'inherit'};
-  color: ${(props) =>
-    props.color
-      ? props.color === 'blue' || 'red' || 'green' || 'black' || 'dark-blue'
-        ? colorCode['white']
-        : colorCode['blue']
-      : 'inherit'};
+const Component = styled.button`
   font-size: 1.2rem;
+  background-color: inherit;
+  color: inherit;
+  width: 100%;
   border: none;
   border-radius: 15px;
   padding: 13px 15px;
   cursor: pointer;
-  box-shadow: ${(props) =>
-    props.shadow && '0px 0px 3px 0px rgba(0, 0, 0, 0.25)'};
-
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${(props) =>
-      props.hoverColor && colorCode[props.hoverColor]};
-  }
-
+  transition: all 0.3s ease;
   &:focus {
     outline: none;
   }
+`;
+
+const Anchor = styled.a`
+  color: inherit;
+  text-decoration: none;
 `;
 
 export default memo(Button);

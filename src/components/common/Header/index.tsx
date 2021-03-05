@@ -2,8 +2,10 @@ import React from 'react';
 import Logo from 'components/ui/Logo';
 import SearchBar from 'components/common/SearchBar';
 import Navigation from 'components/common/Navigation';
+import { css } from '@emotion/react';
+import { navLinkStyle, navLinkStyleWithMargin } from 'common/style/baseStyle';
 import { useSignOut, useToggle } from 'hooks';
-import { Icon, Anchor, Span } from 'atoms';
+import { Icon, Button } from 'atoms';
 import { colorCode } from 'common/style/color';
 import { useRouter } from 'next/router';
 import { useLoginInfoState } from 'context/LoginInfo';
@@ -28,11 +30,10 @@ const Header = (): React.ReactElement => {
     <Container>
       <MenuToggler>
         <Icon
-          iconsize={20}
           icon={faList}
-          color="white"
-          cursor="pointer"
-          iconClickHandler={NavigationToggler}
+          className="menuIcon"
+          css={iconStyle}
+          onClick={NavigationToggler}
         />
       </MenuToggler>
       <LogoContainer>
@@ -47,45 +48,29 @@ const Header = (): React.ReactElement => {
             {isLoggedIn ? (
               <>
                 <ExtraMenuContainer>
-                  <Anchor
-                    fontsize={1.2}
-                    color="white"
-                    hoverColor="light-gray"
-                    margin="0 20px 0 0"
-                    path={routes.MYPAGE}>
+                  <Button
+                    linkStyle={navLinkStyleWithMargin}
+                    href={routes.MYPAGE}>
                     {MENU_MYPAGE_TITLE}
-                  </Anchor>
+                  </Button>
                 </ExtraMenuContainer>
-                <Span
-                  fontsize={1.2}
-                  color="white"
-                  hoverColor="light-gray"
-                  cursor="pointer"
-                  spanClickHandler={signOutHandler}
-                  bold={true}>
+                <span css={navLinkStyle} onClick={signOutHandler}>
                   {MENU_LOGOUT_TITLE}
-                </Span>
+                </span>
               </>
             ) : (
               <>
                 {pathname !== routes.LOGIN && (
-                  <Anchor
-                    fontsize={1.2}
-                    color="white"
-                    hoverColor="light-gray"
-                    margin="0 20px 0 0"
-                    path={routes.LOGIN}>
+                  <Button
+                    linkStyle={navLinkStyleWithMargin}
+                    href={routes.LOGIN}>
                     {MENU_LOGIN_TITLE}
-                  </Anchor>
+                  </Button>
                 )}
                 {pathname !== routes.SIGNUP && (
-                  <Anchor
-                    fontsize={1.2}
-                    color="white"
-                    hoverColor="light-gray"
-                    path={routes.SIGNUP}>
+                  <Button linkStyle={navLinkStyle} href={routes.SIGNUP}>
                     {MENU_SIGNUP_TITLE}
-                  </Anchor>
+                  </Button>
                 )}
               </>
             )}
@@ -103,6 +88,13 @@ const Header = (): React.ReactElement => {
     </Container>
   );
 };
+
+const iconStyle = css`
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  cursor: pointer;
+`;
 
 const Container = styled.header`
   width: 100%;
@@ -165,4 +157,5 @@ const NavigationContainer = styled.div`
     display: none;
   }
 `;
+
 export default Header;

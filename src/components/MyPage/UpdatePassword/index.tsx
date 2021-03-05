@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input, Button } from 'atoms';
+import { saveBtnStyle } from 'common/style/baseStyle';
 import { inputId } from 'common/constant/input';
 import { useUpdatePassword } from 'hooks';
 import { SAVE_CAPTION } from 'common/constant/string';
@@ -20,7 +21,7 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
         error={data.newPasswordError}
         required={true}
         value={data.newPassword}
-        inputChangeHandler={data.NewPasswordChangeHandler}
+        onChange={data.NewPasswordChangeHandler}
       />
       <Input
         type="password"
@@ -28,11 +29,11 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
         error={!data.passwordMatch}
         required={true}
         value={data.passwordCheck}
-        inputChangeHandler={data.PasswordCheckChangeHandler}
+        onChange={data.PasswordCheckChangeHandler}
       />
       <Button
-        color="blue"
-        hoverColor="light-blue"
+        className="saveBtn"
+        css={saveBtnStyle}
         type="button"
         onClick={data.SubmitHanlder}>
         {SAVE_CAPTION}
@@ -40,5 +41,4 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
     </S.ContentsContainer>
   );
 };
-
 export default UpdatePassword;

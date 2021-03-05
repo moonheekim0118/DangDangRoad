@@ -1,7 +1,9 @@
 import React from 'react';
+import routes from 'common/constant/routes';
+import { navLinkStyle } from 'common/style/baseStyle';
 import { colorCode } from 'common/style/color';
-import { Anchor } from 'atoms';
 import { MENU_MYPAGE_TITLE, MENU_SIGNUP_TITLE } from 'common/constant/string';
+import { Button } from 'atoms';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -13,25 +15,17 @@ const Navigation = ({ isLoggedIn }: Props): React.ReactElement => {
       {isLoggedIn ? (
         <>
           <Item>
-            <Anchor
-              fontsize={1.2}
-              color="white"
-              hoverColor="light-gray"
-              path="/myPage">
+            <Button linkStyle={navLinkStyle} href={routes.MYPAGE}>
               {MENU_MYPAGE_TITLE}
-            </Anchor>
+            </Button>
           </Item>
         </>
       ) : (
         <>
           <Item>
-            <Anchor
-              fontsize={1.2}
-              color="white"
-              hoverColor="light-gray"
-              path="/signUp">
+            <Button linkStyle={navLinkStyle} href={routes.SIGNUP}>
               {MENU_SIGNUP_TITLE}
-            </Anchor>
+            </Button>
           </Item>
         </>
       )}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
-import { Span, Anchor } from 'atoms';
+import { Button } from 'atoms';
 import styled from '@emotion/styled';
 
 interface DataTypes {
@@ -18,22 +18,20 @@ interface Props {
 
 const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
   const pathname = Router.pathname;
-
+  console.log(datas);
   return (
     <Container>
       {datas.map((v) => (
         <Menu
           key={v.key}
           onClick={onClick}
-          warn={v.title === 'destroy account'}
+          warn={v.title === '계정 삭제'}
           visiting={pathname === v.href}>
           {v.icon}
           {v.href ? (
-            <Anchor fontsize={1} path={v.href} fontbold={false}>
-              {v.title}
-            </Anchor>
+            <Button href={v.href}>{v.title}</Button>
           ) : (
-            <Span fontsize={1}>{v.title}</Span>
+            <span>{v.title}</span>
           )}
         </Menu>
       ))}

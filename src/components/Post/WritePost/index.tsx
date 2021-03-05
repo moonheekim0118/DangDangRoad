@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { SearchMap } from 'components/map';
 import RadioBox from 'components/ui/RadioBox';
+import { saveBtnStyle } from 'common/style/baseStyle';
+import { SearchMap } from 'components/map';
 import { ImagePreview } from 'components/image';
 import { useWritePost } from 'hooks';
 import { colorCode } from 'common/style/color';
@@ -101,7 +102,10 @@ const WritePost = ({ mode, initialData }: Props) => {
           </PlaceInfo>
         </ReviewContainer>
         <ButtonContainer>
-          <Button color="blue" onClick={data.submitHandler}>
+          <Button
+            className="saveBtn"
+            css={saveBtnStyle}
+            onClick={data.submitHandler}>
             {SAVE_CAPTION}
           </Button>
         </ButtonContainer>

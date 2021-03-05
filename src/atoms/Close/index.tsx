@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import { Icon } from 'atoms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import styled from '@emotion/styled';
@@ -10,10 +11,15 @@ interface Props {
 const Close = ({ closeHanlder }: Props) => {
   return (
     <Container onClick={closeHanlder}>
-      <Icon icon={faTimes} iconsize={25} />
+      <Icon icon={faTimes} className="closeIcon" css={iconStyle} />
     </Container>
   );
 };
+
+const iconStyle = css`
+  width: 25px;
+  height: 25px;
+`;
 
 const Container = styled.div`
   width: 65px;
