@@ -12,6 +12,8 @@ module.exports = {
     MEASUREMENT_ID: process.env.MEASUREMENT_ID,
     BASE_API_URL: process.env.BASE_API_URL,
     SECURE_COOKIE: process.env.SECURE_COOKIE,
+    ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
+    ALGOLIA_APP_KEY: process.env.ALGOLIA_APP_KEY,
   },
   webpack(config, { webpack, isServer }) {
     if (!isServer) {

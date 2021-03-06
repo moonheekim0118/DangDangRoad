@@ -1,12 +1,16 @@
-import React from 'react';
-import { useSearchData } from 'hooks';
+import React, { useCallback } from 'react';
 import { WriteButton, PostList, SinglePost } from 'components/post';
-import { useUser } from 'hooks';
+import {
+  useUser,
+  useAllReviews,
+  useInfiniteScroll,
+  useSinglePostModal,
+} from 'hooks';
+import { REQUEST } from 'hooks/common/useApiFetch';
 import * as S from 'common/style/post';
 import Loading from 'components/ui/Loading';
 import Modal from 'components/ui/Modal';
-import routes from 'common/constant/routes';
-import { getReviewsMore, getReviewsFirst } from 'api/review';
+import { getReviewsFirst } from 'api/review';
 
 export async function getStaticProps() {
   return {
@@ -18,38 +22,56 @@ export async function getStaticProps() {
 
 const SearchMain = ({ reviews }) => {
   const { user } = useUser();
-
-  const data = useSearchData({
+  const [
+    allReviews,
+    fetchReview,
+    fetchRemove,
+    fetchResult,
+    hasMore,
+  ] = useAllReviews({
     initReviews: reviews.data.reviews,
     initLastKey: reviews.data.lastKey,
-    fetcher: getReviewsMore,
-    originPath: routes.SEARCH,
   });
+  const observerTarget = useInfiniteScroll({
+    deps: [hasMore],
+    fetcher: fetchReview,
+  });
+  const modalDatas = useSinglePostModal(allReviews);
+
+  const removeHanlder = useCallback(
+    (id: string) => () => {
+      modalDatas.closeModal();
+      fetchRemove(id);
+    },
+    []
+  );
 
   return (
     <>
-      <PostList reviewData={data.reviews} openSinglePost={data.openModal} />
+      <PostList reviewData={allReviews} openSinglePost={modalDatas.openModal} />
       {user && user.isLoggedIn && <WriteButton />}
-      <Modal showModal={data.showModal} modalHandler={data.closeModal}>
+      <Modal
+        showModal={modalDatas.showModal}
+        modalHandler={modalDatas.closeModal}>
         <S.SinglePostContainer isModal={true}>
-          {data.singleReview ? (
+          {modalDatas.singleReview ? (
             <SinglePost
-              data={data.singleReview}
+              data={modalDatas.singleReview}
               NavigationInfo={{
-                hasPrev: data.index > 0,
-                hasNext: data.index < data.reviews.length - 1,
-                prevHandler: data.prevHandler,
-                nextHandler: data.nextHandler,
+                hasPrev: modalDatas.index > 0,
+                hasNext: modalDatas.index < allReviews.length - 1,
+                prevHandler: modalDatas.prevHandler,
+                nextHandler: modalDatas.nextHandler,
               }}
-              removeHanlder={data.removeHanlder}
+              removeHanlder={removeHanlder}
             />
           ) : (
             <Loading />
           )}
         </S.SinglePostContainer>
       </Modal>
-      <div ref={data.observerTarget}>
-        {data.fetchResult.type === 'REQEUST' && <Loading />}
+      <div ref={observerTarget}>
+        {fetchResult.type === REQUEST && <Loading />}
       </div>
     </>
   );
