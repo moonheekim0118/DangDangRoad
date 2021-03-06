@@ -27,7 +27,7 @@ const RadioBox = ({ selectedValue, selectHandler, title, list }: Props) => {
           id={v.id}
           key={i}
           value={v.value}
-          changeHandler={selectHandler}
+          onChange={selectHandler}
           isSelected={v.value === selectedValue}
         />
       ))}

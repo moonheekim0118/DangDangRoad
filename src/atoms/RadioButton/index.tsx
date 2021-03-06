@@ -7,11 +7,11 @@ interface Props {
   /** value for input */
   value: string;
   /** change Hanlder function */
-  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** to know if this radio button is selected one */
   isSelected: boolean;
 }
-const RadioButton = ({ id, value, changeHandler, isSelected }: Props) => {
+const RadioButton = ({ id, value, onChange, isSelected }: Props) => {
   return (
     <Label htmlFor={id}>
       {value}
@@ -19,7 +19,7 @@ const RadioButton = ({ id, value, changeHandler, isSelected }: Props) => {
         type="radio"
         id={id}
         value={value}
-        onChange={changeHandler}
+        onChange={onChange}
         checked={isSelected}
       />
       <CheckMark />
