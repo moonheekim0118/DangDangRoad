@@ -26,7 +26,9 @@ interface Props {
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
-  removeHanlder?: () => void;
+  removeHanlder: (
+    id: string
+  ) => (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
@@ -72,7 +74,7 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
               <Button
                 className="deleteBtn"
                 css={deleteButtonStyle}
-                onClick={removeHanlder}>
+                onClick={removeHanlder(data.docId)}>
                 {DELETE_BUTTON_CAPTION}
               </Button>
             </>

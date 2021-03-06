@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch';
+import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import * as T from 'types/API';
 
 const client = algoliasearch(
@@ -6,13 +7,16 @@ const client = algoliasearch(
   process.env.ALGOLIA_APP_KEY || ''
 );
 const index = client.initIndex('reviews');
+let cachedData = {};
 
 // search Query with algolia
-const searchByKeyword = async (
+// get All the data
+const getDatasFromAlgolia = async (
   keyword: string
-): T.APIResponse<T.lightReviewData[]> => {
+): Promise<T.lightReviewData[]> => {
   try {
     const response = await index.search(keyword);
+    console.log(keyword, response);
     let reviews: T.lightReviewData[] = [];
     response.hits.forEach((data) => {
       const review = {
@@ -23,7 +27,22 @@ const searchByKeyword = async (
       };
       reviews.push(review);
     });
-    return { isError: false, data: reviews };
+    return reviews.sort((a, b) => b.createdAt - a.createdAt); // recent
+  } catch (error) {
+    throw error;
+  }
+};
+
+const searchByKeyword = async (
+  query: string
+): T.APIResponse<T.lightReviewData[]> => {
+  try {
+    if (!cachedData[query]) {
+      const result = await getDatasFromAlgolia(query);
+      cachedData[query] = result;
+    }
+    const data = cachedData[query].splice(0, REVIEW_DATA_LIMIT);
+    return { isError: false, data };
   } catch (error) {
     throw error;
   }

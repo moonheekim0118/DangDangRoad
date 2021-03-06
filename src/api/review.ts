@@ -132,23 +132,3 @@ export const getReviewById = async (
     throw error;
   }
 };
-
-// /** get Reivews by Search-Keyword */
-// /** should use third-party */
-// export const getReveiwByKeyword = async (keyword: string): T.APIResult => {
-//   try {
-//     const response = await db
-//       .collection('reviews')
-//       .where('placeInfo.address_name', '>=', keyword)
-//       .orderBy('createdAt', 'desc')
-//       .limit(DATA_LIMIT)
-//       .get();
-
-//     const contents = await extractReviewData(response);
-//     console.log(contents);
-//     return { status: 200, contents };
-//   } catch (error) {
-//     console.log(error);
-//     throw { message: error.code };
-//   }
-// };
