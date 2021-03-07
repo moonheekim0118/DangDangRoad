@@ -63,6 +63,7 @@ export const EMAIL_VERFY_DESC =
 export const CLOSE_BUTTON_CAPTION = '닫기';
 export const KEEP_BUTTON_CAPTION = '계속';
 export const SIGNUP_BUTTON_CAPTION = '가입하기';
+export const GOOGLE_LOGIN_CAPTION = '구글 로그인하기';
 
 export const RAIDO_HAS_YES_VALUE = '있어요';
 export const RAIDO_HAS_NO_VALUE = '없어요';

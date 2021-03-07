@@ -1,5 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import googleLogo from './logo';
+import { GOOGLE_LOGIN_CAPTION } from 'common/constant/string';
 import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
 
@@ -7,7 +8,7 @@ const GoogleLoginButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <Container type="button" {...props}>
       <Logo>{googleLogo}</Logo>
-      <Title>구글 로그인하기</Title>
+      <Title>{GOOGLE_LOGIN_CAPTION}</Title>
     </Container>
   );
 };
