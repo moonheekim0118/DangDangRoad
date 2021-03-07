@@ -1,28 +1,18 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { useInput } from 'hooks';
 import { Icon, Button } from 'atoms';
 import { colorCode } from 'common/style/color';
-import {
-  REVIEW_SEARCH_PLACEHODLER,
-  SEARCH_BUTTON_CAPTION,
-} from 'common/constant/string';
+import { SEARCH_BUTTON_CAPTION } from 'common/constant/string';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** input color */
   color: 'blue' | 'white';
   /** have a focus effects or not */
   focus?: boolean;
-
-  placeholder?: string;
-  /** default keyword */
-  keyword?: string;
-  /** key word value handler */
-  keywordChangeHanlder?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   /** submit search handler */
-  searchHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
+  submitHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
 interface InputProps extends Props {
@@ -30,15 +20,8 @@ interface InputProps extends Props {
   focusFont?: 'blue' | 'white';
 }
 
-const SearchBar = ({
-  color,
-  focus = false,
-  placeholder = REVIEW_SEARCH_PLACEHODLER,
-  keyword,
-  keywordChangeHanlder,
-  searchHandler,
-}: Props): React.ReactElement => {
-  const [defaultKeyword, defaultKeywordChangeHanlder] = useInput();
+const SearchBar = (props: Props): React.ReactElement => {
+  const { color, focus, submitHandler, ...rest } = props;
 
   /** if it has focus effects, define foucsBack color and fontColor */
   const focusBack = focus ? (color === 'blue' ? 'white' : 'blue') : undefined;
@@ -51,19 +34,13 @@ const SearchBar = ({
         color={color}
         focusBackground={focusBack}
         focusFont={focusFont}
-        value={keyword ? keyword : defaultKeyword}
-        onChange={
-          keywordChangeHanlder
-            ? keywordChangeHanlder
-            : defaultKeywordChangeHanlder
-        }
-        placeholder={placeholder}
+        {...rest}
       />
       <IconContainer color={color}>
         <Icon icon={faSearch} className="searchIcon" css={iconStyle} />
       </IconContainer>
       <ButtonContainer color={color}>
-        <Button type="submit" onClick={searchHandler}>
+        <Button type="submit" onClick={submitHandler}>
           {SEARCH_BUTTON_CAPTION}
         </Button>
       </ButtonContainer>

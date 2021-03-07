@@ -30,9 +30,9 @@ const SearchMap = ({
         <SearchBar
           color="white"
           placeholder={MAP_SEARCH_PLACEHOLDER}
-          keyword={data.keyword}
-          keywordChangeHanlder={data.keywordChangeHandler}
-          searchHandler={data.searchHadler}
+          value={data.keyword}
+          onChange={data.keywordChangeHandler}
+          submitHandler={data.searchHadler}
         />
       </Search>
       <Map id="map" />

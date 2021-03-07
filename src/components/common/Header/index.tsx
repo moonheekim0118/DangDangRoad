@@ -14,6 +14,7 @@ import {
   MENU_LOGOUT_TITLE,
   MENU_LOGIN_TITLE,
   MENU_SIGNUP_TITLE,
+  REVIEW_SEARCH_PLACEHODLER,
 } from 'common/constant/string';
 import { useRouter } from 'next/router';
 import routes from 'common/constant/routes';
@@ -51,9 +52,10 @@ const Header = (): React.ReactElement => {
       <SearchBarContainer>
         <SearchBar
           color="blue"
-          keyword={searchValue}
-          keywordChangeHanlder={valueChangeHanlder}
-          searchHandler={searchHanlder}
+          value={searchValue}
+          onChange={valueChangeHanlder}
+          submitHandler={searchHanlder}
+          placeholder={REVIEW_SEARCH_PLACEHODLER}
           focus={true}
         />
       </SearchBarContainer>
