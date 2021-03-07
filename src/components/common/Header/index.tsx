@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Logo from 'components/ui/Logo';
 import SearchBar from 'components/common/SearchBar';
 import Navigation from 'components/common/Navigation';
 import { css } from '@emotion/react';
 import { navLinkStyle, navLinkStyleWithMargin } from 'common/style/baseStyle';
-import { useSignOut, useToggle, useInput } from 'hooks';
+import { useSignOut, useToggle, useSearchPlace } from 'hooks';
 import { Icon, Button } from 'atoms';
 import { colorCode } from 'common/style/color';
 import { useLoginInfoState } from 'context/LoginInfo';
@@ -26,15 +26,7 @@ const Header = (): React.ReactElement => {
   const signOutHandler = useSignOut();
   const { isLoaded, isLoggedIn } = useLoginInfoState();
   const [openNavigation, NavigationToggler] = useToggle();
-  const [searchValue, valueChangeHanlder] = useInput();
-
-  const searchHanlder = useCallback(
-    (e: React.MouseEvent<HTMLSpanElement>) => {
-      e.preventDefault();
-      router.push(`${routes.SEARCH}/${searchValue}`);
-    },
-    [searchValue]
-  );
+  const searchProps = useSearchPlace();
 
   return (
     <Container>
@@ -52,11 +44,9 @@ const Header = (): React.ReactElement => {
       <SearchBarContainer>
         <SearchBar
           color="blue"
-          value={searchValue}
-          onChange={valueChangeHanlder}
-          submitHandler={searchHanlder}
           placeholder={REVIEW_SEARCH_PLACEHODLER}
           focus={true}
+          {...searchProps}
         />
       </SearchBarContainer>
       <SideContainer>
@@ -96,7 +86,12 @@ const Header = (): React.ReactElement => {
       </SideContainer>
       {openNavigation && (
         <NavigationContainer>
-          <SearchBar color="blue" focus={true} />
+          <SearchBar
+            color="blue"
+            focus={true}
+            placeholder={REVIEW_SEARCH_PLACEHODLER}
+            {...searchProps}
+          />
           {pathname !== routes.SIGNUP && pathname !== routes.LOGIN && (
             <Navigation isLoggedIn={isLoggedIn} />
           )}

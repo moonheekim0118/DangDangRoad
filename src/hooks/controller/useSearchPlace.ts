@@ -4,13 +4,17 @@ import routes from 'common/constant/routes';
 import Router from 'next/router';
 
 const useSearchPlace = () => {
-  const [value, valueChangeHanlder] = useInput();
+  const [value, onChange] = useInput();
 
-  const subimtSearchHanlder = useCallback(() => {
-    Router.push(`${routes.SEARCH}/${value}`);
-  }, [value]);
+  const submitHandler = useCallback(
+    (e: React.MouseEvent<HTMLSpanElement>) => {
+      e.preventDefault();
+      Router.push(`${routes.SEARCH}/${value}`);
+    },
+    [value]
+  );
 
-  return [value, valueChangeHanlder, subimtSearchHanlder] as const;
+  return { value, onChange, submitHandler };
 };
 
 export default useSearchPlace;
