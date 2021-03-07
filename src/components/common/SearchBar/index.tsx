@@ -15,6 +15,7 @@ interface Props {
   color: 'blue' | 'white';
   /** have a focus effects or not */
   focus?: boolean;
+
   placeholder?: string;
   /** default keyword */
   keyword?: string;

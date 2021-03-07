@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Logo from 'components/ui/Logo';
 import SearchBar from 'components/common/SearchBar';
 import Navigation from 'components/common/Navigation';
 import { css } from '@emotion/react';
 import { navLinkStyle, navLinkStyleWithMargin } from 'common/style/baseStyle';
-import { useSignOut, useToggle } from 'hooks';
+import { useSignOut, useToggle, useInput } from 'hooks';
 import { Icon, Button } from 'atoms';
 import { colorCode } from 'common/style/color';
-import { useRouter } from 'next/router';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -16,6 +15,7 @@ import {
   MENU_LOGIN_TITLE,
   MENU_SIGNUP_TITLE,
 } from 'common/constant/string';
+import { useRouter } from 'next/router';
 import routes from 'common/constant/routes';
 import styled from '@emotion/styled';
 
@@ -25,6 +25,15 @@ const Header = (): React.ReactElement => {
   const signOutHandler = useSignOut();
   const { isLoaded, isLoggedIn } = useLoginInfoState();
   const [openNavigation, NavigationToggler] = useToggle();
+  const [searchValue, valueChangeHanlder] = useInput();
+
+  const searchHanlder = useCallback(
+    (e: React.MouseEvent<HTMLSpanElement>) => {
+      e.preventDefault();
+      router.push(`${routes.SEARCH}/${searchValue}`);
+    },
+    [searchValue]
+  );
 
   return (
     <Container>
@@ -40,7 +49,13 @@ const Header = (): React.ReactElement => {
         <Logo color="white" />
       </LogoContainer>
       <SearchBarContainer>
-        <SearchBar color="blue" focus={true} />
+        <SearchBar
+          color="blue"
+          keyword={searchValue}
+          keywordChangeHanlder={valueChangeHanlder}
+          searchHandler={searchHanlder}
+          focus={true}
+        />
       </SearchBarContainer>
       <SideContainer>
         {isLoaded && (
