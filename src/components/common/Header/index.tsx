@@ -75,9 +75,11 @@ const Header = (): React.ReactElement => {
                   </Button>
                 )}
                 {pathname !== routes.SIGNUP && (
-                  <Button linkStyle={navLinkStyle} href={routes.SIGNUP}>
-                    {MENU_SIGNUP_TITLE}
-                  </Button>
+                  <ExtraMenuContainer>
+                    <Button linkStyle={navLinkStyle} href={routes.SIGNUP}>
+                      {MENU_SIGNUP_TITLE}
+                    </Button>
+                  </ExtraMenuContainer>
                 )}
               </>
             )}

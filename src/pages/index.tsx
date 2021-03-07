@@ -42,7 +42,7 @@ const buttonStyle = css`
   }
 `;
 
-const Container = styled.main`
+const Container = styled.section`
   width: 100%;
   height: 100%;
   background-color: #0277bc;
@@ -53,7 +53,7 @@ const Container = styled.main`
   color: #fff;
 `;
 
-const MainContents = styled.section`
+const MainContents = styled.div`
   display: flex;
 
   @media only screen and (max-width: 780px) {
@@ -61,7 +61,7 @@ const MainContents = styled.section`
   }
 `;
 
-const SubContetns = styled.section`
+const SubContetns = styled.div`
   display: flex;
   flex-direction: column;
 
