@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
  */
 
 const useRouterStatus = () => {
-  const Router = useRouter();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -19,12 +19,12 @@ const useRouterStatus = () => {
       setIsLoading(false);
     };
 
-    Router.events.on('routeChangeStart', start);
-    Router.events.on('routeChangeComplete', complete);
+    router.events.on('routeChangeStart', start);
+    router.events.on('routeChangeComplete', complete);
 
     return () => {
-      Router.events.off('routeChangeStart', start);
-      Router.events.off('routeChangeComplete', complete);
+      router.events.off('routeChangeStart', start);
+      router.events.off('routeChangeComplete', complete);
     };
   }, []);
 

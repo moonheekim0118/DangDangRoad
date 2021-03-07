@@ -5,7 +5,7 @@ import routes from 'common/constant/routes';
 import * as T from 'types/API';
 
 const useSinglePostModal = (fullReviews: T.lightReviewData[]) => {
-  const [originPath, setOriginPath] = useState<string>();
+  const [originPath, setOriginPath] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
   const [showModal, modalHandler] = useModal(false);
   const [
@@ -15,8 +15,8 @@ const useSinglePostModal = (fullReviews: T.lightReviewData[]) => {
   ] = useSingleReview(false);
 
   useEffect(() => {
-    let pathName = '/search/';
     const query = Router.query.search_query;
+    let pathName = '/search/';
     if (typeof query === 'string' && query) pathName = pathName + query;
     setOriginPath(pathName);
   }, []);

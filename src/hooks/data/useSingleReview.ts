@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { getReviewById } from 'api/review';
 import * as T from 'types/API';
 
@@ -10,6 +10,9 @@ import * as T from 'types/API';
  */
 
 const useSingleReview = (initialFetch: boolean) => {
+  const router = useRouter();
+  const postId = router.query.id;
+
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.reviewData>(
     getReviewById
   );
@@ -27,7 +30,6 @@ const useSingleReview = (initialFetch: boolean) => {
   }, []);
 
   useEffect(() => {
-    const postId = Router.query.id;
     if (initialFetch && typeof postId === 'string') {
       fetchData(postId);
     }

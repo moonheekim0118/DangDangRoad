@@ -18,7 +18,6 @@ interface Props {
 
 const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
   const pathname = Router.pathname;
-  console.log(datas);
   return (
     <Container>
       {datas.map((v) => (

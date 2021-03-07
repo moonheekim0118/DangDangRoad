@@ -4,11 +4,12 @@ import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { removeReview } from 'api/review';
 import searchByKeyword from 'api/search';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import * as T from 'types/API';
 
 const useQueryReviews = () => {
-  const [query, setQuery] = useState<string>('');
+  const router = useRouter();
+  const query = router.query.search_query;
   const [allReviews, setAllReviews] = useState<T.lightReviewData[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<
@@ -23,11 +24,8 @@ const useQueryReviews = () => {
   ] = useApiFetch(removeReview);
 
   useEffect(() => {
-    const search_query = Router.query.search_query;
-    if (typeof search_query === 'string') {
-      console.log(search_query);
-      setQuery(search_query);
-      fetchDispatch({ type: REQUEST, params: [search_query] });
+    if (typeof query === 'string') {
+      fetchDispatch({ type: REQUEST, params: [query] });
     }
   }, []);
 
