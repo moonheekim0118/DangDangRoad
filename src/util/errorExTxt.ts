@@ -13,6 +13,8 @@ const errorExTxt = (errorCode: string): string => {
       return MESSAGE.NOT_VERIFIED_ERROR;
     case 'Not exists data':
       return MESSAGE.NOT_EXISTS_DATA;
+    case 'Not treat as an Error':
+      return '';
     default:
       return MESSAGE.DEFAULT_ERROR;
   }

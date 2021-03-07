@@ -52,7 +52,7 @@ export const googleSignIn = async (): T.APIResponse => {
   } catch (error) {
     // If user closed up the login pop-up , not gonna treat this as error
     if (error.code === 'auth/popup-closed-by-user') {
-      return T.defaultSuccess;
+      error.code = 'Not treat as an Error';
     }
     throw error;
   }

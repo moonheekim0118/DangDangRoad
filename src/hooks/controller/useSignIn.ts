@@ -41,7 +41,8 @@ const useSignIn = () => {
         Router.push(routes.HOME);
         break;
       case FAILURE:
-        dispatch(showError(googleSignInResult.error));
+        googleSignInResult.error &&
+          dispatch(showError(googleSignInResult.error));
     }
   }, [googleSignInResult]);
 
