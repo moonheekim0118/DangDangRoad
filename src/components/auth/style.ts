@@ -3,13 +3,16 @@ import { colorCode } from 'common/style/color';
 
 export const Form = styled.form<{ signUp?: boolean }>`
   width: 600px;
-  height: 90%;
+  margin: 25px 0;
   padding: 15px 25px;
   border-radius: 20px;
   background-color: #fff;
 
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
 
@@ -34,5 +37,12 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 250px;
-  height: 150px;
+  height: 135px;
+`;
+
+export const GoogleLoginButton = styled.button`
+  color: #fff;
+  background-color: ${colorCode['light-blue']};
+  padding: 14px 20px;
+  text-align: center;
 `;

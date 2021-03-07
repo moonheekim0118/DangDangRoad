@@ -1,5 +1,5 @@
 import React from 'react';
-import GoogleButton from 'react-google-button';
+import GoogleLoginButton from 'components/ui/GoogleLoginButton';
 import { Input, Button } from 'atoms';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { MENU_LOGIN_TITLE } from 'common/constant/string';
@@ -35,7 +35,7 @@ const Login = (): React.ReactElement => {
           onClick={data.SignInHandler}>
           {MENU_LOGIN_TITLE}
         </Button>
-        <GoogleButton onClick={data.GoogleSignInHandler} />
+        <GoogleLoginButton onClick={data.GoogleSignInHandler} />
       </S.ButtonContainer>
     </S.Form>
   );
