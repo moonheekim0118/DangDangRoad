@@ -1,19 +1,7 @@
-import React, { ButtonHTMLAttributes } from 'react';
-import googleLogo from './logo';
-import { GOOGLE_LOGIN_CAPTION } from 'common/constant/string';
-import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
+import { colorCode } from 'common/style/color';
 
-const GoogleLoginButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
-  return (
-    <Container type="button" {...props}>
-      <Logo>{googleLogo}</Logo>
-      <Title>{GOOGLE_LOGIN_CAPTION}</Title>
-    </Container>
-  );
-};
-
-const Container = styled.button`
+export const Container = styled.button`
   width: 250px;
   background-color: #fff;
   border-radius: 5px;
@@ -35,17 +23,15 @@ const Container = styled.button`
   }
 `;
 
-const Logo = styled.div`
+export const Logo = styled.div`
   position: absolute;
   left: 0px;
   top: 60%;
   transform: translateY(-50%);
 `;
 
-const Title = styled.span`
+export const Title = styled.span`
   font-size: 1.1rem;
   font-weight: bold;
   margin-left: 15px;
 `;
-
-export default GoogleLoginButton;

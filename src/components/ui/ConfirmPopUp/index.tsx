@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { baseModalStyle } from 'common/style/baseStyle';
 import {
   CLOSE_BUTTON_CAPTION,
   KEEP_BUTTON_CAPTION,
 } from 'common/constant/string';
+import * as S from './style';
 
 interface Props {
   /** contents of pop up */
@@ -18,70 +17,18 @@ interface Props {
 /** confrim pop up atom */
 const ConfirmPopUp = ({ contents, closeHandler, submitHandler }: Props) => {
   return (
-    <Container>
-      <Title>{contents}</Title>
-      <ButtonContainer>
-        <Button title="close" onClick={closeHandler}>
+    <S.Container>
+      <S.Title>{contents}</S.Title>
+      <S.ButtonContainer>
+        <S.Button title="close" onClick={closeHandler}>
           {CLOSE_BUTTON_CAPTION}
-        </Button>
-        <Button title="keep" onClick={submitHandler}>
+        </S.Button>
+        <S.Button title="keep" onClick={submitHandler}>
           {KEEP_BUTTON_CAPTION}
-        </Button>
-      </ButtonContainer>
-    </Container>
+        </S.Button>
+      </S.ButtonContainer>
+    </S.Container>
   );
 };
-
-const Container = styled.div`
-  ${baseModalStyle}
-  display: flex;
-  flex-direction: column;
-  width: 310px;
-  height: 150px;
-
-  background-color: #fff;
-  color: black;
-  border-radius: 10px;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
-`;
-
-const Title = styled.div`
-  width: 100%;
-  height: 65%;
-  padding: 30px;
-  text-align: center;
-  border-bottom: 1px solid #e0e0d1;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  height: 35%;
-`;
-
-const Button = styled.button<{ title: string }>`
-  border: none;
-  width: 50%;
-  height: 100%;
-  background-color: inherit;
-  padding: 17px 10px;
-  font-weight: bold;
-  color: ${(props) => (props.title === 'close' ? 'red' : 'green')};
-  cursor: pointer;
-
-  transition: background-color 0.3s ease;
-
-  &:nth-of-type(1) {
-    border-right: 1px solid #e0e0d1;
-    border-bottom-left-radius: 10px;
-  }
-
-  &:nth-of-type(2) {
-    border-bottom-right-radius: 10px;
-  }
-
-  &:hover {
-    background-color: #e0e0d1;
-  }
-`;
 
 export default ConfirmPopUp;

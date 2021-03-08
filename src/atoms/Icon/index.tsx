@@ -1,9 +1,6 @@
 import React, { memo } from 'react';
-import {
-  FontAwesomeIcon,
-  FontAwesomeIconProps,
-} from '@fortawesome/react-fontawesome';
-import styled from '@emotion/styled';
+import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
+import * as S from './style';
 
 interface Props {
   /** actual icon */
@@ -15,13 +12,7 @@ interface Props {
 }
 
 const Icon = ({ icon, className, onClick }: Props): React.ReactElement => {
-  return <Component icon={icon} className={className} onClick={onClick} />;
+  return <S.Component icon={icon} className={className} onClick={onClick} />;
 };
-
-const Component = styled(FontAwesomeIcon)`
-  width: 20px;
-  height: 20px;
-  color: inherit;
-`;
 
 export default memo(Icon);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { RadioButton } from 'atoms';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface listType {
   id: string;
@@ -20,8 +20,8 @@ interface Props {
 
 const RadioBox = ({ selectedValue, selectHandler, title, list }: Props) => {
   return (
-    <Container>
-      <Title>{title}</Title>
+    <S.Container>
+      <S.Title>{title}</S.Title>
       {list.map((v, i) => (
         <RadioButton
           id={v.id}
@@ -31,18 +31,8 @@ const RadioBox = ({ selectedValue, selectHandler, title, list }: Props) => {
           isSelected={v.value === selectedValue}
         />
       ))}
-    </Container>
+    </S.Container>
   );
 };
-
-const Container = styled.div`
-  padding: 10px 25px;
-`;
-
-const Title = styled.span`
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-`;
 
 export default RadioBox;

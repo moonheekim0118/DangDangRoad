@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PageMenu from '../PageMenu';
 import UserCard from '../UserCard';
 import Modal from 'components/ui/Modal';
 import Loading from 'components/ui/Loading';
 import ConfirmPopUp from 'components/ui/ConfirmPopUp';
 import { Title } from 'atoms';
-import { useDestroyAccount } from 'hooks';
+import { useModal, useApiFetch } from 'hooks';
+import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { UserType } from 'types/User';
 import { DESTROY_ACCOUNT_CAPTION } from 'common/constant/string';
+import { destroyAccount } from 'api/user';
+import routes from 'common/constant/routes';
+import Router from 'next/router';
 import * as menus from 'common/constant/mypageDatas';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface Props {
   userInfo: UserType;
@@ -22,11 +26,23 @@ const MyPage = ({
   pageName,
   children,
 }: Props): React.ReactElement => {
-  const data = useDestroyAccount(userInfo.userId);
+  const [showModal, modalHandler] = useModal(false);
+  const [destroyResult, destroyDispatch] = useApiFetch(destroyAccount);
+
+  useEffect(() => {
+    if (destroyResult.type === SUCCESS) {
+      modalHandler();
+      Router.push(routes.HOME);
+    }
+  }, [destroyResult.type]);
+
+  const DestroyHandler = useCallback(() => {
+    destroyDispatch({ type: REQUEST, params: [userInfo.userId] });
+  }, []);
 
   return (
-    <Container>
-      <SideContainer>
+    <S.Container>
+      <S.SideContainer>
         {userInfo ? (
           <UserCard
             userName={userInfo.nickname}
@@ -37,72 +53,23 @@ const MyPage = ({
           <Loading />
         )}
         <PageMenu datas={menus.GeneralMenu} />
-        <PageMenu datas={menus.DestoryMenu} onClick={data.modalHandler} />
-      </SideContainer>
-      <MainContainer>
-        <TitleContainer>
+        <PageMenu datas={menus.DestoryMenu} onClick={modalHandler} />
+      </S.SideContainer>
+      <S.MainContainer>
+        <S.TitleContainer>
           <Title>{pageName}</Title>
-        </TitleContainer>
+        </S.TitleContainer>
         {children}
-      </MainContainer>
-      <Modal showModal={data.showModal} modalHandler={data.modalHandler}>
+      </S.MainContainer>
+      <Modal showModal={showModal} modalHandler={modalHandler}>
         <ConfirmPopUp
           contents={DESTROY_ACCOUNT_CAPTION}
-          closeHandler={data.modalHandler}
-          submitHandler={data.DestroyHandler}
+          closeHandler={modalHandler}
+          submitHandler={DestroyHandler}
         />
       </Modal>
-    </Container>
+    </S.Container>
   );
 };
-
-const Container = styled.section`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media only screen and (max-width: 500px) {
-    flex-direction: column;
-  }
-`;
-
-const SideContainer = styled.aside`
-  width: 250px;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-right: 25px;
-  @media only screen and (max-width: 500px) {
-    width: 100%;
-    margin: 0;
-  }
-`;
-
-const MainContainer = styled.article`
-  width: 50%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-
-  @media only screen and (max-width: 500px) {
-    width: 100%;
-    border-radius: 0;
-  }
-`;
-
-const TitleContainer = styled.span`
-  position: absolute;
-  top: 15px;
-  right: 20px;
-`;
 
 export default MyPage;

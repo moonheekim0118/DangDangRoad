@@ -62,3 +62,10 @@ export const nicknameValidatorForUpdate = (value: string): boolean => {
 export const passwordValidator = (value: string): boolean => {
   return checkLength(value, 16, 6) && checkEmptySpace(value);
 };
+
+export const passwordCheckValidator = (target: string) => (
+  value: string
+): boolean => {
+  console.log(target, value);
+  return target === value;
+};

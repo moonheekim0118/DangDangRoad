@@ -1,12 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { ImageCarousel } from 'components/image';
 import { useModal } from 'hooks';
 import { Icon } from 'atoms';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { colorCode } from 'common/style/color';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
+import * as S from './style';
 
 interface Props {
   /** image url List for Preview */
@@ -42,13 +40,13 @@ const ImagePreview = ({
   );
 
   return (
-    <Container>
+    <S.Container>
       {imageList.length < POST_IMAGE_LIMIT && (
-        <ImagePlusButton>
+        <S.ImagePlusButton>
           <Icon
             icon={faPlus}
             className="addImgIcon"
-            css={iconStyle}
+            css={S.iconStyle}
             onClick={uploaderClickHanlder}
           />
           <input
@@ -59,22 +57,22 @@ const ImagePreview = ({
             ref={imageInput}
             onChange={imageUploadHanlder}
           />
-        </ImagePlusButton>
+        </S.ImagePlusButton>
       )}
       {imageList &&
         imageList.map((v, i) => (
-          <ImageContainer key={v + i}>
-            <Image src={v} onClick={imageZoomHanlder(i)} />
-            <RemoveImage>
+          <S.ImageContainer key={v + i}>
+            <S.Image src={v} onClick={imageZoomHanlder(i)} />
+            <S.RemoveImage>
               {' '}
               <Icon
                 icon={faTrashAlt}
                 className="removeImgIcon"
-                css={iconStyleWhite}
+                css={S.iconStyleWhite}
                 onClick={imageRemoveHanlder(i)}
               />
-            </RemoveImage>
-          </ImageContainer>
+            </S.RemoveImage>
+          </S.ImageContainer>
         ))}
       <ImageCarousel
         imageList={imageList}
@@ -82,58 +80,8 @@ const ImagePreview = ({
         showModal={showCarousel}
         modalHanlder={carousleHandler}
       />
-    </Container>
+    </S.Container>
   );
 };
-
-const iconStyle = css`
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  color: ${colorCode['blue']};
-`;
-
-const iconStyleWhite = css`
-  ${iconStyle}
-  color:#fff;
-`;
-
-const Container = styled.div`
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-around;
-  gap: 10px;
-  align-items: center;
-`;
-
-const ImagePlusButton = styled.div`
-  width: calc(100% / 3);
-  height: 100%;
-  display: grid;
-  place-items: center;
-  background-color: ${colorCode['light-gray']};
-  cursor: pointer;
-`;
-
-const ImageContainer = styled.div`
-  width: calc(100% / 3);
-  height: 100%;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  cursor: pointer;
-`;
-
-const RemoveImage = styled.div`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: #fff;
-  cursor: pointer;
-`;
 
 export default ImagePreview;

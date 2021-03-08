@@ -4,10 +4,10 @@ interface Props {
   /** initla value for input value */
   initialValue?: string;
   /** input value's character checker function*/
-  characterCheck?: (value: string) => boolean;
+  validator?: (value: string) => boolean;
 }
 
-const useValidation = ({ initialValue = '', characterCheck }: Props = {}) => {
+const useValidation = ({ initialValue = '', validator }: Props = {}) => {
   const [value, setValue] = useState<string>(initialValue);
   const [error, setError] = useState<boolean>(false);
 
@@ -18,14 +18,28 @@ const useValidation = ({ initialValue = '', characterCheck }: Props = {}) => {
         | React.ChangeEvent<HTMLTextAreaElement>
     ) => {
       const target = (e.target as HTMLInputElement | HTMLTextAreaElement).value;
-      if (characterCheck && !characterCheck(target)) setError(true);
-      else setError(false);
       setValue(target);
+      if (validator) {
+        !validator(target) ? setError(true) : setError(false);
+      }
     },
     [value]
   );
 
-  return { value, error, valueChangeHanlder, setError, setValue };
+  const checkValidation = useCallback(() => {
+    if (validator) {
+      !validator(value) ? setError(true) : setError(false);
+    }
+  }, [value]);
+
+  return [
+    value,
+    error,
+    valueChangeHanlder,
+    checkValidation,
+    setError,
+    setValue,
+  ] as const;
 };
 
 export default useValidation;

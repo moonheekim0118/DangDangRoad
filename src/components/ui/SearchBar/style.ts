@@ -1,62 +1,22 @@
-import React, { InputHTMLAttributes } from 'react';
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { Icon, Button } from 'atoms';
+import styled from '@emotion/styled';
 import { colorCode } from 'common/style/color';
-import { SEARCH_BUTTON_CAPTION } from 'common/constant/string';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  /** input color */
-  color: 'blue' | 'white';
-  /** have a focus effects or not */
-  focus?: boolean;
-  /** submit search handler */
-  submitHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
-}
+import { Props } from './index';
 
 interface InputProps extends Props {
   focusBackground?: 'blue' | 'white';
   focusFont?: 'blue' | 'white';
 }
 
-const SearchBar = (props: Props): React.ReactElement => {
-  const { color, focus, submitHandler, ...rest } = props;
-
-  /** if it has focus effects, define foucsBack color and fontColor */
-  const focusBack = focus ? (color === 'blue' ? 'white' : 'blue') : undefined;
-  const focusFont = focus ? color : undefined;
-
-  return (
-    <Form>
-      <Input
-        type="text"
-        color={color}
-        focusBackground={focusBack}
-        focusFont={focusFont}
-        {...rest}
-      />
-      <IconContainer color={color}>
-        <Icon icon={faSearch} className="searchIcon" css={iconStyle} />
-      </IconContainer>
-      <ButtonContainer color={color}>
-        <Button type="submit" onClick={submitHandler}>
-          {SEARCH_BUTTON_CAPTION}
-        </Button>
-      </ButtonContainer>
-    </Form>
-  );
-};
-
-const iconStyle = css`
+export const iconStyle = css`
   transform: rotateY(180deg);
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   width: 100%;
 `;
 
-const IconContainer = styled.div<Props>`
+export const IconContainer = styled.div<Props>`
   position: absolute;
   top: 50%;
   color: ${(props) =>
@@ -65,7 +25,7 @@ const IconContainer = styled.div<Props>`
   left: 10px;
 `;
 
-const ButtonContainer = styled.div<Props>`
+export const ButtonContainer = styled.div<Props>`
   position: absolute;
   color: ${(props) =>
     props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
@@ -78,7 +38,7 @@ const ButtonContainer = styled.div<Props>`
   }
 `;
 
-const Input = styled.input<InputProps>`
+export const Input = styled.input<InputProps>`
   background-color: ${(props) => colorCode[props.color]};
   color: ${(props) =>
     props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
@@ -113,5 +73,3 @@ const Input = styled.input<InputProps>`
     width: 100%;
   }
 `;
-
-export default SearchBar;

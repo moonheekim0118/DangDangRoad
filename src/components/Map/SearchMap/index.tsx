@@ -1,11 +1,9 @@
 import React from 'react';
-import SearchBar from 'components/common/SearchBar';
+import SearchBar from 'components/ui/SearchBar';
 import { useSearchMap } from 'hooks';
 import { PlaceType } from 'types/Map';
-import { colorCode } from 'common/style/color';
 import { MAP_SEARCH_PLACEHOLDER } from 'common/constant/string';
-import styled from '@emotion/styled';
-import { MARKER_URL, MARKER_POSITIONS } from 'common/constant/images';
+import * as S from './style';
 
 interface Props {
   /** function to change user select Place to review */
@@ -25,8 +23,8 @@ const SearchMap = ({
   const data = useSearchMap({ initialCoordX, initialCoordY });
 
   return (
-    <Container>
-      <Search>
+    <S.Container>
+      <S.Search>
         <SearchBar
           color="white"
           placeholder={MAP_SEARCH_PLACEHOLDER}
@@ -34,110 +32,37 @@ const SearchMap = ({
           onChange={data.keywordChangeHandler}
           submitHandler={data.searchHadler}
         />
-      </Search>
-      <Map id="map" />
-      <SearchResult>
+      </S.Search>
+      <S.Map id="map" />
+      <S.SearchResult>
         {data.placeData &&
           data.placeData.map((v, i) => (
-            <AddressContainer key={i}>
-              <AddressTitle onClick={selectPlaceHandler(v)}>
-                <Marker index={i} />
-                <PlaceName selected={v.place_name === nowSelectedAddress}>
+            <S.AddressContainer key={i}>
+              <S.AddressTitle onClick={selectPlaceHandler(v)}>
+                <S.Marker index={i} />
+                <S.PlaceName selected={v.place_name === nowSelectedAddress}>
                   {v.place_name}
-                </PlaceName>
-              </AddressTitle>
-              <AdressName>
+                </S.PlaceName>
+              </S.AddressTitle>
+              <S.AdressName>
                 {v.address_name} {v?.road_address_name}
-              </AdressName>
-            </AddressContainer>
+              </S.AdressName>
+            </S.AddressContainer>
           ))}
-        <PaginationContainer>
+        <S.PaginationContainer>
           {data.pagination &&
             Array.from(Array(data.pagination.last), (_, i) => (
-              <Page
+              <S.Page
                 current={i + 1 === data.pagination?.current}
                 key={i}
                 onClick={data.pageClickHandler(i + 1)}>
                 {i + 1}
-              </Page>
+              </S.Page>
             ))}
-        </PaginationContainer>
-      </SearchResult>
-    </Container>
+        </S.PaginationContainer>
+      </S.SearchResult>
+    </S.Container>
   );
 };
 
-const Container = styled.div`
-  width: 400px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const Search = styled.div`
-  width: 300px;
-`;
-
-const Map = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const SearchResult = styled.div`
-  width: 100%;
-  height: 400px;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: rgba(244, 244, 244, 0.5);
-  padding: 20px;
-  z-index: 3000;
-`;
-
-const AddressContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 10px 0;
-  border-bottom: 1px solid black;
-`;
-
-const AddressTitle = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
-
-const PlaceName = styled.span<{ selected: boolean }>`
-  font-weight: bold;
-  color: ${(props) => props.selected && colorCode['blue']};
-`;
-
-const AdressName = styled.span`
-  font-size: 0.8rem;
-`;
-
-const Marker = styled.span<{ index: number }>`
-  width: 36px;
-  height: 37px;
-  background: ${`url(${MARKER_URL})`} no-repeat;
-  background-position: ${(props) => MARKER_POSITIONS[props.index]};
-`;
-
-const PaginationContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-`;
-
-const Page = styled.span<{ current: boolean }>`
-  font-weight: ${(props) => props.current && 'bold'};
-  cursor: pointer;
-`;
 export default SearchMap;

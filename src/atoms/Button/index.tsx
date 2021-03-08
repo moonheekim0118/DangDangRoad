@@ -1,7 +1,7 @@
 import React, { memo, ButtonHTMLAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
 import Link from 'next/Link';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** text of button */
@@ -33,37 +33,17 @@ const Button = (props: Props): React.ReactElement => {
   } = props;
   return href ? ( // when it needs to be link
     <Link href={href}>
-      <Anchor css={linkStyle}>{children}</Anchor>
+      <S.Anchor css={linkStyle}>{children}</S.Anchor>
     </Link>
   ) : (
-    <Component
+    <S.Component
       className={className}
       onClick={onClick}
       disabled={disabled}
       {...rest}>
       {children}
-    </Component>
+    </S.Component>
   );
 };
-
-const Component = styled.button`
-  font-size: 1.2rem;
-  background-color: inherit;
-  color: inherit;
-  width: 100%;
-  border: none;
-  border-radius: 15px;
-  padding: 13px 15px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Anchor = styled.a`
-  color: inherit;
-  text-decoration: none;
-`;
 
 export default memo(Button);

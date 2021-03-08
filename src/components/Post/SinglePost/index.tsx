@@ -1,8 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { reviewData } from 'types/API';
-import { baseButtonStyle } from 'common/style/baseStyle';
-import { colorCode } from 'common/style/color';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { Button } from 'atoms';
@@ -18,7 +15,7 @@ import routes from 'common/constant/routes';
 import PrevNextButton from 'components/ui/PrevNextButton';
 import { ImageSlider } from 'components/image';
 import { BasicMap } from 'components/map';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface Props {
   /** single Review Data */
@@ -36,130 +33,54 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
 
   return (
     <>
-      <Contents>
-        <InfoContainer>
-          <PlaceName>{data.placeInfo.place_name}</PlaceName>
-          <PlaceDetail>{data.placeInfo.address_name}</PlaceDetail>
+      <S.Contents>
+        <S.InfoContainer>
+          <S.PlaceName>{data.placeInfo.place_name}</S.PlaceName>
+          <S.PlaceDetail>{data.placeInfo.address_name}</S.PlaceDetail>
           <BasicMap coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
-          <CommonInfoContainer>
-            <CommonInfo>
+          <S.CommonInfoContainer>
+            <S.CommonInfo>
               {PARKING_LOT_CAPTION}
               {data.hasParkingLot}
-            </CommonInfo>
-            <CommonInfo>
+            </S.CommonInfo>
+            <S.CommonInfo>
               {OFFLEASH_CAPTION}
               {data.hasOffLeash}
-            </CommonInfo>
-            <CommonInfo>
+            </S.CommonInfo>
+            <S.CommonInfo>
               {RECOMMENDATION_CAPTION}
               {data.recommendation}
-            </CommonInfo>
-          </CommonInfoContainer>
-        </InfoContainer>
+            </S.CommonInfo>
+          </S.CommonInfoContainer>
+        </S.InfoContainer>
         {data.imageList && (
-          <InfoContainer>
+          <S.InfoContainer>
             <ImageSlider imageList={data.imageList} />
-          </InfoContainer>
+          </S.InfoContainer>
         )}
-        <InfoContainer>
+        <S.InfoContainer>
           <WriterInfo userData={data.userData} createdAt={data.createdAt} />
-          <FreeCommentContainer>{data.freeText}</FreeCommentContainer>
+          <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
           {data.userId === userId && (
             <>
               <Button
                 href={`${routes.UPDATE_POST}/${data.docId}`}
-                linkStyle={updateButtonStyle}>
+                linkStyle={S.updateButtonStyle}>
                 {UPDATE_BUTTON_CAPTION}
               </Button>
               <Button
                 className="deleteBtn"
-                css={deleteButtonStyle}
+                css={S.deleteButtonStyle}
                 onClick={removeHanlder(data.docId)}>
                 {DELETE_BUTTON_CAPTION}
               </Button>
             </>
           )}
-        </InfoContainer>
-      </Contents>
+        </S.InfoContainer>
+      </S.Contents>
       {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
     </>
   );
 };
-
-const updateButtonStyle = css`
-  background-color: ${colorCode['blue']};
-  color: #fff;
-  ${baseButtonStyle}
-`;
-
-const deleteButtonStyle = css`
-  background-color: ${colorCode['red']};
-  color: #fff;
-`;
-
-const Contents = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 25px;
-  @media only screen and (max-width: 1024px) {
-    flex-direction: column;
-    justify-content: space-between;
-    overflow-y: scroll;
-  }
-`;
-
-const InfoContainer = styled.div`
-  width: calc(100% / 3);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-
-  @media only screen and (max-width: 1024px) {
-    width: 100%;
-    min-height: 300px;
-  }
-`;
-
-const PlaceName = styled.span`
-  text-align: cetner;
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 1.8rem;
-  color: ${colorCode['blue']};
-`;
-
-const PlaceDetail = styled.span`
-  text-align: center;
-  font-size: 0.9rem;
-  color: ${colorCode['dark-gray']};
-`;
-
-const CommonInfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  @media only screen and (max-width: 1024px) {
-    flex-direction: row;s
-  }
-`;
-
-const CommonInfo = styled.span`
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 1.1rem;
-  color: ${colorCode['gray']};
-`;
-
-const FreeCommentContainer = styled.div`
-  border: 1px solid ${colorCode['light-gray']};
-  border-radius: 25px;
-  padding: 15px;
-`;
 
 export default SinglePost;
