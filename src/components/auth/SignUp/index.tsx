@@ -4,6 +4,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
+import GoogleLoginButton from 'components/ui/GoogleLoginButton';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
@@ -22,7 +23,7 @@ import * as S from '../style';
 
 const SignUp = (): React.ReactElement => {
   const dispatch = useNotificationDispatch();
-  const [fetchResult, fetchDispatch] = useApiFetch(signUp);
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(signUp);
   const emailRef = useRef<inputRef>(defaultRef);
   const nicknameRef = useRef<inputRef>(defaultRef);
   const passwordRef = useRef<inputRef>(defaultRef);
@@ -35,6 +36,7 @@ const SignUp = (): React.ReactElement => {
         break;
       case FAILURE:
         dispatch(showError(fetchResult.error));
+        setDefault();
     }
   }, [fetchResult]);
 
@@ -129,6 +131,7 @@ const SignUp = (): React.ReactElement => {
           onClick={SubmitHanlder}>
           {SIGNUP_BUTTON_CAPTION}
         </Button>
+        <GoogleLoginButton />
       </S.ButtonContainer>
     </S.Form>
   );

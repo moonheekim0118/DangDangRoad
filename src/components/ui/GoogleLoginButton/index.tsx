@@ -1,12 +1,37 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { useEffect } from 'react';
 import googleLogo from './logo';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
+import { useNotificationDispatch } from 'context/Notification';
+import { showError } from 'action';
 import { GOOGLE_LOGIN_CAPTION } from 'common/constant/string';
 import { colorCode } from 'common/style/color';
+import { googleSignIn } from 'api/sign';
+import routes from 'common/constant/routes';
+import Router from 'next/router';
+
 import styled from '@emotion/styled';
 
-const GoogleLoginButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
+const GoogleLoginButton = () => {
+  const dispatch = useNotificationDispatch();
+
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(googleSignIn);
+  useEffect(() => {
+    switch (fetchResult.type) {
+      case SUCCESS:
+        Router.push(routes.HOME);
+        break;
+      case FAILURE:
+        fetchResult.error && dispatch(showError(fetchResult.error));
+        setDefault();
+    }
+  }, [fetchResult]);
+
   return (
-    <Container type="button" {...props}>
+    <Container type="button" onClick={() => fetchDispatch({ type: REQUEST })}>
       <Logo>{googleLogo}</Logo>
       <Title>{GOOGLE_LOGIN_CAPTION}</Title>
     </Container>

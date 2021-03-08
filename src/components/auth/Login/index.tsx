@@ -7,7 +7,7 @@ import useApiFetch, {
 } from 'hooks/common/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
-import { signIn, googleSignIn } from 'api/sign';
+import { signIn } from 'api/sign';
 import { NOT_FULL_INFO_ERROR } from 'common/constant/string';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
@@ -23,17 +23,18 @@ const Login = (): React.ReactElement => {
   const dispatch = useNotificationDispatch();
   const emailRef = useRef<inputRef>(defaultRef);
   const passwordRef = useRef<inputRef>(defaultRef);
-  const [signInResult, signInDispatch] = useApiFetch(signIn);
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(signIn);
 
   useEffect(() => {
-    switch (signInResult.type) {
+    switch (fetchResult.type) {
       case SUCCESS:
         Router.push(routes.HOME);
         break;
       case FAILURE:
-        dispatch(showError(signInResult.error));
+        dispatch(showError(fetchResult.error));
+        setDefault();
     }
-  }, [signInResult]);
+  }, [fetchResult]);
 
   /** submit handler */
   const SignInHandler = useCallback(
@@ -44,7 +45,7 @@ const Login = (): React.ReactElement => {
       if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
         return dispatch(showError(NOT_FULL_INFO_ERROR));
       }
-      signInDispatch({ type: REQUEST, params: [{ email, password }] });
+      fetchDispatch({ type: REQUEST, params: [{ email, password }] });
     },
     [emailRef, passwordRef]
   );

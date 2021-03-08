@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import { useValidation, useMatch, useInput } from 'hooks';
+import { useValidation, useInput } from 'hooks';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -29,8 +29,8 @@ const useUpdatePassword = (userId: string) => {
   /** password check */
   const [passwordCheck, PasswordCheckChangeHandler] = useInput();
 
-  /** password match checker*/
-  const passwordMatch = useMatch({ value: passwordCheck, target: newPassword });
+  // /** password match checker*/
+  // const passwordMatch = useMatch({ value: passwordCheck, target: newPassword });
 
   useEffect(() => {
     switch (fetchResult.type) {
@@ -51,14 +51,13 @@ const useUpdatePassword = (userId: string) => {
       if (
         newPassword.length === 0 ||
         passwordCheck.length === 0 ||
-        newPasswordError ||
-        !passwordMatch
+        newPasswordError
       ) {
         return dispatch(Action.showError(NOT_FULL_INFO_ERROR));
       }
       fetchDispatch({ type: REQUEST, params: [{ id: userId, newPassword }] });
     },
-    [newPassword, passwordCheck, newPasswordError, passwordMatch]
+    [newPassword, passwordCheck, newPasswordError]
   );
 
   return {
@@ -67,7 +66,6 @@ const useUpdatePassword = (userId: string) => {
     newPasswordError,
     passwordCheck,
     PasswordCheckChangeHandler,
-    passwordMatch,
     SubmitHanlder,
   };
 };
