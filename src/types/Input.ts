@@ -1,7 +1,7 @@
 export interface inputRef {
   value: string;
   error?: boolean;
-  focus: () => void;
+  focus?: () => void;
 }
 
 export const defaultRef = {

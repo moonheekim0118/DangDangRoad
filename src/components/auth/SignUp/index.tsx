@@ -16,7 +16,7 @@ import {
   MENU_SIGNUP_TITLE,
   SIGNUP_BUTTON_CAPTION,
 } from 'common/constant/string';
-import GoogleLoginButton from 'components/ui/GoogleLoginButton';
+import GoogleLoginButton from 'components/common/GoogleLoginButton';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as checkers from 'util/signUpValidations';
@@ -78,10 +78,12 @@ const SignUp = (): React.ReactElement => {
         nicknameError ||
         passwordError
       ) {
-        email.length === 0 && emailFocus();
-        nickname.length === 0 && nicknameFocus();
-        password.length === 0 && passwordFocus();
-        password !== passwordCheck && passwordCheckFoucs();
+        email.length === 0 && emailFocus && emailFocus();
+        nickname.length === 0 && nicknameFocus && nicknameFocus();
+        password.length === 0 && passwordFocus && passwordFocus();
+        password !== passwordCheck &&
+          passwordCheckFoucs &&
+          passwordCheckFoucs();
         return;
       }
       fetchDispatch({ type: REQUEST, params: [{ email, nickname, password }] });

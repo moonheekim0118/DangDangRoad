@@ -1,11 +1,10 @@
 import React, {
-  useState,
-  useCallback,
   useRef,
   forwardRef,
   InputHTMLAttributes,
   useImperativeHandle,
 } from 'react';
+import { useValidation } from 'hooks';
 import { inputId, inputContents } from 'common/constant/input';
 import { inputRef } from 'types/Input';
 import * as S from './style';
@@ -22,8 +21,9 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const Input = (props: Props, ref: React.Ref<inputRef>): React.ReactElement => {
   const { id, required = false, validator, ...rest } = props;
   const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState<string>('');
-  const [error, setError] = useState<boolean>(false);
+  const [value, error, valueChangeHanlder, checkValidation] = useValidation({
+    validator,
+  });
 
   useImperativeHandle(
     ref,
@@ -36,22 +36,6 @@ const Input = (props: Props, ref: React.Ref<inputRef>): React.ReactElement => {
     }),
     [value, error]
   );
-
-  // onChange for Value
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = (e.target as HTMLInputElement).value;
-    setValue(target);
-    if (validator) {
-      !validator(target) ? setError(true) : setError(false);
-    }
-  }, []);
-
-  // check Validation if there is validator
-  const checkValidation = useCallback(() => {
-    if (validator) {
-      !validator(value) ? setError(true) : setError(false);
-    }
-  }, [value]);
 
   return (
     <S.Container>
@@ -67,7 +51,7 @@ const Input = (props: Props, ref: React.Ref<inputRef>): React.ReactElement => {
         autoCapitalize="off"
         spellCheck="false"
         value={value}
-        onChange={onChange}
+        onChange={valueChangeHanlder}
         onFocus={checkValidation}
         {...rest}
       />
