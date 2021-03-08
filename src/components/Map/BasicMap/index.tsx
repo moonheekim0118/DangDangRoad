@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useElement } from 'hooks';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface Props {
   /** coordination for get Position of map to draw */
@@ -29,12 +29,7 @@ const Map = ({ coordX, coordY }: Props) => {
     }
   }, [container, coordX, coordY]);
 
-  return <Container id="map"></Container>;
+  return <S.Container id="map"></S.Container>;
 };
-
-const Container = styled.div`
-  width: 100%;
-  height: 50%;
-`;
 
 export default Map;

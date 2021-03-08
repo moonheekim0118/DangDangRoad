@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useElement } from 'hooks';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface Props {
   /** Modal's inner contents */
@@ -22,24 +22,12 @@ const Modal = ({
   return showModal && root
     ? ReactDOM.createPortal(
         <>
-          <Overlay onClick={modalHandler} />
+          <S.Overlay onClick={modalHandler} />
           {children}
         </>,
         root
       )
     : null;
 };
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 6000;
-`;
 
 export default Modal;

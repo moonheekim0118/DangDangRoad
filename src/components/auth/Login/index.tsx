@@ -9,14 +9,14 @@ import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signIn } from 'api/sign';
 import { NOT_FULL_INFO_ERROR } from 'common/constant/string';
-import routes from 'common/constant/routes';
-import Router from 'next/router';
-import GoogleLoginButton from 'components/ui/GoogleLoginButton';
 import { inputRef, defaultRef } from 'types/Input';
-import { Input, Button } from 'atoms';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import { inputId } from 'common/constant/input';
+import { Input, Button } from 'atoms';
+import routes from 'common/constant/routes';
+import Router from 'next/router';
+import GoogleLoginButton from 'components/ui/GoogleLoginButton';
 import * as S from '../style';
 
 const Login = (): React.ReactElement => {

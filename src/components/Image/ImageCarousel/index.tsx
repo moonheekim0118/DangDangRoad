@@ -2,8 +2,7 @@ import React from 'react';
 import Modal from 'components/ui/Modal';
 import PrevNextButton from 'components/ui/PrevNextButton';
 import { useImageSlide } from 'hooks';
-import { baseModalStyle } from 'common/style/baseStyle';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface Props {
   /** image Url list to show */
@@ -28,36 +27,17 @@ const ImageCarousel = ({
   });
   return (
     <Modal showModal={showModal} modalHandler={modalHanlder}>
-      <Containter>
+      <S.Containter>
         <PrevNextButton
           prevHandler={data.toPrev}
           hasPrev={true}
           nextHandler={data.toNext}
           hasNext={true}
         />
-        <Image src={imageList[data.index]} />
-      </Containter>
+        <S.Image src={imageList[data.index]} />
+      </S.Containter>
     </Modal>
   );
 };
-
-const Containter = styled.div`
-  width: 50%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  ${baseModalStyle}
-
-  @media only screen and (max-width: 780px) {
-    width: 80%;
-  }
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 80%;
-  padding: 20px;
-  object-fit: cover;
-`;
 
 export default ImageCarousel;

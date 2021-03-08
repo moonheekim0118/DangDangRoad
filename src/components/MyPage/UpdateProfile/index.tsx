@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { useUpdateProfile } from 'hooks';
 import { Avatar, Button, Input, Icon } from 'atoms';
@@ -7,8 +6,8 @@ import { inputId } from 'common/constant/input';
 import { UserType, MutateType } from 'types/User';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { SAVE_CAPTION } from 'common/constant/string';
-import styled from '@emotion/styled';
-import * as S from '../style';
+import { ContentsContainer } from '../style';
+import * as S from './style';
 
 interface Props {
   /** user data */
@@ -21,10 +20,10 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   const data = useUpdateProfile({ user, mutate });
 
   return (
-    <S.ContentsContainer>
+    <ContentsContainer>
       <div>
-        <AvatarEditor />
-        <IconContainer>
+        <S.AvatarEditor />
+        <S.IconContainer>
           <input
             type="file"
             multiple
@@ -36,10 +35,10 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
           <Icon
             icon={faPlus}
             className="uploadIcon"
-            css={iconStyle}
+            css={S.iconStyle}
             onClick={data.uploaderClickHanlder}
           />
-        </IconContainer>
+        </S.IconContainer>
         <Avatar imageUrl={data.imageUrl[0]} size="large" />
       </div>
       <Input
@@ -57,49 +56,8 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         onClick={data.saveHandler}>
         {SAVE_CAPTION}
       </Button>
-    </S.ContentsContainer>
+    </ContentsContainer>
   );
 };
-
-const iconStyle = css`
-  width: 45px;
-  height: 45px;
-  color: #fff;
-  cursor: pointer;
-`;
-
-const IconContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1600;
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: rgba(244, 244, 244, 0.3);
-  }
-`;
-
-const AvatarEditor = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 1500;
-`;
 
 export default UpdateProfile;

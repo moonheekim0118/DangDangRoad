@@ -4,14 +4,10 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import GoogleLoginButton from 'components/ui/GoogleLoginButton';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
 import { inputRef, defaultRef } from 'types/Input';
-import routes from 'common/constant/routes';
-import Router from 'next/router';
-import * as checkers from 'util/signUpValidations';
 import { Input, Button } from 'atoms';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { inputId } from 'common/constant/input';
@@ -19,6 +15,10 @@ import {
   MENU_SIGNUP_TITLE,
   SIGNUP_BUTTON_CAPTION,
 } from 'common/constant/string';
+import GoogleLoginButton from 'components/ui/GoogleLoginButton';
+import routes from 'common/constant/routes';
+import Router from 'next/router';
+import * as checkers from 'util/signUpValidations';
 import * as S from '../style';
 
 const SignUp = (): React.ReactElement => {

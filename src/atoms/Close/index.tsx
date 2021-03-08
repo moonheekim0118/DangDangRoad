@@ -1,8 +1,7 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { Icon } from 'atoms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import styled from '@emotion/styled';
+import * as S from './style';
 
 interface Props {
   closeHanlder: () => void;
@@ -10,30 +9,10 @@ interface Props {
 
 const Close = ({ closeHanlder }: Props) => {
   return (
-    <Container onClick={closeHanlder}>
-      <Icon icon={faTimes} className="closeIcon" css={iconStyle} />
-    </Container>
+    <S.Container onClick={closeHanlder}>
+      <Icon icon={faTimes} className="closeIcon" css={S.iconStyle} />
+    </S.Container>
   );
 };
-
-const iconStyle = css`
-  width: 25px;
-  height: 25px;
-`;
-
-const Container = styled.div`
-  width: 65px;
-  height: 65px;
-  text-align: center;
-  border-radius: 50%;
-  padding: 20px;
-  color: black;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(255, 0, 0, 0.3);
-  }
-`;
 
 export default Close;
