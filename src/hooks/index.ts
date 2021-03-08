@@ -16,5 +16,4 @@ export { default as useInfiniteScroll } from './common/useInfiniteScroll';
 export { default as useAllReviews } from './data/useAllReviews';
 export { default as useQueryReviews } from './data/useQueryReviews';
 export { default as useSinglePostModal } from './controller/useSinglePostModal';
-export { default as useSearchPlace } from './controller/useSearchPlace';
 export { default as usePasswordCheck } from './controller/usePasswordCheck';

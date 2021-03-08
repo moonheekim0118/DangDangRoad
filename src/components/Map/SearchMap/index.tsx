@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from 'components/common/SearchBar';
+import SearchBar from 'components/ui/SearchBar';
 import { useSearchMap } from 'hooks';
 import { PlaceType } from 'types/Map';
 import { MAP_SEARCH_PLACEHOLDER } from 'common/constant/string';

@@ -1,7 +1,13 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  InputHTMLAttributes,
+} from 'react';
+import { useInput } from 'hooks';
 import { Icon, Button } from 'atoms';
 import { SEARCH_BUTTON_CAPTION } from 'common/constant/string';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { inputRef } from 'types/Input';
 import * as S from './style';
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -13,12 +19,19 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   submitHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
 }
 
-const SearchBar = (props: Props): React.ReactElement => {
+const SearchBar = (
+  props: Props,
+  ref: React.Ref<inputRef>
+): React.ReactElement => {
   const { color, focus, submitHandler, ...rest } = props;
 
   /** if it has focus effects, define foucsBack color and fontColor */
   const focusBack = focus ? (color === 'blue' ? 'white' : 'blue') : undefined;
   const focusFont = focus ? color : undefined;
+
+  const [value, valueChangeHandler] = useInput();
+
+  useImperativeHandle(ref, () => ({ value }), [value]);
 
   return (
     <S.Form>
@@ -27,6 +40,8 @@ const SearchBar = (props: Props): React.ReactElement => {
         color={color}
         focusBackground={focusBack}
         focusFont={focusFont}
+        value={value}
+        onChange={valueChangeHandler}
         {...rest}
       />
       <S.IconContainer color={color}>
@@ -41,4 +56,4 @@ const SearchBar = (props: Props): React.ReactElement => {
   );
 };
 
-export default SearchBar;
+export default forwardRef(SearchBar);

@@ -1,9 +1,9 @@
 import React from 'react';
 import Logo from 'components/ui/Logo';
-import SearchBar from 'components/common/SearchBar';
 import Navigation from 'components/common/Navigation';
+import PlaceSearch from 'components/common/PlaceSearch';
 import { navLinkStyle, navLinkStyleWithMargin } from 'common/style/baseStyle';
-import { useSignOut, useToggle, useSearchPlace } from 'hooks';
+import { useSignOut, useToggle } from 'hooks';
 import { Icon, Button } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,6 @@ import {
   MENU_LOGOUT_TITLE,
   MENU_LOGIN_TITLE,
   MENU_SIGNUP_TITLE,
-  REVIEW_SEARCH_PLACEHODLER,
 } from 'common/constant/string';
 import { useRouter } from 'next/router';
 import routes from 'common/constant/routes';
@@ -24,7 +23,6 @@ const Header = (): React.ReactElement => {
   const signOutHandler = useSignOut();
   const { isLoaded, isLoggedIn } = useLoginInfoState();
   const [openNavigation, NavigationToggler] = useToggle();
-  const searchProps = useSearchPlace();
 
   return (
     <S.Container>
@@ -40,12 +38,7 @@ const Header = (): React.ReactElement => {
         <Logo color="white" />
       </S.LogoContainer>
       <S.SearchBarContainer>
-        <SearchBar
-          color="blue"
-          placeholder={REVIEW_SEARCH_PLACEHODLER}
-          focus={true}
-          {...searchProps}
-        />
+        <PlaceSearch />
       </S.SearchBarContainer>
       <S.SideContainer>
         {isLoaded && (
@@ -86,12 +79,7 @@ const Header = (): React.ReactElement => {
       </S.SideContainer>
       {openNavigation && (
         <S.NavigationContainer>
-          <SearchBar
-            color="blue"
-            focus={true}
-            placeholder={REVIEW_SEARCH_PLACEHODLER}
-            {...searchProps}
-          />
+          <PlaceSearch />
           {pathname !== routes.SIGNUP && pathname !== routes.LOGIN && (
             <Navigation isLoggedIn={isLoggedIn} />
           )}
