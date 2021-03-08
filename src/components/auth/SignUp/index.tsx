@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
+import { usePasswordCheck } from 'hooks';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -26,8 +27,11 @@ const SignUp = (): React.ReactElement => {
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch(signUp);
   const emailRef = useRef<inputRef>(defaultRef);
   const nicknameRef = useRef<inputRef>(defaultRef);
-  const passwordRef = useRef<inputRef>(defaultRef);
-  const passwordCheckRef = useRef<inputRef>(defaultRef);
+  const [
+    passwordRef,
+    passwordCheckRef,
+    passwordCheckValidator,
+  ] = usePasswordCheck();
 
   useEffect(() => {
     switch (fetchResult.type) {
@@ -39,13 +43,6 @@ const SignUp = (): React.ReactElement => {
         setDefault();
     }
   }, [fetchResult]);
-
-  const passwordCheckValidator = useCallback(
-    (value: string) => {
-      return value === passwordRef.current.value;
-    },
-    [passwordRef]
-  );
 
   /** submit handler */
   const SubmitHanlder = useCallback(
