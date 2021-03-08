@@ -6,7 +6,6 @@ export { default as useToggle } from './common/useToggle';
 export { default as useApiFetch } from './common/useApiFetch';
 export { default as useValidation } from './common/useValidation';
 export { default as useSignOut } from './controller/useSignOut';
-export { default as useUpdateProfile } from './controller/useUpdateProfile';
 export { default as useWritePost } from './controller/useWritePost';
 export { default as useSearchMap } from './controller/useSearchMap';
 export { default as useImageSlide } from './controller/useImageSlide';
