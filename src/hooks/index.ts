@@ -10,7 +10,6 @@ export { default as useWritePost } from './controller/useWritePost';
 export { default as useSearchMap } from './controller/useSearchMap';
 export { default as useImageSlide } from './controller/useImageSlide';
 export { default as useImageUpload } from './controller/useImageUpload';
-export { default as useDestroyAccount } from './controller/useDestroyAccount';
 export { default as useSingleReview } from './data/useSingleReview';
 export { default as useUser } from './data/useUser';
 export { default as useInfiniteScroll } from './common/useInfiniteScroll';
