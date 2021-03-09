@@ -17,7 +17,7 @@ interface Props {
 }
 
 const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
-  const pathname = Router.pathname;
+  const query = Router.query.page_name;
   return (
     <S.Container>
       {datas.map((v) => (
@@ -25,10 +25,12 @@ const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
           key={v.key}
           onClick={onClick}
           warn={v.title === '계정 삭제'}
-          visiting={pathname === v.href}>
+          visiting={`/myPage/${query}` === v.href}>
           {v.icon}
           {v.href ? (
-            <Button href={v.href}>{v.title}</Button>
+            <Button href={v.href} linkStyle={S.linkStyle}>
+              {v.title}
+            </Button>
           ) : (
             <span>{v.title}</span>
           )}
