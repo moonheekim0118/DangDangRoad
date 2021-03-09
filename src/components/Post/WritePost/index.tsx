@@ -8,7 +8,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import RadioBox from 'components/ui/RadioBox';
+import RadioBox from 'components/common/RadioBox';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { SearchMap } from 'components/map';
 import { ImagePreview } from 'components/image';
