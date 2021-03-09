@@ -7,7 +7,7 @@ interface Props {
 
 const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
   const [index, setIndex] = useState<number>(initialIndex);
-  const slideRef = useRef<any>(null);
+  const slideRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (slideRef.current) {
@@ -17,19 +17,11 @@ const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
   }, [index]);
 
   const toPrev = useCallback(() => {
-    if (index === 0) {
-      setIndex(totalSlide - 1);
-    } else {
-      setIndex(index - 1);
-    }
+    index === 0 ? setIndex(totalSlide - 1) : setIndex(index - 1);
   }, [index]);
 
   const toNext = useCallback(() => {
-    if (index === totalSlide - 1) {
-      setIndex(0);
-    } else {
-      setIndex(index + 1);
-    }
+    index === totalSlide - 1 ? setIndex(0) : setIndex(index + 1);
   }, [index]);
 
   const changeIndexHandler = useCallback(
