@@ -12,7 +12,7 @@ const useInput = (initialValue: string = '') => {
       const target = (e.target as HTMLInputElement).value;
       setValue(target);
     },
-    [value]
+    []
   );
 
   return [value, valueChangeHanlder, setValue] as const;

@@ -1,33 +1,145 @@
-import React from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
+import { useNotificationDispatch } from 'context/Notification';
+import { useImageUpload } from 'hooks';
+import { PlaceType } from 'types/Map';
+import { createReview, updateReview } from 'api/review';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import RadioBox from 'components/ui/RadioBox';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { SearchMap } from 'components/map';
 import { ImagePreview } from 'components/image';
-import { useWritePost } from 'hooks';
 import { Title, Button } from 'atoms';
 import { reviewData } from 'types/API';
 import {
   WRITE_REVIEW_TITLE,
   IMAGE_UPLOAD_LABEL,
   IMAGE_UPLOAD_DESC,
-  FREE_TEXT_LABEL,
   RADIO_BOX_LABEL,
   RADIO_TITLE_PARKING_LOT,
   RADIO_TITLE_OFFLEASH,
   RADIO_TITLE_RECOMMENDATION,
   SAVE_CAPTION,
   RADIO_LIST,
+  NOT_SELECT_PLACE_ERROR,
+  FREE_TEXT_LIMIT_ERROR,
+  RAIDO_HAS_DONTKNOW_VALUE,
+  RAIDO_AVAILABLE_DONTKNOW_VALUE,
+  RAIDO_RECOMMENDATION_SOSO_VALUE,
 } from 'common/constant/string';
-import { FREE_TEXT_LIMIT } from 'common/constant/number';
+import { inputRef, defaultRef } from 'types/Input';
+import TextArea from 'components/post/TextArea';
+import routes from 'common/constant/routes';
+import Router from 'next/router';
+import * as Action from 'action';
 import * as S from './style';
 
 interface Props {
   mode: 'create' | 'update';
   initialData?: reviewData;
+  userId: string;
 }
 
-const WritePost = ({ mode, initialData }: Props) => {
-  const data = useWritePost({ mode, initialData });
+const WritePost = ({ mode, initialData, userId }: Props) => {
+  const dispatch = useNotificationDispatch();
+
+  const freeTextRef = useRef<inputRef>(defaultRef);
+  const hasParkingLotRef = useRef<inputRef>(defaultRef);
+  const hasOffLeashRef = useRef<inputRef>(defaultRef);
+  const recommendationRef = useRef<inputRef>(defaultRef);
+
+  const [fetchResult, fetchDispatch] = useApiFetch(
+    mode === 'create' ? createReview : updateReview
+  );
+  // const [hasParkingLot, hasParkingLotHandler] = useInput(
+  //   initialData ? initialData.hasParkingLot : RAIDO_HAS_DONTKNOW_VALUE
+  // );
+  // const [hasOffLeash, hasOffLeashHandler] = useInput(
+  //   initialData ? initialData.hasOffLeash : RAIDO_AVAILABLE_DONTKNOW_VALUE
+  // );
+  // const [recommendation, recommendationHandler] = useInput(
+  //   initialData ? initialData.recommendation : RAIDO_RECOMMENDATION_SOSO_VALUE
+  // );
+
+  const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(
+    initialData ? initialData.placeInfo : null
+  );
+
+  const [
+    imageInput,
+    imageUrl,
+    uploaderClickHanlder,
+    uploadImageHanlder,
+    removeImageHanlder,
+  ] = useImageUpload({
+    initialImages: initialData?.imageList ? initialData.imageList : [],
+    imageLimit: 3,
+    dispatch,
+  });
+
+  useEffect(() => {
+    switch (fetchResult.type) {
+      case SUCCESS:
+        Router.push(routes.SEARCH);
+        break;
+      case FAILURE:
+        dispatch(Action.showError(fetchResult.error));
+    }
+  }, [fetchResult]);
+
+  const selectPlaceHandler = useCallback(
+    (place: PlaceType) => () => {
+      setSelectedPlace(place);
+    },
+    []
+  );
+
+  // sumbit data to DataBase Handler
+  const submitHandler = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      const { value: freeText, error: freeTextError } = freeTextRef.current;
+      const { value: hasParkingLot } = hasParkingLotRef.current;
+      const { value: hasOffLeash } = hasOffLeashRef.current;
+      const { value: recommendation } = recommendationRef.current;
+
+      if (!selectedPlace) {
+        return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
+      } else if (freeTextError) {
+        return dispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
+      }
+      const data = {
+        userId,
+        hasParkingLot,
+        hasOffLeash,
+        recommendation,
+        freeText,
+        imageList: imageUrl,
+        placeInfo: {
+          address_name: selectedPlace.address_name,
+          place_name: selectedPlace.place_name,
+          x: selectedPlace.x,
+          y: selectedPlace.y,
+        },
+      };
+      fetchDispatch({
+        type: REQUEST,
+        params: mode === 'create' ? [data] : [initialData?.docId, data],
+      });
+    },
+    [
+      hasParkingLotRef,
+      hasOffLeashRef,
+      recommendationRef,
+      selectedPlace,
+      freeTextRef,
+      imageUrl,
+    ]
+  );
+
   return (
     <S.Container>
       <S.TopContainer>
@@ -35,15 +147,15 @@ const WritePost = ({ mode, initialData }: Props) => {
       </S.TopContainer>
       <S.MainContainer>
         <SearchMap
-          selectPlaceHandler={data.selectPlaceHandler}
-          nowSelectedAddress={data.selectedPlace?.place_name}
-          initialCoordX={data.selectedPlace?.x}
-          initialCoordY={data.selectedPlace?.y}
+          selectPlaceHandler={selectPlaceHandler}
+          nowSelectedAddress={selectedPlace?.address_name}
+          initialCoordX={selectedPlace?.x}
+          initialCoordY={selectedPlace?.y}
         />
         <S.ReviewContainer>
-          <S.PlaceName>{data.selectedPlace?.place_name}</S.PlaceName>
-          {data.imageUrl.length <= 0 ? (
-            <S.UploadImageButton onClick={data.uploaderClickHanlder}>
+          <S.PlaceName>{selectedPlace?.place_name}</S.PlaceName>
+          {imageUrl.length <= 0 ? (
+            <S.UploadImageButton onClick={uploaderClickHanlder}>
               {IMAGE_UPLOAD_LABEL} <br />
               {IMAGE_UPLOAD_DESC}
               <input
@@ -51,49 +163,35 @@ const WritePost = ({ mode, initialData }: Props) => {
                 multiple
                 name="image"
                 hidden
-                ref={data.imageInput}
-                onChange={data.uploadImageHanlder('new')}
+                ref={imageInput}
+                onChange={uploadImageHanlder('new')}
               />
             </S.UploadImageButton>
           ) : (
             <ImagePreview
-              imageList={data.imageUrl}
-              uploaderClickHanlder={data.uploaderClickHanlder}
-              imageInput={data.imageInput}
-              imageUploadHanlder={data.uploadImageHanlder('add')}
-              imageRemoveHanlder={data.removeImageHanlder}
+              imageList={imageUrl}
+              uploaderClickHanlder={uploaderClickHanlder}
+              imageInput={imageInput}
+              imageUploadHanlder={uploadImageHanlder('add')}
+              imageRemoveHanlder={removeImageHanlder}
             />
           )}
-          <S.Description>
-            <S.Label htmlFor="description">{FREE_TEXT_LABEL}</S.Label>
-            <S.LengthCounter error={data.freeTextError}>
-              {data.freeText.length}/{FREE_TEXT_LIMIT}
-            </S.LengthCounter>
-            <S.TextArea
-              id="description"
-              cols={15}
-              value={data.freeText}
-              onChange={data.freeTextHandler}
-            />
-          </S.Description>
+          <TextArea cols={15} ref={freeTextRef} />
           <S.PlaceInfo>
             <S.Label>{RADIO_BOX_LABEL}</S.Label>
             <S.RadioContainer>
               <RadioBox
-                selectedValue={data.hasParkingLot}
-                selectHandler={data.hasParkingLotHandler}
+                ref={hasParkingLotRef}
                 title={RADIO_TITLE_PARKING_LOT}
                 list={RADIO_LIST.has}
               />
               <RadioBox
-                selectedValue={data.hasOffLeash}
-                selectHandler={data.hasOffLeashHandler}
+                ref={hasOffLeashRef}
                 title={RADIO_TITLE_OFFLEASH}
                 list={RADIO_LIST.available}
               />
               <RadioBox
-                selectedValue={data.recommendation}
-                selectHandler={data.recommendationHandler}
+                ref={recommendationRef}
                 title={RADIO_TITLE_RECOMMENDATION}
                 list={RADIO_LIST.recomendation}
               />
@@ -104,7 +202,7 @@ const WritePost = ({ mode, initialData }: Props) => {
           <Button
             className="saveBtn"
             css={saveBtnStyle}
-            onClick={data.submitHandler}>
+            onClick={submitHandler}>
             {SAVE_CAPTION}
           </Button>
         </S.ButtonContainer>

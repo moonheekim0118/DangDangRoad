@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { useInput, useValidation, useImageUpload } from 'hooks';
@@ -45,19 +45,16 @@ const useWritePost = ({ mode, initialData }: Props) => {
   const [recommendation, recommendationHandler] = useInput(
     initialData ? initialData.recommendation : RAIDO_RECOMMENDATION_SOSO_VALUE
   );
+  /** Free text Input value with Validation of Text Length */
+  const [freeText, freeTextError, freeTextHandler] = useValidation({
+    initialValue: initialData ? initialData.freeText : '',
+    validator: freeTextLengthCheck,
+  });
+
   /** selected Place */
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(
     initialData ? initialData.placeInfo : null
   );
-  /** Free text Input value with Validation of Text Length */
-  const {
-    value: freeText,
-    error: freeTextError,
-    valueChangeHanlder: freeTextHandler,
-  } = useValidation({
-    initialValue: initialData ? initialData.freeText : '',
-    characterCheck: freeTextLengthCheck,
-  });
 
   const [
     imageInput,
@@ -125,7 +122,6 @@ const useWritePost = ({ mode, initialData }: Props) => {
       freeText,
       freeTextError,
       imageUrl,
-      selectedPlace,
     ]
   );
 

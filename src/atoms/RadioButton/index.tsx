@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import * as S from './style';
 
+/**extends InputHTMLAttributes<HTMLInputElement> */
 interface Props {
   /** id for input */
   id: string;
   /** value for input */
   value: string;
-  /** change Hanlder function */
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  /** to know if this radio button is selected one */
-  isSelected: boolean;
+  checked: boolean;
 }
-const RadioButton = ({ id, value, onChange, isSelected }: Props) => {
+const RadioButton = (props: Props) => {
+  const { id, value, onChange, checked, ...rest } = props;
+
   return (
     <S.Label htmlFor={id}>
       {value}
       <S.Input
         type="radio"
-        id={id}
         value={value}
         onChange={onChange}
-        checked={isSelected}
+        checked={checked}
       />
       <S.CheckMark />
     </S.Label>

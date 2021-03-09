@@ -18,3 +18,7 @@ export interface PaginationType {
   nextPage: () => void;
   prevPage: () => void;
 }
+
+export interface MapRef {
+  value: PlaceType | null;
+}
