@@ -5,6 +5,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
+import Loading from 'components/ui/Loading';
 import { uploadImage } from 'api/storage';
 import { showError } from 'action';
 import { IMAGE_LIMIT_ERROR } from 'common/constant/string';
@@ -73,7 +74,7 @@ const ImageUploader = ({
 
   return (
     <Container onClick={uploaderClickHanlder}>
-      {children}
+      {fetchResult.type === REQUEST ? <Loading /> : children}
       <input
         type="file"
         multiple
