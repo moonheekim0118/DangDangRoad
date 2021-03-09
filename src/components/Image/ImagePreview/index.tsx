@@ -34,15 +34,17 @@ const ImagePreview = ({
   return (
     <S.Container>
       {imageList.length < POST_IMAGE_LIMIT && (
-        <ImageUploader
-          imageUrl={imageList}
-          imageUrlChangeHandler={imageUrlChangeHandler}
-          imageLimit={POST_IMAGE_LIMIT}
-          type="add">
-          <S.ImagePlusButton>
-            <Icon icon={faPlus} className="addImgIcon" css={S.iconStyle} />
-          </S.ImagePlusButton>
-        </ImageUploader>
+        <S.ImageContainer>
+          <ImageUploader
+            imageUrl={imageList}
+            imageUrlChangeHandler={imageUrlChangeHandler}
+            imageLimit={POST_IMAGE_LIMIT}
+            type="add">
+            <S.ImagePlusButton>
+              <Icon icon={faPlus} className="addImgIcon" css={S.iconStyle} />
+            </S.ImagePlusButton>
+          </ImageUploader>
+        </S.ImageContainer>
       )}
       {imageList &&
         imageList.map((v, i) => (
