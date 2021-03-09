@@ -14,3 +14,4 @@ export { default as useAllReviews } from './data/useAllReviews';
 export { default as useQueryReviews } from './data/useQueryReviews';
 export { default as useSinglePostModal } from './controller/useSinglePostModal';
 export { default as usePasswordCheck } from './controller/usePasswordCheck';
+export { default as useHandleImage } from './controller/useHandleImage';

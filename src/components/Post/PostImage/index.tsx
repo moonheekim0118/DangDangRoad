@@ -1,9 +1,5 @@
-import React, {
-  useState,
-  useCallback,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
+import { useHandleImage } from 'hooks';
 import { ImageUploader, ImagePreview } from 'components/image';
 import { IMAGE_UPLOAD_LABEL, IMAGE_UPLOAD_DESC } from 'common/constant/string';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
@@ -18,21 +14,12 @@ const PostImage = (
   { initialImageUrl }: Props,
   ref: React.Ref<RefType<string[]>>
 ) => {
-  const [imageUrl, setImageUrl] = useState<string[]>(initialImageUrl);
+  const [imageUrl, imageUrlChangeHandler, imageRemoveHanlder] = useHandleImage(
+    initialImageUrl
+  );
 
   useImperativeHandle(ref, () => ({ value: imageUrl }), [imageUrl]);
 
-  const imageUrlChangeHandler = useCallback((urls: string[]) => {
-    setImageUrl(urls);
-  }, []);
-
-  const imageRemoveHanlder = useCallback(
-    (index: number) => () => {
-      const filtered = imageUrl.filter((_, i) => i !== index);
-      setImageUrl(filtered);
-    },
-    [imageUrl]
-  );
   return (
     <>
       {imageUrl.length <= 0 ? (

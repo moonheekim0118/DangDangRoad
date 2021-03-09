@@ -1,10 +1,6 @@
-import React, {
-  useState,
-  useCallback,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { Icon, Avatar } from 'atoms';
+import { useHandleImage } from 'hooks';
 import { ImageUploader } from 'components/image';
 import { RefType } from 'types/Ref';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -18,12 +14,8 @@ const ProfilePicUpload = (
   { initImageUrl }: Props,
   ref: React.Ref<RefType<string[]>>
 ) => {
-  const [imageUrl, setImageUrl] = useState<string[]>([initImageUrl]);
+  const [imageUrl, imageUrlChangeHandler] = useHandleImage([initImageUrl]);
   useImperativeHandle(ref, () => ({ value: imageUrl }), [imageUrl]);
-
-  const imageUrlChangeHandler = useCallback((url: string[]) => {
-    setImageUrl(url);
-  }, []);
 
   return (
     <div>
