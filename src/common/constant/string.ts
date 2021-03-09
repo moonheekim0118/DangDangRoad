@@ -35,6 +35,16 @@ export const MYPAGE_MENU_UPDATE_PASSWORD = '비밀번호 변경';
 export const MYPAGE_MENU_UPDATE_PROFILE = '회원정보 변경';
 export const MYPAGE_MENU_DESTROY_ACCOUNT = '계정 삭제';
 
+export const MYPAGE_DEFAULT_QUERY = 'myReviews';
+export const MYPAGE_UPDATE_PASSWORD_QUERY = 'updatePassword';
+export const MYPAGE_UPDATE_PROFILE_QUERY = 'updateProfile';
+
+export const MYPAGE_NAVIGATOR = {
+  myReviews: MYPAGE_MENU_DEFAULT,
+  updatePassword: MYPAGE_MENU_UPDATE_PASSWORD,
+  updateProfile: MYPAGE_MENU_UPDATE_PROFILE,
+};
+
 export const WRITE_REVIEW_BUTTON_CAPTION = '리뷰 작성하기';
 export const WRITE_REVIEW_TITLE = '리뷰 작성';
 export const IMAGE_UPLOAD_LABEL = '사진 업로드📸';

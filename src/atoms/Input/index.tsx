@@ -14,14 +14,17 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   id: inputId;
   /** check if Input filed is required */
   required?: boolean;
+  /** initValue */
+  initValue?: string;
   /** validator */
   validator?: (value: string) => boolean;
 }
 
 const Input = (props: Props, ref: React.Ref<InputRef>): React.ReactElement => {
-  const { id, required = false, validator, ...rest } = props;
+  const { id, required = false, initValue, validator, ...rest } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, error, valueChangeHanlder, checkValidation] = useValidation({
+    initialValue: initValue,
     validator,
   });
 

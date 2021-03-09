@@ -85,6 +85,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         required={true}
         ref={nicknameRef}
         validator={nicknameValidatorForUpdate}
+        initValue={user.nickname}
       />
       <Button
         className="saveBtn"
