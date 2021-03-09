@@ -27,7 +27,7 @@ import {
   RAIDO_AVAILABLE_DONTKNOW_VALUE,
   RAIDO_RECOMMENDATION_SOSO_VALUE,
 } from 'common/constant/string';
-import { ImageRef, defaultRef as imageDefaultRef } from 'types/Image';
+import { RefType, defaultRef as imageDefaultRef } from 'types/Ref';
 import { inputRef, defaultRef as inputDefaultRef } from 'types/Input';
 import TextArea from 'components/post/TextArea';
 import routes from 'common/constant/routes';
@@ -48,8 +48,10 @@ const WritePost = ({ mode, initialData, userId }: Props) => {
   const hasParkingLotRef = useRef<inputRef>(inputDefaultRef);
   const hasOffLeashRef = useRef<inputRef>(inputDefaultRef);
   const recommendationRef = useRef<inputRef>(inputDefaultRef);
-  const imageUrlRef = useRef<ImageRef>(
-    imageDefaultRef(initialData?.imageList ? initialData.imageList : [])
+  const imageUrlRef = useRef<RefType<string[]>>(
+    imageDefaultRef<string[]>(
+      initialData?.imageList ? initialData.imageList : []
+    )
   );
 
   const [fetchResult, fetchDispatch] = useApiFetch(

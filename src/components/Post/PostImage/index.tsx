@@ -7,14 +7,17 @@ import React, {
 import { ImageUploader, ImagePreview } from 'components/image';
 import { IMAGE_UPLOAD_LABEL, IMAGE_UPLOAD_DESC } from 'common/constant/string';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
-import { ImageRef } from 'types/Image';
+import { RefType } from 'types/Ref';
 import * as S from './style';
 
 interface Props {
   initialImageUrl: string[];
 }
 
-const PostImage = ({ initialImageUrl }: Props, ref: React.Ref<ImageRef>) => {
+const PostImage = (
+  { initialImageUrl }: Props,
+  ref: React.Ref<RefType<string[]>>
+) => {
   const [imageUrl, setImageUrl] = useState<string[]>(initialImageUrl);
 
   useImperativeHandle(ref, () => ({ value: imageUrl }), [imageUrl]);
