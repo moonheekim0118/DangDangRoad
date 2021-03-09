@@ -5,4 +5,3 @@ export { default as Input } from './Input';
 export { default as Tag } from './Tag';
 export { default as Title } from './Title';
 export { default as Close } from './Close';
-export { default as RadioButton } from './RadioButton';

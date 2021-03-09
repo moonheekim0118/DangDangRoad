@@ -54,15 +54,6 @@ const WritePost = ({ mode, initialData, userId }: Props) => {
   const [fetchResult, fetchDispatch] = useApiFetch(
     mode === 'create' ? createReview : updateReview
   );
-  // const [hasParkingLot, hasParkingLotHandler] = useInput(
-  //   initialData ? initialData.hasParkingLot : RAIDO_HAS_DONTKNOW_VALUE
-  // );
-  // const [hasOffLeash, hasOffLeashHandler] = useInput(
-  //   initialData ? initialData.hasOffLeash : RAIDO_AVAILABLE_DONTKNOW_VALUE
-  // );
-  // const [recommendation, recommendationHandler] = useInput(
-  //   initialData ? initialData.recommendation : RAIDO_RECOMMENDATION_SOSO_VALUE
-  // );
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(
     initialData ? initialData.placeInfo : null
@@ -184,16 +175,31 @@ const WritePost = ({ mode, initialData, userId }: Props) => {
                 ref={hasParkingLotRef}
                 title={RADIO_TITLE_PARKING_LOT}
                 list={RADIO_LIST.has}
+                initValue={
+                  initialData
+                    ? initialData.hasParkingLot
+                    : RAIDO_HAS_DONTKNOW_VALUE
+                }
               />
               <RadioBox
                 ref={hasOffLeashRef}
                 title={RADIO_TITLE_OFFLEASH}
                 list={RADIO_LIST.available}
+                initValue={
+                  initialData
+                    ? initialData.hasOffLeash
+                    : RAIDO_AVAILABLE_DONTKNOW_VALUE
+                }
               />
               <RadioBox
                 ref={recommendationRef}
                 title={RADIO_TITLE_RECOMMENDATION}
                 list={RADIO_LIST.recomendation}
+                initValue={
+                  initialData
+                    ? initialData.recommendation
+                    : RAIDO_RECOMMENDATION_SOSO_VALUE
+                }
               />
             </S.RadioContainer>
           </S.PlaceInfo>

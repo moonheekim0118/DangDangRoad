@@ -1,6 +1,5 @@
-import React, { useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { useInput } from 'hooks';
-import { RadioButton } from 'atoms';
 import { inputRef } from 'types/Input';
 import * as S from './style';
 
@@ -14,11 +13,16 @@ interface Props {
   title: string;
   /** raido buttons list */
   list: listType[];
+  /** initial value */
+  initValue: string;
 }
 // 여기에 initial props로 받아와서 input inital 값으로 넣어주기
 
-const RadioBox = ({ title, list }: Props, ref: React.Ref<inputRef>) => {
-  const [value, valueChangeHanlder] = useInput();
+const RadioBox = (
+  { title, list, initValue }: Props,
+  ref: React.Ref<inputRef>
+) => {
+  const [value, valueChangeHanlder] = useInput(initValue);
 
   useImperativeHandle(ref, () => ({ value }), [value]);
 
@@ -26,13 +30,17 @@ const RadioBox = ({ title, list }: Props, ref: React.Ref<inputRef>) => {
     <S.Container>
       <S.Title>{title}</S.Title>
       {list.map((v, i) => (
-        <RadioButton
-          id={v.id}
-          key={i}
-          value={v.value}
-          onChange={valueChangeHanlder}
-          checked={v.value === value}
-        />
+        <S.Label htmlFor={v.id} key={i}>
+          {v.value}
+          <S.Input
+            id={v.id}
+            type="radio"
+            value={v.value}
+            onChange={valueChangeHanlder}
+            checked={v.value === value}
+          />
+          <S.CheckMark />
+        </S.Label>
       ))}
     </S.Container>
   );
