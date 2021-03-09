@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useInput } from 'hooks';
-import { inputRef } from 'types/Input';
+import { InputRef } from 'types/Ref';
 import * as S from './style';
 
 interface listType {
@@ -16,11 +16,10 @@ interface Props {
   /** initial value */
   initValue: string;
 }
-// 여기에 initial props로 받아와서 input inital 값으로 넣어주기
 
 const RadioBox = (
   { title, list, initValue }: Props,
-  ref: React.Ref<inputRef>
+  ref: React.Ref<InputRef>
 ) => {
   const [value, valueChangeHanlder] = useInput(initValue);
 

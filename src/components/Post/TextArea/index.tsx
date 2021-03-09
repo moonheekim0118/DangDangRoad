@@ -5,14 +5,14 @@ import React, {
 } from 'react';
 import { useValidation } from 'hooks';
 import { freeTextLengthCheck } from 'util/reviewTextValidation';
-import { inputRef } from 'types/Input';
+import { InputRef } from 'types/Ref';
 import { FREE_TEXT_LABEL } from 'common/constant/string';
 import { FREE_TEXT_LIMIT } from 'common/constant/number';
 import * as S from './style';
 
 const TextArea = (
   props: TextareaHTMLAttributes<HTMLTextAreaElement>,
-  ref: React.Ref<inputRef>
+  ref: React.Ref<InputRef>
 ) => {
   const [value, error, valueChangeHanlder] = useValidation({
     validator: freeTextLengthCheck,

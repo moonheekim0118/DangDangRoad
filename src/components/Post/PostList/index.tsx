@@ -1,6 +1,6 @@
 import React from 'react';
 import { PreviewPost } from 'components/post';
-import { lightReviewData } from 'types/API';
+import { LightReviewData } from 'types/API';
 import { Tag } from 'atoms';
 import { DEFAULT_KEYWORD } from 'common/constant/string';
 import * as S from './style';
@@ -9,7 +9,7 @@ interface Props {
   /** search keyword */
   searchKeyword?: string;
   /** fetched datas to show */
-  reviewData: lightReviewData[];
+  reviewData: LightReviewData[];
   /** open Single Post */
   openSinglePost: (postId: string) => () => void;
 }

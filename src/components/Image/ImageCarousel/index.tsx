@@ -25,6 +25,7 @@ const ImageCarousel = ({
     initialIndex: startIdx,
     totalSlide: imageList.length,
   });
+
   return (
     <Modal showModal={showModal} modalHandler={modalHanlder}>
       <S.Containter>

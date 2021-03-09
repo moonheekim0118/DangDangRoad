@@ -1,5 +1,5 @@
 import React from 'react';
-import { reviewData } from 'types/API';
+import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { Button } from 'atoms';
@@ -19,7 +19,7 @@ import * as S from './style';
 
 interface Props {
   /** single Review Data */
-  data: reviewData;
+  data: ReviewData;
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */

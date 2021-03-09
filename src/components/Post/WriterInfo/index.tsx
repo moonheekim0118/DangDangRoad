@@ -1,11 +1,11 @@
 import React from 'react';
 import { Avatar } from 'atoms';
-import { userContents } from 'types/API';
+import { UserContents } from 'types/API';
 import formatDate from 'util/formatDate';
 import * as S from './style';
 
 interface Props {
-  userData: userContents;
+  userData: UserContents;
   createdAt: number;
 }
 

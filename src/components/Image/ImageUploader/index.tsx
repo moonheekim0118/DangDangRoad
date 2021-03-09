@@ -1,36 +1,49 @@
-import { useEffect, useCallback, useRef, useState } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
+import { useNotificationDispatch } from 'context/Notification';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
+import Loading from 'components/ui/Loading';
 import { uploadImage } from 'api/storage';
 import { showError } from 'action';
 import { IMAGE_LIMIT_ERROR } from 'common/constant/string';
+import { Container } from './style';
 
 interface Props {
-  /** initial image list */
-  initialImages: string[];
+  /** image Url list (state)  */
+  imageUrl: string[];
+  /** image Url change Hanlder */
+  imageUrlChangeHandler: (images: string[]) => void;
   /** uploadable image's number */
   imageLimit: number;
-  /** dispatch for alert */
-  dispatch: React.Dispatch<any>;
+  /** children */
+  children: React.ReactNode;
+  /** image uploader type */
+  type: 'add' | 'new';
 }
 
-const useImageUpload = ({ initialImages, imageLimit, dispatch }: Props) => {
+const ImageUploader = ({
+  imageUrl,
+  imageUrlChangeHandler,
+  imageLimit,
+  children,
+  type,
+}: Props) => {
+  const dispatch = useNotificationDispatch();
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<string[]>(
     uploadImage
   );
   const imageInput = useRef<HTMLInputElement>(null);
-  const [imageUrl, setImageUrl] = useState<string[]>(initialImages || []);
 
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
         if (fetchResult.data) {
           imageUrl.length + fetchResult.data.length <= imageLimit
-            ? setImageUrl(imageUrl.concat(fetchResult.data))
-            : setImageUrl(fetchResult.data);
+            ? imageUrlChangeHandler(imageUrl.concat(fetchResult.data))
+            : imageUrlChangeHandler(fetchResult.data);
         }
         setDefault();
         break;
@@ -47,7 +60,7 @@ const useImageUpload = ({ initialImages, imageLimit, dispatch }: Props) => {
 
   /** Upload Image Handler */
   const uploadImageHanlder = useCallback(
-    (type: 'new' | 'add') => (e) => {
+    (e) => {
       const files = e.target.files;
       const length =
         type === 'add' ? files.length + imageUrl.length : imageUrl.length;
@@ -59,22 +72,19 @@ const useImageUpload = ({ initialImages, imageLimit, dispatch }: Props) => {
     [imageUrl]
   );
 
-  /** remove Image Handler from imageList by Its index */
-  const removeImageHanlder = useCallback(
-    (index: number) => () => {
-      const filtered = imageUrl.filter((_, i) => i !== index);
-      setImageUrl(filtered);
-    },
-    [imageUrl]
+  return (
+    <Container onClick={uploaderClickHanlder}>
+      {fetchResult.type === REQUEST ? <Loading /> : children}
+      <input
+        type="file"
+        multiple
+        name="image"
+        hidden
+        ref={imageInput}
+        onChange={uploadImageHanlder}
+      />
+    </Container>
   );
-
-  return [
-    imageInput,
-    imageUrl,
-    uploaderClickHanlder,
-    uploadImageHanlder,
-    removeImageHanlder,
-  ] as const;
 };
 
-export default useImageUpload;
+export default ImageUploader;

@@ -9,7 +9,7 @@ import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signIn } from 'api/sign';
 import { NOT_FULL_INFO_ERROR } from 'common/constant/string';
-import { inputRef, defaultRef } from 'types/Input';
+import { InputRef, inputDefaultRef } from 'types/Ref';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import { inputId } from 'common/constant/input';
@@ -21,8 +21,8 @@ import * as S from '../style';
 
 const Login = (): React.ReactElement => {
   const dispatch = useNotificationDispatch();
-  const emailRef = useRef<inputRef>(defaultRef);
-  const passwordRef = useRef<inputRef>(defaultRef);
+  const emailRef = useRef<InputRef>(inputDefaultRef());
+  const passwordRef = useRef<InputRef>(inputDefaultRef());
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch(signIn);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import SearchBar from 'components/ui/SearchBar';
 import { useElement } from 'hooks';
-import { inputRef, defaultRef } from 'types/Input';
+import { InputRef, inputDefaultRef } from 'types/Ref';
 import { MARKER_URL } from 'common/constant/images';
 import {
   MAP_SEARCH_PLACEHOLDER,
@@ -40,7 +40,7 @@ const SearchMap = ({
   const [pagination, setPagination] = useState<T.PaginationType | null>(null);
   const [ps, setPs] = useState<any>();
   const [infoWindow, setInfoWindow] = useState<any>();
-  const keywordRef = useRef<inputRef>(defaultRef);
+  const keywordRef = useRef<InputRef>(inputDefaultRef());
 
   useEffect(() => {
     if (container) {

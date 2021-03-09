@@ -24,7 +24,6 @@ export const Container = styled.div`
 `;
 
 export const ImagePlusButton = styled.div`
-  width: calc(100% / 3);
   height: 100%;
   display: grid;
   place-items: center;

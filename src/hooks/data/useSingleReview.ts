@@ -13,10 +13,10 @@ const useSingleReview = (initialFetch: boolean) => {
   const router = useRouter();
   const postId = router.query.id;
 
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.reviewData>(
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.ReviewData>(
     getReviewById
   );
-  const [singleReview, setSingleReview] = useState<T.reviewData>();
+  const [singleReview, setSingleReview] = useState<T.ReviewData>();
 
   useEffect(() => {
     if (fetchResult.type === SUCCESS && fetchResult.data) {

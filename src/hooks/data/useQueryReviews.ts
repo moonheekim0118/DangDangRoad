@@ -10,10 +10,10 @@ import * as T from 'types/API';
 const useQueryReviews = () => {
   const router = useRouter();
   const query = router.query.search_query;
-  const [allReviews, setAllReviews] = useState<T.lightReviewData[]>([]);
+  const [allReviews, setAllReviews] = useState<T.LightReviewData[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<
-    T.lightReviewData[]
+    T.LightReviewData[]
   >(searchByKeyword);
   const [selectId, setSelectId] = useState<string>('');
 
