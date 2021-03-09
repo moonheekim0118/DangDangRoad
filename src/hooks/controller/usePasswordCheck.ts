@@ -1,11 +1,11 @@
 import { useRef, useCallback } from 'react';
-import { inputRef, defaultRef } from 'types/Input';
+import { InputRef, inputDefaultRef } from 'types/Ref';
 /**
  *  used in Signup and Update Password
  */
 const usePasswordCheck = () => {
-  const passwordRef = useRef<inputRef>(defaultRef);
-  const passwordCheckRef = useRef<inputRef>(defaultRef);
+  const passwordRef = useRef<InputRef>(inputDefaultRef());
+  const passwordCheckRef = useRef<InputRef>(inputDefaultRef());
 
   const passwordCheckValidator = useCallback(
     (value: string) => {

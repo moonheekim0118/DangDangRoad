@@ -11,8 +11,8 @@ const auth = firebase.auth();
 
 /** update profile */
 export const updateProfile = async (
-  data: T.updateProfileParams
-): T.APIResponse<T.userContents> => {
+  data: T.UpdateProfileParams
+): T.APIResponse<T.UserContents> => {
   try {
     await db.collection('users').doc(data.id).update(data.updateContents);
     return { isError: false, data: data.updateContents };
@@ -57,7 +57,7 @@ export const destroyAccount = async (id: string): T.APIResponse => {
 /** get User info by Id */
 export const getUserById = async (
   id: string
-): T.APIResponse<T.userContents> => {
+): T.APIResponse<T.UserContents> => {
   try {
     const response = await db.collection('users').doc(id).get();
     const data = response.data();

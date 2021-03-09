@@ -7,9 +7,8 @@ import { SAVE_CAPTION, UPDATE_MESSAGE } from 'common/constant/string';
 import { ContentsContainer } from '../style';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { useNotificationDispatch } from 'context/Notification';
-import { userContents } from 'types/API';
-import { inputRef, defaultRef as inputDefaultRef } from 'types/Input';
-import { RefType, defaultRef as ImageDefaultRef } from 'types/Ref';
+import { UserContents } from 'types/API';
+import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -28,16 +27,15 @@ interface Props {
 
 const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   const dispatch = useNotificationDispatch();
-  inputDefaultRef.value = user.nickname;
-  const nicknameRef = useRef<inputRef>(inputDefaultRef);
+  const nicknameRef = useRef<InputRef>(inputDefaultRef(user.nickname));
   const imageUrlRef = useRef<RefType<string[]>>(
-    ImageDefaultRef([user.profilePic])
+    defaultRef<string[]>([user.profilePic])
   );
   const [
     updateProfileResult,
     updateProfileDispatch,
     setDefaultProfile,
-  ] = useApiFetch<userContents>(updateProfile);
+  ] = useApiFetch<UserContents>(updateProfile);
 
   useEffect(() => {
     switch (updateProfileResult.type) {

@@ -8,7 +8,7 @@ import useApiFetch, {
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
-import { inputRef, defaultRef } from 'types/Input';
+import { InputRef, inputDefaultRef } from 'types/Ref';
 import { Input, Button } from 'atoms';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { inputId } from 'common/constant/input';
@@ -25,8 +25,8 @@ import * as S from '../style';
 const SignUp = (): React.ReactElement => {
   const dispatch = useNotificationDispatch();
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch(signUp);
-  const emailRef = useRef<inputRef>(defaultRef);
-  const nicknameRef = useRef<inputRef>(defaultRef);
+  const emailRef = useRef<InputRef>(inputDefaultRef());
+  const nicknameRef = useRef<InputRef>(inputDefaultRef());
   const [
     passwordRef,
     passwordCheckRef,

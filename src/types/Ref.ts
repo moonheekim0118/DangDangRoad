@@ -7,3 +7,17 @@ export const defaultRef = <T>(init: T) => {
     value: init,
   };
 };
+
+export interface InputRef {
+  value: string;
+  error?: boolean;
+  focus?: () => void;
+}
+
+export const inputDefaultRef = (initValue?: string) => {
+  return {
+    value: initValue || '',
+    error: false,
+    focus: function () {},
+  };
+};

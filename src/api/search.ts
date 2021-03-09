@@ -13,11 +13,11 @@ let cachedData = {};
 // get All the data
 const getDatasFromAlgolia = async (
   keyword: string
-): Promise<T.lightReviewData[]> => {
+): Promise<T.LightReviewData[]> => {
   try {
     const response = await index.search(keyword);
     console.log(keyword, response);
-    let reviews: T.lightReviewData[] = [];
+    let reviews: T.LightReviewData[] = [];
     response.hits.forEach((data) => {
       const review = {
         docId: data.objectID,
@@ -35,7 +35,7 @@ const getDatasFromAlgolia = async (
 
 const searchByKeyword = async (
   query: string
-): T.APIResponse<T.lightReviewData[]> => {
+): T.APIResponse<T.LightReviewData[]> => {
   try {
     if (!cachedData[query]) {
       const result = await getDatasFromAlgolia(query);

@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useInput } from 'hooks';
-import { inputRef } from 'types/Input';
+import { InputRef } from 'types/Ref';
 import * as S from './style';
 
 interface listType {
@@ -19,7 +19,7 @@ interface Props {
 
 const RadioBox = (
   { title, list, initValue }: Props,
-  ref: React.Ref<inputRef>
+  ref: React.Ref<InputRef>
 ) => {
   const [value, valueChangeHanlder] = useInput(initValue);
 

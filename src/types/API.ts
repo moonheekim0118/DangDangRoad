@@ -3,28 +3,28 @@ export interface AuthResult {
   isLoggedIn: boolean;
 }
 
-export interface signUpParams {
+export interface SignUpParams {
   email: string;
   nickname: string;
   password: string;
 }
 
-export interface signInParams {
+export interface SignInParams {
   email: string;
   password: string;
 }
 
-export interface updateProfileParams {
+export interface UpdateProfileParams {
   id: string;
-  updateContents: userContents;
+  updateContents: UserContents;
 }
 
-export interface updatePasswordParams {
+export interface UpdatePasswordParams {
   id: string;
   newPassword: string;
 }
 
-export interface writeReviewParams {
+export interface WriteReviewParams {
   userId: string;
   hasParkingLot: string;
   hasOffLeash: string;
@@ -39,36 +39,36 @@ export interface writeReviewParams {
   };
 }
 
-export interface reviewResult {
-  reviews: lightReviewData[];
+export interface ReviewResult {
+  reviews: LightReviewData[];
   lastKey: string;
 }
 
-export interface reviewData extends writeReviewParams {
+export interface ReviewData extends WriteReviewParams {
   docId: string;
-  userData: userContents;
+  userData: UserContents;
   createdAt: number;
 }
 
-export interface lightReviewData {
+export interface LightReviewData {
   docId: string;
   thumbNail: string | null;
   placeName: string;
   createdAt: number;
 }
 
-export interface userContents {
+export interface UserContents {
   nickname?: string;
   profilePic?: string;
 }
 
-export interface successType<T = null> {
+export interface SuccessType<T = null> {
   isError: false;
   data: T;
 }
 
-export type fileType = Blob | Uint8Array | ArrayBuffer;
+export type FileType = Blob | Uint8Array | ArrayBuffer;
 
-export type APIResponse<T = null> = Promise<successType<T>>;
+export type APIResponse<T = null> = Promise<SuccessType<T>>;
 
-export const defaultSuccess: successType = { isError: false, data: null };
+export const defaultSuccess: SuccessType = { isError: false, data: null };

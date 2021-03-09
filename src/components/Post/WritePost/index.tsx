@@ -12,7 +12,7 @@ import { saveBtnStyle } from 'common/style/baseStyle';
 import { SearchMap } from 'components/map';
 import { PostImage } from 'components/post';
 import { Title, Button } from 'atoms';
-import { reviewData } from 'types/API';
+import { ReviewData } from 'types/API';
 import {
   WRITE_REVIEW_TITLE,
   RADIO_BOX_LABEL,
@@ -27,8 +27,7 @@ import {
   RAIDO_AVAILABLE_DONTKNOW_VALUE,
   RAIDO_RECOMMENDATION_SOSO_VALUE,
 } from 'common/constant/string';
-import { RefType, defaultRef as imageDefaultRef } from 'types/Ref';
-import { inputRef, defaultRef as inputDefaultRef } from 'types/Input';
+import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import TextArea from 'components/post/TextArea';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
@@ -37,21 +36,19 @@ import * as S from './style';
 
 interface Props {
   mode: 'create' | 'update';
-  initialData?: reviewData;
+  initialData?: ReviewData;
   userId: string;
 }
 
 const WritePost = ({ mode, initialData, userId }: Props) => {
   const dispatch = useNotificationDispatch();
 
-  const freeTextRef = useRef<inputRef>(inputDefaultRef);
-  const hasParkingLotRef = useRef<inputRef>(inputDefaultRef);
-  const hasOffLeashRef = useRef<inputRef>(inputDefaultRef);
-  const recommendationRef = useRef<inputRef>(inputDefaultRef);
+  const freeTextRef = useRef<InputRef>(inputDefaultRef());
+  const hasParkingLotRef = useRef<InputRef>(inputDefaultRef());
+  const hasOffLeashRef = useRef<InputRef>(inputDefaultRef());
+  const recommendationRef = useRef<InputRef>(inputDefaultRef());
   const imageUrlRef = useRef<RefType<string[]>>(
-    imageDefaultRef<string[]>(
-      initialData?.imageList ? initialData.imageList : []
-    )
+    defaultRef<string[]>(initialData?.imageList ? initialData.imageList : [])
   );
 
   const [fetchResult, fetchDispatch] = useApiFetch(

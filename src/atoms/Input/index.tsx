@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import { useValidation } from 'hooks';
 import { inputId, inputContents } from 'common/constant/input';
-import { inputRef } from 'types/Input';
+import { InputRef } from 'types/Ref';
 import * as S from './style';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -18,7 +18,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   validator?: (value: string) => boolean;
 }
 
-const Input = (props: Props, ref: React.Ref<inputRef>): React.ReactElement => {
+const Input = (props: Props, ref: React.Ref<InputRef>): React.ReactElement => {
   const { id, required = false, validator, ...rest } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, error, valueChangeHanlder, checkValidation] = useValidation({

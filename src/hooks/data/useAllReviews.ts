@@ -7,13 +7,13 @@ import * as T from 'types/API';
 
 interface Props {
   /** initial Review data from static props */
-  initReviews?: T.lightReviewData[];
+  initReviews?: T.LightReviewData[];
   /** initial last key data from static props */
   initLastKey?: string;
 }
 
 const useAllReviews = ({ initReviews, initLastKey }: Props = {}) => {
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.reviewResult>(
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.ReviewResult>(
     getReviewsMore
   );
   const [
@@ -23,7 +23,7 @@ const useAllReviews = ({ initReviews, initLastKey }: Props = {}) => {
   ] = useApiFetch(removeReview);
 
   const [lastKey, setLastKey] = useState<string>(initLastKey || '');
-  const [allReviews, setAllReviews] = useState<T.lightReviewData[]>(
+  const [allReviews, setAllReviews] = useState<T.LightReviewData[]>(
     initReviews || []
   );
   const [hasMore, setHasMore] = useState<boolean>(true); // let us know if there is more data to fetch in db

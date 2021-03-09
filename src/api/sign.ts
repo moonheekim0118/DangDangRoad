@@ -59,7 +59,7 @@ export const googleSignIn = async (): T.APIResponse => {
 };
 
 /** Sign in function  */
-export const signIn = async (data: T.signInParams): T.APIResponse => {
+export const signIn = async (data: T.SignInParams): T.APIResponse => {
   try {
     const response = await auth.signInWithEmailAndPassword(
       data.email,
@@ -81,7 +81,7 @@ export const signIn = async (data: T.signInParams): T.APIResponse => {
 };
 
 /** sign up function */
-export const signUp = async (data: T.signUpParams): T.APIResponse => {
+export const signUp = async (data: T.SignUpParams): T.APIResponse => {
   try {
     const userCredential = await auth.createUserWithEmailAndPassword(
       data.email,
