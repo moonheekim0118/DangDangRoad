@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { ImageCarousel } from 'components/image';
+import { ImageCarousel, ImageUploader } from 'components/image';
 import { useModal } from 'hooks';
 import { Icon } from 'atoms';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -9,24 +9,16 @@ import * as S from './style';
 interface Props {
   /** image url List for Preview */
   imageList: string[];
-  /** this is for uploading image */
-  imageInput: React.RefObject<HTMLInputElement>;
-  /** to pop up file uploader */
-  uploaderClickHanlder: (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>
-  ) => void;
   /** funciton to remove image with specific index */
   imageRemoveHanlder: (index: number) => () => void;
   /** function to upload image */
-  imageUploadHanlder: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  imageUrlChangeHandler: (images: string[]) => void;
 }
 
 const ImagePreview = ({
   imageList,
-  imageInput,
-  uploaderClickHanlder,
+  imageUrlChangeHandler,
   imageRemoveHanlder,
-  imageUploadHanlder,
 }: Props) => {
   const [startIndex, setStartIndex] = useState<number>(0);
   const [showCarousel, carousleHandler] = useModal(false);
@@ -42,22 +34,15 @@ const ImagePreview = ({
   return (
     <S.Container>
       {imageList.length < POST_IMAGE_LIMIT && (
-        <S.ImagePlusButton>
-          <Icon
-            icon={faPlus}
-            className="addImgIcon"
-            css={S.iconStyle}
-            onClick={uploaderClickHanlder}
-          />
-          <input
-            type="file"
-            multiple
-            name="image"
-            hidden
-            ref={imageInput}
-            onChange={imageUploadHanlder}
-          />
-        </S.ImagePlusButton>
+        <ImageUploader
+          imageUrl={imageList}
+          imageUrlChangeHandler={imageUrlChangeHandler}
+          imageLimit={POST_IMAGE_LIMIT}
+          type="add">
+          <S.ImagePlusButton>
+            <Icon icon={faPlus} className="addImgIcon" css={S.iconStyle} />
+          </S.ImagePlusButton>
+        </ImageUploader>
       )}
       {imageList &&
         imageList.map((v, i) => (

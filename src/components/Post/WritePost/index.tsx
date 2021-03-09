@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
-import { useImageUpload } from 'hooks';
 import { PlaceType } from 'types/Map';
 import { createReview, updateReview } from 'api/review';
 import useApiFetch, {
@@ -11,13 +10,11 @@ import useApiFetch, {
 import RadioBox from 'components/common/RadioBox';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { SearchMap } from 'components/map';
-import { ImagePreview } from 'components/image';
+import { PostImage } from 'components/post';
 import { Title, Button } from 'atoms';
 import { reviewData } from 'types/API';
 import {
   WRITE_REVIEW_TITLE,
-  IMAGE_UPLOAD_LABEL,
-  IMAGE_UPLOAD_DESC,
   RADIO_BOX_LABEL,
   RADIO_TITLE_PARKING_LOT,
   RADIO_TITLE_OFFLEASH,
@@ -30,7 +27,8 @@ import {
   RAIDO_AVAILABLE_DONTKNOW_VALUE,
   RAIDO_RECOMMENDATION_SOSO_VALUE,
 } from 'common/constant/string';
-import { inputRef, defaultRef } from 'types/Input';
+import { ImageRef, defaultRef as imageDefaultRef } from 'types/Image';
+import { inputRef, defaultRef as inputDefaultRef } from 'types/Input';
 import TextArea from 'components/post/TextArea';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
@@ -46,10 +44,13 @@ interface Props {
 const WritePost = ({ mode, initialData, userId }: Props) => {
   const dispatch = useNotificationDispatch();
 
-  const freeTextRef = useRef<inputRef>(defaultRef);
-  const hasParkingLotRef = useRef<inputRef>(defaultRef);
-  const hasOffLeashRef = useRef<inputRef>(defaultRef);
-  const recommendationRef = useRef<inputRef>(defaultRef);
+  const freeTextRef = useRef<inputRef>(inputDefaultRef);
+  const hasParkingLotRef = useRef<inputRef>(inputDefaultRef);
+  const hasOffLeashRef = useRef<inputRef>(inputDefaultRef);
+  const recommendationRef = useRef<inputRef>(inputDefaultRef);
+  const imageUrlRef = useRef<ImageRef>(
+    imageDefaultRef(initialData?.imageList ? initialData.imageList : [])
+  );
 
   const [fetchResult, fetchDispatch] = useApiFetch(
     mode === 'create' ? createReview : updateReview
@@ -58,18 +59,6 @@ const WritePost = ({ mode, initialData, userId }: Props) => {
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(
     initialData ? initialData.placeInfo : null
   );
-
-  const [
-    imageInput,
-    imageUrl,
-    uploaderClickHanlder,
-    uploadImageHanlder,
-    removeImageHanlder,
-  ] = useImageUpload({
-    initialImages: initialData?.imageList ? initialData.imageList : [],
-    imageLimit: 3,
-    dispatch,
-  });
 
   useEffect(() => {
     switch (fetchResult.type) {
@@ -96,6 +85,7 @@ const WritePost = ({ mode, initialData, userId }: Props) => {
       const { value: hasParkingLot } = hasParkingLotRef.current;
       const { value: hasOffLeash } = hasOffLeashRef.current;
       const { value: recommendation } = recommendationRef.current;
+      const { value: imageUrl } = imageUrlRef.current;
 
       if (!selectedPlace) {
         return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
@@ -127,7 +117,7 @@ const WritePost = ({ mode, initialData, userId }: Props) => {
       recommendationRef,
       selectedPlace,
       freeTextRef,
-      imageUrl,
+      imageUrlRef,
     ]
   );
 
@@ -145,28 +135,10 @@ const WritePost = ({ mode, initialData, userId }: Props) => {
         />
         <S.ReviewContainer>
           <S.PlaceName>{selectedPlace?.place_name}</S.PlaceName>
-          {imageUrl.length <= 0 ? (
-            <S.UploadImageButton onClick={uploaderClickHanlder}>
-              {IMAGE_UPLOAD_LABEL} <br />
-              {IMAGE_UPLOAD_DESC}
-              <input
-                type="file"
-                multiple
-                name="image"
-                hidden
-                ref={imageInput}
-                onChange={uploadImageHanlder('new')}
-              />
-            </S.UploadImageButton>
-          ) : (
-            <ImagePreview
-              imageList={imageUrl}
-              uploaderClickHanlder={uploaderClickHanlder}
-              imageInput={imageInput}
-              imageUploadHanlder={uploadImageHanlder('add')}
-              imageRemoveHanlder={removeImageHanlder}
-            />
-          )}
+          <PostImage
+            initialImageUrl={initialData?.imageList || []}
+            ref={imageUrlRef}
+          />
           <TextArea cols={15} ref={freeTextRef} />
           <S.PlaceInfo>
             <S.Label>{RADIO_BOX_LABEL}</S.Label>
