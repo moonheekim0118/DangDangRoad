@@ -14,7 +14,7 @@ export const Container = styled.div`
   border-radius: 20px;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 570px) {
     border-radius: 0;
   }
 `;
@@ -39,7 +39,7 @@ export const Menu = styled.div<{ warn: boolean; visiting: boolean }>`
   &:first-of-type {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 570px) {
       border-radius: 0;
     }
   }
@@ -47,7 +47,7 @@ export const Menu = styled.div<{ warn: boolean; visiting: boolean }>`
   &:last-of-type {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 570px) {
       border-radius: 0;
     }
   }
