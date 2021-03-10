@@ -46,22 +46,21 @@ const SearchResult = () => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        <S.SinglePostContainer isModal={true}>
-          {modalDatas.singleReview ? (
-            <SinglePost
-              data={modalDatas.singleReview}
-              NavigationInfo={{
-                hasPrev: modalDatas.index > 0,
-                hasNext: modalDatas.index < allReviews.length - 1,
-                prevHandler: modalDatas.prevHandler,
-                nextHandler: modalDatas.nextHandler,
-              }}
-              removeHanlder={removeHanlder}
-            />
-          ) : (
-            <Loading />
-          )}
-        </S.SinglePostContainer>
+        {modalDatas.singleReview ? (
+          <SinglePost
+            isModal={true}
+            data={modalDatas.singleReview}
+            NavigationInfo={{
+              hasPrev: modalDatas.index > 0,
+              hasNext: modalDatas.index < allReviews.length - 1,
+              prevHandler: modalDatas.prevHandler,
+              nextHandler: modalDatas.nextHandler,
+            }}
+            removeHanlder={removeHanlder}
+          />
+        ) : (
+          <Loading />
+        )}
       </Modal>
       <div ref={observerTarget}>
         {fetchResult.type === REQUEST && <Loading />}

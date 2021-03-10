@@ -18,26 +18,47 @@ import { BasicMap } from 'components/map';
 import * as S from './style';
 
 interface Props {
+  isModal: boolean;
   /** single Review Data */
   data: ReviewData;
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
-  removeHanlder: (
+  removeHanlder?: (
     id: string
   ) => (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
+const SinglePost = ({
+  isModal,
+  data,
+  NavigationInfo,
+  removeHanlder,
+}: Props) => {
   const { userId } = useLoginInfoState();
 
   return (
-    <>
+    <S.Wrapper isModal={isModal}>
       <S.Container>
+        <S.Header>{data.placeInfo.place_name}</S.Header>
         <S.ContentsContainer>
           <S.PlaceName>{data.placeInfo.place_name}</S.PlaceName>
           <S.PlaceDetail>{data.placeInfo.address_name}</S.PlaceDetail>
           <BasicMap coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
+          <S.InfoContainer>
+            <S.Info>
+              {PARKING_LOT_CAPTION}
+              {data.hasParkingLot}
+            </S.Info>
+            <S.Info>
+              {OFFLEASH_CAPTION}
+              {data.hasOffLeash}
+            </S.Info>
+            <S.Info>
+              {RECOMMENDATION_CAPTION}
+              {data.recommendation}
+            </S.Info>
+          </S.InfoContainer>
         </S.ContentsContainer>
         {data.imageList && (
           <S.ContentsContainer>
@@ -55,31 +76,17 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
               <Button
                 className="deleteBtn"
                 css={S.deleteButtonStyle}
-                onClick={removeHanlder(data.docId)}>
+                onClick={removeHanlder && removeHanlder(data.docId)}>
                 {DELETE_BUTTON_CAPTION}
               </Button>
             </S.AdminContainer>
           )}
           <WriterInfo userData={data.userData} createdAt={data.createdAt} />
           <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
-          <S.InfoContainer>
-            <S.Info>
-              {PARKING_LOT_CAPTION}
-              {data.hasParkingLot}
-            </S.Info>
-            <S.Info>
-              {OFFLEASH_CAPTION}
-              {data.hasOffLeash}
-            </S.Info>
-            <S.Info>
-              {RECOMMENDATION_CAPTION}
-              {data.recommendation}
-            </S.Info>
-          </S.InfoContainer>
         </S.UserContentsContainer>
       </S.Container>
       {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
-    </>
+    </S.Wrapper>
   );
 };
 

@@ -38,9 +38,11 @@ const singlePost = ({ reviews }) => {
     <span>{fetchResult.error}</span>
   ) : (
     <>
-      <S.SinglePostContainer isModal={false}>
-        {singleReview ? <SinglePost data={singleReview} /> : <Loading />}
-      </S.SinglePostContainer>
+      {singleReview ? (
+        <SinglePost isModal={false} data={singleReview} />
+      ) : (
+        <Loading />
+      )}
       <Button href={routes.SEARCH}>산책로 리뷰 더 보기</Button>
       <PostList
         reviewData={reviews.data.reviews}
