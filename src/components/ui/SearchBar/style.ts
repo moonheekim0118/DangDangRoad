@@ -14,6 +14,7 @@ export const iconStyle = css`
 
 export const searchBtnStyle = css`
   font-size: 0.9rem;
+  transition: none;
 `;
 
 export const Form = styled.form`
@@ -31,7 +32,6 @@ export const IconContainer = styled.div<Props>`
 
 export const ButtonContainer = styled.div<Props>`
   position: absolute;
-  background-color: ${(props) => colorCode[props.color]};
   color: ${(props) =>
     props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
   top: 50%;
@@ -53,7 +53,6 @@ export const Input = styled.input<InputProps>`
   padding: 20px 40px;
   font-weight: bold;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
-
   ::placeholder {
     color: ${(props) =>
       props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
@@ -71,6 +70,8 @@ export const Input = styled.input<InputProps>`
     &:focus
     ~ ${IconContainer},
     &:focus::placeholder {
+    background-color: ${(props) =>
+      props.focusBackground && colorCode[props.focusBackground]};
     color: ${(props) => props.focusFont && colorCode[props.focusFont]};
   }
 
