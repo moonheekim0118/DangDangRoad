@@ -7,9 +7,9 @@ import {
   useSinglePostModal,
 } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import * as S from 'common/style/post';
 import Loading from 'components/ui/Loading';
 import Modal from 'components/ui/Modal';
+import { ReviewResult } from 'types/API';
 import { getReviewsFirst } from 'api/review';
 
 export async function getStaticProps() {
@@ -20,7 +20,11 @@ export async function getStaticProps() {
   };
 }
 
-const SearchMain = ({ reviews }) => {
+interface Props {
+  reviews: { data: ReviewResult };
+}
+
+const SearchMain = ({ reviews }: Props) => {
   const { user } = useUser();
   const [
     allReviews,

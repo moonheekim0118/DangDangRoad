@@ -7,7 +7,6 @@ import {
 } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/post';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import * as S from 'common/style/post';
 import Loading from 'components/ui/Loading';
 import Modal from 'components/ui/Modal';
 
