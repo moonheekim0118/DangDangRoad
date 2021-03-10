@@ -12,6 +12,10 @@ export const iconStyle = css`
   transform: rotateY(180deg);
 `;
 
+export const searchBtnStyle = css`
+  font-size: 0.9rem;
+`;
+
 export const Form = styled.form`
   width: 100%;
 `;
@@ -27,6 +31,7 @@ export const IconContainer = styled.div<Props>`
 
 export const ButtonContainer = styled.div<Props>`
   position: absolute;
+  background-color: ${(props) => colorCode[props.color]};
   color: ${(props) =>
     props.color === 'blue' ? colorCode['white'] : colorCode['blue']};
   top: 50%;

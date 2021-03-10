@@ -8,7 +8,7 @@ const Write = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
 
   return user && user.isLoggedIn ? (
-    <WritePost mode="create" userId={user.userId} />
+    <WritePost userId={user.userId} />
   ) : (
     <Loading />
   );
