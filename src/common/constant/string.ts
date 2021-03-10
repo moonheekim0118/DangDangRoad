@@ -63,7 +63,7 @@ export const RECOMMENDATION_CAPTION = '🐶 ';
 
 export const SAVE_CAPTION = '저장하기';
 export const UPDATE_BUTTON_CAPTION = '수정하기';
-export const DELETE_BUTTON_CAPTION = '게시글 삭제';
+export const DELETE_BUTTON_CAPTION = '삭제하기';
 export const SEARCH_BUTTON_CAPTION = '검색';
 
 export const EMAIL_VERFY_TITLE = '이메일 인증';
