@@ -19,6 +19,7 @@ const SearchResult = () => {
     fetchRemove,
     fetchResult,
     hasMore,
+    query,
   ] = useQueryReviews();
   const observerTarget = useInfiniteScroll({
     deps: [hasMore],
@@ -36,7 +37,11 @@ const SearchResult = () => {
 
   return (
     <>
-      <PostList reviewData={allReviews} openSinglePost={modalDatas.openModal} />
+      <PostList
+        searchKeyword={query?.toString()}
+        reviewData={allReviews}
+        openSinglePost={modalDatas.openModal}
+      />
       {user && user.isLoggedIn && <WriteButton />}
       <Modal
         showModal={modalDatas.showModal}
