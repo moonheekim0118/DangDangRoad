@@ -13,7 +13,7 @@ export const NOT_FULL_INFO_ERROR = '정보를 올바르게 입력해주세요';
 export const NOT_SELECT_PLACE_ERROR = '장소를 선택해주세요';
 export const FREE_TEXT_LIMIT_ERROR = `글자수는 ${FREE_TEXT_LIMIT}자 이하까지 입력 가능합니다.`;
 export const NO_SEARCH_RESULT_ERROR = '검색결과가 없습니다';
-export const NO_KEYWORD_ERROR = '키워드를 입력해주세요';
+export const NO_KEYWORD_ERROR = '검색어를 입력해주세요';
 
 export const EMPTY_USER_NICKNAME = '탈퇴한 사용자';
 export const FOOTER_CONTENTS = 'Copyright © moonhee kim dangdang road';
