@@ -10,10 +10,8 @@ import useApiFetch, {
 import {
   NOT_SELECT_PLACE_ERROR,
   FREE_TEXT_LIMIT_ERROR,
-  RAIDO_HAS_DONTKNOW_VALUE,
-  RAIDO_AVAILABLE_DONTKNOW_VALUE,
-  RAIDO_RECOMMENDATION_SOSO_VALUE,
 } from 'common/constant/string';
+import { ReviewData } from 'types/API';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import { PostEditor } from 'components/post';
 import routes from 'common/constant/routes';
@@ -21,21 +19,32 @@ import Router from 'next/router';
 import * as Action from 'action';
 
 interface Props {
+  initialData: ReviewData;
   userId: string;
 }
 
-const WritePost = ({ userId }: Props) => {
+const UpdatePost = ({ initialData, userId }: Props) => {
   const dispatch = useNotificationDispatch();
 
-  const freeTextRef = useRef<InputRef>(inputDefaultRef());
-  const hasParkingLotRef = useRef<InputRef>(inputDefaultRef());
-  const hasOffLeashRef = useRef<InputRef>(inputDefaultRef());
-  const recommendationRef = useRef<InputRef>(inputDefaultRef());
-  const imageUrlRef = useRef<RefType<string[]>>(defaultRef<string[]>([]));
+  const freeTextRef = useRef<InputRef>(inputDefaultRef(initialData.freeText));
+  const hasParkingLotRef = useRef<InputRef>(
+    inputDefaultRef(initialData.hasParkingLot)
+  );
+  const hasOffLeashRef = useRef<InputRef>(
+    inputDefaultRef(initialData.hasOffLeash)
+  );
+  const recommendationRef = useRef<InputRef>(
+    inputDefaultRef(initialData.recommendation)
+  );
+  const imageUrlRef = useRef<RefType<string[]>>(
+    defaultRef<string[]>(initialData.imageList ? initialData.imageList : [])
+  );
 
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch(updateReview);
 
-  const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<PlaceType>(
+    initialData.placeInfo
+  );
 
   useEffect(() => {
     switch (fetchResult.type) {
@@ -86,7 +95,7 @@ const WritePost = ({ userId }: Props) => {
       };
       fetchDispatch({
         type: REQUEST,
-        params: [data],
+        params: [initialData?.docId, data],
       });
     },
     [
@@ -103,18 +112,18 @@ const WritePost = ({ userId }: Props) => {
     <PostEditor
       selectPlaceHandler={selectPlaceHandler}
       selectedPlace={selectedPlace}
-      imageList={[]}
+      imageList={initialData.imageList || []}
       imageUrlRef={imageUrlRef}
       freeTextRef={freeTextRef}
       hasParkingLotRef={hasParkingLotRef}
-      hasParkingLot={RAIDO_HAS_DONTKNOW_VALUE}
+      hasParkingLot={initialData.hasParkingLot}
       hasOffLeashRef={hasOffLeashRef}
-      hasOffLeash={RAIDO_AVAILABLE_DONTKNOW_VALUE}
+      hasOffLeash={initialData.hasOffLeash}
       recommendationRef={recommendationRef}
-      recommendation={RAIDO_RECOMMENDATION_SOSO_VALUE}
+      recommendation={initialData.recommendation}
       submitHandler={submitHandler}
     />
   );
 };
 
-export default WritePost;
+export default UpdatePost;

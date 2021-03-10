@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, FormEvent } from 'react';
 import { checkEmail } from 'util/signUpValidations';
 import useApiFetch, {
   REQUEST,
@@ -38,7 +38,7 @@ const Login = (): React.ReactElement => {
 
   /** submit handler */
   const SignInHandler = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const email = emailRef.current.value;
       const password = passwordRef.current.value;
@@ -51,7 +51,7 @@ const Login = (): React.ReactElement => {
   );
 
   return (
-    <S.Form>
+    <S.Form onSubmit={SignInHandler}>
       <S.Title>{MENU_LOGIN_TITLE}</S.Title>
       <Input type="email" id={inputId.EMAIL} required={true} ref={emailRef} />
       <Input
@@ -61,11 +61,7 @@ const Login = (): React.ReactElement => {
         required={true}
       />
       <S.ButtonContainer>
-        <Button
-          className="loginBtn"
-          css={saveBtnStyle}
-          type="submit"
-          onClick={SignInHandler}>
+        <Button className="loginBtn" css={saveBtnStyle} type="submit">
           {MENU_LOGIN_TITLE}
         </Button>
         <GoogleLoginButton />

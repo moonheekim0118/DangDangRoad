@@ -18,7 +18,7 @@ export const Container = styled.div`
   position: fixed;
   bottom: 10px;
   right: 50px;
-  z-index: 1000;
+  z-index: 3500;
 `;
 
 export const WriteComponent = styled.div`

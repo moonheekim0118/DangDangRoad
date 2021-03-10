@@ -1,6 +1,6 @@
 export default {
   HOME: '/',
-  MYPAGE: '/myPage',
+  MYPAGE: '/myPage/myReviews',
   MYPAGE_UPDATE_PASSWORD: '/myPage/updatePassword',
   MYPAGE_UPDATE_PROFILE: '/myPage/updateProfile',
   POST: '/post',

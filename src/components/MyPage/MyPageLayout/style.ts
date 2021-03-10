@@ -7,7 +7,7 @@ export const Container = styled.section`
   justify-content: center;
   align-items: center;
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 570px) {
     flex-direction: column;
   }
 `;
@@ -19,7 +19,7 @@ export const SideContainer = styled.aside`
   flex-direction: column;
   justify-content: space-around;
   margin-right: 25px;
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 570px) {
     width: 100%;
     margin: 0;
   }
@@ -37,7 +37,7 @@ export const MainContainer = styled.article`
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
   background-color: #fff;
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 570px) {
     width: 100%;
     border-radius: 0;
   }

@@ -65,7 +65,14 @@ const useQueryReviews = () => {
     setSelectId(id);
   }, []);
 
-  return [allReviews, fetchReview, fetchRemove, fetchResult, hasMore] as const;
+  return [
+    allReviews,
+    fetchReview,
+    fetchRemove,
+    fetchResult,
+    hasMore,
+    query,
+  ] as const;
 };
 
 export default useQueryReviews;

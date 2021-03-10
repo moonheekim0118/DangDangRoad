@@ -62,8 +62,10 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
         passwordCheck.length === 0 ||
         password !== passwordCheck
       ) {
-        password.length === 0 && passwordFocus();
-        password !== passwordCheck && passwordCheckFoucs();
+        password.length === 0 && passwordFocus && passwordFocus();
+        password !== passwordCheck &&
+          passwordCheckFoucs &&
+          passwordCheckFoucs();
         return dispatch(Action.showError(NOT_FULL_INFO_ERROR));
       }
       fetchDispatch({ type: REQUEST, params: [{ id: userId, password }] });

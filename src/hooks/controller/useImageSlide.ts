@@ -5,12 +5,12 @@ interface Props {
   totalSlide: number;
 }
 
-const useImageSlide = ({ initialIndex, totalSlide }: Props) => {
-  const [index, setIndex] = useState<number>(initialIndex || 0);
+const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
+  const [index, setIndex] = useState<number>(initialIndex);
   const slideRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setIndex(initialIndex || 0);
+    setIndex(initialIndex);
   }, [initialIndex]);
 
   useEffect(() => {
@@ -22,11 +22,11 @@ const useImageSlide = ({ initialIndex, totalSlide }: Props) => {
 
   const toPrev = useCallback(() => {
     index === 0 ? setIndex(totalSlide - 1) : setIndex(index - 1);
-  }, [index]);
+  }, [index, totalSlide]);
 
   const toNext = useCallback(() => {
     index === totalSlide - 1 ? setIndex(0) : setIndex(index + 1);
-  }, [index]);
+  }, [index, totalSlide]);
 
   const changeIndexHandler = useCallback(
     (index: number) => () => {

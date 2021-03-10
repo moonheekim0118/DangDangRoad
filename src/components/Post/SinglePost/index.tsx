@@ -33,36 +33,20 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
 
   return (
     <>
-      <S.Contents>
-        <S.InfoContainer>
+      <S.Container>
+        <S.ContentsContainer>
           <S.PlaceName>{data.placeInfo.place_name}</S.PlaceName>
           <S.PlaceDetail>{data.placeInfo.address_name}</S.PlaceDetail>
           <BasicMap coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
-          <S.CommonInfoContainer>
-            <S.CommonInfo>
-              {PARKING_LOT_CAPTION}
-              {data.hasParkingLot}
-            </S.CommonInfo>
-            <S.CommonInfo>
-              {OFFLEASH_CAPTION}
-              {data.hasOffLeash}
-            </S.CommonInfo>
-            <S.CommonInfo>
-              {RECOMMENDATION_CAPTION}
-              {data.recommendation}
-            </S.CommonInfo>
-          </S.CommonInfoContainer>
-        </S.InfoContainer>
+        </S.ContentsContainer>
         {data.imageList && (
-          <S.InfoContainer>
+          <S.ContentsContainer>
             <ImageSlider imageList={data.imageList} />
-          </S.InfoContainer>
+          </S.ContentsContainer>
         )}
-        <S.InfoContainer>
-          <WriterInfo userData={data.userData} createdAt={data.createdAt} />
-          <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
+        <S.UserContentsContainer>
           {data.userId === userId && (
-            <>
+            <S.AdminContainer>
               <Button
                 href={`${routes.UPDATE_POST}/${data.docId}`}
                 linkStyle={S.updateButtonStyle}>
@@ -74,10 +58,26 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
                 onClick={removeHanlder(data.docId)}>
                 {DELETE_BUTTON_CAPTION}
               </Button>
-            </>
+            </S.AdminContainer>
           )}
-        </S.InfoContainer>
-      </S.Contents>
+          <WriterInfo userData={data.userData} createdAt={data.createdAt} />
+          <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
+          <S.InfoContainer>
+            <S.Info>
+              {PARKING_LOT_CAPTION}
+              {data.hasParkingLot}
+            </S.Info>
+            <S.Info>
+              {OFFLEASH_CAPTION}
+              {data.hasOffLeash}
+            </S.Info>
+            <S.Info>
+              {RECOMMENDATION_CAPTION}
+              {data.recommendation}
+            </S.Info>
+          </S.InfoContainer>
+        </S.UserContentsContainer>
+      </S.Container>
       {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
     </>
   );

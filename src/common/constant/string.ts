@@ -13,7 +13,7 @@ export const NOT_FULL_INFO_ERROR = '정보를 올바르게 입력해주세요';
 export const NOT_SELECT_PLACE_ERROR = '장소를 선택해주세요';
 export const FREE_TEXT_LIMIT_ERROR = `글자수는 ${FREE_TEXT_LIMIT}자 이하까지 입력 가능합니다.`;
 export const NO_SEARCH_RESULT_ERROR = '검색결과가 없습니다';
-export const NO_KEYWORD_ERROR = '키워드를 입력해주세요';
+export const NO_KEYWORD_ERROR = '검색어를 입력해주세요';
 
 export const EMPTY_USER_NICKNAME = '탈퇴한 사용자';
 export const FOOTER_CONTENTS = 'Copyright © moonhee kim dangdang road';
@@ -35,6 +35,16 @@ export const MYPAGE_MENU_UPDATE_PASSWORD = '비밀번호 변경';
 export const MYPAGE_MENU_UPDATE_PROFILE = '회원정보 변경';
 export const MYPAGE_MENU_DESTROY_ACCOUNT = '계정 삭제';
 
+export const MYPAGE_DEFAULT_QUERY = 'myReviews';
+export const MYPAGE_UPDATE_PASSWORD_QUERY = 'updatePassword';
+export const MYPAGE_UPDATE_PROFILE_QUERY = 'updateProfile';
+
+export const MYPAGE_NAVIGATOR = {
+  myReviews: MYPAGE_MENU_DEFAULT,
+  updatePassword: MYPAGE_MENU_UPDATE_PASSWORD,
+  updateProfile: MYPAGE_MENU_UPDATE_PROFILE,
+};
+
 export const WRITE_REVIEW_BUTTON_CAPTION = '리뷰 작성하기';
 export const WRITE_REVIEW_TITLE = '리뷰 작성';
 export const IMAGE_UPLOAD_LABEL = '사진 업로드📸';
@@ -53,7 +63,7 @@ export const RECOMMENDATION_CAPTION = '🐶 ';
 
 export const SAVE_CAPTION = '저장하기';
 export const UPDATE_BUTTON_CAPTION = '수정하기';
-export const DELETE_BUTTON_CAPTION = '게시글 삭제';
+export const DELETE_BUTTON_CAPTION = '삭제하기';
 export const SEARCH_BUTTON_CAPTION = '검색';
 
 export const EMAIL_VERFY_TITLE = '이메일 인증';
