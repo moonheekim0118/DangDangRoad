@@ -2,6 +2,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   InputHTMLAttributes,
+  FormEvent,
 } from 'react';
 import { useInput } from 'hooks';
 import { Icon, Button } from 'atoms';
@@ -16,7 +17,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** have a focus effects or not */
   focus?: boolean;
   /** submit search handler */
-  submitHandler?: (e: React.MouseEvent<HTMLSpanElement>) => void;
+  submitHandler?: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 const SearchBar = (
@@ -34,7 +35,7 @@ const SearchBar = (
   useImperativeHandle(ref, () => ({ value }), [value]);
 
   return (
-    <S.Form>
+    <S.Form onSubmit={submitHandler}>
       <S.Input
         type="text"
         color={color}
@@ -48,11 +49,7 @@ const SearchBar = (
         <Icon icon={faSearch} className="searchIcon" css={S.iconStyle} />
       </S.IconContainer>
       <S.ButtonContainer color={color}>
-        <Button
-          className="searchBtn"
-          type="submit"
-          onClick={submitHandler}
-          css={S.searchBtnStyle}>
+        <Button className="searchBtn" type="submit" css={S.searchBtnStyle}>
           {SEARCH_BUTTON_CAPTION}
         </Button>
       </S.ButtonContainer>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, FormEvent } from 'react';
 import { usePasswordCheck } from 'hooks';
 import useApiFetch, {
   REQUEST,
@@ -46,7 +46,7 @@ const SignUp = (): React.ReactElement => {
 
   /** submit handler */
   const SubmitHanlder = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const {
         value: email,
@@ -92,7 +92,7 @@ const SignUp = (): React.ReactElement => {
   );
 
   return (
-    <S.Form signUp={true}>
+    <S.Form signUp={true} onSubmit={SubmitHanlder}>
       <S.Title>{MENU_SIGNUP_TITLE}</S.Title>
       <Input
         type="email"
@@ -123,11 +123,7 @@ const SignUp = (): React.ReactElement => {
         validator={passwordCheckValidator}
       />
       <S.ButtonContainer>
-        <Button
-          className="signBtn"
-          css={saveBtnStyle}
-          type="submit"
-          onClick={SubmitHanlder}>
+        <Button className="signBtn" css={saveBtnStyle} type="submit">
           {SIGNUP_BUTTON_CAPTION}
         </Button>
         <GoogleLoginButton />
