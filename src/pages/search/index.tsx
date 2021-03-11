@@ -11,7 +11,6 @@ import Loading from 'components/ui/Loading';
 import Modal from 'components/ui/Modal';
 import { ReviewResult } from 'types/API';
 import { getReviewsFirst } from 'api/review';
-import LoadingSinlgeReview from 'components/ui/LoadingSinlgePost';
 
 export async function getStaticProps() {
   return {
@@ -58,21 +57,18 @@ const SearchMain = ({ reviews }: Props) => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        {modalDatas.singleReview ? (
-          <SinglePost
-            isModal={true}
-            data={modalDatas.singleReview}
-            NavigationInfo={{
-              hasPrev: modalDatas.index > 0,
-              hasNext: modalDatas.index < allReviews.length - 1,
-              prevHandler: modalDatas.prevHandler,
-              nextHandler: modalDatas.nextHandler,
-            }}
-            removeHanlder={removeHanlder}
-          />
-        ) : (
-          <LoadingSinlgeReview isModal={true} />
-        )}
+        <SinglePost
+          isModal={true}
+          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}
+          data={modalDatas.singleReview}
+          NavigationInfo={{
+            hasPrev: modalDatas.index > 0,
+            hasNext: modalDatas.index < allReviews.length - 1,
+            prevHandler: modalDatas.prevHandler,
+            nextHandler: modalDatas.nextHandler,
+          }}
+          removeHanlder={removeHanlder}
+        />
       </Modal>
       <div ref={observerTarget}>
         {fetchResult.type === REQUEST && <Loading />}

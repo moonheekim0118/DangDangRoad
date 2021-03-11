@@ -16,11 +16,14 @@ import PrevNextButton from 'components/ui/PrevNextButton';
 import { ImageSlider } from 'components/image';
 import { BasicMap } from 'components/map';
 import * as S from './style';
+import LoadingSinglePost from 'components/ui/LoadingSinlgePost';
 
 interface Props {
   isModal: boolean;
+  /** single review loading status */
+  isLoading: boolean;
   /** single Review Data */
-  data: ReviewData;
+  data?: ReviewData;
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
@@ -31,6 +34,7 @@ interface Props {
 
 const SinglePost = ({
   isModal,
+  isLoading,
   data,
   NavigationInfo,
   removeHanlder,
@@ -39,52 +43,56 @@ const SinglePost = ({
 
   return (
     <S.Wrapper isModal={isModal}>
-      <S.Container>
-        <S.Header>{data.placeInfo.place_name}</S.Header>
-        <S.ContentsContainer>
-          <S.PlaceName>{data.placeInfo.place_name}</S.PlaceName>
-          <S.PlaceDetail>{data.placeInfo.address_name}</S.PlaceDetail>
-          <BasicMap coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
-          <S.InfoContainer>
-            <S.Info>
-              {PARKING_LOT_CAPTION}
-              {data.hasParkingLot}
-            </S.Info>
-            <S.Info>
-              {OFFLEASH_CAPTION}
-              {data.hasOffLeash}
-            </S.Info>
-            <S.Info>
-              {RECOMMENDATION_CAPTION}
-              {data.recommendation}
-            </S.Info>
-          </S.InfoContainer>
-        </S.ContentsContainer>
-        {data.imageList && (
+      {data && !isLoading ? (
+        <S.Container>
+          <S.Header>{data.placeInfo.place_name}</S.Header>
           <S.ContentsContainer>
-            <ImageSlider imageList={data.imageList} />
+            <S.PlaceName>{data.placeInfo.place_name}</S.PlaceName>
+            <S.PlaceDetail>{data.placeInfo.address_name}</S.PlaceDetail>
+            <BasicMap coordX={data.placeInfo.x} coordY={data.placeInfo.y} />
+            <S.InfoContainer>
+              <S.Info>
+                {PARKING_LOT_CAPTION}
+                {data.hasParkingLot}
+              </S.Info>
+              <S.Info>
+                {OFFLEASH_CAPTION}
+                {data.hasOffLeash}
+              </S.Info>
+              <S.Info>
+                {RECOMMENDATION_CAPTION}
+                {data.recommendation}
+              </S.Info>
+            </S.InfoContainer>
           </S.ContentsContainer>
-        )}
-        <S.UserContentsContainer>
-          {data.userId === userId && (
-            <S.AdminContainer>
-              <Button
-                href={`${routes.UPDATE_POST}/${data.docId}`}
-                linkStyle={S.updateButtonStyle}>
-                {UPDATE_BUTTON_CAPTION}
-              </Button>
-              <Button
-                className="deleteBtn"
-                css={S.deleteButtonStyle}
-                onClick={removeHanlder && removeHanlder(data.docId)}>
-                {DELETE_BUTTON_CAPTION}
-              </Button>
-            </S.AdminContainer>
+          {data.imageList && (
+            <S.ContentsContainer>
+              <ImageSlider imageList={data.imageList} />
+            </S.ContentsContainer>
           )}
-          <WriterInfo userData={data.userData} createdAt={data.createdAt} />
-          <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
-        </S.UserContentsContainer>
-      </S.Container>
+          <S.UserContentsContainer>
+            {data.userId === userId && (
+              <S.AdminContainer>
+                <Button
+                  href={`${routes.UPDATE_POST}/${data.docId}`}
+                  linkStyle={S.updateButtonStyle}>
+                  {UPDATE_BUTTON_CAPTION}
+                </Button>
+                <Button
+                  className="deleteBtn"
+                  css={S.deleteButtonStyle}
+                  onClick={removeHanlder && removeHanlder(data.docId)}>
+                  {DELETE_BUTTON_CAPTION}
+                </Button>
+              </S.AdminContainer>
+            )}
+            <WriterInfo userData={data.userData} createdAt={data.createdAt} />
+            <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
+          </S.UserContentsContainer>
+        </S.Container>
+      ) : (
+        <LoadingSinglePost />
+      )}
       {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
     </S.Wrapper>
   );
