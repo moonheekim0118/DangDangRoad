@@ -23,6 +23,7 @@ interface Props {
   imageList: string[];
   imageUrlRef: React.Ref<RefType<string[]>>;
   freeTextRef: React.Ref<InputRef>;
+  freeText: string;
   hasParkingLotRef: React.Ref<InputRef>;
   hasParkingLot: string;
   hasOffLeashRef: React.Ref<InputRef>;
@@ -51,7 +52,11 @@ const PostEditor = (props: Props) => {
             initialImageUrl={props.imageList || []}
             ref={props.imageUrlRef}
           />
-          <TextArea cols={15} ref={props.freeTextRef} />
+          <TextArea
+            cols={15}
+            initValue={props.freeText}
+            ref={props.freeTextRef}
+          />
           <S.PlaceInfo>
             <S.Label>{RADIO_BOX_LABEL}</S.Label>
             <S.RadioContainer>

@@ -1,5 +1,6 @@
 import { FREE_TEXT_LIMIT } from 'common/constant/number';
 
+export const SAVE_MESSAGE = '저장 되었습니다';
 export const UPDATE_MESSAGE = '수정 되었습니다';
 export const DEFAULT_ERROR = '잠시 후에 다시 시도해주세요';
 export const EMAIL_ALREADY_IN_USE_ERROR = '이미 사용중인 이메일 입니다';
@@ -16,6 +17,7 @@ export const NO_SEARCH_RESULT_ERROR = '검색결과가 없습니다';
 export const NO_KEYWORD_ERROR = '검색어를 입력해주세요';
 export const PAGE_LEAVE_WARNING =
   '변경사항이 저장되지 않습니다. 나가시겠습니까?';
+export const NO_UPDATE_ERROR = '아직 수정되지 않았습니다!';
 
 export const EMPTY_USER_NICKNAME = '탈퇴한 사용자';
 export const FOOTER_CONTENTS = 'Copyright © moonhee kim dangdang road';

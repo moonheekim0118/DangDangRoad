@@ -10,7 +10,7 @@ const updatePost = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
   const [singleReview] = useSingleReview(true);
 
-  useWarnUsavedChange();
+  useWarnUsavedChange(routes.SEARCH);
 
   useEffect(() => {
     if (user && singleReview && singleReview.userId !== user.userId) {

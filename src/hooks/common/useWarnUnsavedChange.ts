@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 let leaveConfirmed = false;
 
-const useWarnUsavedChange = () => {
+const useWarnUsavedChange = (exception?: string) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -13,18 +13,19 @@ const useWarnUsavedChange = () => {
 
   // pop up when try to leave page inner app
   useEffect(() => {
-    router.events.on('routeChangeStart', () => {
+    const hanlder = (route: string) => {
+      if (exception && route.includes(exception)) return;
       if (leaveConfirmed) return; // go
       if (window.confirm(PAGE_LEAVE_WARNING)) {
         // leave
         leaveConfirmed = true;
       } else {
-        // not leave
-        window.history.replaceState(null, '', router.asPath);
         router.events.emit('routeChangeError');
-        throw 'routeChange aborted';
+        throw 'routeChange aborted.';
       }
-    });
+    };
+    router.events.on('routeChangeStart', hanlder);
+    return () => router.events.off('routeChangeStart', hanlder);
   }, []);
 
   // pop up wanrning when closing Tab and refreshing page
@@ -35,9 +36,7 @@ const useWarnUsavedChange = () => {
     };
     window.addEventListener('beforeunload', handleWindowClose);
 
-    return () => {
-      window.removeEventListener('beforeunload', handleWindowClose);
-    };
+    return () => window.removeEventListener('beforeunload', handleWindowClose);
   }, []);
 };
 

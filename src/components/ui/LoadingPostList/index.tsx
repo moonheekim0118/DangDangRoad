@@ -6,7 +6,11 @@ import * as S from 'components/ui/LoadingSinlgePost/style';
 const LoadingPostList = () => {
   return (
     <>
-      <ContentLoader width="100%" height="70vh" css={S.contentsLoaderStyle}>
+      <ContentLoader
+        width="100%"
+        height="70vh"
+        viewBox="0 0 100% 650"
+        css={S.contentsLoaderStyle}>
         <rect x="10%" y="20" rx="8" ry="8" width="calc(100%/7)" height="200" />
         <rect x="30%" y="20" rx="8" ry="8" width="calc(100%/7)" height="200" />
         <rect x="50%" y="20" rx="8" ry="8" width="calc(100%/7)" height="200" />
