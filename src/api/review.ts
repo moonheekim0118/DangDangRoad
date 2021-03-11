@@ -132,3 +132,15 @@ export const getReviewById = async (
     throw error;
   }
 };
+
+/** get Reviews data size */
+export const getReviewsCount = async (): T.APIResponse<number> => {
+  try {
+    const snapshot = await db.collection('reviews').get();
+    return { isError: false, data: snapshot.size };
+  } catch (error) {
+    throw error;
+  }
+};
+
+/** get Reviews */

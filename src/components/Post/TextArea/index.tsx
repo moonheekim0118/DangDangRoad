@@ -10,11 +10,13 @@ import { FREE_TEXT_LABEL } from 'common/constant/string';
 import { FREE_TEXT_LIMIT } from 'common/constant/number';
 import * as S from './style';
 
-const TextArea = (
-  props: TextareaHTMLAttributes<HTMLTextAreaElement>,
-  ref: React.Ref<InputRef>
-) => {
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  initValue: string;
+}
+
+const TextArea = (props: Props, ref: React.Ref<InputRef>) => {
   const [value, error, valueChangeHanlder] = useValidation({
+    initialValue: props.initValue,
     validator: freeTextLengthCheck,
   });
 

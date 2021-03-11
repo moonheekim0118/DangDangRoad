@@ -3,7 +3,7 @@ import { WriteButton, PostList, SinglePost } from 'components/post';
 import {
   useUser,
   useAllReviews,
-  useInfiniteScroll,
+  useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
@@ -36,7 +36,7 @@ const SearchMain = ({ reviews }: Props) => {
     initReviews: reviews.data.reviews,
     initLastKey: reviews.data.lastKey,
   });
-  const observerTarget = useInfiniteScroll({
+  const observerTarget = useIntersectionObserver({
     deps: [hasMore],
     fetcher: fetchReview,
   });
@@ -57,21 +57,18 @@ const SearchMain = ({ reviews }: Props) => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        {modalDatas.singleReview ? (
-          <SinglePost
-            isModal={true}
-            data={modalDatas.singleReview}
-            NavigationInfo={{
-              hasPrev: modalDatas.index > 0,
-              hasNext: modalDatas.index < allReviews.length - 1,
-              prevHandler: modalDatas.prevHandler,
-              nextHandler: modalDatas.nextHandler,
-            }}
-            removeHanlder={removeHanlder}
-          />
-        ) : (
-          <Loading />
-        )}
+        <SinglePost
+          isModal={true}
+          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}
+          data={modalDatas.singleReview}
+          NavigationInfo={{
+            hasPrev: modalDatas.index > 0,
+            hasNext: modalDatas.index < allReviews.length - 1,
+            prevHandler: modalDatas.prevHandler,
+            nextHandler: modalDatas.nextHandler,
+          }}
+          removeHanlder={removeHanlder}
+        />
       </Modal>
       <div ref={observerTarget}>
         {fetchResult.type === REQUEST && <Loading />}

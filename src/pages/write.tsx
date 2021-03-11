@@ -6,7 +6,7 @@ import routes from 'common/constant/routes';
 
 const Write = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
-  useWarnUsavedChange();
+  useWarnUsavedChange(routes.SEARCH);
   return user && user.isLoggedIn ? (
     <WritePost userId={user.userId} />
   ) : (

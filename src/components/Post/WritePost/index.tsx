@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
-import { updateReview } from 'api/review';
+import { createReview } from 'api/review';
 import { PlaceType } from 'types/Map';
 import useApiFetch, {
   REQUEST,
@@ -13,6 +13,7 @@ import {
   RAIDO_HAS_DONTKNOW_VALUE,
   RAIDO_AVAILABLE_DONTKNOW_VALUE,
   RAIDO_RECOMMENDATION_SOSO_VALUE,
+  SAVE_MESSAGE,
 } from 'common/constant/string';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import { PostEditor } from 'components/post';
@@ -33,13 +34,14 @@ const WritePost = ({ userId }: Props) => {
   const recommendationRef = useRef<InputRef>(inputDefaultRef());
   const imageUrlRef = useRef<RefType<string[]>>(defaultRef<string[]>([]));
 
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(updateReview);
+  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(createReview);
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
 
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
+        dispatch(Action.showNoti(SAVE_MESSAGE));
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
@@ -106,6 +108,7 @@ const WritePost = ({ userId }: Props) => {
       imageList={[]}
       imageUrlRef={imageUrlRef}
       freeTextRef={freeTextRef}
+      freeText=""
       hasParkingLotRef={hasParkingLotRef}
       hasParkingLot={RAIDO_HAS_DONTKNOW_VALUE}
       hasOffLeashRef={hasOffLeashRef}

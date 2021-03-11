@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import {
   useUser,
   useQueryReviews,
-  useInfiniteScroll,
+  useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/post';
@@ -20,7 +20,7 @@ const SearchResult = () => {
     hasMore,
     query,
   ] = useQueryReviews();
-  const observerTarget = useInfiniteScroll({
+  const observerTarget = useIntersectionObserver({
     deps: [hasMore],
     fetcher: fetchReview,
   });
@@ -37,6 +37,7 @@ const SearchResult = () => {
   return (
     <>
       <PostList
+        isLoading={fetchResult.type === REQUEST}
         searchKeyword={query?.toString()}
         reviewData={allReviews}
         openSinglePost={modalDatas.openModal}
@@ -45,21 +46,18 @@ const SearchResult = () => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        {modalDatas.singleReview ? (
-          <SinglePost
-            isModal={true}
-            data={modalDatas.singleReview}
-            NavigationInfo={{
-              hasPrev: modalDatas.index > 0,
-              hasNext: modalDatas.index < allReviews.length - 1,
-              prevHandler: modalDatas.prevHandler,
-              nextHandler: modalDatas.nextHandler,
-            }}
-            removeHanlder={removeHanlder}
-          />
-        ) : (
-          <Loading />
-        )}
+        <SinglePost
+          isModal={true}
+          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}
+          data={modalDatas.singleReview}
+          NavigationInfo={{
+            hasPrev: modalDatas.index > 0,
+            hasNext: modalDatas.index < allReviews.length - 1,
+            prevHandler: modalDatas.prevHandler,
+            nextHandler: modalDatas.nextHandler,
+          }}
+          removeHanlder={removeHanlder}
+        />
       </Modal>
       <div ref={observerTarget}>
         {fetchResult.type === REQUEST && <Loading />}

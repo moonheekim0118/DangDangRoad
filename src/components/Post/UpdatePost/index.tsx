@@ -10,6 +10,8 @@ import useApiFetch, {
 import {
   NOT_SELECT_PLACE_ERROR,
   FREE_TEXT_LIMIT_ERROR,
+  NO_UPDATE_ERROR,
+  UPDATE_MESSAGE,
 } from 'common/constant/string';
 import { ReviewData } from 'types/API';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
@@ -49,6 +51,7 @@ const UpdatePost = ({ initialData, userId }: Props) => {
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
+        dispatch(Action.showNoti(UPDATE_MESSAGE));
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
@@ -78,6 +81,17 @@ const UpdatePost = ({ initialData, userId }: Props) => {
         return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
       } else if (freeTextError) {
         return dispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
+      }
+
+      if (
+        freeText === initialData.freeText &&
+        hasParkingLot === initialData.hasParkingLot &&
+        hasOffLeash === initialData.hasOffLeash &&
+        recommendation === initialData.recommendation &&
+        imageUrl === initialData.imageList &&
+        selectedPlace === initialData.placeInfo
+      ) {
+        return dispatch(Action.showError(NO_UPDATE_ERROR));
       }
       const data = {
         userId,
@@ -115,6 +129,7 @@ const UpdatePost = ({ initialData, userId }: Props) => {
       imageList={initialData.imageList || []}
       imageUrlRef={imageUrlRef}
       freeTextRef={freeTextRef}
+      freeText={initialData.freeText}
       hasParkingLotRef={hasParkingLotRef}
       hasParkingLot={initialData.hasParkingLot}
       hasOffLeashRef={hasOffLeashRef}

@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { SinglePost, PostList } from 'components/post';
 import { useSingleReview } from 'hooks';
+import { REQUEST } from 'hooks/common/useApiFetch';
 import { Button } from 'atoms';
 import { getReviewsFirst } from 'api/review';
 import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
-import Loading from 'components/ui/Loading';
 import Router from 'next/router';
 
 export async function getStaticPaths() {
@@ -24,6 +24,7 @@ export async function getStaticProps() {
 }
 
 const singlePost = ({ reviews }) => {
+  const { user } = useUser();
   const [singleReview, fetchResult] = useSingleReview(true);
 
   const openSinglePost = useCallback(
@@ -37,11 +38,11 @@ const singlePost = ({ reviews }) => {
     <span>{fetchResult.error}</span>
   ) : (
     <>
-      {singleReview ? (
-        <SinglePost isModal={false} data={singleReview} />
-      ) : (
-        <Loading />
-      )}
+      <SinglePost
+        isLoading={fetchResult.type === REQUEST}
+        isModal={false}
+        data={singleReview}
+      />
       <Button href={routes.SEARCH}>산책로 리뷰 더 보기</Button>
       <PostList
         reviewData={reviews.data.reviews}
