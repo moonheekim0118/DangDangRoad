@@ -5,14 +5,22 @@ interface Props {
   deps?: any[];
   /** function to excute on intersect */
   fetcher: () => void;
+  /** not on interest*/
+  removeFetcher?: () => void;
 }
 
-const useInfiniteScroll = ({ deps = [], fetcher }: Props) => {
+const useIntersectionObserver = ({
+  deps = [],
+  fetcher,
+  removeFetcher,
+}: Props) => {
   const observerTarget = useRef(null);
 
   const onIntersect = useCallback(([entry]) => {
     if (entry.isIntersecting) {
       fetcher();
+    } else {
+      removeFetcher && removeFetcher();
     }
   }, deps);
 
@@ -28,4 +36,4 @@ const useInfiniteScroll = ({ deps = [], fetcher }: Props) => {
   return observerTarget;
 };
 
-export default useInfiniteScroll;
+export default useIntersectionObserver;

@@ -9,7 +9,7 @@ export { default as useSignOut } from './controller/useSignOut';
 export { default as useImageSlide } from './controller/useImageSlide';
 export { default as useSingleReview } from './data/useSingleReview';
 export { default as useUser } from './data/useUser';
-export { default as useInfiniteScroll } from './common/useInfiniteScroll';
+export { default as useIntersectionObserver } from './common/useIntersectionObserver';
 export { default as useAllReviews } from './data/useAllReviews';
 export { default as useQueryReviews } from './data/useQueryReviews';
 export { default as useSinglePostModal } from './controller/useSinglePostModal';

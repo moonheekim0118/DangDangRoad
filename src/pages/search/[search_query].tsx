@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import {
   useUser,
   useQueryReviews,
-  useInfiniteScroll,
+  useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/post';
@@ -20,7 +20,7 @@ const SearchResult = () => {
     hasMore,
     query,
   ] = useQueryReviews();
-  const observerTarget = useInfiniteScroll({
+  const observerTarget = useIntersectionObserver({
     deps: [hasMore],
     fetcher: fetchReview,
   });

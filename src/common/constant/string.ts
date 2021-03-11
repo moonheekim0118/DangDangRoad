@@ -19,6 +19,7 @@ export const PAGE_LEAVE_WARNING =
 
 export const EMPTY_USER_NICKNAME = '탈퇴한 사용자';
 export const FOOTER_CONTENTS = 'Copyright © moonhee kim dangdang road';
+export const FOOTER_DESC = '댕댕로드는 온 세상 강아지들이 꽃길만 걷길 바라요';
 
 export const MENU_MYPAGE_TITLE = '마이페이지';
 export const MENU_LOGOUT_TITLE = '로그아웃';

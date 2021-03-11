@@ -1,16 +1,53 @@
-import React from 'react';
+import React, { useEffect, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
 import { css } from '@emotion/react';
-import { useUser } from 'hooks';
+import { useUser, useIntersectionObserver } from 'hooks';
 import { colorCode } from 'common/style/color';
 import { baseButtonStyle } from 'common/style/baseStyle';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
 import { Button } from 'atoms';
+import { getReviewsCount } from 'api/review';
+import Counter from 'components/ui/Counter';
+import PostExample from 'components/ui/PostExample';
 
-const Index = (): React.ReactElement => {
+export async function getStaticProps() {
+  return {
+    props: {
+      reviewSize: await getReviewsCount(),
+    },
+  };
+}
+
+const Index = ({ reviewSize }): React.ReactElement => {
   useUser();
+
+  const counterRef = useRef<HTMLInputElement>(null);
+  const [countEnd, setCountEnd] = useState<number>(0);
+  const [showPostExample, setShowPostExample] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (counterRef.current) {
+      counterRef.current.style.opacity = '1';
+      counterRef.current.style.transition = 'all 0.5s ease-in-out';
+      setCountEnd(reviewSize.data);
+    }
+  }, []);
+
+  const openExamplePost = useCallback(() => {
+    setShowPostExample(true);
+  }, []);
+
+  const closeExamplePost = useCallback(() => {
+    setShowPostExample(false);
+  }, []);
+
+  const examplePostObserverTarget = useIntersectionObserver({
+    fetcher: openExamplePost,
+    removeFetcher: closeExamplePost,
+  });
+
   return (
     <Container>
       <MainContents>
@@ -28,6 +65,11 @@ const Index = (): React.ReactElement => {
         </SubContetns>
         <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
+      <ReviewCount ref={counterRef}>
+        🧾지금 까지 작성된 리뷰 <Counter end={countEnd} duration={1.2} />개
+      </ReviewCount>
+      <Observer ref={examplePostObserverTarget} />
+      <PostExample show={showPostExample} />
     </Container>
   );
 };
@@ -44,12 +86,13 @@ const buttonStyle = css`
 
 const Container = styled.section`
   width: 100%;
-  height: 100%;
   background-color: #0277bc;
-
-  display: grid;
-  place-items: center;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding-bottom: 50px;
   color: #fff;
 `;
 
@@ -74,6 +117,24 @@ const MainTitle = styled.div`
 
   @media only screen and (max-width: 780px) {
     display: none;
+  }
+`;
+
+const ReviewCount = styled.div`
+  opacity: 0;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 120px;
+
+  @media only screen and (max-width: 780px) {
+    margin-bottom: 70px;
+  }
+`;
+
+const Observer = styled.div`
+  @media only screen and (max-width: 780px) {
+    position: sticky;
+    top: 0;
   }
 `;
 

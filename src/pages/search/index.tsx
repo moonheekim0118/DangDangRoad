@@ -3,7 +3,7 @@ import { WriteButton, PostList, SinglePost } from 'components/post';
 import {
   useUser,
   useAllReviews,
-  useInfiniteScroll,
+  useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
@@ -36,7 +36,7 @@ const SearchMain = ({ reviews }: Props) => {
     initReviews: reviews.data.reviews,
     initLastKey: reviews.data.lastKey,
   });
-  const observerTarget = useInfiniteScroll({
+  const observerTarget = useIntersectionObserver({
     deps: [hasMore],
     fetcher: fetchReview,
   });

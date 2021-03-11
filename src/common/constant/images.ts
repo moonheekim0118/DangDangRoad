@@ -5,6 +5,8 @@ export const SENT_EMAIL_IMAGE = '/sentEmailImage.png';
 export const SENT_EMAIL_IMAGE_ALT = 'Email Sent image';
 export const LOGO_IMAGE = '/logo.png';
 export const LOGO_IMAGE_ALT = 'logo image';
+export const EXAMPLE_DOG_IMAGE = '/dog.jpg';
+export const EXAMPLE_DOG_IMAGE_ALT = 'dog image';
 export const MARKER_URL =
   'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
 export const MARKER_POSITIONS = [
