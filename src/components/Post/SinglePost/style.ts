@@ -26,6 +26,21 @@ export const deleteButtonStyle = css`
   }
 `;
 
+import { baseModalStyle } from 'common/style/baseStyle';
+
+export const Wrapper = styled.div<{ isModal: boolean }>`
+  width: 80vw;
+  height: 80vh;
+  margin: ${(props) => !props.isModal && '25px 0'};
+  background-color: #fff;
+  border-radius: 20px;
+  border: ${(props) => !props.isModal && '2px solid #f4f4f4'};
+  box-shadow: ${(props) =>
+    props.isModal && '0px 0px 5px 0px rgba(0, 0, 0, 0.75)'};
+
+  ${(props) => props.isModal && baseModalStyle};
+`;
+
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -71,11 +86,36 @@ export const UserContentsContainer = styled.div`
   }
 `;
 
+export const Header = styled.div`
+  position: sticky;
+  top: -25px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 7000;
+  display: none;
+  text-align: cetner;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 1.8rem;
+  color: ${colorCode['blue']};
+  padding: 10px;
+
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
 export const PlaceName = styled.span`
   text-align: cetner;
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.8rem;
   color: ${colorCode['blue']};
+
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 export const PlaceDetail = styled.span`

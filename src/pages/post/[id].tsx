@@ -5,7 +5,6 @@ import { Button } from 'atoms';
 import { getReviewsFirst } from 'api/review';
 import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
-import * as S from 'common/style/post';
 import Loading from 'components/ui/Loading';
 import Router from 'next/router';
 
@@ -38,9 +37,11 @@ const singlePost = ({ reviews }) => {
     <span>{fetchResult.error}</span>
   ) : (
     <>
-      <S.SinglePostContainer isModal={false}>
-        {singleReview ? <SinglePost data={singleReview} /> : <Loading />}
-      </S.SinglePostContainer>
+      {singleReview ? (
+        <SinglePost isModal={false} data={singleReview} />
+      ) : (
+        <Loading />
+      )}
       <Button href={routes.SEARCH}>산책로 리뷰 더 보기</Button>
       <PostList
         reviewData={reviews.data.reviews}
