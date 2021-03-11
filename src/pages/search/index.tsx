@@ -11,6 +11,7 @@ import Loading from 'components/ui/Loading';
 import Modal from 'components/ui/Modal';
 import { ReviewResult } from 'types/API';
 import { getReviewsFirst } from 'api/review';
+import LoadingSinlgeReview from 'components/ui/LoadingSinlgePost';
 
 export async function getStaticProps() {
   return {
@@ -70,7 +71,7 @@ const SearchMain = ({ reviews }: Props) => {
             removeHanlder={removeHanlder}
           />
         ) : (
-          <Loading />
+          <LoadingSinlgeReview isModal={true} />
         )}
       </Modal>
       <div ref={observerTarget}>
