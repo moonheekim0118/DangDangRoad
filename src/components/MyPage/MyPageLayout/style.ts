@@ -1,4 +1,7 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { baseModalStyle } from 'common/style/baseStyle';
+import { colorCode } from 'common/style/color';
 
 export const Container = styled.section`
   width: 100%;
@@ -47,4 +50,54 @@ export const TitleContainer = styled.span`
   position: absolute;
   top: 15px;
   right: 20px;
+`;
+
+export const DestroyConfirmContainer = styled.div`
+  width: 570px;
+  height: 350px;
+  border-radius: 25px;
+  background-color: #fff;
+  padding: 25px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+
+  ${baseModalStyle};
+  @media only screen and (max-width: 570px) {
+    width: 100%;
+  }
+`;
+
+export const DestroyTitle = styled.div`
+  margin: 10px 0;
+  font-weight: bold;
+  color: red;
+  width: 100%;
+  text-align: center;
+`;
+
+export const DestroyButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+`;
+
+export const destoryButtonStyle = css`
+  width: 35%;
+  border: 1px solid red;
+  border-radius: 25px;
+  color: red;
+
+  &:hover {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+`;
+
+export const cancleButtonStyle = css`
+  width: 35%;
+  border: 1px solid ${colorCode['light-gray']};
+  border-radius: 25px;
 `;

@@ -3,12 +3,16 @@ import PageMenu from '../PageMenu';
 import UserCard from '../UserCard';
 import Modal from 'components/ui/Modal';
 import Loading from 'components/ui/Loading';
-import ConfirmPopUp from 'components/ui/ConfirmPopUp';
-import { Title } from 'atoms';
+import { Title, Button } from 'atoms';
 import { useModal, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { UserType } from 'types/User';
-import { DESTROY_ACCOUNT_CAPTION } from 'common/constant/string';
+import {
+  DESTROY_ACCOUNT_CAPTION,
+  DESTROY_ACCOUNT_TERM,
+  CANCLE_BUTTON_CAPTION,
+  DESTROY_BUTTON_CAPTION,
+} from 'common/constant/string';
 import { destroyAccount } from 'api/user';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
@@ -62,11 +66,24 @@ const MyPage = ({
         {children}
       </S.MainContainer>
       <Modal showModal={showModal} modalHandler={modalHandler}>
-        <ConfirmPopUp
-          contents={DESTROY_ACCOUNT_CAPTION}
-          closeHandler={modalHandler}
-          submitHandler={DestroyHandler}
-        />
+        <S.DestroyConfirmContainer>
+          {DESTROY_ACCOUNT_TERM}
+          <S.DestroyTitle>{DESTROY_ACCOUNT_CAPTION}</S.DestroyTitle>
+          <S.DestroyButtonContainer>
+            <Button
+              className="destroyBtn"
+              css={S.destoryButtonStyle}
+              onClick={DestroyHandler}>
+              {DESTROY_BUTTON_CAPTION}
+            </Button>
+            <Button
+              className="cancleBtn"
+              css={S.cancleButtonStyle}
+              onClick={modalHandler}>
+              {CANCLE_BUTTON_CAPTION}
+            </Button>
+          </S.DestroyButtonContainer>
+        </S.DestroyConfirmContainer>
       </Modal>
     </S.Container>
   );

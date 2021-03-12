@@ -71,6 +71,8 @@ export const SAVE_CAPTION = '저장하기';
 export const UPDATE_BUTTON_CAPTION = '수정하기';
 export const DELETE_BUTTON_CAPTION = '삭제하기';
 export const SEARCH_BUTTON_CAPTION = '검색';
+export const DESTROY_BUTTON_CAPTION = '탈퇴하기';
+export const CANCLE_BUTTON_CAPTION = '취소하기';
 
 export const EMAIL_VERFY_TITLE = '이메일 인증';
 export const EMAIL_VERFY_DESC =
@@ -119,6 +121,14 @@ export const RADIO_LIST = {
 
 export const PRIVACY_TERM_TITLE = '개인정보 수집에 동의하십니까';
 export const SERVICE_TERM_TITLE = '이용 약관에 동의하십니까';
+
+export const DESTROY_ACCOUNT_TERM = `
+회원 탈퇴 유의사항
+
+1. 회원 가입 시 제공된 정보는 모두 파기됩니다.
+2. 회원 탈퇴 시 이미 업로드 한 게시글과 댓글은 자동으로 삭제되지 않습니다.
+3. 탈퇴된 계정은 복구 될 수 없습니다.
+`;
 
 export const PRIVACY_TERM = `
 개인정보보호정책
