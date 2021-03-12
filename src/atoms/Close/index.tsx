@@ -4,14 +4,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as S from './style';
 
 interface Props {
-  closeHanlder: () => void;
+  onClick: () => void;
 }
 
-const Close = ({ closeHanlder }: Props) => {
+const Close = (props: Props) => {
   return (
-    <S.Container onClick={closeHanlder}>
-      <Icon icon={faTimes} className="closeIcon" css={S.iconStyle} />
-    </S.Container>
+    <Icon icon={faTimes} className="closeIcon" css={S.iconStyle} {...props} />
   );
 };
 

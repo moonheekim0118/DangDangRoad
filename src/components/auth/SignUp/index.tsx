@@ -8,14 +8,20 @@ import useApiFetch, {
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
-import { InputRef, inputDefaultRef } from 'types/Ref';
+import { InputRef, inputDefaultRef, RefType, defaultRef } from 'types/Ref';
 import { Input, Button } from 'atoms';
 import { saveBtnStyle } from 'common/style/baseStyle';
 import { inputId } from 'common/constant/input';
 import {
+  TERM_NOT_CHECKED_ERROR,
   MENU_SIGNUP_TITLE,
   SIGNUP_BUTTON_CAPTION,
+  SERVICE_TERM,
+  PRIVACY_TERM,
+  PRIVACY_TERM_TITLE,
+  SERVICE_TERM_TITLE,
 } from 'common/constant/string';
+import { SignUpTerm } from 'components/auth';
 import GoogleLoginButton from 'components/common/GoogleLoginButton';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
@@ -32,6 +38,8 @@ const SignUp = (): React.ReactElement => {
     passwordCheckRef,
     passwordCheckValidator,
   ] = usePasswordCheck();
+  const serviceTermCheckRef = useRef<RefType<boolean>>(defaultRef(false));
+  const privacyTermCheckRef = useRef<RefType<boolean>>(defaultRef(false));
 
   useEffect(() => {
     switch (fetchResult.type) {
@@ -68,6 +76,12 @@ const SignUp = (): React.ReactElement => {
         focus: passwordCheckFoucs,
       } = passwordCheckRef.current;
 
+      const serviceTermChecked = serviceTermCheckRef.current.value;
+      const privacyTermChecked = privacyTermCheckRef.current.value;
+
+      if (!serviceTermChecked || !privacyTermChecked) {
+        return dispatch(showError(TERM_NOT_CHECKED_ERROR));
+      }
       if (
         email.length === 0 ||
         nickname.length === 0 ||
@@ -88,7 +102,14 @@ const SignUp = (): React.ReactElement => {
       }
       fetchDispatch({ type: REQUEST, params: [{ email, nickname, password }] });
     },
-    [emailRef, nicknameRef, passwordRef, passwordCheckRef]
+    [
+      emailRef,
+      nicknameRef,
+      passwordRef,
+      passwordCheckRef,
+      serviceTermCheckRef,
+      privacyTermCheckRef,
+    ]
   );
 
   return (
@@ -121,6 +142,16 @@ const SignUp = (): React.ReactElement => {
         required={true}
         ref={passwordCheckRef}
         validator={passwordCheckValidator}
+      />
+      <SignUpTerm
+        label={SERVICE_TERM_TITLE}
+        termContents={SERVICE_TERM}
+        ref={serviceTermCheckRef}
+      />
+      <SignUpTerm
+        label={PRIVACY_TERM_TITLE}
+        termContents={PRIVACY_TERM}
+        ref={privacyTermCheckRef}
       />
       <S.ButtonContainer>
         <Button className="signBtn" css={saveBtnStyle} type="submit">
