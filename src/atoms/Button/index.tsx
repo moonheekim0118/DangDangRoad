@@ -27,6 +27,7 @@ const Button = (props: Props): React.ReactElement => {
     className,
     href,
     linkStyle,
+    type = 'button',
     loading = false,
     disabled = false,
     onClick,
@@ -38,6 +39,7 @@ const Button = (props: Props): React.ReactElement => {
     </Link>
   ) : (
     <S.Component
+      type={type}
       className={className}
       onClick={onClick}
       disabled={disabled}
