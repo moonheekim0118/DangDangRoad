@@ -1,5 +1,6 @@
 import React, { memo, ButtonHTMLAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
+import Loading from 'components/ui/Loading';
 import Link from 'next/Link';
 import * as S from './style';
 
@@ -26,7 +27,7 @@ const Button = (props: Props): React.ReactElement => {
     className,
     href,
     linkStyle,
-    loading,
+    loading = false,
     disabled = false,
     onClick,
     ...rest
@@ -41,7 +42,7 @@ const Button = (props: Props): React.ReactElement => {
       onClick={onClick}
       disabled={disabled}
       {...rest}>
-      {children}
+      {loading ? <Loading size="small" color="light-gray" /> : children}
     </S.Component>
   );
 };

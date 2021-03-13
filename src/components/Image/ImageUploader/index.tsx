@@ -74,7 +74,7 @@ const ImageUploader = ({
 
   return (
     <Container onClick={uploaderClickHanlder}>
-      {fetchResult.type === REQUEST ? <Loading /> : children}
+      {fetchResult.type === REQUEST ? <Loading size="normal" /> : children}
       <input
         type="file"
         multiple

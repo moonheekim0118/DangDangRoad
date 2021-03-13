@@ -153,7 +153,11 @@ const SignUp = (): React.ReactElement => {
         ref={privacyTermCheckRef}
       />
       <S.ButtonContainer>
-        <Button className="signBtn" css={saveBtnStyle} type="submit">
+        <Button
+          className="signBtn"
+          css={saveBtnStyle}
+          type="submit"
+          loading={fetchResult.type === REQUEST}>
           {SIGNUP_BUTTON_CAPTION}
         </Button>
         <GoogleLoginButton />

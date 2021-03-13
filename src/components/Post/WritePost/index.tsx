@@ -116,6 +116,7 @@ const WritePost = ({ userId }: Props) => {
       recommendationRef={recommendationRef}
       recommendation={RAIDO_RECOMMENDATION_SOSO_VALUE}
       submitHandler={submitHandler}
+      loading={fetchResult.type === REQUEST}
     />
   );
 };

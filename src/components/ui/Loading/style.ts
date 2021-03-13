@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { colorCode } from 'common/style/color';
 import { keyframes } from '@emotion/react';
 
 export const Spin = keyframes`
@@ -10,7 +11,11 @@ export const Spin = keyframes`
     }
 `;
 
-export const Loader = styled.div`
+export const Loader = styled.div<{
+  color: string;
+  size: number;
+  borderSize: number;
+}>`
     display: inline-block;
     position:relative;
     width: 100%;
@@ -28,11 +33,14 @@ export const Loader = styled.div`
         right: 0;
         bottom: 0;
         margin: auto;
-        width: 64px;
-        height: 64px;
+        width: ${(props) => props.size}px;
+        height:${(props) => props.size}px;
         border-radius: 50%;
-        border: 6px solid blue;
-        border-color: blue transparent blue transparent;
+        border: ${(props) => props.borderSize}px solid ${(props) =>
+  colorCode[props.color]};
+        border-color: ${(props) => colorCode[props.color]} transparent ${(
+  props
+) => colorCode[props.color]};
         animation: ${Spin} 1.2s linear infinite;
       }
     }

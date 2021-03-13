@@ -61,7 +61,11 @@ const Login = (): React.ReactElement => {
         required={true}
       />
       <S.ButtonContainer>
-        <Button className="loginBtn" css={saveBtnStyle} type="submit">
+        <Button
+          className="loginBtn"
+          css={saveBtnStyle}
+          type="submit"
+          loading={fetchResult.type === REQUEST}>
           {MENU_LOGIN_TITLE}
         </Button>
         <GoogleLoginButton />

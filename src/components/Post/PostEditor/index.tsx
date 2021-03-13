@@ -30,6 +30,7 @@ interface Props {
   hasOffLeash: string;
   recommendationRef: React.Ref<InputRef>;
   recommendation: string;
+  loading: boolean;
   submitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -85,6 +86,7 @@ const PostEditor = (props: Props) => {
           <Button
             className="saveBtn"
             css={saveBtnStyle}
+            loading={props.loading}
             onClick={props.submitHandler}>
             {SAVE_CAPTION}
           </Button>

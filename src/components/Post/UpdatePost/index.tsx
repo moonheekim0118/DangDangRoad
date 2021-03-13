@@ -136,6 +136,7 @@ const UpdatePost = ({ initialData, userId }: Props) => {
       hasOffLeash={initialData.hasOffLeash}
       recommendationRef={recommendationRef}
       recommendation={initialData.recommendation}
+      loading={fetchResult.type === REQUEST}
       submitHandler={submitHandler}
     />
   );
