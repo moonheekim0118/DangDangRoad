@@ -19,8 +19,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     | 'danger'
     | 'outlinedPrimary'
     | 'outlinedInfo'
-    | 'outlinedDanger'
-    | 'index';
+    | 'outlinedDanger';
   /** button size */
   size: 'large' | 'medium' | 'small';
   /** width */

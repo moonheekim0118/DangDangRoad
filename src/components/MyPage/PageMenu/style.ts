@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 export const linkStyle = css`
   width: 100%;
-  text-align: right;
+  justify-content: flex-end;
 `;
 
 export const Container = styled.div`

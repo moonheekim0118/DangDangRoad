@@ -5,10 +5,13 @@ import routes from 'common/constant/routes';
 import { css } from '@emotion/react';
 import { useUser, useIntersectionObserver } from 'hooks';
 import { colorCode } from 'common/style/color';
-import { baseButtonStyle } from 'common/style/baseStyle';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
-import { Button } from 'atoms';
+import { Link } from 'atoms';
 import { getReviewsCount } from 'api/review';
+import {
+  style as baseButtonStyle,
+  sizes as buttonSizeStyle,
+} from 'atoms/Button/style';
 import Counter from 'components/ui/Counter';
 import PostExample from 'components/ui/PostExample';
 
@@ -59,9 +62,9 @@ const Index = ({ reviewSize }): React.ReactElement => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Button href={routes.SEARCH} theme="index" size="large" width="100%">
+          <Link href={routes.SEARCH} style={linkStyle}>
             산책로 리뷰 보기
-          </Button>
+          </Link>
         </SubContetns>
         <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
@@ -74,13 +77,14 @@ const Index = ({ reviewSize }): React.ReactElement => {
   );
 };
 
-const buttonStyle = css`
+const linkStyle = css`
+  ${baseButtonStyle}
+  ${buttonSizeStyle['large']}
   background-color: #fff;
   color: ${colorCode['blue']};
-  ${baseButtonStyle}
-
+  justify-content: center;
   &:hover {
-    box-shadow: 0px 0px 5px 0px rgba(244, 244, 244, 0.75);
+    box-shadow: 0px 0px 10px 0px rgba(244, 244, 244, 0.75);
   }
 `;
 

@@ -68,14 +68,6 @@ export const themes = {
       background-color: rgba(225, 225, 208, 0.1);
     }
   `,
-  index: css`
-    background-color: #fff;
-    color: ${colorCode['blue']};
-
-    &:hover {
-      box-shadow: 0px 0px 5px 0px rgba(244, 244, 244, 0.75);
-    }
-  `,
 };
 
 export const sizes = {
