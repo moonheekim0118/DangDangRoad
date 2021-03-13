@@ -28,6 +28,10 @@ export const Container = styled.header`
 
 export const SideContainer = styled.div`
   display: flex;
+  width: 280px;
+  @media only screen and (max-width: 910px) {
+    width: 150px;
+  }
 `;
 
 export const MenuToggler = styled.div`
@@ -55,7 +59,8 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const ExtraMenuContainer = styled.div`
-  display: flex;
+  width: 100%;
+
   @media only screen and (max-width: 910px) {
     display: none;
   }

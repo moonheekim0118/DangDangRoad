@@ -2,9 +2,9 @@ import React from 'react';
 import Logo from 'components/ui/Logo';
 import Navigation from 'components/common/Navigation';
 import PlaceSearch from 'components/common/PlaceSearch';
-import { navLinkStyle, navLinkStyleWithMargin } from 'common/style/baseStyle';
+import { navLinkStyle } from 'common/style/baseStyle';
 import { useSignOut, useToggle } from 'hooks';
-import { Icon, Link } from 'atoms';
+import { Icon, Link, Button } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -46,24 +46,45 @@ const Header = (): React.ReactElement => {
             {isLoggedIn ? (
               <>
                 <S.ExtraMenuContainer>
-                  <Link style={navLinkStyleWithMargin} href={routes.MYPAGE}>
+                  <Link
+                    align="center"
+                    size="large"
+                    width="100%"
+                    style={navLinkStyle}
+                    href={routes.MYPAGE}>
                     {MENU_MYPAGE_TITLE}
                   </Link>
                 </S.ExtraMenuContainer>
-                <span css={navLinkStyle} onClick={signOutHandler}>
+                <Button
+                  theme="default"
+                  size="large"
+                  width="100%"
+                  className="logOutBtn"
+                  css={navLinkStyle}
+                  onClick={signOutHandler}>
                   {MENU_LOGOUT_TITLE}
-                </span>
+                </Button>
               </>
             ) : (
               <>
                 {pathname !== routes.LOGIN && (
-                  <Link style={navLinkStyleWithMargin} href={routes.LOGIN}>
+                  <Link
+                    align="center"
+                    size="large"
+                    width="100%"
+                    style={navLinkStyle}
+                    href={routes.LOGIN}>
                     {MENU_LOGIN_TITLE}
                   </Link>
                 )}
                 {pathname !== routes.SIGNUP && (
                   <S.ExtraMenuContainer>
-                    <Link style={navLinkStyleWithMargin} href={routes.SIGNUP}>
+                    <Link
+                      align="center"
+                      size="large"
+                      width="100%"
+                      style={navLinkStyle}
+                      href={routes.SIGNUP}>
                       {MENU_SIGNUP_TITLE}
                     </Link>
                   </S.ExtraMenuContainer>

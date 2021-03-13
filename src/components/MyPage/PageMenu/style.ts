@@ -1,10 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-
-export const linkStyle = css`
-  width: 100%;
-  justify-content: flex-end;
-`;
 
 export const Container = styled.div`
   width: 100%;

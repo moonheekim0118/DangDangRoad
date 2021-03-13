@@ -1,11 +1,34 @@
 import { css } from '@emotion/react';
 
-const defaultStyle = css`
+export const defaultStyle = css`
   display: flex;
   align-items: center;
+  height: 100%;
   background-color: inherit;
   color: inherit;
   cursor: pointer;
 `;
 
-export default defaultStyle;
+export const aligns = {
+  left: css`
+    justify-content: flex-start;
+  `,
+  right: css`
+    justify-content: flex-end;
+  `,
+  center: css`
+    justify-content: center;
+  `,
+};
+
+export const sizes = {
+  large: css`
+    font-size: 1.15rem;
+  `,
+  medium: css`
+    font-size: 1rem;
+  `,
+  small: css`
+    font-size: 0.8rem;
+  `,
+};

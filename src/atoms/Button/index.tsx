@@ -19,7 +19,8 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     | 'danger'
     | 'outlinedPrimary'
     | 'outlinedInfo'
-    | 'outlinedDanger';
+    | 'outlinedDanger'
+    | 'default';
   /** button size */
   size: 'large' | 'medium' | 'small';
   /** width */
@@ -31,7 +32,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = (props: Props): React.ReactElement => {
   const {
     children,
-    className,
     href,
     type = 'button',
     loading = false,

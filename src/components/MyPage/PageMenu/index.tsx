@@ -28,7 +28,7 @@ const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
           visiting={`/myPage/${query}` === v.href}>
           {v.icon}
           {v.href ? (
-            <Link href={v.href} style={S.linkStyle}>
+            <Link href={v.href} align="right" size="medium">
               {v.title}
             </Link>
           ) : (

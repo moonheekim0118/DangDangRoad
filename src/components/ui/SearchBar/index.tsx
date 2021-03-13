@@ -5,7 +5,7 @@ import React, {
   FormEvent,
 } from 'react';
 import { useInput } from 'hooks';
-import { Icon } from 'atoms';
+import { Icon, Button } from 'atoms';
 import { SEARCH_BUTTON_CAPTION } from 'common/constant/string';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { InputRef } from 'types/Ref';
@@ -49,7 +49,15 @@ const SearchBar = (
         <Icon icon={faSearch} className="searchIcon" css={S.iconStyle} />
       </S.IconContainer>
       <S.ButtonContainer color={color}>
-        <S.SearchButton type="submit">{SEARCH_BUTTON_CAPTION}</S.SearchButton>
+        <Button
+          type="submit"
+          className="searchBtn"
+          size="medium"
+          theme="default"
+          width="100%"
+          css={S.searchBtnStyle}>
+          {SEARCH_BUTTON_CAPTION}
+        </Button>
       </S.ButtonContainer>
     </S.Form>
   );

@@ -68,6 +68,7 @@ export const themes = {
       background-color: rgba(225, 225, 208, 0.1);
     }
   `,
+  default: css``,
 };
 
 export const sizes = {

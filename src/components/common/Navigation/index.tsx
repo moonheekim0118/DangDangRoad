@@ -13,13 +13,21 @@ const Navigation = ({ isLoggedIn }: Props): React.ReactElement => {
     <S.Container>
       {isLoggedIn ? (
         <S.Item>
-          <Link style={navLinkStyle} size="large" href={routes.MYPAGE}>
+          <Link
+            align="left"
+            style={navLinkStyle}
+            size="large"
+            href={routes.MYPAGE}>
             {MENU_MYPAGE_TITLE}
           </Link>
         </S.Item>
       ) : (
         <S.Item>
-          <Link style={navLinkStyle} size="large" href={routes.SIGNUP}>
+          <Link
+            align="left"
+            style={navLinkStyle}
+            size="large"
+            href={routes.SIGNUP}>
             {MENU_SIGNUP_TITLE}
           </Link>
         </S.Item>

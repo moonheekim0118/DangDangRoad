@@ -7,6 +7,7 @@ defaultLink.args = {
   children: 'Contents',
   href: '/',
   size: 'large',
+  align: 'center',
   width: '40%',
 };
 
