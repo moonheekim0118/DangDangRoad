@@ -1,9 +1,9 @@
 import React, {
-  useRef,
   forwardRef,
   InputHTMLAttributes,
   useImperativeHandle,
 } from 'react';
+import { SHOW_TERMS_CAPTION } from 'common/constant/string';
 import Modal from 'components/ui/Modal';
 import { Button, Close } from 'atoms';
 import { RefType } from 'types/Ref';
@@ -11,14 +11,14 @@ import { useToggle, useModal } from 'hooks';
 import * as S from './style';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  /** label for checkbox */
   label: string;
+  /** term detail contetns to show in Modal*/
   termContents: string;
 }
 
-/** ref 받기 */
 const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
   const { id, label, termContents, ...rest } = props;
-  const detailRef = useRef<HTMLDivElement>(null);
   const [checked, checkHanlder] = useToggle();
   const [showModal, modalHanlder] = useModal(false);
 
@@ -45,10 +45,10 @@ const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
         type="button"
         css={S.buttonStyle}
         onClick={modalHanlder}>
-        약관보기
+        {SHOW_TERMS_CAPTION}
       </Button>
       <Modal showModal={showModal} modalHandler={modalHanlder}>
-        <S.DetailContainer ref={detailRef}>
+        <S.DetailContainer>
           <S.CloseContainer>
             <Close onClick={modalHanlder} />
           </S.CloseContainer>

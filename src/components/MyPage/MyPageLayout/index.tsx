@@ -9,10 +9,10 @@ import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { UserType } from 'types/User';
 import {
   DESTROY_ACCOUNT_CAPTION,
-  DESTROY_ACCOUNT_TERM,
   CANCLE_BUTTON_CAPTION,
   DESTROY_BUTTON_CAPTION,
 } from 'common/constant/string';
+import { DESTROY_ACCOUNT_TERM } from 'common/constant/terms';
 import { destroyAccount } from 'api/user';
 import routes from 'common/constant/routes';
 import Router from 'next/router';

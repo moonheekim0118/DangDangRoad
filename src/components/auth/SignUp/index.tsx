@@ -16,11 +16,10 @@ import {
   TERM_NOT_CHECKED_ERROR,
   MENU_SIGNUP_TITLE,
   SIGNUP_BUTTON_CAPTION,
-  SERVICE_TERM,
-  PRIVACY_TERM,
   PRIVACY_TERM_TITLE,
   SERVICE_TERM_TITLE,
 } from 'common/constant/string';
+import { SERVICE_TERM, PRIVACY_TERM } from 'common/constant/terms';
 import { SignUpTerm } from 'components/auth';
 import GoogleLoginButton from 'components/common/GoogleLoginButton';
 import routes from 'common/constant/routes';
