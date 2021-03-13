@@ -4,7 +4,7 @@ import Navigation from 'components/common/Navigation';
 import PlaceSearch from 'components/common/PlaceSearch';
 import { navLinkStyle, navLinkStyleWithMargin } from 'common/style/baseStyle';
 import { useSignOut, useToggle } from 'hooks';
-import { Icon, Button } from 'atoms';
+import { Icon, Link } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -46,11 +46,9 @@ const Header = (): React.ReactElement => {
             {isLoggedIn ? (
               <>
                 <S.ExtraMenuContainer>
-                  <Button
-                    linkStyle={navLinkStyleWithMargin}
-                    href={routes.MYPAGE}>
+                  <Link style={navLinkStyleWithMargin} href={routes.MYPAGE}>
                     {MENU_MYPAGE_TITLE}
-                  </Button>
+                  </Link>
                 </S.ExtraMenuContainer>
                 <span css={navLinkStyle} onClick={signOutHandler}>
                   {MENU_LOGOUT_TITLE}
@@ -59,17 +57,15 @@ const Header = (): React.ReactElement => {
             ) : (
               <>
                 {pathname !== routes.LOGIN && (
-                  <Button
-                    linkStyle={navLinkStyleWithMargin}
-                    href={routes.LOGIN}>
+                  <Link style={navLinkStyleWithMargin} href={routes.LOGIN}>
                     {MENU_LOGIN_TITLE}
-                  </Button>
+                  </Link>
                 )}
                 {pathname !== routes.SIGNUP && (
                   <S.ExtraMenuContainer>
-                    <Button linkStyle={navLinkStyle} href={routes.SIGNUP}>
+                    <Link style={navLinkStyleWithMargin} href={routes.SIGNUP}>
                       {MENU_SIGNUP_TITLE}
-                    </Button>
+                    </Link>
                   </S.ExtraMenuContainer>
                 )}
               </>

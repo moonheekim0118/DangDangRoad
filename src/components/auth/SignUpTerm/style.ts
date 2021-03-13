@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 import { baseModalStyle } from 'common/style/baseStyle';
 
 export const Container = styled.div`
@@ -45,13 +43,4 @@ export const DetailContainer = styled.div`
 export const Contents = styled.div`
   white-space: pre-wrap;
   line-height: 1.6;
-`;
-
-export const buttonStyle = css`
-  font-size: 0.8rem;
-  width: 100px;
-  background-color: #fff;
-  color: ${colorCode['dark-gray']};
-  border: 1px solid ${colorCode['light-gray']};
-  border-radius: 15px;
 `;

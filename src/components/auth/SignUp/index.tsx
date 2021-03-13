@@ -154,9 +154,10 @@ const SignUp = (): React.ReactElement => {
       />
       <S.ButtonContainer>
         <Button
-          className="signBtn"
-          css={saveBtnStyle}
           type="submit"
+          theme="primary"
+          size="large"
+          width="100%"
           loading={fetchResult.type === REQUEST}>
           {SIGNUP_BUTTON_CAPTION}
         </Button>

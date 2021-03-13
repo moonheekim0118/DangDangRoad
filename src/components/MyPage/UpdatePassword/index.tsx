@@ -90,9 +90,10 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
         validator={passwordCheckValidator}
       />
       <Button
-        className="saveBtn"
-        css={saveBtnStyle}
-        type="button"
+        type="submit"
+        theme="primary"
+        size="large"
+        width="100%"
         onClick={SubmitHanlder}>
         {SAVE_CAPTION}
       </Button>

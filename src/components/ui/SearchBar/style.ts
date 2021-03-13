@@ -12,9 +12,12 @@ export const iconStyle = css`
   transform: rotateY(180deg);
 `;
 
-export const searchBtnStyle = css`
+export const SearchButton = styled.button`
   font-size: 0.9rem;
-  transition: none;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
 `;
 
 export const Form = styled.form`

@@ -1,5 +1,4 @@
 import React, { memo, ButtonHTMLAttributes } from 'react';
-import { SerializedStyles } from '@emotion/react';
 import Loading from 'components/ui/Loading';
 import Link from 'next/link';
 import * as S from './style';
@@ -9,15 +8,24 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: string | React.ReactNode;
   /** routing */
   href?: string;
-  /** link css styling */
-  linkStyle?: SerializedStyles;
   /** type of button */
   type?: 'button' | 'submit' | 'reset';
-  /** disabled or not */
-  disabled?: boolean;
   /** loading or not */
   loading?: boolean;
-  /** button border */
+  /** button theme */
+  theme:
+    | 'primary'
+    | 'info'
+    | 'danger'
+    | 'outlinedPrimary'
+    | 'outlinedInfo'
+    | 'outlinedDanger'
+    | 'index';
+  /** button size */
+  size: 'large' | 'medium' | 'small';
+  /** width */
+  width: number | string;
+  /** onClick function */
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -26,26 +34,32 @@ const Button = (props: Props): React.ReactElement => {
     children,
     className,
     href,
-    linkStyle,
     type = 'button',
     loading = false,
-    disabled = false,
+    theme,
+    size,
+    width,
     onClick,
     ...rest
   } = props;
   return href ? ( // when it needs to be link
     <Link href={href}>
-      <S.Anchor css={linkStyle}>{children}</S.Anchor>
+      <a css={S.anchorStyle}>
+        <button
+          type="button"
+          css={[S.style, S.themes[theme], S.sizes[size], { width }]}>
+          {children}
+        </button>
+      </a>
     </Link>
   ) : (
-    <S.Component
+    <button
       type={type}
-      className={className}
+      css={[S.style, S.themes[theme], S.sizes[size], { width }]}
       onClick={onClick}
-      disabled={disabled}
       {...rest}>
       {loading ? <Loading size="small" color="light-gray" /> : children}
-    </S.Component>
+    </button>
   );
 };
 

@@ -75,12 +75,15 @@ const SinglePost = ({
               <S.AdminContainer>
                 <Button
                   href={`${routes.UPDATE_POST}/${data.docId}`}
-                  linkStyle={S.updateButtonStyle}>
+                  theme="outlinedPrimary"
+                  size="medium"
+                  width="45%">
                   {UPDATE_BUTTON_CAPTION}
                 </Button>
                 <Button
-                  className="deleteBtn"
-                  css={S.deleteButtonStyle}
+                  theme="outlinedDanger"
+                  size="medium"
+                  width="45%"
                   onClick={removeHanlder && removeHanlder(data.docId)}>
                   {DELETE_BUTTON_CAPTION}
                 </Button>

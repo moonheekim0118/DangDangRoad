@@ -59,7 +59,7 @@ const Index = ({ reviewSize }): React.ReactElement => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Button href={routes.SEARCH} linkStyle={buttonStyle}>
+          <Button href={routes.SEARCH} theme="index" size="large" width="100%">
             산책로 리뷰 보기
           </Button>
         </SubContetns>
