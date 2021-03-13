@@ -1,10 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-
-export const iconStyle = css`
-  width: 25px;
-  height: 25px;
-`;
 
 export const Post = styled.div`
   width: 300px;

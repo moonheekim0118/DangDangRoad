@@ -20,8 +20,7 @@ const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
         <S.Description>
           <S.PlaceName>{placeName}</S.PlaceName>
           <div>
-            <Icon icon={faComment} className="commentIcon" css={S.iconStyle} />{' '}
-            12
+            <Icon icon={faComment} size="large" /> 12
           </div>
         </S.Description>
       </S.Overlay>

@@ -15,7 +15,7 @@ const UserCard = ({
 }: Props): React.ReactElement => {
   return (
     <S.Container>
-      <Avatar imageUrl={userImgUrl} size="normal" />
+      <Avatar imageUrl={userImgUrl} size="medium" />
       <S.Name>{userName}</S.Name>
       <S.Email>{userEmail}</S.Email>
     </S.Container>

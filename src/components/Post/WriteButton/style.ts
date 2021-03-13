@@ -1,11 +1,5 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { colorCode } from 'common/style/color';
-
-export const iconStyle = css`
-  width: 30px;
-  height: 30px;
-`;
 
 export const Description = styled.span`
   text-align: center;

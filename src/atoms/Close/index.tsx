@@ -8,9 +8,7 @@ interface Props {
 }
 
 const Close = (props: Props) => {
-  return (
-    <Icon icon={faTimes} className="closeIcon" css={S.iconStyle} {...props} />
-  );
+  return <Icon icon={faTimes} size="large" style={S.iconStyle} {...props} />;
 };
 
 export default Close;

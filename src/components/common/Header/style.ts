@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
-  width: 20px;
-  height: 20px;
   color: #fff;
   cursor: pointer;
 `;

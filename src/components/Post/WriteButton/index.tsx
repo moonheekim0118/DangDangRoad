@@ -8,9 +8,9 @@ import * as S from './style';
 const WriteButton = () => {
   return (
     <S.Container>
-      <Link href={routes.WRITE_REIVEW}>
+      <Link href={routes.WRITE_REIVEW} align="center" size="large">
         <S.WriteComponent>
-          <Icon icon={faFeather} className="writeIcon" css={S.iconStyle} />
+          <Icon icon={faFeather} size="large" />
           <S.Description>{WRITE_REVIEW_BUTTON_CAPTION}</S.Description>
         </S.WriteComponent>
       </Link>

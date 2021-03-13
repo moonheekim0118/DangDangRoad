@@ -29,8 +29,8 @@ const Header = (): React.ReactElement => {
       <S.MenuToggler>
         <Icon
           icon={faList}
-          className="menuIcon"
-          css={S.iconStyle}
+          size="large"
+          style={S.iconStyle}
           onClick={NavigationToggler}
         />
       </S.MenuToggler>

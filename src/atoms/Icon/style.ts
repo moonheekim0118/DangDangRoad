@@ -1,8 +1,20 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
-export const Component = styled(FontAwesomeIcon)`
-  width: 20px;
-  height: 20px;
+export const baseStyle = css`
   color: inherit;
 `;
+
+export const sizes = {
+  large: css`
+    width: 1.25rem;
+    height: 1.25rem;
+  `,
+  medium: css`
+    width: 1.05rem;
+    height: 1.05rem;
+  `,
+  small: css`
+    width: 0.8rem;
+    height: 0.8rem;
+  `,
+};

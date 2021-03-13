@@ -46,7 +46,7 @@ const SearchBar = (
         {...rest}
       />
       <S.IconContainer color={color}>
-        <Icon icon={faSearch} className="searchIcon" css={S.iconStyle} />
+        <Icon icon={faSearch} size="large" style={S.iconStyle} />
       </S.IconContainer>
       <S.ButtonContainer color={color}>
         <Button

@@ -5,7 +5,7 @@ import * as S from './style';
 
 enum AvatarSize {
   'small' = 40,
-  'normal' = 65,
+  'medium' = 65,
   'large' = 120,
 }
 
@@ -13,18 +13,18 @@ interface Props {
   /** image url for Avatar */
   imageUrl?: string;
   /** size of Avatar */
-  size: 'small' | 'normal' | 'large';
+  size: 'large' | 'medium' | 'small';
 }
 
 const Avatar = ({
   imageUrl = '',
-  size = 'normal',
+  size = 'medium',
 }: Props): React.ReactElement => {
   return imageUrl ? (
     <S.StyledAvatar src={imageUrl} size={AvatarSize[size]} />
   ) : (
     <S.Container size={AvatarSize[size]}>
-      <Icon icon={faUser} className="userIcon" css={S.iconStyle} />
+      <Icon icon={faUser} size={size} style={S.iconStyle} />
     </S.Container>
   );
 };
