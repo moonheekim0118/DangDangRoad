@@ -1,7 +1,7 @@
 import React, { memo, ButtonHTMLAttributes } from 'react';
 import { SerializedStyles } from '@emotion/react';
 import Loading from 'components/ui/Loading';
-import Link from 'next/Link';
+import Link from 'next/link';
 import * as S from './style';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
