@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { colorCode } from 'common/style/color';
 
-export const Container = styled.nav`
+const Container = styled.nav`
   width: 100%;
+  border-top: 1px solid #fff;
   background-color: ${colorCode['blue']};
   display: flex;
   flex-direction: column;
@@ -11,8 +12,4 @@ export const Container = styled.nav`
   margin-top: 15px;
 `;
 
-export const Item = styled.div`
-  width: 100%;
-  padding: 20px;
-  border-top: 1px solid #fff;
-`;
+export default Container;

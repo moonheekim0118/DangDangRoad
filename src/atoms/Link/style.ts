@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 export const defaultStyle = css`
   display: flex;
   align-items: center;
-  height: 100%;
+  width: 100%;
   background-color: inherit;
   color: inherit;
   cursor: pointer;

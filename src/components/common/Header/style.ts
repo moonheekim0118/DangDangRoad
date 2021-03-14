@@ -26,19 +26,17 @@ export const Container = styled.header`
 
 export const SideContainer = styled.div`
   display: flex;
-  width: 280px;
-  @media only screen and (max-width: 910px) {
-    width: 150px;
-  }
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 `;
 
 export const MenuToggler = styled.div`
-  opacity: 0;
   margin-right: 25px;
-  display: flex;
+  display: none;
   align-items: center;
   @media only screen and (max-width: 910px) {
-    opacity: 1;
+    display: flex;
   }
 `;
 
@@ -69,7 +67,6 @@ export const NavigationContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  @media only screen and (min-width: 910px) {
-    display: none;
-  }
+
+  display: none;
 `;

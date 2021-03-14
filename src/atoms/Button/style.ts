@@ -8,6 +8,7 @@ export const style = css`
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
   &:focus {
     outline: none;
   }
@@ -17,6 +18,7 @@ export const anchorStyle = css`
   color: inherit;
   text-decoration: none;
   width: 100%;
+  white-space: nowrap;
 `;
 
 export const themes = {
