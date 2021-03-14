@@ -2,7 +2,6 @@ import React, { useRef, useCallback } from 'react';
 import Logo from 'components/ui/Logo';
 import Navigation from 'components/common/Navigation';
 import PlaceSearch from 'components/common/PlaceSearch';
-import { navLinkStyle } from 'common/style/baseStyle';
 import { useSignOut } from 'hooks';
 import { Icon, Link, Button } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
@@ -26,10 +25,9 @@ const Header = (): React.ReactElement => {
 
   const toggleNavigation = useCallback(() => {
     if (navRef.current) {
-      console.log(navRef.current.style.display);
-      navRef.current.style.display === 'none'
-        ? (navRef.current.style.display = 'block')
-        : (navRef.current.style.display = 'none');
+      navRef.current.style.display === 'flex'
+        ? (navRef.current.style.display = 'none')
+        : (navRef.current.style.display = 'flex');
     }
   }, [navRef]);
 
@@ -97,10 +95,12 @@ const Header = (): React.ReactElement => {
           )}
         </S.SideContainer>
       )}
-      <S.NavigationContainer ref={navRef}>
-        <PlaceSearch />
-        <Navigation />
-      </S.NavigationContainer>
+      <S.ToggleContainer>
+        <S.NavigationContainer ref={navRef}>
+          <PlaceSearch />
+          <Navigation />
+        </S.NavigationContainer>
+      </S.ToggleContainer>
     </S.Container>
   );
 };

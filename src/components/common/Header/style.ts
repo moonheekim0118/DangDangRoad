@@ -54,19 +54,16 @@ export const SearchBarContainer = styled.div`
   }
 `;
 
-export const ExtraMenuContainer = styled.div`
+export const ToggleContainer = styled.div`
   width: 100%;
-
-  @media only screen and (max-width: 910px) {
+  @media only screen and (min-width: 910px) {
     display: none;
   }
 `;
 
 export const NavigationContainer = styled.div`
+  display: none;
   width: 100%;
-  display: flex;
   flex-direction: column;
   margin-top: 20px;
-
-  display: none;
 `;
