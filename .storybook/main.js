@@ -9,6 +9,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-controls',
     '@storybook/addon-storysource',
+    '@storybook/addon-viewport',
   ],
 
   webpackFinal: async (config, { configType }) => {
