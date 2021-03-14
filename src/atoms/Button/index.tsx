@@ -13,13 +13,14 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** loading or not */
   loading?: boolean;
   /** button theme */
-  theme:
+  theme?:
     | 'primary'
     | 'info'
     | 'danger'
     | 'outlinedPrimary'
     | 'outlinedInfo'
     | 'outlinedDanger'
+    | 'special'
     | 'default';
   /** button size */
   size: 'large' | 'medium' | 'small';
@@ -35,7 +36,7 @@ const Button = (props: Props): React.ReactElement => {
     href,
     type = 'button',
     loading = false,
-    theme,
+    theme = 'default',
     size,
     width,
     onClick,

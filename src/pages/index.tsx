@@ -2,16 +2,10 @@ import React, { useEffect, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
-import { css } from '@emotion/react';
 import { useUser, useIntersectionObserver } from 'hooks';
-import { colorCode } from 'common/style/color';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
-import { Link } from 'atoms';
+import { Button } from 'atoms';
 import { getReviewsCount } from 'api/review';
-import {
-  style as baseButtonStyle,
-  sizes as buttonSizeStyle,
-} from 'atoms/Button/style';
 import Counter from 'components/ui/Counter';
 import PostExample from 'components/ui/PostExample';
 
@@ -62,9 +56,13 @@ const Index = ({ reviewSize }): React.ReactElement => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Link href={routes.SEARCH} style={linkStyle}>
+          <Button
+            href={routes.SEARCH}
+            theme="special"
+            size="large"
+            width="100%">
             산책로 리뷰 보기
-          </Link>
+          </Button>
         </SubContetns>
         <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
@@ -76,17 +74,6 @@ const Index = ({ reviewSize }): React.ReactElement => {
     </Container>
   );
 };
-
-const linkStyle = css`
-  ${baseButtonStyle}
-  ${buttonSizeStyle['large']}
-  background-color: #fff;
-  color: ${colorCode['blue']};
-  justify-content: center;
-  &:hover {
-    box-shadow: 0px 0px 10px 0px rgba(244, 244, 244, 0.75);
-  }
-`;
 
 const Container = styled.section`
   width: 100%;

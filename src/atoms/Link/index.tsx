@@ -9,6 +9,7 @@ interface Props {
   href: string;
   align: 'left' | 'right' | 'center';
   size: 'large' | 'medium' | 'small';
+  theme?: 'primary' | 'secondary' | 'default';
   style?: SerializedStyles;
   width?: string | number;
 }
@@ -17,6 +18,7 @@ const LinkComponent = ({
   children,
   align,
   size,
+  theme = 'default',
   href,
   style,
   width,
@@ -30,6 +32,7 @@ const LinkComponent = ({
             style,
             S.aligns[align],
             S.sizes[size],
+            S.themes[theme],
             { width },
           ]}>
           {children}

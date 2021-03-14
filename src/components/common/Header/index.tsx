@@ -58,16 +58,15 @@ const Header = (): React.ReactElement => {
                 align="center"
                 size="large"
                 width="100%"
-                style={navLinkStyle}
+                theme="primary"
                 href={routes.MYPAGE}>
                 {MENU_MYPAGE_TITLE}
               </Link>
               <Button
-                theme="default"
+                theme="special"
                 size="large"
                 width="100%"
                 className="logOutBtn"
-                css={navLinkStyle}
                 onClick={signOutHandler}>
                 {MENU_LOGOUT_TITLE}
               </Button>
@@ -79,7 +78,7 @@ const Header = (): React.ReactElement => {
                   align="center"
                   size="large"
                   width="100%"
-                  style={navLinkStyle}
+                  theme="primary"
                   href={routes.LOGIN}>
                   {MENU_LOGIN_TITLE}
                 </Link>
@@ -89,7 +88,7 @@ const Header = (): React.ReactElement => {
                   align="center"
                   size="large"
                   width="100%"
-                  style={navLinkStyle}
+                  theme="primary"
                   href={routes.SIGNUP}>
                   {MENU_SIGNUP_TITLE}
                 </Link>

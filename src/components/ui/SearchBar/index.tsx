@@ -53,7 +53,6 @@ const SearchBar = (
           type="submit"
           className="searchBtn"
           size="medium"
-          theme="default"
           width="100%"
           css={S.searchBtnStyle}>
           {SEARCH_BUTTON_CAPTION}

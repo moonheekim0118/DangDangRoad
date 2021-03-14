@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { colorCode } from 'common/style/color';
 
 export const defaultStyle = css`
   display: flex;
@@ -8,6 +9,28 @@ export const defaultStyle = css`
   color: inherit;
   cursor: pointer;
 `;
+
+export const themes = {
+  primary: css`
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.5s ease;
+    &:hover {
+      color: ${colorCode['light-gray']};
+    }
+  `,
+  secondary: css`
+    font-weight: bold;
+    color: ${colorCode['blue']};
+    cursor: pointer;
+    transition: color 0.5s ease;
+    &:hover {
+      color: ${colorCode['light-blue']};
+    }
+  `,
+  default: css``,
+};
 
 export const aligns = {
   left: css`
