@@ -6,3 +6,4 @@ export { default as Tag } from './Tag';
 export { default as Title } from './Title';
 export { default as Close } from './Close';
 export { default as Link } from './Link';
+export { default as Loading } from './Loading';

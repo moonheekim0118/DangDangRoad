@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import PageMenu from '../PageMenu';
 import UserCard from '../UserCard';
 import Modal from 'components/ui/Modal';
-import Loading from 'components/ui/Loading';
+import Loading from 'atoms/Loading';
 import { Title, Button } from 'atoms';
 import { useModal, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';

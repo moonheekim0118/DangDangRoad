@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from 'components/ui/Loading';
+import Loading from 'atoms/Loading';
 import { SignUp } from 'components/auth';
 import { useUser } from 'hooks';
 import routes from 'common/constant/routes';

@@ -9,7 +9,7 @@ enum AvatarSize {
   'large' = 120,
 }
 
-interface Props {
+export interface Props {
   /** image url for Avatar */
   imageUrl?: string;
   /** size of Avatar */

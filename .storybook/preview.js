@@ -1,21 +1,19 @@
 import React from 'react';
-import GlobalStyle from 'common/style/globalStyle';
 import { addDecorator } from '@storybook/react';
 import { makeDecorator } from '@storybook/addons';
-import { NotificationProvider } from 'context/Notification';
-import { LoginInfoProvider } from 'context/LoginInfo';
+import GlobalStyle from 'common/style/globalStyle';
+import { MainContents } from 'components/common/Layout/style';
 
 const withGlobal = makeDecorator({
   name: 'withGlobalStyle',
   parameterName: '',
   wrapper: (getStory, context) => {
     return (
-      <LoginInfoProvider>
-        <NotificationProvider>
-          <GlobalStyle />
-          {getStory(context)}
-        </NotificationProvider>
-      </LoginInfoProvider>
+      <MainContents>
+        <GlobalStyle />
+
+        {getStory(context)}
+      </MainContents>
     );
   },
 });

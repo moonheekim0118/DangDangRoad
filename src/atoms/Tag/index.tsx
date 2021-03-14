@@ -3,7 +3,7 @@ import colorList from 'util/colorGenerator';
 import { sizes } from 'atoms/Button/style';
 import * as S from './style';
 
-interface Props {
+export interface Props {
   /** inner Text */
   children: React.ReactNode;
   /** font size*/

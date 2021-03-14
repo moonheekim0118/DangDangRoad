@@ -1,9 +1,9 @@
 import React, { memo, ButtonHTMLAttributes } from 'react';
-import Loading from 'components/ui/Loading';
+import Loading from 'atoms/Loading';
 import Link from 'next/link';
 import * as S from './style';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** text of button */
   children: string | React.ReactNode;
   /** routing */

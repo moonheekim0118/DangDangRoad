@@ -12,6 +12,6 @@ title.story = {
 };
 
 export default {
-  title: 'atoms | Title',
+  title: 'Title',
   component: Title,
 };

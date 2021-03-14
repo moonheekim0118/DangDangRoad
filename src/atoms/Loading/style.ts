@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { colorCode } from 'common/style/color';
 import { keyframes } from '@emotion/react';
 
-export const Spin = keyframes`
+const Spin = keyframes`
     0% {
         transform: rotate(0deg);
     }
@@ -11,10 +12,34 @@ export const Spin = keyframes`
     }
 `;
 
+const sizes = {
+  large: css`
+    width: 4rem;
+    height: 4rem;
+    border: 6px solid;
+  `,
+  medium: css`
+    width: 1.875rem;
+    height: 1.875rem;
+    border: 4px solid;
+  `,
+  small: css`
+    width: 0.9375rem;
+    height: 0.9375rem;
+    border: 2px solid;
+  `,
+};
+
+export const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+`;
+
 export const Loader = styled.div<{
   color: string;
-  size: number;
-  borderSize: number;
+  size: 'large' | 'medium' | 'small';
 }>`
     display: inline-block;
     position:relative;
@@ -33,11 +58,8 @@ export const Loader = styled.div<{
         right: 0;
         bottom: 0;
         margin: auto;
-        width: ${(props) => props.size}px;
-        height:${(props) => props.size}px;
         border-radius: 50%;
-        border: ${(props) => props.borderSize}px solid ${(props) =>
-  colorCode[props.color]};
+        ${(props) => sizes[props.size]}
         border-color: ${(props) => colorCode[props.color]} transparent ${(
   props
 ) => colorCode[props.color]};

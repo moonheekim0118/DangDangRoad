@@ -1,50 +1,42 @@
 import React from 'react';
+import { Story } from '@storybook/react';
 import { inputId } from 'common/constant/input';
 import {
   checkEmail,
   nicknameValidator,
   passwordValidator,
-  nicknameValidatorForUpdate,
 } from 'util/signUpValidations';
-import { css } from '@emotion/react';
-import Input from '.';
+import Input, { Props } from '.';
 
-export const input = () => (
-  <div
-    css={css`
-      display: flex;
-      flex-direction: column;
-    `}>
-    <Input id={inputId.EMAIL} required={true} validator={checkEmail} />
-    <Input
-      id={inputId.NICKNAME}
-      required={true}
-      validator={nicknameValidator}
-    />
-    <Input
-      id={inputId.PASSWORD}
-      required={true}
-      validator={passwordValidator}
-    />
-    <Input id={inputId.PASSWORDCHECK} required={true} />
-    <Input
-      id={inputId.NOWPASSWORD}
-      required={true}
-      validator={nicknameValidatorForUpdate}
-    />
-    <Input
-      id={inputId.NEWPASSWORD}
-      required={true}
-      validator={passwordValidator}
-    />
-  </div>
-);
+export const Template: Story<Props> = (args) => <Input {...args} />;
 
-input.story = {
-  name: 'input',
+export const EmailInput = Template.bind({});
+export const NicknameInput = Template.bind({});
+export const PasswordInput = Template.bind({});
+
+EmailInput.args = {
+  id: inputId.EMAIL,
+  required: true,
+  validator: checkEmail,
+};
+
+NicknameInput.args = {
+  ...EmailInput.args,
+  id: inputId.NICKNAME,
+  validator: nicknameValidator,
+};
+
+PasswordInput.args = {
+  ...EmailInput.args,
+  id: inputId.PASSWORD,
+  validator: passwordValidator,
+};
+
+Template.args = {
+  ...EmailInput.args,
 };
 
 export default {
-  title: 'atoms | Input',
+  title: 'Input',
   component: Input,
 };

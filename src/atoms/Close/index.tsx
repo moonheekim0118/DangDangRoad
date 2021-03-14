@@ -3,7 +3,7 @@ import { Icon } from 'atoms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as S from './style';
 
-interface Props {
+export interface Props {
   /** close Button size */
   size?: 'large' | 'medium' | 'small';
   /** close Button onClick function */

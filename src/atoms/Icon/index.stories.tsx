@@ -1,20 +1,33 @@
 import React from 'react';
-import Icon from '.';
+import Icon, { Props } from '.';
+import { Story } from '@storybook/react';
 import { faBeer } from '@fortawesome/free-solid-svg-icons';
 import { action } from '@storybook/addon-actions';
 
-export const icon = (args) => <Icon {...args} onClick={action('onClick')} />;
+export const Template: Story<Props> = (args) => (
+  <Icon {...args} onClick={action('onClick')} />
+);
 
-icon.args = {
+export const Large = Template.bind({});
+export const Medium = Template.bind({});
+export const Small = Template.bind({});
+
+Large.args = {
   icon: faBeer,
   size: 'large',
 };
 
-icon.story = {
-  name: 'icon',
+Medium.args = {
+  ...Large.args,
+  size: 'medium',
+};
+
+Small.args = {
+  ...Large.args,
+  size: 'small',
 };
 
 export default {
-  title: 'atoms | Icon',
+  title: 'Icon',
   component: Icon,
 };

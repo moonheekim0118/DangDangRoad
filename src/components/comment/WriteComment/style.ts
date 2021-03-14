@@ -9,13 +9,21 @@ export const submitBtnStyle = css`
 
 export const Form = styled.form`
   width: 100%;
+  height: 100%;
 `;
 
 export const TextArea = styled.textarea`
   background-color: #fff;
+  resize: none;
+  width: 100%;
   color: black;
+  border: none;
   border-top: 1px solid ${colorCode['light-gray']};
-  padding: 20px 40px;
+  padding: 15px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const ButtonContainer = styled.div`

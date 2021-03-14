@@ -9,7 +9,7 @@ import { inputId, inputContents } from 'common/constant/input';
 import { InputRef } from 'types/Ref';
 import * as S from './style';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** input id */
   id: inputId;
   /** check if Input filed is required */

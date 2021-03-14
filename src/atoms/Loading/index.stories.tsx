@@ -1,11 +1,8 @@
 import React from 'react';
-import Close, { Props } from '.';
 import { Story } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import Loading, { Props } from '.';
 
-export const Template: Story<Props> = (args) => (
-  <Close {...args} onClick={action('onClick')} />
-);
+export const Template: Story<Props> = (args) => <Loading {...args} />;
 
 export const Large = Template.bind({});
 export const Medium = Template.bind({});
@@ -24,6 +21,6 @@ Small.args = {
 };
 
 export default {
-  title: 'Close',
-  component: Close,
+  title: 'Loading',
+  component: Loading,
 };

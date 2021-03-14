@@ -12,7 +12,7 @@ import {
   MYPAGE_NAVIGATOR,
 } from 'common/constant/string';
 import { useRouter } from 'next/router';
-import Loading from 'components/ui/Loading';
+import Loading from 'atoms/Loading';
 import routes from 'common/constant/routes';
 import { useUser } from 'hooks';
 

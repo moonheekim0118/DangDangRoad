@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from 'components/ui/Loading';
+import Loading from 'atoms/Loading';
 import ContentLoader from 'react-content-loader';
 import * as S from './style';
 

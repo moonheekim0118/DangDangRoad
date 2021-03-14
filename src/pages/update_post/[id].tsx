@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useUser } from 'hooks';
 import { useSingleReview, useWarnUsavedChange } from 'hooks';
 import { UpdatePost } from 'components/post';
-import Loading from 'components/ui/Loading';
+import Loading from 'atoms/Loading';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 

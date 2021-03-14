@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/react-fontawesome';
 import * as S from './style';
 
-interface Props {
+export interface Props {
   /** actual icon */
   icon: FontAwesomeIconProps['icon'];
   /** style of icon */
