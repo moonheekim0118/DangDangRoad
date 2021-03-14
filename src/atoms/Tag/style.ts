@@ -1,15 +1,12 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div<{ color: string; fontSize: number }>`
+export const Container = styled.div<{ color: string }>`
   display: inline-block;
-  min-width: 100px;
-  padding: 10px 15px;
+  vertical-align: middle;
   background-color: ${(props) => props.color};
   color: #fff;
-  font-size: ${(props) => props.fontSize}rem;
   font-weight: bold;
   border-radius: 50px;
-  text-align: center;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 
@@ -18,4 +15,10 @@ export const Container = styled.div<{ color: string; fontSize: number }>`
   &:hover {
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
   }
+`;
+
+export const Text = styled.span`
+  display: grid;
+  place-items: center;
+  height: 100%;
 `;
