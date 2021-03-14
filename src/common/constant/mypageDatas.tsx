@@ -22,19 +22,19 @@ const destroyStyle = css`
 export const GeneralMenu = [
   {
     key: 0,
-    icon: <Icon icon={faFileAlt} className="myPageIcon" />,
+    icon: <Icon icon={faFileAlt} size="medium" />,
     title: MYPAGE_MENU_DEFAULT,
     href: routes.MYPAGE,
   },
   {
     key: 1,
-    icon: <Icon icon={faUserCircle} />,
+    icon: <Icon icon={faUserCircle} size="medium" />,
     title: MYPAGE_MENU_UPDATE_PROFILE,
     href: routes.MYPAGE_UPDATE_PROFILE,
   },
   {
     key: 2,
-    icon: <Icon icon={faEdit} className="updatePWIcon" />,
+    icon: <Icon icon={faEdit} size="medium" />,
     title: MYPAGE_MENU_UPDATE_PASSWORD,
     href: routes.MYPAGE_UPDATE_PASSWORD,
   },
@@ -43,7 +43,7 @@ export const GeneralMenu = [
 export const DestoryMenu = [
   {
     key: 3,
-    icon: <Icon icon={faSadTear} className="destroyIcon" css={destroyStyle} />,
+    icon: <Icon icon={faSadTear} size="medium" style={destroyStyle} />,
     title: MYPAGE_MENU_DESTROY_ACCOUNT,
   },
 ];

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { SinglePost, PostList } from 'components/post';
 import { useSingleReview } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import { Button } from 'atoms';
+import { Link } from 'atoms';
 import { getReviewsFirst } from 'api/review';
 import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
@@ -43,7 +43,14 @@ const singlePost = ({ reviews }) => {
         isModal={false}
         data={singleReview}
       />
-      <Button href={routes.SEARCH}>산책로 리뷰 더 보기</Button>
+      <Link
+        href={routes.SEARCH}
+        align="center"
+        theme="secondary"
+        size="large"
+        width="100%">
+        산책로 리뷰 더 보기
+      </Link>
       <PostList
         reviewData={reviews.data.reviews}
         openSinglePost={openSinglePost}

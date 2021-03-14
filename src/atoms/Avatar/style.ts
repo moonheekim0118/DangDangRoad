@@ -3,8 +3,6 @@ import { css } from '@emotion/react';
 import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
-  width: 50%;
-  height: 50%;
   color: #fff;
 `;
 

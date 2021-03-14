@@ -1,30 +1,5 @@
 import styled from '@emotion/styled';
-import { baseButtonStyle } from 'common/style/baseStyle';
 import { colorCode } from 'common/style/color';
-import { css } from '@emotion/react';
-
-export const updateButtonStyle = css`
-  background-color: #fff;
-  color: ${colorCode['blue']};
-  border: 1px solid ${colorCode['blue']};
-  ${baseButtonStyle}
-  width:40%;
-
-  &:hover {
-    background-color: rgba(128, 191, 255, 0.2);
-  }
-`;
-
-export const deleteButtonStyle = css`
-  background-color: #fff;
-  color: ${colorCode['red']};
-  border: 1px solid ${colorCode['red']};
-  width: 40%;
-
-  &:hover {
-    background-color: rgba(255, 0, 0, 0.1);
-  }
-`;
 
 import { baseModalStyle } from 'common/style/baseStyle';
 

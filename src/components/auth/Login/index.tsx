@@ -10,7 +10,6 @@ import { showError } from 'action';
 import { signIn } from 'api/sign';
 import { NOT_FULL_INFO_ERROR } from 'common/constant/string';
 import { InputRef, inputDefaultRef } from 'types/Ref';
-import { saveBtnStyle } from 'common/style/baseStyle';
 import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import { inputId } from 'common/constant/input';
 import { Input, Button } from 'atoms';
@@ -62,9 +61,10 @@ const Login = (): React.ReactElement => {
       />
       <S.ButtonContainer>
         <Button
-          className="loginBtn"
-          css={saveBtnStyle}
           type="submit"
+          theme="primary"
+          size="large"
+          width="100%"
           loading={fetchResult.type === REQUEST}>
           {MENU_LOGIN_TITLE}
         </Button>

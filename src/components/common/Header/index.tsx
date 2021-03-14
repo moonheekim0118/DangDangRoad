@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import Logo from 'components/ui/Logo';
 import Navigation from 'components/common/Navigation';
 import PlaceSearch from 'components/common/PlaceSearch';
-import { navLinkStyle, navLinkStyleWithMargin } from 'common/style/baseStyle';
-import { useSignOut, useToggle } from 'hooks';
-import { Icon, Button } from 'atoms';
+import { navLinkStyle } from 'common/style/baseStyle';
+import { useSignOut } from 'hooks';
+import { Icon, Link, Button } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -21,17 +21,26 @@ const Header = (): React.ReactElement => {
   const router = useRouter();
   const pathname = router.pathname;
   const signOutHandler = useSignOut();
+  const navRef = useRef<HTMLDivElement>(null);
   const { isLoaded, isLoggedIn } = useLoginInfoState();
-  const [openNavigation, NavigationToggler] = useToggle();
+
+  const toggleNavigation = useCallback(() => {
+    if (navRef.current) {
+      console.log(navRef.current.style.display);
+      navRef.current.style.display === 'none'
+        ? (navRef.current.style.display = 'block')
+        : (navRef.current.style.display = 'none');
+    }
+  }, [navRef]);
 
   return (
     <S.Container>
       <S.MenuToggler>
         <Icon
           icon={faList}
-          className="menuIcon"
-          css={S.iconStyle}
-          onClick={NavigationToggler}
+          size="large"
+          style={S.iconStyle}
+          onClick={toggleNavigation}
         />
       </S.MenuToggler>
       <S.LogoContainer>
@@ -40,51 +49,58 @@ const Header = (): React.ReactElement => {
       <S.SearchBarContainer>
         <PlaceSearch />
       </S.SearchBarContainer>
-      <S.SideContainer>
-        {isLoaded && (
-          <>
-            {isLoggedIn ? (
-              <>
-                <S.ExtraMenuContainer>
-                  <Button
-                    linkStyle={navLinkStyleWithMargin}
-                    href={routes.MYPAGE}>
-                    {MENU_MYPAGE_TITLE}
-                  </Button>
-                </S.ExtraMenuContainer>
-                <span css={navLinkStyle} onClick={signOutHandler}>
-                  {MENU_LOGOUT_TITLE}
-                </span>
-              </>
-            ) : (
-              <>
-                {pathname !== routes.LOGIN && (
-                  <Button
-                    linkStyle={navLinkStyleWithMargin}
-                    href={routes.LOGIN}>
-                    {MENU_LOGIN_TITLE}
-                  </Button>
-                )}
-                {pathname !== routes.SIGNUP && (
-                  <S.ExtraMenuContainer>
-                    <Button linkStyle={navLinkStyle} href={routes.SIGNUP}>
-                      {MENU_SIGNUP_TITLE}
-                    </Button>
-                  </S.ExtraMenuContainer>
-                )}
-              </>
-            )}
-          </>
-        )}
-      </S.SideContainer>
-      {openNavigation && (
-        <S.NavigationContainer>
-          <PlaceSearch />
-          {pathname !== routes.SIGNUP && pathname !== routes.LOGIN && (
-            <Navigation isLoggedIn={isLoggedIn} />
+      <S.SideContainer></S.SideContainer>
+      {isLoaded && (
+        <S.SideContainer>
+          {isLoggedIn ? (
+            <>
+              <Link
+                align="center"
+                size="large"
+                width="100%"
+                theme="primary"
+                href={routes.MYPAGE}>
+                {MENU_MYPAGE_TITLE}
+              </Link>
+              <Button
+                theme="special"
+                size="large"
+                width="100%"
+                className="logOutBtn"
+                onClick={signOutHandler}>
+                {MENU_LOGOUT_TITLE}
+              </Button>
+            </>
+          ) : (
+            <>
+              {pathname !== routes.LOGIN && (
+                <Link
+                  align="center"
+                  size="large"
+                  width="100%"
+                  theme="primary"
+                  href={routes.LOGIN}>
+                  {MENU_LOGIN_TITLE}
+                </Link>
+              )}
+              {pathname !== routes.SIGNUP && (
+                <Link
+                  align="center"
+                  size="large"
+                  width="100%"
+                  theme="primary"
+                  href={routes.SIGNUP}>
+                  {MENU_SIGNUP_TITLE}
+                </Link>
+              )}
+            </>
           )}
-        </S.NavigationContainer>
+        </S.SideContainer>
       )}
+      <S.NavigationContainer ref={navRef}>
+        <PlaceSearch />
+        <Navigation />
+      </S.NavigationContainer>
     </S.Container>
   );
 };

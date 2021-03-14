@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next"
+    "dev": "next",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -41,10 +43,19 @@
   "devDependencies": {
     "@babel/core": "^7.13.8",
     "@emotion/babel-plugin": "^11.1.2",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@storybook/addon-actions": "^6.1.21",
+    "@storybook/addon-controls": "^6.1.21",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-links": "^6.1.21",
+    "@storybook/addon-storysource": "^6.1.21",
+    "@storybook/react": "^6.1.21",
     "@types/algoliasearch": "^3.34.11",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.0",
     "babel": "^6.23.0",
+    "babel-loader": "^8.2.2",
+    "babel-preset-react-app": "^10.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",

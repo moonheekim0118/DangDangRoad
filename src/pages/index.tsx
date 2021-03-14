@@ -2,10 +2,7 @@ import React, { useEffect, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
-import { css } from '@emotion/react';
 import { useUser, useIntersectionObserver } from 'hooks';
-import { colorCode } from 'common/style/color';
-import { baseButtonStyle } from 'common/style/baseStyle';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
 import { Button } from 'atoms';
 import { getReviewsCount } from 'api/review';
@@ -59,7 +56,11 @@ const Index = ({ reviewSize }): React.ReactElement => {
             <br /> 더욱
             <br /> 성공적이개
           </MainTitle>
-          <Button href={routes.SEARCH} linkStyle={buttonStyle}>
+          <Button
+            href={routes.SEARCH}
+            theme="special"
+            size="large"
+            width="100%">
             산책로 리뷰 보기
           </Button>
         </SubContetns>
@@ -73,16 +74,6 @@ const Index = ({ reviewSize }): React.ReactElement => {
     </Container>
   );
 };
-
-const buttonStyle = css`
-  background-color: #fff;
-  color: ${colorCode['blue']};
-  ${baseButtonStyle}
-
-  &:hover {
-    box-shadow: 0px 0px 5px 0px rgba(244, 244, 244, 0.75);
-  }
-`;
 
 const Container = styled.section`
   width: 100%;

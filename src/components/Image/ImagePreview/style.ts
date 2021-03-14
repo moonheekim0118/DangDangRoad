@@ -3,8 +3,6 @@ import { css } from '@emotion/react';
 import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
-  width: 25px;
-  height: 25px;
   cursor: pointer;
   color: ${colorCode['blue']};
 `;

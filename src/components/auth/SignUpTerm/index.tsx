@@ -41,9 +41,10 @@ const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
         {...rest}
       />
       <Button
-        className="termDetailBtn"
         type="button"
-        css={S.buttonStyle}
+        theme="outlinedInfo"
+        size="small"
+        width="80px"
         onClick={modalHanlder}>
         {SHOW_TERMS_CAPTION}
       </Button>

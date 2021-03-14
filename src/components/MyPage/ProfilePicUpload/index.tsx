@@ -26,7 +26,7 @@ const ProfilePicUpload = (
         type="new">
         <S.AvatarEditor />
         <S.IconContainer>
-          <Icon icon={faPlus} className="uploadIcon" css={S.iconStyle} />
+          <Icon icon={faPlus} size="large" style={S.iconStyle} />
         </S.IconContainer>
         <Avatar imageUrl={imageUrl[0]} size="large" />
       </ImageUploader>

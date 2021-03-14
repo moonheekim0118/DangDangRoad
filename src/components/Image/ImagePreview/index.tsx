@@ -41,7 +41,7 @@ const ImagePreview = ({
             imageLimit={POST_IMAGE_LIMIT}
             type="add">
             <S.ImagePlusButton>
-              <Icon icon={faPlus} className="addImgIcon" css={S.iconStyle} />
+              <Icon icon={faPlus} size="large" style={S.iconStyle} />
             </S.ImagePlusButton>
           </ImageUploader>
         </S.ImageContainer>
@@ -54,8 +54,8 @@ const ImagePreview = ({
               {' '}
               <Icon
                 icon={faTrashAlt}
-                className="removeImgIcon"
-                css={S.iconStyleWhite}
+                size="large"
+                style={S.iconStyleWhite}
                 onClick={imageRemoveHanlder(i)}
               />
             </S.RemoveImage>

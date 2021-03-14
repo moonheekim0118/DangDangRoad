@@ -13,7 +13,6 @@ export const iconStyle = css`
 `;
 
 export const searchBtnStyle = css`
-  font-size: 0.9rem;
   transition: none;
 `;
 

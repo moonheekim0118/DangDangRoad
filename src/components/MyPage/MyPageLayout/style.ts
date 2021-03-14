@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { baseModalStyle } from 'common/style/baseStyle';
-import { colorCode } from 'common/style/color';
 
 export const Container = styled.section`
   width: 100%;
@@ -83,21 +81,4 @@ export const DestroyButtonContainer = styled.div`
   align-items: center;
   gap: 20px;
   margin-top: 20px;
-`;
-
-export const destoryButtonStyle = css`
-  width: 35%;
-  border: 1px solid red;
-  border-radius: 25px;
-  color: red;
-
-  &:hover {
-    background-color: rgba(255, 0, 0, 0.2);
-  }
-`;
-
-export const cancleButtonStyle = css`
-  width: 35%;
-  border: 1px solid ${colorCode['light-gray']};
-  border-radius: 25px;
 `;

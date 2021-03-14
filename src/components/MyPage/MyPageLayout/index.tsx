@@ -71,14 +71,16 @@ const MyPage = ({
           <S.DestroyTitle>{DESTROY_ACCOUNT_CAPTION}</S.DestroyTitle>
           <S.DestroyButtonContainer>
             <Button
-              className="destroyBtn"
-              css={S.destoryButtonStyle}
+              theme="danger"
+              size="large"
+              width="35%"
               onClick={DestroyHandler}>
               {DESTROY_BUTTON_CAPTION}
             </Button>
             <Button
-              className="cancleBtn"
-              css={S.cancleButtonStyle}
+              theme="info"
+              size="large"
+              width="35%"
               onClick={modalHandler}>
               {CANCLE_BUTTON_CAPTION}
             </Button>

@@ -20,8 +20,8 @@ const PrevNextButton = ({
         <S.Container left={true} location={location}>
           <Icon
             icon={faChevronLeft}
-            className="prevIcon"
-            css={S.iconStyle}
+            size="large"
+            style={S.iconStyle}
             onClick={prevHandler}
           />
         </S.Container>
@@ -30,8 +30,8 @@ const PrevNextButton = ({
         <S.Container location={location}>
           <Icon
             icon={faChevronRight}
-            className="nextIcon"
-            css={S.iconStyle}
+            size="large"
+            style={S.iconStyle}
             onClick={nextHandler}
           />
         </S.Container>

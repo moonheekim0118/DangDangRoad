@@ -37,7 +37,7 @@ const SearchBar = (
   return (
     <S.Form onSubmit={submitHandler}>
       <S.Input
-        type="text"
+        type="search"
         color={color}
         focusBackground={focusBack}
         focusFont={focusFont}
@@ -46,10 +46,15 @@ const SearchBar = (
         {...rest}
       />
       <S.IconContainer color={color}>
-        <Icon icon={faSearch} className="searchIcon" css={S.iconStyle} />
+        <Icon icon={faSearch} size="large" style={S.iconStyle} />
       </S.IconContainer>
       <S.ButtonContainer color={color}>
-        <Button className="searchBtn" type="submit" css={S.searchBtnStyle}>
+        <Button
+          type="submit"
+          className="searchBtn"
+          size="medium"
+          width="100%"
+          css={S.searchBtnStyle}>
           {SEARCH_BUTTON_CAPTION}
         </Button>
       </S.ButtonContainer>

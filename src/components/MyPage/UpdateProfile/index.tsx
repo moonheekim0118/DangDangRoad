@@ -88,9 +88,10 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         initValue={user.nickname}
       />
       <Button
-        className="saveBtn"
-        css={saveBtnStyle}
         type="submit"
+        theme="primary"
+        size="large"
+        width="100%"
         onClick={saveHandler}>
         {SAVE_CAPTION}
       </Button>

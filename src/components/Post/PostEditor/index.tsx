@@ -84,8 +84,10 @@ const PostEditor = (props: Props) => {
         </S.ReviewContainer>
         <S.ButtonContainer>
           <Button
-            className="saveBtn"
-            css={saveBtnStyle}
+            type="submit"
+            theme="primary"
+            size="large"
+            width="100%"
             loading={props.loading}
             onClick={props.submitHandler}>
             {SAVE_CAPTION}

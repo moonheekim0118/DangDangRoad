@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
-  width: 20px;
-  height: 20px;
   color: #fff;
   cursor: pointer;
 `;
@@ -28,15 +26,17 @@ export const Container = styled.header`
 
 export const SideContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 `;
 
 export const MenuToggler = styled.div`
-  opacity: 0;
   margin-right: 25px;
-  display: flex;
+  display: none;
   align-items: center;
   @media only screen and (max-width: 910px) {
-    opacity: 1;
+    display: flex;
   }
 `;
 
@@ -55,7 +55,8 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const ExtraMenuContainer = styled.div`
-  display: flex;
+  width: 100%;
+
   @media only screen and (max-width: 910px) {
     display: none;
   }
@@ -66,7 +67,6 @@ export const NavigationContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  @media only screen and (min-width: 910px) {
-    display: none;
-  }
+
+  display: none;
 `;
