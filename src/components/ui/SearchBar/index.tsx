@@ -37,7 +37,7 @@ const SearchBar = (
   return (
     <S.Form onSubmit={submitHandler}>
       <S.Input
-        type="text"
+        type="search"
         color={color}
         focusBackground={focusBack}
         focusFont={focusFont}
