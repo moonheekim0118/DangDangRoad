@@ -4,13 +4,20 @@ import Link from 'next/link';
 import { anchorStyle } from 'atoms/Button/style';
 import * as S from './style';
 
-interface Props {
+export interface Props {
+  /** inner children */
   children: React.ReactNode;
+  /** href link */
   href: string;
+  /** inner item align */
   align: 'left' | 'right' | 'center';
+  /** size */
   size: 'large' | 'medium' | 'small';
+  /** themes */
   theme?: 'primary' | 'secondary' | 'default';
+  /** custom styling */
   style?: SerializedStyles;
+  /** width of component */
   width?: string | number;
 }
 

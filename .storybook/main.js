@@ -18,11 +18,12 @@ module.exports = {
         {
           loader: require.resolve('babel-loader'),
           options: {
-            presets: [require.resolve('@emotion/babel-preset-css-prop')],
+            plugins: [require.resolve('@emotion/babel-plugin')],
           },
         },
       ],
     });
+
     config.resolve.extensions.push('.ts', '.tsx');
     config.resolve.modules.push(
       path.resolve(__dirname, '../src'),

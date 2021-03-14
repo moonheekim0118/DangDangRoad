@@ -1,18 +1,19 @@
 import React from 'react';
 import Link from '.';
 
-export const defaultLink = (args) => <Link {...args} />;
+export const link = (args) => <Link {...args} />;
 
-defaultLink.args = {
+link.args = {
   children: 'Contents',
   href: '/',
+  theme: 'secondary',
   size: 'large',
   align: 'center',
   width: '40%',
 };
 
-defaultLink.story = {
-  name: 'defaultLink',
+link.story = {
+  name: 'link',
 };
 
 export default {

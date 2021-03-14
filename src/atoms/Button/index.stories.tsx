@@ -2,19 +2,19 @@ import React from 'react';
 import Button from '.';
 import { action } from '@storybook/addon-actions';
 
-export const defaultButton = (args) => (
+export const button = (args) => (
   <Button {...args} onClick={action('onClick')} />
 );
 
-defaultButton.args = {
+button.args = {
   children: 'Contents',
   theme: 'primary',
   size: 'large',
   width: '40%',
 };
 
-defaultButton.story = {
-  name: 'defaultButton',
+button.story = {
+  name: 'button',
 };
 
 export default {

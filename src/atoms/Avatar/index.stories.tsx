@@ -1,6 +1,5 @@
 import React from 'react';
 import Avatar from '.';
-import { action } from '@storybook/addon-actions';
 
 export const avatar = (args) => <Avatar {...args} />;
 
