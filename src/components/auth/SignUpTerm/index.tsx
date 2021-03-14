@@ -4,7 +4,7 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { SHOW_TERMS_CAPTION } from 'common/constant/string';
-import Modal from 'components/ui/Modal';
+import { Modal } from 'components/ui';
 import { Button, Close } from 'atoms';
 import { RefType } from 'types/Ref';
 import { useToggle, useModal } from 'hooks';

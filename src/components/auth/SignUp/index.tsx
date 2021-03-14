@@ -10,7 +10,6 @@ import { showError } from 'action';
 import { signUp } from 'api/sign';
 import { InputRef, inputDefaultRef, RefType, defaultRef } from 'types/Ref';
 import { Input, Button } from 'atoms';
-import { saveBtnStyle } from 'common/style/baseStyle';
 import { inputId } from 'common/constant/input';
 import {
   TERM_NOT_CHECKED_ERROR,
@@ -21,7 +20,7 @@ import {
 } from 'common/constant/string';
 import { SERVICE_TERM, PRIVACY_TERM } from 'common/constant/terms';
 import { SignUpTerm } from 'components/auth';
-import GoogleLoginButton from 'components/common/GoogleLoginButton';
+import { GoogleLoginButton } from 'components/common';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as checkers from 'util/signUpValidations';

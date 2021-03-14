@@ -3,7 +3,7 @@ import { PreviewPost } from 'components/post';
 import { LightReviewData } from 'types/API';
 import { Tag } from 'atoms';
 import { DEFAULT_KEYWORD } from 'common/constant/string';
-import LoadingPostList from 'components/ui/LoadingPostList';
+import { LoadingPostList } from 'components/ui';
 import * as S from './style';
 
 interface Props {

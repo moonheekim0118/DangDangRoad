@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from 'atoms/Loading';
+import { Loading } from 'atoms';
 import ContentLoader from 'react-content-loader';
 import * as S from './style';
 

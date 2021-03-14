@@ -9,11 +9,9 @@ import {
   RADIO_LIST,
 } from 'common/constant/string';
 import { RefType, InputRef } from 'types/Ref';
-import RadioBox from 'components/common/RadioBox';
-import { saveBtnStyle } from 'common/style/baseStyle';
 import { SearchMap } from 'components/map';
 import { PostImage, TextArea } from 'components/post';
-import { Title, Button } from 'atoms';
+import { Title, Button, RadioBox } from 'atoms';
 import { PlaceType } from 'types/Map';
 import * as S from './style';
 

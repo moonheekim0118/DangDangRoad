@@ -5,7 +5,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import Loading from 'atoms/Loading';
+import { Loading } from 'atoms';
 import { uploadImage } from 'api/storage';
 import { showError } from 'action';
 import { IMAGE_LIMIT_ERROR } from 'common/constant/string';

@@ -6,8 +6,7 @@ import { useUser, useIntersectionObserver } from 'hooks';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
 import { Button } from 'atoms';
 import { getReviewsCount } from 'api/review';
-import Counter from 'components/ui/Counter';
-import PostExample from 'components/ui/PostExample';
+import { Counter, PostExample } from 'components/ui';
 
 export async function getStaticProps() {
   return {

@@ -12,11 +12,10 @@ import {
   DELETE_BUTTON_CAPTION,
 } from 'common/constant/string';
 import routes from 'common/constant/routes';
-import PrevNextButton from 'components/ui/PrevNextButton';
 import { ImageSlider } from 'components/image';
 import { BasicMap } from 'components/map';
 import * as S from './style';
-import LoadingSinglePost from 'components/ui/LoadingSinlgePost';
+import { LoadingSinglePost, PrevNextButton } from 'components/ui';
 
 interface Props {
   isModal: boolean;

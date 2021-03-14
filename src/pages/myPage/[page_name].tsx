@@ -12,7 +12,7 @@ import {
   MYPAGE_NAVIGATOR,
 } from 'common/constant/string';
 import { useRouter } from 'next/router';
-import Loading from 'atoms/Loading';
+import { Loading } from 'atoms';
 import routes from 'common/constant/routes';
 import { useUser } from 'hooks';
 

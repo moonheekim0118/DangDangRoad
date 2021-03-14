@@ -23,7 +23,7 @@ export const updateProfile = async (
 
 /** update password  */
 export const updatePassword = async (
-  data: T.updatePasswordParams
+  data: T.UpdatePasswordParams
 ): T.APIResponse => {
   try {
     const headers = { 'Content-Type': 'application/json' };

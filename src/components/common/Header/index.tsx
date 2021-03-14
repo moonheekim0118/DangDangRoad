@@ -1,7 +1,6 @@
 import React, { useRef, useCallback } from 'react';
-import Logo from 'components/ui/Logo';
-import Navigation from 'components/common/Navigation';
-import PlaceSearch from 'components/common/PlaceSearch';
+import { Logo } from 'components/ui';
+import { Navigation, PlaceSearch } from 'components/common';
 import { useSignOut } from 'hooks';
 import { Icon, Link, Button } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';

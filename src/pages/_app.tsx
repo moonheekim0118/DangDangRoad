@@ -1,10 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import Layout from 'components/common/Layout';
-import Loading from 'atoms/Loading';
-import Notification from 'components/common/Notification';
+import { Layout, Notification } from 'components/common';
 import GlobalStyle from 'common/style/globalStyle';
 import fetcher from 'libs/fetcher';
+import { Loading } from 'atoms';
 import { useRouterStatus } from 'hooks';
 import { SWRConfig } from 'swr';
 import { NotificationProvider } from 'context/Notification';

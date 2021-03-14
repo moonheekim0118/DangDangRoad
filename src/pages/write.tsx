@@ -1,7 +1,7 @@
 import React from 'react';
 import { WritePost } from 'components/post';
 import { useUser, useWarnUsavedChange } from 'hooks';
-import Loading from 'atoms/Loading';
+import { Loading } from 'atoms';
 import routes from 'common/constant/routes';
 
 const Write = () => {

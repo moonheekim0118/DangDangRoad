@@ -7,7 +7,7 @@ import {
 } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/post';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import Loading from 'atoms/Loading';
+import { Loading } from 'atoms';
 import Modal from 'components/ui/Modal';
 
 const SearchResult = () => {

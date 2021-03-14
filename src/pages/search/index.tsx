@@ -7,8 +7,8 @@ import {
   useSinglePostModal,
 } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import Loading from 'atoms/Loading';
-import Modal from 'components/ui/Modal';
+import { Loading } from 'atoms';
+import { Modal } from 'components/ui';
 import { ReviewResult } from 'types/API';
 import { getReviewsFirst } from 'api/review';
 

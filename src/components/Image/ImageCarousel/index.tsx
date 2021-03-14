@@ -1,6 +1,5 @@
 import React from 'react';
-import Modal from 'components/ui/Modal';
-import PrevNextButton from 'components/ui/PrevNextButton';
+import { Modal, PrevNextButton } from 'components/ui';
 import { useImageSlide } from 'hooks';
 import * as S from './style';
 

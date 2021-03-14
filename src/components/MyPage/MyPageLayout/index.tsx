@@ -1,9 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import PageMenu from '../PageMenu';
 import UserCard from '../UserCard';
-import Modal from 'components/ui/Modal';
-import Loading from 'atoms/Loading';
-import { Title, Button } from 'atoms';
+import { Modal } from 'components/ui';
+import { Title, Button, Loading } from 'atoms';
 import { useModal, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { UserType } from 'types/User';
