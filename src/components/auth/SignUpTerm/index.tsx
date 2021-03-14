@@ -50,9 +50,7 @@ const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
       </Button>
       <Modal showModal={showModal} modalHandler={modalHanlder}>
         <S.DetailContainer>
-          <S.CloseContainer>
-            <Close onClick={modalHanlder} />
-          </S.CloseContainer>
+          <Close onClick={modalHanlder} />
           <S.Contents>{termContents}</S.Contents>
         </S.DetailContainer>
       </Modal>

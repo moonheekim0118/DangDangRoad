@@ -1,12 +1,19 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+export const Container = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
 
 export const iconStyle = css`
   cursor: pointer;
   border-radius: 50%;
   color: black;
-  transition: color 0.3s ease;
+  transition: transform 0.3s ease;
 
   &:hover {
-    color: red;
+    transform: rotate(95deg);
   }
 `;

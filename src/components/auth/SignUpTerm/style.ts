@@ -19,12 +19,6 @@ export const Label = styled.label`
   }
 `;
 
-export const CloseContainer = styled.div`
-  position: absolute;
-  right: 10px;
-  top: 10px;
-`;
-
 export const DetailContainer = styled.div`
   width: 600px;
   height: 500px;

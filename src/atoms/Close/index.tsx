@@ -10,9 +10,11 @@ interface Props {
   onClick: () => void;
 }
 
-const Close = ({ size = 'medium', onClick }: Props) => {
+const Close = ({ size = 'large', onClick }: Props) => {
   return (
-    <Icon icon={faTimes} style={S.iconStyle} size={size} onClick={onClick} />
+    <S.Container>
+      <Icon icon={faTimes} style={S.iconStyle} size={size} onClick={onClick} />
+    </S.Container>
   );
 };
 
