@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import Tag, { Props } from '.';
 
-export const Template: Story<Props> = (args) => <Tag {...args} />;
+const Template: Story<Props> = (args) => <Tag {...args} />;
 
 export const Large = Template.bind({});
 export const Medium = Template.bind({});

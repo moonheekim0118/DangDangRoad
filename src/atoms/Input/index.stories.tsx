@@ -8,7 +8,7 @@ import {
 } from 'util/signUpValidations';
 import Input, { Props } from '.';
 
-export const Template: Story<Props> = (args) => <Input {...args} />;
+const Template: Story<Props> = (args) => <Input {...args} />;
 
 export const EmailInput = Template.bind({});
 export const NicknameInput = Template.bind({});

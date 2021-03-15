@@ -3,7 +3,7 @@ import Close, { Props } from '.';
 import { Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-export const Template: Story<Props> = (args) => (
+const Template: Story<Props> = (args) => (
   <Close {...args} onClick={action('onClick')} />
 );
 

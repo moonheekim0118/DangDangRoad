@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import Avatar, { Props } from '.';
 
-export const Template: Story<Props> = (args) => <Avatar {...args} />;
+const Template: Story<Props> = (args) => <Avatar {...args} />;
 
 export const Small = Template.bind({});
 export const medium = Template.bind({});

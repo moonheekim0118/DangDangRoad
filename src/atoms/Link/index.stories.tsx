@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import Link, { Props } from '.';
 
-export const Template: Story<Props> = (args) => <Link {...args} />;
+const Template: Story<Props> = (args) => <Link {...args} />;
 
 export const PrimaryLeft = Template.bind({});
 export const PrimaryRight = Template.bind({});

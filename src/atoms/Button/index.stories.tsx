@@ -3,7 +3,7 @@ import Button, { Props } from '.';
 import { Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-export const Template: Story<Props> = (args) => (
+const Template: Story<Props> = (args) => (
   <Button {...args} onClick={action('onClick')} />
 );
 
@@ -50,10 +50,6 @@ OutlinedDanger.args = {
 Special.args = {
   ...Primary.args,
   theme: 'special',
-};
-
-Template.args = {
-  ...Primary.args,
 };
 
 export default {

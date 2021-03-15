@@ -4,7 +4,7 @@ import { Story } from '@storybook/react';
 import { faBeer } from '@fortawesome/free-solid-svg-icons';
 import { action } from '@storybook/addon-actions';
 
-export const Template: Story<Props> = (args) => (
+const Template: Story<Props> = (args) => (
   <Icon {...args} onClick={action('onClick')} />
 );
 

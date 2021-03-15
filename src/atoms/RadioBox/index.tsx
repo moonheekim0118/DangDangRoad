@@ -8,7 +8,7 @@ interface listType {
   value: string;
 }
 
-interface Props {
+export interface Props {
   /** title of radio box */
   title: string;
   /** raido buttons list */

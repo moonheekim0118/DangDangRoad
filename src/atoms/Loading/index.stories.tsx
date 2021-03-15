@@ -2,7 +2,7 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import Loading, { Props } from '.';
 
-export const Template: Story<Props> = (args) => <Loading {...args} />;
+const Template: Story<Props> = (args) => <Loading {...args} />;
 
 export const Large = Template.bind({});
 export const Medium = Template.bind({});
