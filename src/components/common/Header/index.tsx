@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import { Navigation, PlaceSearch } from 'components/common';
+import { PlaceSearch } from 'components/common';
 import { useSignOut } from 'hooks';
 import { Icon, Link, Button, Logo } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
@@ -9,6 +9,7 @@ import {
   MENU_LOGOUT_TITLE,
   MENU_LOGIN_TITLE,
   MENU_SIGNUP_TITLE,
+  MENU_ABOUT_TITLE,
 } from 'common/constant/string';
 import { useRouter } from 'next/router';
 import routes from 'common/constant/routes';
@@ -16,7 +17,6 @@ import * as S from './style';
 
 const Header = (): React.ReactElement => {
   const router = useRouter();
-  const pathname = router.pathname;
   const signOutHandler = useSignOut();
   const navRef = useRef<HTMLDivElement>(null);
   const { isLoaded, isLoggedIn } = useLoginInfoState();
@@ -28,6 +28,71 @@ const Header = (): React.ReactElement => {
         : (navRef.current.style.display = 'flex');
     }
   }, [navRef]);
+
+  const checkPath = (pathname) => pathname === router.pathname;
+
+  const navs = {
+    authenticated: (
+      <>
+        <Link
+          align="left"
+          width="100%"
+          theme="primary"
+          size="large"
+          href={routes.MYPAGE}>
+          {MENU_ABOUT_TITLE}
+        </Link>
+        <Link
+          align="left"
+          size="large"
+          width="100%"
+          theme="primary"
+          href={routes.MYPAGE}>
+          {MENU_MYPAGE_TITLE}
+        </Link>
+        <Button
+          theme="special"
+          size="medium"
+          width="100%"
+          className="logOutBtn"
+          onClick={signOutHandler}>
+          {MENU_LOGOUT_TITLE}
+        </Button>
+      </>
+    ),
+    notAuthenticated: (
+      <>
+        <Link
+          align="left"
+          width="100%"
+          theme="primary"
+          size="large"
+          href={routes.MYPAGE}>
+          {MENU_ABOUT_TITLE}
+        </Link>
+        {!checkPath(routes.LOGIN) && (
+          <Link
+            align="left"
+            size="large"
+            width="100%"
+            theme="primary"
+            href={routes.LOGIN}>
+            {MENU_LOGIN_TITLE}
+          </Link>
+        )}
+        {!checkPath(routes.SIGNUP) && (
+          <Link
+            align="left"
+            size="large"
+            width="100%"
+            theme="primary"
+            href={routes.SIGNUP}>
+            {MENU_SIGNUP_TITLE}
+          </Link>
+        )}
+      </>
+    ),
+  };
 
   return (
     <S.Container>
@@ -48,55 +113,15 @@ const Header = (): React.ReactElement => {
       <S.SideContainer></S.SideContainer>
       {isLoaded && (
         <S.SideContainer>
-          {isLoggedIn ? (
-            <>
-              <Link
-                align="center"
-                size="large"
-                width="100%"
-                theme="primary"
-                href={routes.MYPAGE}>
-                {MENU_MYPAGE_TITLE}
-              </Link>
-              <Button
-                theme="special"
-                size="large"
-                width="100%"
-                className="logOutBtn"
-                onClick={signOutHandler}>
-                {MENU_LOGOUT_TITLE}
-              </Button>
-            </>
-          ) : (
-            <>
-              {pathname !== routes.LOGIN && (
-                <Link
-                  align="center"
-                  size="large"
-                  width="100%"
-                  theme="primary"
-                  href={routes.LOGIN}>
-                  {MENU_LOGIN_TITLE}
-                </Link>
-              )}
-              {pathname !== routes.SIGNUP && (
-                <Link
-                  align="center"
-                  size="large"
-                  width="100%"
-                  theme="primary"
-                  href={routes.SIGNUP}>
-                  {MENU_SIGNUP_TITLE}
-                </Link>
-              )}
-            </>
-          )}
+          {isLoggedIn ? navs.authenticated : navs.notAuthenticated}
         </S.SideContainer>
       )}
       <S.ToggleContainer>
         <S.NavigationContainer ref={navRef}>
           <PlaceSearch />
-          <Navigation />
+          <S.NavigationContents>
+            {isLoggedIn ? navs.authenticated : navs.notAuthenticated}
+          </S.NavigationContents>
         </S.NavigationContainer>
       </S.ToggleContainer>
     </S.Container>

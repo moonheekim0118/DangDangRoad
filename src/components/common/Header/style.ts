@@ -25,10 +25,16 @@ export const Container = styled.header`
 `;
 
 export const SideContainer = styled.div`
+  position: absolute;
+  right: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
+
+  @media only screen and (max-width: 910px) {
+    display: none;
+  }
 `;
 
 export const MenuToggler = styled.div`
@@ -61,9 +67,21 @@ export const ToggleContainer = styled.div`
   }
 `;
 
-export const NavigationContainer = styled.div`
+export const NavigationContainer = styled.nav`
   display: none;
   width: 100%;
   flex-direction: column;
   margin-top: 20px;
+`;
+
+export const NavigationContents = styled.div`
+  width: 100%;
+  border-top: 1px solid #fff;
+  background-color: ${colorCode['blue']};
+  display: flex;
+  flex-direction: column;
+  justify-contents: center;
+  gap: 20px;
+  padding: 15px 20px;
+  margin-top: 15px;
 `;
