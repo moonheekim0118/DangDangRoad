@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, FormEvent } from 'react';
-import { SearchBar } from 'components/ui';
+import { SearchBar } from 'atoms';
 import {
   REVIEW_SEARCH_PLACEHODLER,
   NO_KEYWORD_ERROR,
@@ -27,7 +27,7 @@ const PlaceSearch = () => {
     <SearchBar
       color="blue"
       placeholder={REVIEW_SEARCH_PLACEHODLER}
-      focus={true}
+      focusTheme="fromBlueToWhite"
       ref={keywordRef}
       submitHandler={submitHandler}
     />

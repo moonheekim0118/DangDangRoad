@@ -9,3 +9,4 @@ export { default as Link } from './Link';
 export { default as Loading } from './Loading';
 export { default as RadioBox } from './RadioBox';
 export { default as Toast } from './Toast';
+export { default as SearchBar } from './SearchBar';

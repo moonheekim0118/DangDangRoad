@@ -15,8 +15,8 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** input color */
   color: 'blue' | 'white';
   /** have a focus effects or not */
-  focus?: boolean;
-  /** submit search handler */
+  focusTheme?: 'fromBlueToWhite' | 'fromWhiteToBlue';
+  /** submit handler */
   submitHandler?: (e: FormEvent<HTMLFormElement>) => void;
 }
 
@@ -24,11 +24,7 @@ const SearchBar = (
   props: Props,
   ref: React.Ref<InputRef>
 ): React.ReactElement => {
-  const { color, focus, submitHandler, ...rest } = props;
-
-  /** if it has focus effects, define foucsBack color and fontColor */
-  const focusBack = focus ? (color === 'blue' ? 'white' : 'blue') : undefined;
-  const focusFont = focus ? color : undefined;
+  const { color, focusTheme = 'default', submitHandler, ...rest } = props;
 
   const [value, valueChangeHandler] = useInput();
 
@@ -36,19 +32,22 @@ const SearchBar = (
 
   return (
     <S.Form onSubmit={submitHandler}>
-      <S.Input
+      <input
         type="search"
-        color={color}
-        focusBackground={focusBack}
-        focusFont={focusFont}
+        id="placeSearch"
         value={value}
         onChange={valueChangeHandler}
+        css={[
+          S.inputStyle,
+          S.inputColorThemes[color],
+          S.focusThemes[focusTheme],
+        ]}
         {...rest}
       />
-      <S.IconContainer color={color}>
+      <S.Label htmlFor="placeSearch" css={S.colorThemes[color]}>
         <Icon icon={faSearch} size="large" style={S.iconStyle} />
-      </S.IconContainer>
-      <S.ButtonContainer color={color}>
+      </S.Label>
+      <S.ButtonContainer css={S.colorThemes[color]}>
         <Button
           type="submit"
           className="searchBtn"

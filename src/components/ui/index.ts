@@ -4,6 +4,5 @@ export { default as LoadingPostList } from './LoadingPostList';
 export { default as Logo } from './Logo';
 export { default as Modal } from './Modal';
 export { default as PostExample } from './PostExample';
-export { default as SearchBar } from './SearchBar';
 export { default as LoadingSinglePost } from './LoadingSinlgePost';
 export { default as PrevNextButton } from './PrevNextButton';
