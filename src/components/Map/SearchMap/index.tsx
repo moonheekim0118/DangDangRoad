@@ -173,6 +173,7 @@ const SearchMap = ({
     <S.Container>
       <S.Search>
         <SearchBar
+          id="placeSearch"
           color="white"
           placeholder={MAP_SEARCH_PLACEHOLDER}
           ref={keywordRef}

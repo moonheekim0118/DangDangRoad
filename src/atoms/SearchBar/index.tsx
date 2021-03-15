@@ -12,6 +12,7 @@ import { InputRef } from 'types/Ref';
 import * as S from './style';
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  id: string;
   /** input color */
   color: 'blue' | 'white';
   /** have a focus effects or not */
@@ -24,7 +25,7 @@ const SearchBar = (
   props: Props,
   ref: React.Ref<InputRef>
 ): React.ReactElement => {
-  const { color, focusTheme = 'default', submitHandler, ...rest } = props;
+  const { id, color, focusTheme = 'default', submitHandler, ...rest } = props;
 
   const [value, valueChangeHandler] = useInput();
 
@@ -34,9 +35,13 @@ const SearchBar = (
     <S.Form onSubmit={submitHandler}>
       <input
         type="search"
-        id="placeSearch"
+        id={id}
         value={value}
         onChange={valueChangeHandler}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
         css={[
           S.inputStyle,
           S.inputColorThemes[color],
@@ -44,7 +49,7 @@ const SearchBar = (
         ]}
         {...rest}
       />
-      <S.Label htmlFor="placeSearch" css={S.colorThemes[color]}>
+      <S.Label htmlFor={id} css={S.colorThemes[color]}>
         <Icon icon={faSearch} size="large" style={S.iconStyle} />
       </S.Label>
       <S.ButtonContainer css={S.colorThemes[color]}>

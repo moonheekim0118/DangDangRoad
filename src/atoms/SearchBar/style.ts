@@ -34,9 +34,11 @@ export const ButtonContainer = styled.div`
 
 export const colorThemes = {
   blue: css`
+    background-color: ${colorCode['blue']};
     color: ${colorCode['white']};
   `,
   white: css`
+    background-color: ${colorCode['white']};
     color: ${colorCode['blue']};
   `,
 };
@@ -93,6 +95,10 @@ export const inputStyle = css`
   padding: 20px 40px;
   font-weight: bold;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+
+  &:focus {
+    outline: none;
+  }
   @media only screen and (max-width: 910px) {
     width: 100%;
   }

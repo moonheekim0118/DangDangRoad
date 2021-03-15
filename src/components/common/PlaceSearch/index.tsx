@@ -25,6 +25,7 @@ const PlaceSearch = () => {
 
   return (
     <SearchBar
+      id="reviewSearch"
       color="blue"
       placeholder={REVIEW_SEARCH_PLACEHODLER}
       focusTheme="fromBlueToWhite"

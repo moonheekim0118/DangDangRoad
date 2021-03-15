@@ -10,20 +10,24 @@ export const NofocusBlue = Template.bind({});
 export const NofocusWhite = Template.bind({});
 
 focusBlueToWhite.args = {
+  id: 'blueFocusSearch',
   color: 'blue',
   focusTheme: 'fromBlueToWhite',
 };
 
 focusWhiteToBlue.args = {
+  id: 'whiteFocusSearch',
   color: 'white',
   focusTheme: 'fromWhiteToBlue',
 };
 
 NofocusBlue.args = {
+  id: 'blueSearch',
   color: 'blue',
 };
 
 NofocusWhite.args = {
+  id: 'whiteSearch',
   color: 'white',
 };
 
