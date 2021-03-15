@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Link from 'next/link';
 import * as S from './style';
 
-interface Props {
+export interface Props {
   color: 'blue' | 'white';
 }
 

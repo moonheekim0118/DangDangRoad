@@ -1,8 +1,7 @@
 import React, { useRef, useCallback } from 'react';
-import { Logo } from 'components/ui';
 import { Navigation, PlaceSearch } from 'components/common';
 import { useSignOut } from 'hooks';
-import { Icon, Link, Button } from 'atoms';
+import { Icon, Link, Button, Logo } from 'atoms';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import {

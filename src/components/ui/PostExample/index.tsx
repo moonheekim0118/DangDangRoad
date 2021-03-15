@@ -6,7 +6,11 @@ import {
 } from 'common/constant/images';
 import * as S from './style';
 
-const PostExample = ({ show }) => {
+interface Props {
+  show: boolean;
+}
+
+const PostExample = ({ show }: Props) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const firstBoxRef = useRef<HTMLDivElement>(null);
   const secondBoxRef = useRef<HTMLDivElement>(null);

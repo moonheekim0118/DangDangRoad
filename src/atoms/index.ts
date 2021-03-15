@@ -10,3 +10,4 @@ export { default as Loading } from './Loading';
 export { default as RadioBox } from './RadioBox';
 export { default as Toast } from './Toast';
 export { default as SearchBar } from './SearchBar';
+export { default as Logo } from './Logo';
