@@ -4,8 +4,8 @@ import {
   useNotificationState,
   useNotificationDispatch,
 } from 'context/Notification';
+import { Toast } from 'atoms';
 import { NOTI_TIME } from 'common/constant/number';
-import * as S from './style';
 
 const Notification = () => {
   const { notiType, notiMessage } = useNotificationState();
@@ -20,9 +20,9 @@ const Notification = () => {
   }, [notiType]);
 
   return notiType ? (
-    <S.Container>
-      <S.NotiBox type={notiType}>{notiMessage}</S.NotiBox>
-    </S.Container>
+    <Toast theme={notiType} size="large" show={true} animation={true}>
+      {notiMessage}
+    </Toast>
   ) : null;
 };
 

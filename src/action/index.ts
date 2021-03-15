@@ -6,17 +6,27 @@ export const showError = (
   return {
     type: 'show',
     data: {
-      notiType: 'error',
+      notiType: 'fail',
       message,
     },
   };
 };
 
-export const showNoti = (message: string): T.ShowNotificationAction => {
+export const showSuccess = (message: string): T.ShowNotificationAction => {
   return {
     type: 'show',
     data: {
-      notiType: 'noti',
+      notiType: 'success',
+      message,
+    },
+  };
+};
+
+export const showInfo = (message: string): T.ShowNotificationAction => {
+  return {
+    type: 'show',
+    data: {
+      notiType: 'info',
       message,
     },
   };

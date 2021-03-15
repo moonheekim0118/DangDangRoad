@@ -7,7 +7,6 @@ import useApiFetch, {
 import { Input, Button } from 'atoms';
 import { usePasswordCheck } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
-import { saveBtnStyle } from 'common/style/baseStyle';
 import { inputId } from 'common/constant/input';
 import { SAVE_CAPTION } from 'common/constant/string';
 import { updatePassword } from 'api/user';
@@ -33,7 +32,7 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
-        dispatch(Action.showNoti(UPDATE_MESSAGE));
+        dispatch(Action.showSuccess(UPDATE_MESSAGE));
         setDefault();
         break;
       case FAILURE:

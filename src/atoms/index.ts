@@ -8,3 +8,4 @@ export { default as Close } from './Close';
 export { default as Link } from './Link';
 export { default as Loading } from './Loading';
 export { default as RadioBox } from './RadioBox';
+export { default as Toast } from './Toast';

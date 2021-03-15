@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { saveBtnStyle } from 'common/style/baseStyle';
 import { Button, Input } from 'atoms';
 import { inputId } from 'common/constant/input';
 import { UserType, MutateType } from 'types/User';
@@ -41,7 +40,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
     switch (updateProfileResult.type) {
       case SUCCESS:
         mutate({ ...user, ...updateProfileResult.data }, false).then(() => {
-          dispatch(Action.showNoti(UPDATE_MESSAGE));
+          dispatch(Action.showSuccess(UPDATE_MESSAGE));
           setDefaultProfile();
         });
         break;

@@ -2,7 +2,7 @@ import React, { useReducer, createContext, useContext } from 'react';
 import * as T from 'types/Context';
 
 interface State {
-  notiType: 'error' | 'noti' | null;
+  notiType: 'success' | 'fail' | 'info' | null;
   notiMessage: string | null;
 }
 

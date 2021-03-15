@@ -51,7 +51,7 @@ const UpdatePost = ({ initialData, userId }: Props) => {
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
-        dispatch(Action.showNoti(UPDATE_MESSAGE));
+        dispatch(Action.showSuccess(UPDATE_MESSAGE));
         Router.push(routes.SEARCH);
         break;
       case FAILURE:

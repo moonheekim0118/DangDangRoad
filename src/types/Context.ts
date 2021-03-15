@@ -1,8 +1,8 @@
 export interface ShowNotificationAction {
   type: 'show';
   data: {
-    notiType: 'error' | 'noti';
-    message: string;
+    notiType: 'success' | 'info' | 'fail' | null;
+    message: string | null;
   }; // message
 }
 

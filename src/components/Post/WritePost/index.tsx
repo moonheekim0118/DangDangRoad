@@ -41,7 +41,7 @@ const WritePost = ({ userId }: Props) => {
   useEffect(() => {
     switch (fetchResult.type) {
       case SUCCESS:
-        dispatch(Action.showNoti(SAVE_MESSAGE));
+        dispatch(Action.showSuccess(SAVE_MESSAGE));
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
