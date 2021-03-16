@@ -21,7 +21,9 @@ const Index = ({ reviewSize }): React.ReactElement => {
 
   const counterRef = useRef<HTMLInputElement>(null);
   const [countEnd, setCountEnd] = useState<number>(0);
-  const [showPostExample, setShowPostExample] = useState<boolean>(false);
+  const [showPostExample, setShowPostExample] = useState<'show' | 'hide' | ''>(
+    ''
+  );
 
   useEffect(() => {
     if (counterRef.current) {
@@ -32,11 +34,11 @@ const Index = ({ reviewSize }): React.ReactElement => {
   }, []);
 
   const openExamplePost = useCallback(() => {
-    setShowPostExample(true);
+    setShowPostExample('show');
   }, []);
 
   const closeExamplePost = useCallback(() => {
-    setShowPostExample(false);
+    setShowPostExample('hide');
   }, []);
 
   const examplePostObserverTarget = useIntersectionObserver({

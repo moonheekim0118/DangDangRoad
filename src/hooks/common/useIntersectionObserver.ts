@@ -1,4 +1,5 @@
 import { useEffect, useCallback, useRef } from 'react';
+import { RefType, defaultRef } from 'types/Ref';
 
 interface Props {
   /** depedencies for infinite scroll controll function  */
@@ -15,12 +16,18 @@ const useIntersectionObserver = ({
   removeFetcher,
 }: Props) => {
   const observerTarget = useRef(null);
+  const didMount = useRef<RefType<boolean>>(defaultRef(false));
 
   const onIntersect = useCallback(([entry]) => {
     if (entry.isIntersecting) {
       fetcher();
+      if (didMount.current) didMount.current.value = true;
     } else {
-      removeFetcher && removeFetcher();
+      // only excute removeFetcher right after fetcher excuted
+      if (didMount.current && didMount.current.value) {
+        removeFetcher && removeFetcher();
+        didMount.current.value = false;
+      }
     }
   }, deps);
 
