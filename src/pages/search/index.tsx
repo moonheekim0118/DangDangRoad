@@ -7,7 +7,7 @@ import {
   useSinglePostModal,
 } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import { Loading } from 'atoms';
+import { Loading, Card } from 'atoms';
 import { Modal } from 'components/ui';
 import { ReviewResult } from 'types/API';
 import { getReviewsFirst } from 'api/review';
@@ -57,18 +57,20 @@ const SearchMain = ({ reviews }: Props) => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        <SinglePost
+        <Card
           isModal={true}
-          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}
-          data={modalDatas.singleReview}
-          NavigationInfo={{
-            hasPrev: modalDatas.index > 0,
-            hasNext: modalDatas.index < allReviews.length - 1,
-            prevHandler: modalDatas.prevHandler,
-            nextHandler: modalDatas.nextHandler,
-          }}
-          removeHanlder={removeHanlder}
-        />
+          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}>
+          <SinglePost
+            data={modalDatas.singleReview}
+            NavigationInfo={{
+              hasPrev: modalDatas.index > 0,
+              hasNext: modalDatas.index < allReviews.length - 1,
+              prevHandler: modalDatas.prevHandler,
+              nextHandler: modalDatas.nextHandler,
+            }}
+            removeHanlder={removeHanlder}
+          />
+        </Card>
       </Modal>
       <div ref={observerTarget}>
         {fetchResult.type === REQUEST && <Loading />}

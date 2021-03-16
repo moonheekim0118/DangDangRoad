@@ -16,7 +16,9 @@ const useSingleReview = (initialFetch: boolean) => {
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.ReviewData>(
     getReviewById
   );
-  const [singleReview, setSingleReview] = useState<T.ReviewData>();
+  const [singleReview, setSingleReview] = useState<T.ReviewData>(
+    T.emptyReviewData
+  );
 
   useEffect(() => {
     if (fetchResult.type === SUCCESS && fetchResult.data) {

@@ -24,6 +24,24 @@ export interface UpdatePasswordParams {
   newPassword: string;
 }
 
+export const emptyReviewData = {
+  docId: '',
+  createdAt: 1,
+  userId: '',
+  userData: { nickname: '', profilePic: '' },
+  hasParkingLot: '',
+  hasOffLeash: '',
+  recommendation: '',
+  freeText: '',
+  imageList: null,
+  placeInfo: {
+    address_name: '',
+    place_name: '',
+    x: '',
+    y: '',
+  },
+};
+
 export interface WriteReviewParams {
   userId: string;
   hasParkingLot: string;

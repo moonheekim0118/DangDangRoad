@@ -7,7 +7,7 @@ import {
 } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/post';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import { Loading } from 'atoms';
+import { Loading, Card } from 'atoms';
 import Modal from 'components/ui/Modal';
 
 const SearchResult = () => {
@@ -46,18 +46,20 @@ const SearchResult = () => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        <SinglePost
-          isModal={true}
-          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}
-          data={modalDatas.singleReview}
-          NavigationInfo={{
-            hasPrev: modalDatas.index > 0,
-            hasNext: modalDatas.index < allReviews.length - 1,
-            prevHandler: modalDatas.prevHandler,
-            nextHandler: modalDatas.nextHandler,
-          }}
-          removeHanlder={removeHanlder}
-        />
+        <Card
+          isModal={false}
+          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}>
+          <SinglePost
+            data={modalDatas.singleReview}
+            NavigationInfo={{
+              hasPrev: modalDatas.index > 0,
+              hasNext: modalDatas.index < allReviews.length - 1,
+              prevHandler: modalDatas.prevHandler,
+              nextHandler: modalDatas.nextHandler,
+            }}
+            removeHanlder={removeHanlder}
+          />
+        </Card>
       </Modal>
       <div ref={observerTarget}>
         {fetchResult.type === REQUEST && <Loading />}

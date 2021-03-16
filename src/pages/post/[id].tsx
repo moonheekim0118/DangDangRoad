@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { SinglePost, PostList } from 'components/post';
 import { useSingleReview } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import { Link } from 'atoms';
+import { Link, Card } from 'atoms';
 import { getReviewsFirst } from 'api/review';
 import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
@@ -38,11 +38,9 @@ const singlePost = ({ reviews }) => {
     <span>{fetchResult.error}</span>
   ) : (
     <>
-      <SinglePost
-        isLoading={fetchResult.type === REQUEST}
-        isModal={false}
-        data={singleReview}
-      />
+      <Card isLoading={fetchResult.type === REQUEST} isModal={false}>
+        <SinglePost data={singleReview} />
+      </Card>
       <Link
         href={routes.SEARCH}
         align="center"
