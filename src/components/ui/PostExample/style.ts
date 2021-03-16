@@ -3,17 +3,13 @@ import { css, keyframes } from '@emotion/react';
 import { colorCode } from 'common/style/color';
 
 const fadeIn = keyframes`
-0%{
-  opacity:0; }
-50%,100% {
-  opacity:1;}
+  0%{ opacity:0; }
+  50%,100% { opacity:1;}
 `;
 
 const fadeOut = keyframes`
-0%{
-  opacity:1; }
-50%,100% {
-  opacity:0;}
+  0%{ opacity:1; }
+  50%,100% { opacity:0; }
 `;
 
 const toRight = keyframes`
@@ -93,10 +89,10 @@ export const animationThemes = {
   `,
 
   thirdBoxIn: css`
-    animation: ${fadeIn} 2.5s ease forwards, ${toLeft} 3.5s ease forwards;
+    animation: ${fadeIn} 3s ease forwards, ${toLeft} 3.5s ease forwards;
   `,
   thirdBoxOut: css`
-    animation: ${fadeIn} 2.5s ease forwards, ${toRight} 3.5s ease forwards;
+    animation: ${fadeIn} 3s ease forwards, ${toRight} 3.5s ease forwards;
   `,
 };
 
