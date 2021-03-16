@@ -15,7 +15,7 @@ import {
 } from 'common/constant/string';
 import { ReviewData } from 'types/API';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
-import { PostEditor } from 'components/post';
+import { PostEditor } from 'components/post/PostUpload';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as Action from 'action';

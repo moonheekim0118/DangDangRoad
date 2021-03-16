@@ -2,8 +2,3 @@ export { default as PostList } from './PostList';
 export { default as PreviewPost } from './PreviewPost';
 export { default as SinglePost } from './SinglePost';
 export { default as WriteButton } from './WriteButton';
-export { default as WritePost } from './WritePost';
-export { default as PostImage } from './PostImage';
-export { default as TextArea } from './TextArea';
-export { default as PostEditor } from './PostEditor';
-export { default as UpdatePost } from './UpdatePost';

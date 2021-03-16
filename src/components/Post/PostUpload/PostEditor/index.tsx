@@ -10,7 +10,7 @@ import {
 } from 'common/constant/string';
 import { RefType, InputRef } from 'types/Ref';
 import { SearchMap } from 'components/map';
-import { PostImage, TextArea } from 'components/post';
+import { PostImage, PostText } from 'components/post/PostUpload';
 import { Title, Button, RadioBox } from 'atoms';
 import { PlaceType } from 'types/Map';
 import * as S from './style';
@@ -51,7 +51,7 @@ const PostEditor = (props: Props) => {
             initialImageUrl={props.imageList || []}
             ref={props.imageUrlRef}
           />
-          <TextArea
+          <PostText
             cols={15}
             initValue={props.freeText}
             ref={props.freeTextRef}

@@ -14,7 +14,7 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   initValue: string;
 }
 
-const TextArea = (props: Props, ref: React.Ref<InputRef>) => {
+const PostText = (props: Props, ref: React.Ref<InputRef>) => {
   const [value, error, valueChangeHanlder] = useValidation({
     initialValue: props.initValue,
     validator: freeTextLengthCheck,
@@ -44,4 +44,4 @@ const TextArea = (props: Props, ref: React.Ref<InputRef>) => {
   );
 };
 
-export default forwardRef(TextArea);
+export default forwardRef(PostText);
