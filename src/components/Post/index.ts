@@ -3,7 +3,6 @@ export { default as PreviewPost } from './PreviewPost';
 export { default as SinglePost } from './SinglePost';
 export { default as WriteButton } from './WriteButton';
 export { default as WritePost } from './WritePost';
-export { default as WriterInfo } from './WriterInfo';
 export { default as PostImage } from './PostImage';
 export { default as TextArea } from './TextArea';
 export { default as PostEditor } from './PostEditor';

@@ -1,5 +1,26 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { colorCode } from 'common/style/color';
+
+export const mainSizes = {
+  medium: css`
+    padding: 0.8rem;
+    gap: 1rem;
+  `,
+  small: css`
+    padding: 0.5rem;
+    gap: 0.7rem;
+  `,
+};
+
+export const infoSizes = {
+  medium: css`
+    font-size: 1.1rem;
+  `,
+  small: css`
+    font-size: 0.8rem;
+  `,
+};
 
 export const Container = styled.div`
   width: 100%;
@@ -15,7 +36,6 @@ export const Info = styled.div`
 `;
 
 export const Nickname = styled.span`
-  font-size: 1.1rem;
   font-weight: bold;
 `;
 

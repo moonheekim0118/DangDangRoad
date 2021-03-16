@@ -12,3 +12,4 @@ export { default as Toast } from './Toast';
 export { default as SearchBar } from './SearchBar';
 export { default as Logo } from './Logo';
 export { default as Card } from './Card';
+export { default as Author } from './Author';

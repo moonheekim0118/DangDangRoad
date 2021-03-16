@@ -2,8 +2,7 @@ import React from 'react';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Button } from 'atoms';
-import { WriterInfo } from 'components/post';
+import { Button, Author } from 'atoms';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -78,7 +77,11 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
               </Button>
             </S.AdminContainer>
           )}
-          <WriterInfo userData={data.userData} createdAt={data.createdAt} />
+          <Author
+            userData={data.userData}
+            createdAt={data.createdAt}
+            size="medium"
+          />
           <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
         </S.UserContentsContainer>
       </S.Container>
