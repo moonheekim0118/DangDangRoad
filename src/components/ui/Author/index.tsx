@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar } from 'atoms';
+import { Avatar } from 'components/ui';
 import { UserContents } from 'types/API';
 import formatDate from 'util/formatDate';
 import * as S from './style';

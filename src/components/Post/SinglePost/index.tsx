@@ -2,7 +2,7 @@ import React from 'react';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Button, Author } from 'atoms';
+import { Button, Author, PrevNextButton } from 'components/ui';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -14,7 +14,6 @@ import routes from 'common/constant/routes';
 import { ImageSlider } from 'components/image';
 import { BasicMap } from 'components/map';
 import * as S from './style';
-import { PrevNextButton } from 'components/ui';
 
 interface Props {
   /** single Review Data */

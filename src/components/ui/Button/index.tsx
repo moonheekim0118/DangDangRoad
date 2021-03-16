@@ -1,5 +1,5 @@
 import React, { memo, ButtonHTMLAttributes } from 'react';
-import { Loading } from 'atoms';
+import { Loading } from 'components/ui';
 import Link from 'next/link';
 import * as S from './style';
 

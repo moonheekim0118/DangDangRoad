@@ -1,10 +1,10 @@
 import React from 'react';
-import Close, { Props } from '.';
+import CloseBtn, { Props } from '.';
 import { Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 const Template: Story<Props> = (args) => (
-  <Close {...args} onClick={action('onClick')} />
+  <CloseBtn {...args} onClick={action('onClick')} />
 );
 
 export const Large = Template.bind({});
@@ -24,6 +24,6 @@ Small.args = {
 };
 
 export default {
-  title: 'Close',
-  component: Close,
+  title: 'CloseBtn',
+  component: CloseBtn,
 };

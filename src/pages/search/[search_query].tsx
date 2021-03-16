@@ -7,8 +7,7 @@ import {
 } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/post';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import { Loading, Card } from 'atoms';
-import Modal from 'components/ui/Modal';
+import { Loading, Card, Modal } from 'components/ui';
 
 const SearchResult = () => {
   const { user } = useUser();

@@ -5,7 +5,7 @@ import React, {
   useRef,
   FormEvent,
 } from 'react';
-import { SearchBar } from 'atoms';
+import { SearchBar } from 'components/ui';
 import { useElement } from 'hooks';
 import { InputRef, inputDefaultRef } from 'types/Ref';
 import { MARKER_URL } from 'common/constant/images';

@@ -4,9 +4,8 @@ import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
 import { useUser, useIntersectionObserver } from 'hooks';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
-import { Button } from 'atoms';
 import { getReviewsCount } from 'api/review';
-import { Counter, PostExample } from 'components/ui';
+import { Button, Counter, PostExample } from 'components/ui';
 
 export async function getStaticProps() {
   return {

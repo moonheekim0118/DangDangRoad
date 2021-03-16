@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import { Icon } from 'atoms';
+import { Icon } from 'components/ui';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import {
   faInfoCircle,

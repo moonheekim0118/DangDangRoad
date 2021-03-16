@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
-import { Link } from 'atoms';
+import { Link } from 'components/ui';
 import * as S from './style';
 
 interface DataTypes {

@@ -12,7 +12,7 @@ import { NOT_FULL_INFO_ERROR } from 'common/constant/string';
 import { InputRef, inputDefaultRef } from 'types/Ref';
 import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import { inputId } from 'common/constant/input';
-import { Input, Button } from 'atoms';
+import { Input, Button } from 'components/ui';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import { GoogleLoginButton } from 'components/auth';

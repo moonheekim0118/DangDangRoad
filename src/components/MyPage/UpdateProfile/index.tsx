@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { Button, Input } from 'atoms';
+import { Button, Input } from 'components/ui';
 import { inputId } from 'common/constant/input';
 import { UserType, MutateType } from 'types/User';
 import { SAVE_CAPTION, UPDATE_MESSAGE } from 'common/constant/string';

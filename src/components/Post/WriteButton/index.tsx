@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Link } from 'atoms';
+import { Icon, Link } from 'components/ui';
 import { faFeather } from '@fortawesome/free-solid-svg-icons';
 import { WRITE_REVIEW_BUTTON_CAPTION } from 'common/constant/string';
 import routes from 'common/constant/routes';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { SerializedStyles } from '@emotion/react';
 import Link from 'next/link';
-import { anchorStyle } from 'atoms/Button/style';
+import { anchorStyle } from 'components/ui/Button/style';
 import * as S from './style';
 
 export interface Props {

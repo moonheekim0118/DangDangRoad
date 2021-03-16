@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'atoms';
+import { Icon } from 'components/ui';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { DEFAULT_IMAGE_URL } from 'common/constant/images';
 import * as S from './style';

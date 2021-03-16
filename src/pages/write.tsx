@@ -1,7 +1,7 @@
 import React from 'react';
 import { WritePost } from 'components/post/PostUpload';
 import { useUser, useWarnUsavedChange } from 'hooks';
-import { Loading } from 'atoms';
+import { Loading } from 'components/ui';
 import routes from 'common/constant/routes';
 
 const Write = () => {

@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import { SHOW_TERMS_CAPTION } from 'common/constant/string';
 import { Modal } from 'components/ui';
-import { Button, Close } from 'atoms';
+import { Button, CloseBtn } from 'components/ui';
 import { RefType } from 'types/Ref';
 import { useToggle, useModal } from 'hooks';
 import * as S from './style';
@@ -50,7 +50,7 @@ const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
       </Button>
       <Modal showModal={showModal} modalHandler={modalHanlder}>
         <S.DetailContainer>
-          <Close onClick={modalHanlder} />
+          <CloseBtn onClick={modalHanlder} />
           <S.Contents>{termContents}</S.Contents>
         </S.DetailContainer>
       </Modal>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'atoms';
+import { Button } from 'components/ui';
 import * as S from './style';
 
 const WriteComment = () => {

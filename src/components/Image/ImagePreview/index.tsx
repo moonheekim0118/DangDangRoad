@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { ImageCarousel, ImageUploader } from 'components/image';
 import { useModal } from 'hooks';
-import { Icon } from 'atoms';
+import { Icon } from 'components/ui';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
 import * as S from './style';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'atoms';
+import { Icon } from 'components/ui';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import * as S from './style';
 

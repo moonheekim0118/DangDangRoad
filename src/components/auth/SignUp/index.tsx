@@ -9,7 +9,7 @@ import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
 import { InputRef, inputDefaultRef, RefType, defaultRef } from 'types/Ref';
-import { Input, Button } from 'atoms';
+import { Input, Button } from 'components/ui';
 import { inputId } from 'common/constant/input';
 import {
   TERM_NOT_CHECKED_ERROR,
