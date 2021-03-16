@@ -1,9 +1,6 @@
 import React, { memo } from 'react';
 import { SerializedStyles } from '@emotion/react';
-import {
-  FontAwesomeIconProps,
-  FontAwesomeIcon,
-} from '@fortawesome/react-fontawesome';
+import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import * as S from './style';
 
 export interface Props {
@@ -19,11 +16,7 @@ export interface Props {
 
 const Icon = ({ icon, style, size, onClick }: Props): React.ReactElement => {
   return (
-    <FontAwesomeIcon
-      icon={icon}
-      css={[S.baseStyle, S.sizes[size], style]}
-      onClick={onClick}
-    />
+    <S.Component icon={icon} css={[S.sizes[size], style]} onClick={onClick} />
   );
 };
 

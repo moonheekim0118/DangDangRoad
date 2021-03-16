@@ -1,7 +1,8 @@
+import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { colorCode } from 'common/style/color';
 
-export const defaultStyle = css`
+export const Component = styled.div`
   display: flex;
   align-items: center;
   width: 100%;

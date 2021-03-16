@@ -24,16 +24,15 @@ const icons = {
 const Toast = ({ children, theme, size, show, animation }: Props) => {
   return (
     <S.Container>
-      <div
+      <S.Component
         css={[
-          S.style,
           S.themes[theme],
           S.sizes[size],
-          show && animation ? S.showAnimation : '',
+          show && animation && S.showAnimation,
         ]}>
         <Icon icon={icons[theme]} size={size} />
         <span>{children}</span>
-      </div>
+      </S.Component>
     </S.Container>
   );
 };

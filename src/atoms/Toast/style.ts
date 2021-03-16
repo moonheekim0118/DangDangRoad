@@ -16,7 +16,7 @@ export const Container = styled.div`
   z-index: 50000;
 `;
 
-export const style = css`
+export const Component = styled.div`
   opacity: 1;
   border-radius: 15px;
   color: #fff;

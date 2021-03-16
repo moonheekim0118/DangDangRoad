@@ -33,9 +33,8 @@ const LinkComponent = ({
   return (
     <Link href={href}>
       <a css={anchorStyle}>
-        <div
+        <S.Component
           css={[
-            S.defaultStyle,
             style,
             S.aligns[align],
             S.sizes[size],
@@ -43,7 +42,7 @@ const LinkComponent = ({
             { width },
           ]}>
           {children}
-        </div>
+        </S.Component>
       </a>
     </Link>
   );

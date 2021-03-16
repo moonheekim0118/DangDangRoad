@@ -1,7 +1,8 @@
 import { colorCode } from 'common/style/color';
+import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-export const style = css`
+export const Button = styled.button`
   background-color: inherit;
   color: inherit;
   border: none;

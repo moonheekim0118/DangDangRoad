@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const baseStyle = css`
+export const Component = styled(FontAwesomeIcon)`
   color: inherit;
 `;
 

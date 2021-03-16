@@ -45,21 +45,21 @@ const Button = (props: Props): React.ReactElement => {
   return href ? ( // when it needs to be link
     <Link href={href}>
       <a css={S.anchorStyle}>
-        <button
+        <S.Button
           type="button"
-          css={[S.style, S.themes[theme], S.sizes[size], { width }]}>
+          css={[S.themes[theme], S.sizes[size], { width }]}>
           {children}
-        </button>
+        </S.Button>
       </a>
     </Link>
   ) : (
-    <button
+    <S.Button
       type={type}
-      css={[S.style, S.themes[theme], S.sizes[size], { width }]}
+      css={[S.themes[theme], S.sizes[size], { width }]}
       onClick={onClick}
       {...rest}>
       {loading ? <Loading size="small" color="light-gray" /> : children}
-    </button>
+    </S.Button>
   );
 };
 
