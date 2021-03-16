@@ -66,7 +66,7 @@ const WritePost = ({ userId }: Props) => {
       const { value: hasOffLeash } = hasOffLeashRef.current;
       const { value: recommendation } = recommendationRef.current;
       const { value: imageUrl } = imageUrlRef.current;
-
+      console.log(freeText);
       if (!selectedPlace) {
         return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
       } else if (freeTextError) {
@@ -91,14 +91,7 @@ const WritePost = ({ userId }: Props) => {
         params: [data],
       });
     },
-    [
-      hasParkingLotRef,
-      hasOffLeashRef,
-      recommendationRef,
-      selectedPlace,
-      freeTextRef,
-      imageUrlRef,
-    ]
+    []
   );
 
   return (

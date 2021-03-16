@@ -51,64 +51,52 @@ const SignUp = (): React.ReactElement => {
   }, [fetchResult]);
 
   /** submit handler */
-  const SubmitHanlder = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const {
-        value: email,
-        error: emailError,
-        focus: emailFocus,
-      } = emailRef.current;
-      const {
-        value: nickname,
-        error: nicknameError,
-        focus: nicknameFocus,
-      } = nicknameRef.current;
-      const {
-        value: password,
-        error: passwordError,
-        focus: passwordFocus,
-      } = passwordRef.current;
-      const {
-        value: passwordCheck,
-        focus: passwordCheckFoucs,
-      } = passwordCheckRef.current;
+  const SubmitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const {
+      value: email,
+      error: emailError,
+      focus: emailFocus,
+    } = emailRef.current;
+    const {
+      value: nickname,
+      error: nicknameError,
+      focus: nicknameFocus,
+    } = nicknameRef.current;
+    const {
+      value: password,
+      error: passwordError,
+      focus: passwordFocus,
+    } = passwordRef.current;
+    const {
+      value: passwordCheck,
+      focus: passwordCheckFoucs,
+    } = passwordCheckRef.current;
 
-      const serviceTermChecked = serviceTermCheckRef.current.value;
-      const privacyTermChecked = privacyTermCheckRef.current.value;
+    const serviceTermChecked = serviceTermCheckRef.current.value;
+    const privacyTermChecked = privacyTermCheckRef.current.value;
 
-      if (!serviceTermChecked || !privacyTermChecked) {
-        return dispatch(showError(TERM_NOT_CHECKED_ERROR));
-      }
-      if (
-        email.length === 0 ||
-        nickname.length === 0 ||
-        password.length === 0 ||
-        password.length === 0 ||
-        password !== passwordCheck ||
-        emailError ||
-        nicknameError ||
-        passwordError
-      ) {
-        email.length === 0 && emailFocus && emailFocus();
-        nickname.length === 0 && nicknameFocus && nicknameFocus();
-        password.length === 0 && passwordFocus && passwordFocus();
-        password !== passwordCheck &&
-          passwordCheckFoucs &&
-          passwordCheckFoucs();
-        return;
-      }
-      fetchDispatch({ type: REQUEST, params: [{ email, nickname, password }] });
-    },
-    [
-      emailRef,
-      nicknameRef,
-      passwordRef,
-      passwordCheckRef,
-      serviceTermCheckRef,
-      privacyTermCheckRef,
-    ]
-  );
+    if (!serviceTermChecked || !privacyTermChecked) {
+      return dispatch(showError(TERM_NOT_CHECKED_ERROR));
+    }
+    if (
+      email.length === 0 ||
+      nickname.length === 0 ||
+      password.length === 0 ||
+      password.length === 0 ||
+      password !== passwordCheck ||
+      emailError ||
+      nicknameError ||
+      passwordError
+    ) {
+      email.length === 0 && emailFocus && emailFocus();
+      nickname.length === 0 && nicknameFocus && nicknameFocus();
+      password.length === 0 && passwordFocus && passwordFocus();
+      password !== passwordCheck && passwordCheckFoucs && passwordCheckFoucs();
+      return;
+    }
+    fetchDispatch({ type: REQUEST, params: [{ email, nickname, password }] });
+  }, []);
 
   return (
     <S.Form signUp={true} onSubmit={SubmitHanlder}>

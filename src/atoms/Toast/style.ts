@@ -3,7 +3,7 @@ import { css, keyframes } from '@emotion/react';
 import { colorCode } from 'common/style/color';
 import { NOTI_TIME } from 'common/constant/number';
 
-export const fade = keyframes`
+const fade = keyframes`
     0%,100% { opacity: 0; transform: scale(0.7,0.7)}
     10%,90% { opacity: 1; transform: scale(1)}
 `;

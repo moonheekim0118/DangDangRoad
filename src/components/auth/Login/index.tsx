@@ -36,18 +36,15 @@ const Login = (): React.ReactElement => {
   }, [fetchResult]);
 
   /** submit handler */
-  const SignInHandler = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const email = emailRef.current.value;
-      const password = passwordRef.current.value;
-      if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
-        return dispatch(showError(NOT_FULL_INFO_ERROR));
-      }
-      fetchDispatch({ type: REQUEST, params: [{ email, password }] });
-    },
-    [emailRef, passwordRef]
-  );
+  const SignInHandler = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
+      return dispatch(showError(NOT_FULL_INFO_ERROR));
+    }
+    fetchDispatch({ type: REQUEST, params: [{ email, password }] });
+  }, []);
 
   return (
     <S.Form onSubmit={SignInHandler}>

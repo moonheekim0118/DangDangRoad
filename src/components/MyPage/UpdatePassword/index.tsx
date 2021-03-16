@@ -69,7 +69,7 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
       }
       fetchDispatch({ type: REQUEST, params: [{ id: userId, password }] });
     },
-    [passwordRef, passwordCheckRef]
+    []
   );
 
   return (

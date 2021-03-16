@@ -112,14 +112,7 @@ const UpdatePost = ({ initialData, userId }: Props) => {
         params: [initialData?.docId, data],
       });
     },
-    [
-      hasParkingLotRef,
-      hasOffLeashRef,
-      recommendationRef,
-      selectedPlace,
-      freeTextRef,
-      imageUrlRef,
-    ]
+    []
   );
 
   return (

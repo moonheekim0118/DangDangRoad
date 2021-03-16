@@ -50,28 +50,25 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   }, [updateProfileResult]);
 
   /** sumbit save */
-  const saveHandler = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      const { value: nickname, error: nickNameError } = nicknameRef.current;
-      const { value: imageUrl } = imageUrlRef.current;
-      const trimedNickname = nickname.trim();
-      const ImageChanged = imageUrl[0] !== user.profilePic;
-      const NicknameChanged =
-        trimedNickname.length > 0 && trimedNickname !== user.nickname;
+  const saveHandler = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const { value: nickname, error: nickNameError } = nicknameRef.current;
+    const { value: imageUrl } = imageUrlRef.current;
+    const trimedNickname = nickname.trim();
+    const ImageChanged = imageUrl[0] !== user.profilePic;
+    const NicknameChanged =
+      trimedNickname.length > 0 && trimedNickname !== user.nickname;
 
-      // if url and nickname were not changed ,(not send request)
-      if ((!ImageChanged && !NicknameChanged) || nickNameError) return;
+    // if url and nickname were not changed ,(not send request)
+    if ((!ImageChanged && !NicknameChanged) || nickNameError) return;
 
-      let updateContents = {
-        profilePic: imageUrl[0],
-        nickname: trimedNickname,
-      };
-      const data = { id: user.userId, updateContents };
-      updateProfileDispatch({ type: REQUEST, params: [data] });
-    },
-    [imageUrlRef, nicknameRef]
-  );
+    let updateContents = {
+      profilePic: imageUrl[0],
+      nickname: trimedNickname,
+    };
+    const data = { id: user.userId, updateContents };
+    updateProfileDispatch({ type: REQUEST, params: [data] });
+  }, []);
 
   return (
     <ContentsContainer>
