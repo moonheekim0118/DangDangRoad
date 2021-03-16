@@ -19,8 +19,7 @@ import {
   SERVICE_TERM_TITLE,
 } from 'common/constant/string';
 import { SERVICE_TERM, PRIVACY_TERM } from 'common/constant/terms';
-import { SignUpTerm } from 'components/auth';
-import { GoogleLoginButton } from 'components/common';
+import { SignUpTerm, GoogleLoginButton } from 'components/auth';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as checkers from 'util/signUpValidations';

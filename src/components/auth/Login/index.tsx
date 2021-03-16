@@ -15,7 +15,7 @@ import { inputId } from 'common/constant/input';
 import { Input, Button } from 'atoms';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
-import { GoogleLoginButton } from 'components/common';
+import { GoogleLoginButton } from 'components/auth';
 import * as S from '../style';
 
 const Login = (): React.ReactElement => {
