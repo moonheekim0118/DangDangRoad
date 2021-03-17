@@ -13,7 +13,6 @@ export const Container = styled.header`
   flex-wrap: wrap;
   align-items: center;
   padding: 16px 30px;
-  lign-height: 1.5;
 
   background-color: ${colorCode['blue']};
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);

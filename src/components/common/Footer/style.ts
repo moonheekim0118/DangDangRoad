@@ -18,7 +18,6 @@ export const Container = styled.footer`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 300px;
   padding: 2rem 2.5rem;
   background-color: #fbfbfb;
 `;
@@ -31,7 +30,7 @@ export const Grid = styled.div`
   border-bottom: 1px solid ${colorCode['light-gray']};
   @media (min-width: 1024px) {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    min-height: 80%;
+    min-height: 75%;
   }
 `;
 
@@ -57,7 +56,7 @@ export const LogoContainer = styled.div`
 export const HomePageDescription = styled.div`
   display: flex;
   width: 100%;
-  height: 20%;
+  height: 25%;
   justify-content: space-between;
   align-items: center;
   padding: 1.7rem 0;
