@@ -1,5 +1,5 @@
 import React from 'react';
-import { WritePost } from 'components/post/PostUpload';
+import { WritePost } from 'components/Post/PostUpload';
 import { useUser, useWarnUsavedChange } from 'hooks';
 import { Loading } from 'components/ui';
 import routes from 'common/constant/routes';

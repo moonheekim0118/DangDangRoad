@@ -16,7 +16,7 @@ import {
   SAVE_MESSAGE,
 } from 'common/constant/string';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
-import { PostEditor } from 'components/post/PostUpload';
+import { PostEditor } from 'components/Post/PostUpload';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as Action from 'action';

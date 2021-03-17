@@ -4,7 +4,7 @@ import {
   MyReviews,
   UpdatePassword,
   UpdateProfile,
-} from 'components/mypage';
+} from 'components/MyPage';
 import {
   MYPAGE_DEFAULT_QUERY,
   MYPAGE_UPDATE_PASSWORD_QUERY,

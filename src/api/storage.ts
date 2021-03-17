@@ -7,7 +7,7 @@ const storage = firebase.storage();
 
 /** upload Image in firebase Storage and get URL */
 export const uploadImage = async (
-  file: T.fileType[]
+  file: T.FileType[]
 ): T.APIResponse<string[]> => {
   try {
     const url: string[] = [];

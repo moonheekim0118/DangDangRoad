@@ -5,7 +5,7 @@ import {
   useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
-import { WriteButton, PostList, SinglePost } from 'components/post';
+import { WriteButton, PostList, SinglePost } from 'components/Post';
 import { REQUEST } from 'hooks/common/useApiFetch';
 import { Loading, Card, Modal } from 'components/ui';
 

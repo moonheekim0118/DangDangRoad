@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { ImageCarousel, ImageUploader } from 'components/image';
+import { ImageCarousel, ImageUploader } from 'components/Image';
 import { useModal } from 'hooks';
 import { Icon } from 'components/ui';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';

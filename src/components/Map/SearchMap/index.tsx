@@ -133,7 +133,7 @@ const SearchMap = ({
   );
 
   const placeSearchCB = useCallback(
-    (data, stauts, pagination) => {
+    (data, pagination) => {
       if (data.length === 0) {
         return alert(NO_SEARCH_RESULT_ERROR);
       }

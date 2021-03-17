@@ -1,6 +1,10 @@
 const dotenv = require('dotenv').config();
 
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
   compress: true,
   env: {
     API_KEY: process.env.API_KEY,
@@ -30,4 +34,4 @@ module.exports = {
       plugins: plugins,
     };
   },
-};
+});

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { WriteButton, PostList, SinglePost } from 'components/post';
+import { WriteButton, PostList, SinglePost } from 'components/Post';
 import {
   useUser,
   useAllReviews,

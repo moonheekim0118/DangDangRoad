@@ -1,5 +1,5 @@
 import React from 'react';
-import { PreviewPost } from 'components/post';
+import { PreviewPost } from 'components/Post';
 import { LightReviewData } from 'types/API';
 import { DEFAULT_KEYWORD } from 'common/constant/string';
 import { Tag } from 'components/ui';

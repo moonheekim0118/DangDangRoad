@@ -9,8 +9,8 @@ import {
   RADIO_LIST,
 } from 'common/constant/string';
 import { RefType, InputRef } from 'types/Ref';
-import { SearchMap } from 'components/map';
-import { PostImage, PostText } from 'components/post/PostUpload';
+import { SearchMap } from 'components/Map';
+import { PostImage, PostText } from 'components/Post/PostUpload';
 import { Title, Button, RadioBox } from 'components/ui';
 import { PlaceType } from 'types/Map';
 import * as S from './style';

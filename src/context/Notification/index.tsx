@@ -26,12 +26,17 @@ const NotificationReducer = (
   switch (action.type) {
     case 'show': {
       return {
+        ...state,
         notiType: action.data.notiType,
         notiMessage: action.data.message,
       };
     }
     case 'hide': {
-      return { notiType: null, notiMessage: null };
+      return {
+        ...state,
+        notiType: null,
+        notiMessage: null,
+      };
     }
 
     default: {

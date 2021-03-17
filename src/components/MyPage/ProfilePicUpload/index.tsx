@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { Icon, Avatar } from 'components/ui';
 import { useHandleImage } from 'hooks';
-import { ImageUploader } from 'components/image';
+import { ImageUploader } from 'components/Image';
 import { RefType } from 'types/Ref';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import * as S from './style';

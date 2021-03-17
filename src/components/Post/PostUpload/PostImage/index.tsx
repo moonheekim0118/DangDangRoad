@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useHandleImage } from 'hooks';
-import { ImageUploader, ImagePreview } from 'components/image';
+import { ImageUploader, ImagePreview } from 'components/Image';
 import { IMAGE_UPLOAD_LABEL, IMAGE_UPLOAD_DESC } from 'common/constant/string';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
 import { RefType } from 'types/Ref';

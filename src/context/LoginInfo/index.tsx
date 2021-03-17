@@ -26,10 +26,15 @@ const LoginDispatchContext = createContext<Dispatch | undefined>(undefined);
 const LoginInfoReducer = (state: State, action: LoginAction | LogoutAction) => {
   switch (action.type) {
     case 'login': {
-      return { isLoaded: true, ...action.data };
+      return {
+        ...state,
+        isLoaded: true,
+        ...action.data,
+      };
     }
     case 'logout': {
       return {
+        ...state,
         isLoaded: true,
         isLoggedIn: false,
         userId: '',

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { SinglePost, PostList } from 'components/post';
+import { SinglePost, PostList } from 'components/Post';
 import { useSingleReview } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
 import { Link, Card } from 'components/ui';

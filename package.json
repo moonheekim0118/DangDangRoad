@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next",
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -27,9 +28,11 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@next/bundle-analyzer": "^10.0.9",
     "algoliasearch": "^4.8.5",
     "axios": "^0.21.1",
     "cookie": "^0.4.1",
+    "cross-env": "^7.0.3",
     "firebase": "^8.2.6",
     "firebase-admin": "^9.4.2",
     "intersection-observer": "^0.12.0",

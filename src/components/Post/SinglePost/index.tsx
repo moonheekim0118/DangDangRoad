@@ -11,8 +11,8 @@ import {
   DELETE_BUTTON_CAPTION,
 } from 'common/constant/string';
 import routes from 'common/constant/routes';
-import { ImageSlider } from 'components/image';
-import { BasicMap } from 'components/map';
+import { ImageSlider } from 'components/Image';
+import { BasicMap } from 'components/Map';
 import * as S from './style';
 
 interface Props {

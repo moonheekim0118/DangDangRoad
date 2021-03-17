@@ -13,7 +13,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import { ProfilePicUpload } from 'components/mypage';
+import { ProfilePicUpload } from 'components/MyPage';
 import { updateProfile } from 'api/user';
 import * as Action from 'action';
 
