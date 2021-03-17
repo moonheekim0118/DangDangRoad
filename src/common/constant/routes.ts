@@ -10,6 +10,9 @@ export default {
   SIGNUP: '/signUp',
   SIGNUP_PROCESS: '/signUpInProcess',
   WRITE_REIVEW: '/write',
+  ABOUT: '/about',
+  TERM_OF_USE: '/termOfUse',
+  PRIVACY_POLICY: '/privacyPolicy',
 };
 
 export const githubUrl = 'https://github.com/moonheekim0118/DangDangRoad';
