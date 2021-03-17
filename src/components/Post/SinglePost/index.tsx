@@ -2,7 +2,7 @@ import React from 'react';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Button, Author, PrevNextButton } from 'components/ui';
+import { Button, Author, ControllerBtn } from 'components/ui';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -84,7 +84,7 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
           <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
         </S.UserContentsContainer>
       </S.Container>
-      {NavigationInfo && <PrevNextButton {...NavigationInfo} />}
+      {NavigationInfo && <ControllerBtn {...NavigationInfo} />}
     </>
   );
 };

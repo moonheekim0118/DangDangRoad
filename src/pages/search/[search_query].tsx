@@ -36,7 +36,6 @@ const SearchResult = () => {
   return (
     <>
       <PostList
-        isLoading={fetchResult.type === REQUEST}
         searchKeyword={query?.toString()}
         reviewData={allReviews}
         openSinglePost={modalDatas.openModal}

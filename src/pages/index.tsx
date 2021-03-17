@@ -5,7 +5,8 @@ import routes from 'common/constant/routes';
 import { useUser, useIntersectionObserver } from 'hooks';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
 import { getReviewsCount } from 'api/review';
-import { Button, Counter, PostExample } from 'components/ui';
+import { HomeCounter, HomeDescription } from 'components/common';
+import { Button } from 'components/ui';
 
 export async function getStaticProps() {
   return {
@@ -67,10 +68,10 @@ const Index = ({ reviewSize }): React.ReactElement => {
         <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
       <ReviewCount ref={counterRef}>
-        🧾지금 까지 작성된 리뷰 <Counter end={countEnd} duration={1.2} />개
+        🧾지금 까지 작성된 리뷰 <HomeCounter end={countEnd} duration={1.2} />개
       </ReviewCount>
       <Observer ref={examplePostObserverTarget} />
-      <PostExample show={showPostExample} />
+      <HomeDescription show={showPostExample} />
     </Container>
   );
 };

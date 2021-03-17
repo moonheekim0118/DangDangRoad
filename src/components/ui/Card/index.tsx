@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadingSinglePost } from 'components/ui';
+import LoadingSinglePost from './LoadingSinlgePost';
 import Container from './style';
 
 export interface Props {

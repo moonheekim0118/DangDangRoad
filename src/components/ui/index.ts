@@ -1,10 +1,6 @@
 export { default as ConfirmPopUp } from './ConfirmPopUp';
-export { default as Counter } from './Counter';
-export { default as LoadingPostList } from './LoadingPostList';
 export { default as Modal } from './Modal';
-export { default as PostExample } from './PostExample';
-export { default as LoadingSinglePost } from './LoadingSinlgePost';
-export { default as PrevNextButton } from './PrevNextButton';
+export { default as ControllerBtn } from './ControllerBtn';
 export { default as Avatar } from './Avatar';
 export { default as Button } from './Button';
 export { default as Icon } from './Icon';

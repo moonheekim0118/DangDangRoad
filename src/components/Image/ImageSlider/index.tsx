@@ -1,5 +1,5 @@
 import React from 'react';
-import { PrevNextButton } from 'components/ui';
+import { ControllerBtn } from 'components/ui';
 import { useImageSlide } from 'hooks';
 import * as S from './style';
 
@@ -18,7 +18,7 @@ const ImageSlider = ({ imageList }: Props) => {
           <S.Image src={img} key={img} />
         ))}
       </S.Slide>
-      <PrevNextButton
+      <ControllerBtn
         prevHandler={data.toPrev}
         hasPrev={data.index > 0}
         nextHandler={data.toNext}

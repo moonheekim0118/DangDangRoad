@@ -5,7 +5,7 @@ import {
 } from 'common/constant/string';
 import * as S from './style';
 
-interface Props {
+export interface Props {
   /** contents of pop up */
   contents: string;
   /** close button handler */

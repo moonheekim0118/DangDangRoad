@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, PrevNextButton } from 'components/ui';
+import { Modal, ControllerBtn } from 'components/ui';
 import { useImageSlide } from 'hooks';
 import * as S from './style';
 
@@ -28,7 +28,7 @@ const ImageCarousel = ({
   return (
     <Modal showModal={showModal} modalHandler={modalHanlder}>
       <S.Containter>
-        <PrevNextButton
+        <ControllerBtn
           prevHandler={data.toPrev}
           hasPrev={true}
           nextHandler={data.toNext}

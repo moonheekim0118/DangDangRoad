@@ -7,7 +7,7 @@ import {
 import { NavigationInfo } from 'types/Navigation';
 import * as S from './style';
 
-const PrevNextButton = ({
+const ControllerBtn = ({
   prevHandler,
   nextHandler,
   hasPrev,
@@ -40,4 +40,4 @@ const PrevNextButton = ({
   );
 };
 
-export default PrevNextButton;
+export default ControllerBtn;
