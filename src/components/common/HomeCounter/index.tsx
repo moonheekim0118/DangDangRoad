@@ -5,7 +5,7 @@ interface Props {
   duration: number;
 }
 
-const Counter = ({ end, duration }: Props) => {
+const HomeCounter = ({ end, duration }: Props) => {
   const [count, setCount] = useState<string>('0');
 
   useEffect(() => {
@@ -23,4 +23,4 @@ const Counter = ({ end, duration }: Props) => {
   return <span>{count}</span>;
 };
 
-export default Counter;
+export default HomeCounter;
