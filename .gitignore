@@ -2,4 +2,3 @@ node_modules
 .prettierignore
 .env
 .next
-serviceaccount.json

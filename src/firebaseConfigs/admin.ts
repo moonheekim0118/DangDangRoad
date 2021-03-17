@@ -1,13 +1,13 @@
 import * as admin from 'firebase-admin';
-import firebaseAccountCredentials from '../../serviceaccount.json';
-
-const serviceAccount = firebaseAccountCredentials as admin.ServiceAccount;
 
 async function getFirebaseAdmin() {
   if (!admin.apps.length) {
     await admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-      // databaseURL: procc
+      credential: admin.credential.cert({
+        projectId: process.env.PROJECT_ID,
+        privateKey: process.env.PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        clientEmail: process.env.CLIENT_EMAIL,
+      }),
     });
   }
 

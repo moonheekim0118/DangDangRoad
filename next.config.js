@@ -18,6 +18,9 @@ module.exports = withBundleAnalyzer({
     SECURE_COOKIE: process.env.SECURE_COOKIE,
     ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
     ALGOLIA_APP_KEY: process.env.ALGOLIA_APP_KEY,
+    CLIENT_EMAIL: process.env.CLIENT_EMAIL,
+    PRIVATE_KEY: process.env.PRIVATE_KEY,
+    PROJECT_ID: process.env.PROJECT_ID,
   },
   webpack(config, { webpack, isServer }) {
     if (!isServer) {
