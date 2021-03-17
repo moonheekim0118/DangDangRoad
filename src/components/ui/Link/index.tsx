@@ -32,15 +32,9 @@ const LinkComponent = ({
 }: Props): React.ReactElement => {
   return (
     <Link href={href}>
-      <a css={anchorStyle}>
+      <a css={[anchorStyle, { width }]}>
         <S.Component
-          css={[
-            style,
-            S.aligns[align],
-            S.sizes[size],
-            S.themes[theme],
-            { width },
-          ]}>
+          css={[style, S.aligns[align], S.sizes[size], S.themes[theme]]}>
           {children}
         </S.Component>
       </a>

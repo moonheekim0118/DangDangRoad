@@ -8,8 +8,8 @@ export const Component = styled(FontAwesomeIcon)`
 
 export const sizes = {
   large: css`
-    width: 1.3rem !important;
-    height: 1.3rem;
+    width: 1.6rem !important;
+    height: 1.6rem;
   `,
   medium: css`
     width: 1.05rem !important;

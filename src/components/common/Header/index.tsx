@@ -9,7 +9,6 @@ import {
   MENU_LOGOUT_TITLE,
   MENU_LOGIN_TITLE,
   MENU_SIGNUP_TITLE,
-  MENU_ABOUT_TITLE,
 } from 'common/constant/string';
 import { useRouter } from 'next/router';
 import routes from 'common/constant/routes';
@@ -36,14 +35,6 @@ const Header = (): React.ReactElement => {
       <>
         <Link
           align="left"
-          width="100%"
-          theme="primary"
-          size="large"
-          href={routes.MYPAGE}>
-          {MENU_ABOUT_TITLE}
-        </Link>
-        <Link
-          align="left"
           size="large"
           width="100%"
           theme="primary"
@@ -62,14 +53,6 @@ const Header = (): React.ReactElement => {
     ),
     notAuthenticated: (
       <>
-        <Link
-          align="left"
-          width="100%"
-          theme="primary"
-          size="large"
-          href={routes.MYPAGE}>
-          {MENU_ABOUT_TITLE}
-        </Link>
         {!checkPath(routes.LOGIN) && (
           <Link
             align="left"

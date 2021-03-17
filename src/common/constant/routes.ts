@@ -11,3 +11,5 @@ export default {
   SIGNUP_PROCESS: '/signUpInProcess',
   WRITE_REIVEW: '/write',
 };
+
+export const githubUrl = 'https://github.com/moonheekim0118/DangDangRoad';

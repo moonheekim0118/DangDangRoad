@@ -28,7 +28,10 @@ export const MENU_MYPAGE_TITLE = '마이페이지';
 export const MENU_LOGOUT_TITLE = '로그아웃';
 export const MENU_LOGIN_TITLE = '로그인';
 export const MENU_SIGNUP_TITLE = '회원가입';
-export const MENU_ABOUT_TITLE = '어바웃';
+export const MENU_HOME_TITLE_ENG = 'Home';
+export const MENU_ABOUT_TITLE_ENG = 'About';
+export const MENU_TERM_TITLE_ENG = 'Terms of Use';
+export const MENU_PRIVACY_POLICY_TITLE_ENG = 'Privacy Policy';
 
 export const MAP_SEARCH_PLACEHOLDER =
   '키워드로 검색하세요! 예) 광명 애견운동장';
