@@ -1,9 +1,9 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { PlaceSearch } from 'components/common';
-import { Icon, Link, Button, Logo } from 'components/ui';
+import { Icon, Link, Button, Logo, Avatar, DropDown } from 'components/ui';
 import { useSignOut } from 'hooks';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faList, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import {
   MENU_MYPAGE_TITLE,
   MENU_LOGOUT_TITLE,
@@ -18,7 +18,21 @@ const Header = (): React.ReactElement => {
   const router = useRouter();
   const signOutHandler = useSignOut();
   const navRef = useRef<HTMLDivElement>(null);
-  const { isLoaded, isLoggedIn } = useLoginInfoState();
+  const detailRef = useRef<HTMLDetailsElement>(null);
+  const { isLoaded, isLoggedIn, profilePic } = useLoginInfoState();
+
+  useEffect(() => {
+    /** close detail drop-down when outer element was clicked */
+    const closeDropDown = (e) => {
+      const element = e.target;
+      const detailElements = detailRef.current;
+      if (detailElements && !detailElements.contains(element as Node)) {
+        detailElements.removeAttribute('open');
+      }
+    };
+    document.addEventListener('mousedown', closeDropDown);
+    return () => document.removeEventListener('mousedown', closeDropDown);
+  }, []);
 
   const toggleNavigation = useCallback(() => {
     if (navRef.current) {
@@ -28,54 +42,7 @@ const Header = (): React.ReactElement => {
     }
   }, [navRef]);
 
-  const checkPath = (pathname) => pathname === router.pathname;
-
-  const navs = {
-    authenticated: (
-      <>
-        <Link
-          align="left"
-          size="large"
-          width="100%"
-          theme="primary"
-          href={routes.MYPAGE}>
-          {MENU_MYPAGE_TITLE}
-        </Link>
-        <Button
-          theme="special"
-          size="medium"
-          width="100%"
-          className="logOutBtn"
-          onClick={signOutHandler}>
-          {MENU_LOGOUT_TITLE}
-        </Button>
-      </>
-    ),
-    notAuthenticated: (
-      <>
-        {!checkPath(routes.LOGIN) && (
-          <Link
-            align="left"
-            size="large"
-            width="100%"
-            theme="primary"
-            href={routes.LOGIN}>
-            {MENU_LOGIN_TITLE}
-          </Link>
-        )}
-        {!checkPath(routes.SIGNUP) && (
-          <Link
-            align="left"
-            size="large"
-            width="100%"
-            theme="primary"
-            href={routes.SIGNUP}>
-            {MENU_SIGNUP_TITLE}
-          </Link>
-        )}
-      </>
-    ),
-  };
+  const checkPath = (pathname: string): boolean => pathname === router.pathname;
 
   return (
     <S.Container>
@@ -93,18 +60,90 @@ const Header = (): React.ReactElement => {
       <S.SearchBarContainer>
         <PlaceSearch />
       </S.SearchBarContainer>
-      <S.SideContainer></S.SideContainer>
       {isLoaded && (
-        <S.SideContainer>
-          {isLoggedIn ? navs.authenticated : navs.notAuthenticated}
-        </S.SideContainer>
+        <>
+          {isLoggedIn ? (
+            <S.SideNavigation>
+              <S.AuthDetailsContainer ref={detailRef}>
+                <S.UserInfoSummary>
+                  <Avatar imageUrl={profilePic} size="small" />
+                  <Icon icon={faCaretDown} size="medium" />
+                </S.UserInfoSummary>
+                <S.DetailsMenu>
+                  <DropDown
+                    menuList={[
+                      { title: MENU_MYPAGE_TITLE, href: routes.MYPAGE },
+                      { title: '북마크', href: routes.MYPAGE },
+                      { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
+                    ]}
+                  />
+                </S.DetailsMenu>
+              </S.AuthDetailsContainer>
+              <S.HideInMobile>
+                <Link
+                  align="left"
+                  size="large"
+                  width="100%"
+                  theme="primary"
+                  href={routes.WRITE_REIVEW}>
+                  리뷰 작성
+                </Link>
+              </S.HideInMobile>
+            </S.SideNavigation>
+          ) : (
+            <S.SideNavigation>
+              {!checkPath(routes.LOGIN) ? (
+                <Link
+                  align="left"
+                  size="large"
+                  width="100%"
+                  theme="primary"
+                  href={routes.LOGIN}>
+                  {MENU_LOGIN_TITLE}
+                </Link>
+              ) : (
+                <S.ShowInMobile>
+                  <Link
+                    align="left"
+                    size="large"
+                    width="100%"
+                    theme="primary"
+                    href={routes.SIGNUP}>
+                    {MENU_SIGNUP_TITLE}
+                  </Link>
+                </S.ShowInMobile>
+              )}
+              {!checkPath(routes.SIGNUP) && (
+                <S.HideInMobile>
+                  <Link
+                    align="left"
+                    size="large"
+                    width="100%"
+                    theme="primary"
+                    href={routes.SIGNUP}>
+                    {MENU_SIGNUP_TITLE}
+                  </Link>
+                </S.HideInMobile>
+              )}
+            </S.SideNavigation>
+          )}
+        </>
       )}
       <S.ToggleContainer>
         <S.NavigationContainer ref={navRef}>
           <PlaceSearch />
-          <S.NavigationContents>
-            {isLoggedIn ? navs.authenticated : navs.notAuthenticated}
-          </S.NavigationContents>
+          {isLoggedIn && (
+            <S.NavigationContents>
+              <Link
+                align="left"
+                size="large"
+                width="100%"
+                theme="primary"
+                href={routes.LOGIN}>
+                리뷰 작성
+              </Link>
+            </S.NavigationContents>
+          )}
         </S.NavigationContainer>
       </S.ToggleContainer>
     </S.Container>

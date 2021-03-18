@@ -14,26 +14,59 @@ export const Container = styled.header`
   align-items: center;
   padding: 16px 30px;
 
+  position: sticky;
+  top: 0;
+
   background-color: ${colorCode['blue']};
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
   z-index: 4000;
-
-  @media only screen and (max-width: 400px) {
-    padding: 0 10px;
-  }
 `;
 
-export const SideContainer = styled.div`
-  position: absolute;
+export const SideNavigation = styled.nav`
+  positon: absolute;
   right: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 1rem;
+`;
 
-  @media only screen and (max-width: 910px) {
+export const ShowInMobile = styled.div`
+  width: 100%;
+  @media only screen and (min-width: 920px) {
     display: none;
   }
+`;
+
+export const HideInMobile = styled.div`
+  width: 100%;
+  @media only screen and (max-width: 920px) {
+    display: none;
+  }
+`;
+
+export const AuthDetailsContainer = styled.details`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+`;
+
+export const UserInfoSummary = styled.summary`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: #fff;
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const DetailsMenu = styled.menu`
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
 `;
 
 export const MenuToggler = styled.div`
