@@ -7,7 +7,7 @@ export const Container = styled.div`
   gap: 25px;
   width: 100%;
   height: 100%;
-  z-index: 5000;
+  z-index: 3000;
 `;
 
 export const TopContainer = styled.div`

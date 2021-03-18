@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { PlaceSearch } from 'components/common';
-import { Icon, Link, Button, Logo, Avatar, DropDown } from 'components/ui';
+import { Icon, Link, Logo, Avatar, DropDown } from 'components/ui';
 import { useSignOut } from 'hooks';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList, faCaretDown } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,8 @@ import {
   MENU_LOGOUT_TITLE,
   MENU_LOGIN_TITLE,
   MENU_SIGNUP_TITLE,
+  MENU_WRITE_REVIEW_TITLE,
+  MENU_BOOKMARK_TITLE,
 } from 'common/constant/string';
 import { useRouter } from 'next/router';
 import routes from 'common/constant/routes';
@@ -34,15 +36,56 @@ const Header = (): React.ReactElement => {
     return () => document.removeEventListener('mousedown', closeDropDown);
   }, []);
 
-  const toggleNavigation = useCallback(() => {
-    if (navRef.current) {
-      navRef.current.style.display === 'flex'
-        ? (navRef.current.style.display = 'none')
-        : (navRef.current.style.display = 'flex');
-    }
-  }, [navRef]);
+  const toggleNavigation = useCallback(
+    (e: React.MouseEvent) => {
+      if (navRef.current) {
+        navRef.current.setAttribute('aria-expended', 'true');
+        const element = e.target as Element;
+        if (navRef.current.style.display === 'flex') {
+          navRef.current.style.display = 'none';
+          return element.parentElement?.setAttribute('aria-expended', 'false');
+        }
+        navRef.current.style.display = 'flex';
+        element.parentElement?.setAttribute('aria-expended', 'true');
+      }
+    },
+    [navRef]
+  );
 
   const checkPath = (pathname: string): boolean => pathname === router.pathname;
+
+  const SignUpLink = (
+    <Link
+      align="left"
+      size="large"
+      width="100%"
+      theme="primary"
+      href={routes.SIGNUP}>
+      {MENU_SIGNUP_TITLE}
+    </Link>
+  );
+
+  const LoginLink = (
+    <Link
+      align="left"
+      size="large"
+      width="100%"
+      theme="primary"
+      href={routes.LOGIN}>
+      {MENU_LOGIN_TITLE}
+    </Link>
+  );
+
+  const WriteReviewLink = (
+    <Link
+      align="left"
+      size="large"
+      width="100%"
+      theme="primary"
+      href={routes.WRITE_REIVEW}>
+      {MENU_WRITE_REVIEW_TITLE}
+    </Link>
+  );
 
   return (
     <S.Container>
@@ -73,57 +116,23 @@ const Header = (): React.ReactElement => {
                   <DropDown
                     menuList={[
                       { title: MENU_MYPAGE_TITLE, href: routes.MYPAGE },
-                      { title: '북마크', href: routes.MYPAGE },
+                      { title: MENU_BOOKMARK_TITLE, href: routes.MYPAGE },
                       { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
                     ]}
                   />
                 </S.DetailsMenu>
               </S.AuthDetailsContainer>
-              <S.HideInMobile>
-                <Link
-                  align="left"
-                  size="large"
-                  width="100%"
-                  theme="primary"
-                  href={routes.WRITE_REIVEW}>
-                  리뷰 작성
-                </Link>
-              </S.HideInMobile>
+              <S.HideInMobile>{WriteReviewLink}</S.HideInMobile>
             </S.SideNavigation>
           ) : (
             <S.SideNavigation>
               {!checkPath(routes.LOGIN) ? (
-                <Link
-                  align="left"
-                  size="large"
-                  width="100%"
-                  theme="primary"
-                  href={routes.LOGIN}>
-                  {MENU_LOGIN_TITLE}
-                </Link>
+                LoginLink
               ) : (
-                <S.ShowInMobile>
-                  <Link
-                    align="left"
-                    size="large"
-                    width="100%"
-                    theme="primary"
-                    href={routes.SIGNUP}>
-                    {MENU_SIGNUP_TITLE}
-                  </Link>
-                </S.ShowInMobile>
+                <S.ShowInMobile>{SignUpLink}</S.ShowInMobile>
               )}
               {!checkPath(routes.SIGNUP) && (
-                <S.HideInMobile>
-                  <Link
-                    align="left"
-                    size="large"
-                    width="100%"
-                    theme="primary"
-                    href={routes.SIGNUP}>
-                    {MENU_SIGNUP_TITLE}
-                  </Link>
-                </S.HideInMobile>
+                <S.HideInMobile>{SignUpLink}</S.HideInMobile>
               )}
             </S.SideNavigation>
           )}
@@ -133,16 +142,7 @@ const Header = (): React.ReactElement => {
         <S.NavigationContainer ref={navRef}>
           <PlaceSearch />
           {isLoggedIn && (
-            <S.NavigationContents>
-              <Link
-                align="left"
-                size="large"
-                width="100%"
-                theme="primary"
-                href={routes.LOGIN}>
-                리뷰 작성
-              </Link>
-            </S.NavigationContents>
+            <S.NavigationContents>{WriteReviewLink}</S.NavigationContents>
           )}
         </S.NavigationContainer>
       </S.ToggleContainer>

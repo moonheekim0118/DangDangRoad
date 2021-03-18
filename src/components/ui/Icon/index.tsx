@@ -11,12 +11,16 @@ export interface Props {
   /** size of icon */
   size: 'large' | 'medium' | 'small';
   /** onClick event of icon */
-  onClick?: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const Icon = ({ icon, style, size, onClick }: Props): React.ReactElement => {
-  return (
-    <S.Component icon={icon} css={[S.sizes[size], style]} onClick={onClick} />
+  return onClick ? (
+    <S.ButtonComponent onClick={onClick} css={S.sizes[size]}>
+      <S.Component icon={icon} css={style} />
+    </S.ButtonComponent>
+  ) : (
+    <S.Component icon={icon} css={[S.sizes[size], style]} />
   );
 };
 
