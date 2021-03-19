@@ -17,3 +17,4 @@ export { default as Logo } from './Logo';
 export { default as Card } from './Card';
 export { default as Author } from './Author';
 export { default as DropDown } from './DropDown';
+export { default as LoadingSinglePost } from './LoadingSinlgePost';
