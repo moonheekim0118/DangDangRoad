@@ -6,8 +6,11 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   margin-bottom: 20px;
+
+  > * {
+    margin-left: 1.2rem;
+  }
 `;
 
 export const Label = styled.label`

@@ -25,10 +25,13 @@ export const NavigatorContainer = styled.div`
   width: 30%;
   display: flex;
   justify-content: center;
-  gap: 25px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 7000;
+
+  > * {
+    margin: 0 0.9rem;
+  }
 `;
 
 export const Navigator = styled.div<{ current: boolean }>`

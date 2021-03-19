@@ -133,7 +133,7 @@ const SearchMap = ({
   );
 
   const placeSearchCB = useCallback(
-    (data, pagination) => {
+    (data, status, pagination) => {
       if (data.length === 0) {
         return alert(NO_SEARCH_RESULT_ERROR);
       }
@@ -171,15 +171,13 @@ const SearchMap = ({
 
   return (
     <S.Container>
-      <S.Search>
-        <SearchBar
-          id="placeSearch"
-          color="white"
-          placeholder={MAP_SEARCH_PLACEHOLDER}
-          ref={keywordRef}
-          submitHandler={searchHadler}
-        />
-      </S.Search>
+      <SearchBar
+        id="placeSearch"
+        color="white"
+        placeholder={MAP_SEARCH_PLACEHOLDER}
+        ref={keywordRef}
+        submitHandler={searchHadler}
+      />
       <S.Map id="map" />
       <S.SearchResult>
         {placeData &&

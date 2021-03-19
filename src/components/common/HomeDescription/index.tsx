@@ -28,7 +28,7 @@ const HomeDescription = ({ show }: Props) => {
           height={350}
         />
       </S.ImageContainer>
-      <S.ContentsCotnainer>
+      <S.ContentsContainer>
         <S.TextContainer css={S.calculateAnimation(2, show, descDir)}>
           <S.ContentsTitle>🌼 우리애기 꽃길만 걷게해주세요</S.ContentsTitle>
           오늘 반려견과의 탐험지를 댕댕로드에서 찾아보세요
@@ -41,7 +41,7 @@ const HomeDescription = ({ show }: Props) => {
           <S.ContentsTitle>💛 반려견과의 추억을 공유해요</S.ContentsTitle>
           사진과 글로 애기와의 추억을 공유해주세요
         </S.TextContainer>
-      </S.ContentsCotnainer>
+      </S.ContentsContainer>
     </S.Container>
   );
 };

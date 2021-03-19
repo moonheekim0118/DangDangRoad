@@ -28,7 +28,9 @@ export const SideNavigation = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  > * {
+    margin: 0 0.5rem;
+  }
 `;
 
 export const ShowInMobile = styled.div`
@@ -49,8 +51,11 @@ export const AuthDetailsContainer = styled.details`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
   cursor: pointer;
+
+  > * {
+    margin: 0 0.5rem;
+  }
 `;
 
 export const UserInfoSummary = styled.summary`
@@ -113,7 +118,10 @@ export const NavigationContents = styled.div`
   display: flex;
   flex-direction: column;
   justify-contents: center;
-  gap: 20px;
   padding: 15px 20px;
   margin-top: 15px;
+
+  > * {
+    margin: 0.7rem 0;
+  }
 `;

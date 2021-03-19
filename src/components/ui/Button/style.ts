@@ -3,13 +3,13 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 export const Button = styled.button`
+  word-wrap: break-word;
   background-color: inherit;
   color: inherit;
   border: none;
   border-radius: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
-  white-space: nowrap;
   &:focus {
     outline: none;
   }
@@ -84,18 +84,15 @@ export const themes = {
 
 export const sizes = {
   large: css`
-    height: 3rem;
     font-size: 1.125rem;
-    padding: 0 1.5rem;
+    padding: 0.9rem 1.5rem;
   `,
   medium: css`
-    height: 2.5rem;
     font-size: 1rem;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
   `,
   small: css`
-    height: 1.75rem;
     font-size: 0.75rem;
-    padding: 0 0.875rem;
+    padding: 0.3rem 0.875rem;
   `,
 };

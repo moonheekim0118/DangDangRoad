@@ -19,8 +19,8 @@ export const LengthCounter = styled.span<{ error: boolean }>`
 export const TextArea = styled.textarea`
   width: 100%;
   resize: none;
-  margin-top: 10px;
-  padding: 20px;
+  margin-top: 0.7rem;
+  padding: 1.3rem;
   height: 100px;
   font-size: 1rem;
   background-color: #fff;

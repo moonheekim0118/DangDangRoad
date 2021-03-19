@@ -83,9 +83,11 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 25px;
   padding-bottom: 50px;
   color: #fff;
+  > * {
+    margin: 1.2rem 0;
+  }
 `;
 
 const MainContents = styled.div`
@@ -117,6 +119,7 @@ const ReviewCount = styled.div`
   font-size: 2rem;
   color: #fff;
   margin-bottom: 120px;
+  text-align: center;
 
   @media only screen and (max-width: 780px) {
     margin-bottom: 70px;

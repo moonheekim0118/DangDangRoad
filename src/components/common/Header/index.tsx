@@ -127,12 +127,16 @@ const Header = (): React.ReactElement => {
           ) : (
             <S.SideNavigation>
               {!checkPath(routes.LOGIN) ? (
-                LoginLink
+                !checkPath(routes.SIGNUP) ? (
+                  <>
+                    {LoginLink}
+                    {SignUpLink}
+                  </>
+                ) : (
+                  LoginLink
+                )
               ) : (
-                <S.ShowInMobile>{SignUpLink}</S.ShowInMobile>
-              )}
-              {!checkPath(routes.SIGNUP) && (
-                <S.HideInMobile>{SignUpLink}</S.HideInMobile>
+                SignUpLink
               )}
             </S.SideNavigation>
           )}

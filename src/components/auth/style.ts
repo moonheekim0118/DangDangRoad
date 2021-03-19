@@ -12,9 +12,12 @@ export const Form = styled.form<{ signUp?: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
 
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+
+  > * {
+    margin: 1rem 0;
+  }
 
   @media only screen and (max-width: 780px) {
     width: 100%;

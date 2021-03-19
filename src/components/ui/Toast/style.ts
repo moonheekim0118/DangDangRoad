@@ -17,15 +17,20 @@ export const Container = styled.div`
 `;
 
 export const Component = styled.div`
-  opacity: 1;
-  border-radius: 15px;
-  color: #fff;
-  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  opacity: 1;
+  border-radius: 15px;
+  word-wrap: wrap;
+  word-break: break-all;
+  color: #fff;
+  font-weight: bold;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+`;
+
+export const Message = styled.span`
+  margin-left: 1.5rem;
 `;
 
 export const themes = {

@@ -39,7 +39,6 @@ export const Description = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
 `;
 
 export const PlaceName = styled.span`
@@ -47,4 +46,5 @@ export const PlaceName = styled.span`
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 0.6rem;
 `;
