@@ -24,24 +24,6 @@ export interface UpdatePasswordParams {
   newPassword: string;
 }
 
-export const emptyReviewData = {
-  docId: '',
-  createdAt: 1,
-  userId: '',
-  userData: { nickname: '', profilePic: '' },
-  hasParkingLot: '',
-  hasOffLeash: '',
-  recommendation: '',
-  freeText: '',
-  imageList: null,
-  placeInfo: {
-    address_name: '',
-    place_name: '',
-    x: '',
-    y: '',
-  },
-};
-
 export interface WriteReviewParams {
   userId: string;
   hasParkingLot: string;
@@ -57,8 +39,20 @@ export interface WriteReviewParams {
   };
 }
 
+export interface WriteCommentParams {
+  userId: string;
+  postId: string;
+  contents: string;
+  createdAt: number;
+}
+
 export interface ReviewResult {
   reviews: LightReviewData[];
+  lastKey: string;
+}
+
+export interface CommentResult {
+  commnets: CommentData[];
   lastKey: string;
 }
 
@@ -75,8 +69,17 @@ export interface LightReviewData {
   createdAt: number;
 }
 
+export interface CommentData {
+  docId: string;
+  postId: string;
+  userId: string;
+  userData: UserContents;
+  contents: string;
+  createdAt: number;
+}
+
 export interface UserContents {
-  nickname?: string;
+  nickname: string;
   profilePic?: string;
 }
 

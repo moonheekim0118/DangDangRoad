@@ -43,14 +43,14 @@ export const removeReview = async (id: string): T.APIResponse => {
 };
 
 // extract user data by userRef
-const getUserData = async (userRef): Promise<T.UserContents> => {
+export const getUserData = async (userRef): Promise<T.UserContents> => {
   try {
     const response = await userRef.get();
     const userData = response.data();
     if (userData) {
       return userData;
     } else {
-      return { profilePic: undefined, nickname: EMPTY_USER_NICKNAME };
+      return { nickname: EMPTY_USER_NICKNAME };
     }
   } catch (error) {
     throw error;
