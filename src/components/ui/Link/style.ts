@@ -6,6 +6,7 @@ export const Component = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  white-space: nowrap;
   background-color: inherit;
   color: inherit;
   cursor: pointer;

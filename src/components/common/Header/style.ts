@@ -23,20 +23,11 @@ export const Container = styled.header`
 `;
 
 export const SideNavigation = styled.nav`
-  position: absolute;
-  right: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   > * {
     margin: 0 0.5rem;
-  }
-`;
-
-export const ShowInMobile = styled.div`
-  width: 100%;
-  @media only screen and (min-width: 920px) {
-    display: none;
   }
 `;
 

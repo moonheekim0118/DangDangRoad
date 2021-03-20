@@ -130,7 +130,7 @@ const Header = (): React.ReactElement => {
                 !checkPath(routes.SIGNUP) ? (
                   <>
                     {LoginLink}
-                    {SignUpLink}
+                    <S.HideInMobile>{SignUpLink}</S.HideInMobile>
                   </>
                 ) : (
                   LoginLink
@@ -148,6 +148,11 @@ const Header = (): React.ReactElement => {
           {isLoggedIn && (
             <S.NavigationContents>{WriteReviewLink}</S.NavigationContents>
           )}
+          {!isLoggedIn &&
+            !checkPath(routes.SIGNUP) &&
+            !checkPath(routes.LOGIN) && (
+              <S.NavigationContents>{SignUpLink}</S.NavigationContents>
+            )}
         </S.NavigationContainer>
       </S.ToggleContainer>
     </S.Container>
