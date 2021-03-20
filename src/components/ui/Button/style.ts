@@ -15,13 +15,6 @@ export const Button = styled.button`
   }
 `;
 
-export const anchorStyle = css`
-  color: inherit;
-  text-decoration: none;
-  width: 100%;
-  white-space: nowrap;
-`;
-
 export const themes = {
   primary: css`
     background-color: ${colorCode['blue']};

@@ -12,7 +12,7 @@ export const IMAGE_LIMIT_ERROR = (limit: number) =>
   `이미지는 최대 ${limit}장까지 업로드 가능합니다`;
 export const NOT_FULL_INFO_ERROR = '정보를 올바르게 입력해주세요';
 export const NOT_SELECT_PLACE_ERROR = '장소를 선택해주세요';
-export const FREE_TEXT_LIMIT_ERROR = `글자수는 ${FREE_TEXT_LIMIT}자 이하까지 입력 가능합니다.`;
+export const FREE_TEXT_LIMIT_ERROR = `코멘트를 10자 이상 ${FREE_TEXT_LIMIT}자 이하로 입력해주세요`;
 export const NO_SEARCH_RESULT_ERROR = '검색결과가 없습니다';
 export const NO_KEYWORD_ERROR = '검색어를 입력해주세요';
 export const TERM_NOT_CHECKED_ERROR = '모든 약관에 동의해주세요';

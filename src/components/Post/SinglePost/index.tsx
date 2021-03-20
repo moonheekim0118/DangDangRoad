@@ -52,37 +52,18 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
             </S.Info>
           </S.InfoContainer>
         </S.ContentsContainer>
-        {data.imageList && (
-          <S.ContentsContainer>
-            <ImageSlider imageList={data.imageList} />
-          </S.ContentsContainer>
-        )}
-        <S.UserContentsContainer>
-          {data.userId === userId && (
-            <S.AdminContainer>
-              <Button
-                href={`${routes.UPDATE_POST}/${data.docId}`}
-                theme="outlinedPrimary"
-                size="medium"
-                width="45%">
-                {UPDATE_BUTTON_CAPTION}
-              </Button>
-              <Button
-                theme="outlinedDanger"
-                size="medium"
-                width="45%"
-                onClick={removeHanlder && removeHanlder(data.docId)}>
-                {DELETE_BUTTON_CAPTION}
-              </Button>
-            </S.AdminContainer>
-          )}
+        <S.ContentsContainer>
           <Author
             userData={data.userData}
             createdAt={data.createdAt}
             size="medium"
           />
+          {data.imageList.length > 0 && (
+            <ImageSlider imageList={data.imageList} />
+          )}
           <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
-        </S.UserContentsContainer>
+        </S.ContentsContainer>
+        <S.ContentsContainer>댓글창이 들어갑니다</S.ContentsContainer>
       </S.Container>
       {NavigationInfo && <ControllerBtn {...NavigationInfo} />}
     </>

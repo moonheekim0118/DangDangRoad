@@ -44,13 +44,9 @@ const Button = (props: Props): React.ReactElement => {
   } = props;
   return href ? ( // when it needs to be link
     <Link href={href}>
-      <a css={S.anchorStyle}>
-        <S.Button
-          type="button"
-          css={[S.themes[theme], S.sizes[size], { width }]}>
-          {children}
-        </S.Button>
-      </a>
+      <S.Button type="button" css={[S.themes[theme], S.sizes[size], { width }]}>
+        <a>{children}</a>
+      </S.Button>
     </Link>
   ) : (
     <S.Button

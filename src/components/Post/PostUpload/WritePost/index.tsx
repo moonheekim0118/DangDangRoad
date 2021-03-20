@@ -66,10 +66,9 @@ const WritePost = ({ userId }: Props) => {
       const { value: hasOffLeash } = hasOffLeashRef.current;
       const { value: recommendation } = recommendationRef.current;
       const { value: imageUrl } = imageUrlRef.current;
-      console.log(freeText);
       if (!selectedPlace) {
         return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
-      } else if (freeTextError) {
+      } else if (freeTextError || freeText.length === 0) {
         return dispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
       }
       const data = {
@@ -91,7 +90,7 @@ const WritePost = ({ userId }: Props) => {
         params: [data],
       });
     },
-    []
+    [selectedPlace]
   );
 
   return (

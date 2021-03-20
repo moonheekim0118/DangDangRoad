@@ -4,7 +4,7 @@ export interface ReviewDataType {
   hasOffLeash: string;
   recommendation: string;
   freeText: string;
-  imageList: string[] | null;
+  imageList: string[];
   placeInfo: {
     address_name: string;
     place_name: string;

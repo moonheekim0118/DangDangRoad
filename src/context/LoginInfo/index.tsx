@@ -1,14 +1,6 @@
 import React, { useReducer, createContext, useContext } from 'react';
 import { UserType } from 'types/User';
-
-interface LoginAction {
-  type: 'login';
-  data: UserType;
-}
-
-interface LogoutAction {
-  type: 'logout';
-}
+import * as T from 'types/Context';
 
 interface State extends UserType {
   isLoaded: boolean;
@@ -18,21 +10,32 @@ interface LoginInfoProviderProps {
   children: React.ReactNode;
 }
 
-type Dispatch = (action: LoginAction | LogoutAction) => void;
+type actionTypes =
+  | T.LogoutRequestAction
+  | T.LoginSuccessAction
+  | T.LogoutSuccessAction;
+
+type Dispatch = (action: actionTypes) => void;
 
 const LoginStateContext = createContext<State | undefined>(undefined);
 const LoginDispatchContext = createContext<Dispatch | undefined>(undefined);
 
-const LoginInfoReducer = (state: State, action: LoginAction | LogoutAction) => {
+const LoginInfoReducer = (state: State, action: actionTypes) => {
   switch (action.type) {
-    case 'login': {
+    case 'loginSuccess': {
       return {
         ...state,
         isLoaded: true,
         ...action.data,
       };
     }
-    case 'logout': {
+    case 'logoutRequest': {
+      return {
+        ...state,
+        isLoaded: false,
+      };
+    }
+    case 'logoutSuccess': {
       return {
         ...state,
         isLoaded: true,

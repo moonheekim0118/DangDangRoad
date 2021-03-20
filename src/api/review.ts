@@ -65,7 +65,7 @@ const extractReviewData = async (response): Promise<T.ReviewResult> => {
       const data = doc.data();
       const review = {
         docId: doc.id,
-        thumbNail: data.imageList ? data.imageList[0] : null,
+        thumbNail: data.imageList.length ? data.imageList[0] : null,
         placeName: data.placeInfo.place_name,
         createdAt: data.createdAt,
       };

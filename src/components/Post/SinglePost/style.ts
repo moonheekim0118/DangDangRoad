@@ -34,23 +34,6 @@ export const ContentsContainer = styled.div`
 
   @media only screen and (max-width: 1024px) {
     width: 100%;
-    min-height: 300px;
-  }
-`;
-
-export const UserContentsContainer = styled.div`
-  width: calc(100% / 3);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  > * {
-    margin: 0.8rem 0;
-  }
-
-  @media only screen and (max-width: 1024px) {
-    width: 100%;
-    min-height: 300px;
   }
 `;
 
@@ -59,6 +42,7 @@ export const Header = styled.div`
   top: -25px;
   left: 0;
   width: 100%;
+  height: 50px;
   background-color: #fff;
   z-index: 7000;
   display: none;
@@ -113,7 +97,6 @@ export const Info = styled.span`
 
 export const FreeCommentContainer = styled.div`
   border: 1px solid ${colorCode['light-gray']};
-  border-radius: 25px;
   padding: 1rem;
 `;
 

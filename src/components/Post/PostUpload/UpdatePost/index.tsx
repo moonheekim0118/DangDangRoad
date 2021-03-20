@@ -112,7 +112,7 @@ const UpdatePost = ({ initialData, userId }: Props) => {
         params: [initialData?.docId, data],
       });
     },
-    []
+    [selectedPlace]
   );
 
   return (

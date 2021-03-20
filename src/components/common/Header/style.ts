@@ -23,7 +23,7 @@ export const Container = styled.header`
 `;
 
 export const SideNavigation = styled.nav`
-  positon: absolute;
+  position: absolute;
   right: 1rem;
   display: flex;
   justify-content: center;
