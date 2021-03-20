@@ -10,10 +10,7 @@ interface LoginInfoProviderProps {
   children: React.ReactNode;
 }
 
-type actionTypes =
-  | T.LogoutRequestAction
-  | T.LoginSuccessAction
-  | T.LogoutSuccessAction;
+type actionTypes = T.LoginSuccessAction | T.LogoutSuccessAction;
 
 type Dispatch = (action: actionTypes) => void;
 
@@ -27,12 +24,6 @@ const LoginInfoReducer = (state: State, action: actionTypes) => {
         ...state,
         isLoaded: true,
         ...action.data,
-      };
-    }
-    case 'logoutRequest': {
-      return {
-        ...state,
-        isLoaded: false,
       };
     }
     case 'logoutSuccess': {

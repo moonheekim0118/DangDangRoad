@@ -15,7 +15,6 @@ import * as S from './style';
 
 const GoogleLoginButton = () => {
   const dispatch = useNotificationDispatch();
-
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch(googleSignIn);
   useEffect(() => {
     switch (fetchResult.type) {

@@ -4,6 +4,7 @@ import { signOut } from 'api/sign';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
+import * as Action from 'action';
 
 /** sign out logic  */
 const useSignOut = () => {
@@ -12,7 +13,7 @@ const useSignOut = () => {
 
   useEffect(() => {
     if (fetchResult.type === SUCCESS) {
-      dispatch({ type: 'logout' });
+      dispatch(Action.logoutSuccess);
       Router.push(routes.HOME);
     }
   }, [fetchResult]);

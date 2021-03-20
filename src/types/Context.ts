@@ -1,3 +1,4 @@
+import { UserType } from 'types/User';
 export interface ShowNotificationAction {
   type: 'show';
   data: {
@@ -8,4 +9,13 @@ export interface ShowNotificationAction {
 
 export interface HideNotificationAction {
   type: 'hide';
+}
+
+export interface LoginSuccessAction {
+  type: 'loginSuccess';
+  data: UserType;
+}
+
+export interface LogoutSuccessAction {
+  type: 'logoutSuccess';
 }

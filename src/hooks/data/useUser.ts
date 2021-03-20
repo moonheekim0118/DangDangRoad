@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { UserType } from 'types/User';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
 import api from 'common/constant/api';
+import * as Action from 'action';
 
 interface Props {
   /** path for redirection */
@@ -20,12 +21,18 @@ const useUser = ({ redirectTo, redirectIfFound = false }: Props = {}): {
   ) => Promise<any>;
 } => {
   const dispatch = useLoginInfoDispatch();
+
   const { data: user, mutate: mutateUser } = useSWR(api.LOGIN_CHECK);
 
   useEffect(() => {
+    /** mutate user data when first rendering */
+    mutateUser();
+  }, []);
+
+  useEffect(() => {
     // after getting data, dispatch this data to Context
-    if (user && user.isLoggedIn) dispatch({ type: 'login', data: user });
-    if (user && !user.isLoggedIn) dispatch({ type: 'logout' });
+    if (user && user.isLoggedIn) dispatch(Action.loginSuccess(user));
+    if (user && !user.isLoggedIn) dispatch(Action.logoutSuccess);
 
     // if data is not yet here
     if (!redirectTo || !user) return;
