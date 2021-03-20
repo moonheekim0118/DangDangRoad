@@ -1,4 +1,4 @@
-import React, { memo, ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { Loading } from 'components/ui';
 import Link from 'next/link';
 import * as S from './style';
@@ -59,4 +59,4 @@ const Button = (props: Props): React.ReactElement => {
   );
 };
 
-export default memo(Button);
+export default Button;
