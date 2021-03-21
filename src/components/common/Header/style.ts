@@ -57,6 +57,13 @@ export const UserInfoSummary = styled.summary`
   &:focus {
     outline: none;
   }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+  &&::marker {
+    display: none;
+  }
 `;
 
 export const DetailsMenu = styled.menu`

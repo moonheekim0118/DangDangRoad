@@ -20,7 +20,7 @@ const HomeCounter = ({ end, duration }: Props) => {
     }
   }, [end, duration]);
 
-  return <span>{count}</span>;
+  return <>{count}</>;
 };
 
 export default HomeCounter;

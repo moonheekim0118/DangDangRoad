@@ -11,10 +11,11 @@ export const Container = styled.article`
     margin: 0 1rem;
   }
   padding: 1.5rem;
+
   @media only screen and (max-width: 1024px) {
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: scroll;
+    overflow-y: auto;
     > * {
       margin: 1rem 0;
     }
@@ -36,10 +37,6 @@ export const ContentsContainer = styled.div`
   @media only screen and (max-width: 1024px) {
     width: 100%;
     height: 450px;
-
-    > * {
-      margin: 0.5rem 0;
-    }
   }
 `;
 
