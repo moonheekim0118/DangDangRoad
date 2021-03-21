@@ -14,8 +14,10 @@ export interface Props {
   size: 'medium' | 'small';
   /** dropdown children for editing post or comment */
   children?: React.ReactNode;
+  /** ref for Detail Element */
+  detailRef?: React.Ref<HTMLDetailsElement>;
 }
-const Author = ({ userData, createdAt, size, children }: Props) => {
+const Author = ({ userData, createdAt, size, children, detailRef }: Props) => {
   return (
     <S.Container css={S.mainSizes[size]}>
       <Avatar imageUrl={userData.profilePic} size={size} />
@@ -28,7 +30,7 @@ const Author = ({ userData, createdAt, size, children }: Props) => {
         )}
       </S.Info>
       {children && (
-        <S.EditDetailsContainer>
+        <S.EditDetailsContainer ref={detailRef}>
           <summary>
             <Icon icon={faEllipsisV} size={size} />
           </summary>

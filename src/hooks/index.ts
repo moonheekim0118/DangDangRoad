@@ -17,3 +17,4 @@ export { default as usePasswordCheck } from './controller/usePasswordCheck';
 export { default as useHandleImage } from './controller/useHandleImage';
 export { default as useSessionStorage } from './common/useSessionStorage';
 export { default as useWarnUsavedChange } from './common/useWarnUnsavedChange';
+export { default as useCloseDropdown } from './common/useCloseDropdown';

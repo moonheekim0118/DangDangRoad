@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { PlaceSearch } from 'components/common';
 import { Icon, Link, Logo, Avatar, DropDown } from 'components/ui';
-import { useSignOut } from 'hooks';
+import { useSignOut, useCloseDropdown } from 'hooks';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -20,21 +20,8 @@ const Header = (): React.ReactElement => {
   const router = useRouter();
   const signOutHandler = useSignOut();
   const navRef = useRef<HTMLDivElement>(null);
-  const detailRef = useRef<HTMLDetailsElement>(null);
   const { isLoaded, isLoggedIn, profilePic } = useLoginInfoState();
-
-  useEffect(() => {
-    /** close detail drop-down when outer element was clicked */
-    const closeDropDown = (e) => {
-      const element = e.target;
-      const detailElements = detailRef.current;
-      if (detailElements && !detailElements.contains(element as Node)) {
-        detailElements.removeAttribute('open');
-      }
-    };
-    document.addEventListener('mousedown', closeDropDown);
-    return () => document.removeEventListener('mousedown', closeDropDown);
-  }, []);
+  const [detailRef, closeDropDownHanlder] = useCloseDropdown();
 
   const toggleNavigation = useCallback(
     (e: React.MouseEvent) => {
@@ -119,6 +106,7 @@ const Header = (): React.ReactElement => {
                       { title: MENU_BOOKMARK_TITLE, href: routes.MYPAGE },
                       { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
                     ]}
+                    closeHanlder={closeDropDownHanlder}
                   />
                 </S.DetailsMenu>
               </S.AuthDetailsContainer>

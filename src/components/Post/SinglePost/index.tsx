@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCloseDropdown } from 'hooks';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
@@ -26,7 +27,7 @@ interface Props {
 
 const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
   const { userId } = useLoginInfoState();
-
+  const [detailRef, closeDropDownHanlder] = useCloseDropdown();
   return (
     <>
       <S.Container>
@@ -54,7 +55,8 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
           <Author
             userData={data.userData}
             createdAt={data.createdAt}
-            size="medium">
+            size="medium"
+            detailRef={detailRef}>
             {data.userId === userId && (
               <DropDown
                 menuList={[
@@ -67,6 +69,7 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
                     onClick: removeHanlder && removeHanlder(data.docId),
                   },
                 ]}
+                closeHanlder={closeDropDownHanlder}
               />
             )}
           </Author>
