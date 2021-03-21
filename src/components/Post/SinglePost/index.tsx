@@ -2,7 +2,7 @@ import React from 'react';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Button, Author, ControllerBtn } from 'components/ui';
+import { Author, ControllerBtn, DropDown } from 'components/ui';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -21,9 +21,7 @@ interface Props {
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
-  removeHanlder?: (
-    id: string
-  ) => (e: React.MouseEvent<HTMLButtonElement>) => void;
+  removeHanlder?: (id: string) => (e: React.MouseEvent) => void;
 }
 
 const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
@@ -56,8 +54,22 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
           <Author
             userData={data.userData}
             createdAt={data.createdAt}
-            size="medium"
-          />
+            size="medium">
+            {data.userId === userId && (
+              <DropDown
+                menuList={[
+                  {
+                    title: UPDATE_BUTTON_CAPTION,
+                    href: `${routes.UPDATE_POST}/${data.docId}`,
+                  },
+                  {
+                    title: DELETE_BUTTON_CAPTION,
+                    onClick: removeHanlder && removeHanlder(data.docId),
+                  },
+                ]}
+              />
+            )}
+          </Author>
           {data.imageList.length > 0 && (
             <ImageSlider imageList={data.imageList} />
           )}

@@ -47,7 +47,7 @@ const SearchMain = ({ reviews }: Props) => {
       modalDatas.closeModal();
       fetchRemove(id);
     },
-    []
+    [modalDatas]
   );
 
   return (
