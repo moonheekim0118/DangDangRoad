@@ -95,6 +95,13 @@ export const SearchBarContainer = styled.div`
   }
 `;
 
+export const NavSearchBarContainer = styled.div`
+  width: 100%;
+  @media only screen and (min-width: 910px) {
+    display: none;
+  }
+`;
+
 export const ToggleContainer = styled.div`
   width: 100%;
   @media only screen and (min-width: 910px) {

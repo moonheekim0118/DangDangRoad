@@ -137,7 +137,9 @@ const Header = (): React.ReactElement => {
       )}
       <S.ToggleContainer>
         <S.NavigationContainer ref={navRef}>
-          <PlaceSearch />
+          <S.NavSearchBarContainer>
+            <PlaceSearch />
+          </S.NavSearchBarContainer>
           {isLoggedIn && (
             <S.NavigationContents>{WriteReviewLink}</S.NavigationContents>
           )}
