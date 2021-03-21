@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { colorCode } from 'common/style/color';
 
-export const Container = styled.div`
+export const Container = styled.article`
   width: 100%;
   height: 100%;
   display: flex;
@@ -35,46 +35,32 @@ export const ContentsContainer = styled.div`
 
   @media only screen and (max-width: 1024px) {
     width: 100%;
+    height: 450px;
+
+    > * {
+      margin: 0.5rem 0;
+    }
   }
 `;
 
-export const Header = styled.div`
-  position: sticky;
-  top: -25px;
-  left: 0;
+export const PlaceName = styled.h1`
   width: 100%;
-  height: 50px;
-  background-color: #fff;
-  z-index: 7000;
-  display: none;
-  text-align: cetner;
+  text-align: center;
   font-family: 'Do Hyeon', sans-serif;
-  font-size: 1.8rem;
   color: ${colorCode['blue']};
-  padding: 0.5rem;
-
-  @media only screen and (max-width: 1024px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
-export const PlaceName = styled.span`
-  text-align: cetner;
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 1.8rem;
-  color: ${colorCode['blue']};
-
-  @media only screen and (max-width: 1024px) {
-    display: none;
-  }
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const PlaceDetail = styled.span`
+  width: 100%;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: ${colorCode['dark-gray']};
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const InfoContainer = styled.div`
@@ -98,7 +84,6 @@ export const Info = styled.span`
 
 export const FreeCommentContainer = styled.div`
   font-size: 1rem;
-  flex-basis: 50%;
 `;
 
 export const AdminContainer = styled.div`

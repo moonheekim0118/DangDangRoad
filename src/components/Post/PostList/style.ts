@@ -5,14 +5,13 @@ export const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  padding: 3rem;
 `;
 
 export const TagContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
   justify-content: center;
   align-items: center;
 `;
@@ -23,6 +22,12 @@ export const ReviewContainer = styled.div`
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fill, 300px);
-  column-gap: 30px;
-  row-gap: 30px;
+  column-gap: 2rem;
+  row-gap: 2rem;
+
+  @media only screen and (max-width: 380px) {
+    grid-template-columns: repeat(auto-fill, 100%);
+    column-gap: 1rem;
+    row-gap: 1rem;
+  }
 `;

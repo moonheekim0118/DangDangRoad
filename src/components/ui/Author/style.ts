@@ -41,22 +41,31 @@ export const Container = styled.div`
 `;
 
 export const Info = styled.div`
+  min-width: 0;
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
+  flex-grow: 1;
+  flex-shrink: 1;
 `;
 
 export const Nickname = styled.span`
   font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const TimeStamp = styled.span`
   color: ${colorCode['dark-gray']};
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const EditDetailsContainer = styled.details`
-  position: absolute;
-  right: 0.5rem;
+  right: 0;
+  flex-shrink: 0;
   cursor: pointer;
   > summary {
     display: block;
