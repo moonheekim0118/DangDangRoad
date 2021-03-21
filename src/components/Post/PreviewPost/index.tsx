@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLazyLoadImage } from 'hooks';
 import { Icon } from 'components/ui';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { DEFAULT_IMAGE_URL } from 'common/constant/images';
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
+  const [imageSrc, imageRef] = useLazyLoadImage(thumnail || DEFAULT_IMAGE_URL);
+
   return (
     <S.Post onClick={previewClickHanlder}>
       <S.Overlay>
@@ -24,7 +27,7 @@ const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
           </div>
         </S.Description>
       </S.Overlay>
-      <S.Image src={thumnail || DEFAULT_IMAGE_URL} />
+      <S.Image src={imageSrc} ref={imageRef} loaded={imageSrc.length > 0} />
     </S.Post>
   );
 };
