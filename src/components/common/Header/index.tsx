@@ -39,7 +39,12 @@ const Header = (): React.ReactElement => {
     [navRef]
   );
 
-  const checkPath = (pathname: string): boolean => pathname === router.pathname;
+  const checkPath = useCallback(
+    (pathname: string): boolean => {
+      return pathname === router.pathname;
+    },
+    [router.pathname]
+  );
 
   const SignUpLink = (
     <Link
