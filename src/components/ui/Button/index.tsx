@@ -1,4 +1,4 @@
-import React, { memo, ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { Loading } from 'components/ui';
 import Link from 'next/link';
 import * as S from './style';
@@ -44,13 +44,9 @@ const Button = (props: Props): React.ReactElement => {
   } = props;
   return href ? ( // when it needs to be link
     <Link href={href}>
-      <a css={S.anchorStyle}>
-        <S.Button
-          type="button"
-          css={[S.themes[theme], S.sizes[size], { width }]}>
-          {children}
-        </S.Button>
-      </a>
+      <S.Button type="button" css={[S.themes[theme], S.sizes[size], { width }]}>
+        <a>{children}</a>
+      </S.Button>
     </Link>
   ) : (
     <S.Button
@@ -63,4 +59,4 @@ const Button = (props: Props): React.ReactElement => {
   );
 };
 
-export default memo(Button);
+export default Button;

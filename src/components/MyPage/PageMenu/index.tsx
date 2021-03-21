@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Router from 'next/router';
+import routes from 'common/constant/routes';
 import { Link } from 'components/ui';
 import * as S from './style';
 
@@ -17,7 +18,13 @@ interface Props {
 }
 
 const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
-  const query = Router.query.page_name;
+  const checkPath = useCallback(
+    (pathname: string): boolean => {
+      return `${routes.MYPAGE_INDEX}/${Router.query.page_name}` === pathname;
+    },
+    [Router.query.page_name]
+  );
+
   return (
     <S.Container>
       {datas.map((v) => (
@@ -25,7 +32,7 @@ const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
           key={v.key}
           onClick={onClick}
           warn={v.title === '계정 삭제'}
-          visiting={`/myPage/${query}` === v.href}>
+          visiting={v.href !== undefined && checkPath(v.href)}>
           {v.icon}
           {v.href ? (
             <Link href={v.href} align="right" size="medium">

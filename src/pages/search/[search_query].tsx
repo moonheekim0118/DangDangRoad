@@ -7,7 +7,7 @@ import {
 } from 'hooks';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import { Loading, Card, Modal } from 'components/ui';
+import { Loading, Card, Modal, LoadingSinglePost } from 'components/ui';
 
 const SearchResult = () => {
   const { user } = useUser();
@@ -44,19 +44,22 @@ const SearchResult = () => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        <Card
-          isModal={false}
-          isLoading={modalDatas.fetchSingleReviewResult.type === REQUEST}>
-          <SinglePost
-            data={modalDatas.singleReview}
-            NavigationInfo={{
-              hasPrev: modalDatas.index > 0,
-              hasNext: modalDatas.index < allReviews.length - 1,
-              prevHandler: modalDatas.prevHandler,
-              nextHandler: modalDatas.nextHandler,
-            }}
-            removeHanlder={removeHanlder}
-          />
+        <Card isModal={false}>
+          {!modalDatas.singleReview ||
+          modalDatas.fetchSingleReviewResult.type === REQUEST ? (
+            <LoadingSinglePost />
+          ) : (
+            <SinglePost
+              data={modalDatas.singleReview}
+              NavigationInfo={{
+                hasPrev: modalDatas.index > 0,
+                hasNext: modalDatas.index < allReviews.length - 1,
+                prevHandler: modalDatas.prevHandler,
+                nextHandler: modalDatas.nextHandler,
+              }}
+              removeHanlder={removeHanlder}
+            />
+          )}
         </Card>
       </Modal>
       <div ref={observerTarget}>

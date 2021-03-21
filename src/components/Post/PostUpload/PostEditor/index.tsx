@@ -39,12 +39,14 @@ const PostEditor = (props: Props) => {
         <Title>{WRITE_REVIEW_TITLE}</Title>
       </S.TopContainer>
       <S.MainContainer>
-        <SearchMap
-          selectPlaceHandler={props.selectPlaceHandler}
-          nowSelectedAddress={props.selectedPlace?.address_name}
-          initialCoordX={props.selectedPlace?.x}
-          initialCoordY={props.selectedPlace?.y}
-        />
+        <S.MapContainer>
+          <SearchMap
+            selectPlaceHandler={props.selectPlaceHandler}
+            nowSelectedAddress={props.selectedPlace?.address_name}
+            initialCoordX={props.selectedPlace?.x}
+            initialCoordY={props.selectedPlace?.y}
+          />
+        </S.MapContainer>
         <S.ReviewContainer>
           <S.PlaceName>{props.selectedPlace?.place_name}</S.PlaceName>
           <PostImage
@@ -80,18 +82,18 @@ const PostEditor = (props: Props) => {
             </S.RadioContainer>
           </S.PlaceInfo>
         </S.ReviewContainer>
-        <S.ButtonContainer>
-          <Button
-            type="submit"
-            theme="primary"
-            size="large"
-            width="100%"
-            loading={props.loading}
-            onClick={props.submitHandler}>
-            {SAVE_CAPTION}
-          </Button>
-        </S.ButtonContainer>
       </S.MainContainer>
+      <S.ButtonContainer>
+        <Button
+          type="submit"
+          theme="primary"
+          size="large"
+          width="50%"
+          loading={props.loading}
+          onClick={props.submitHandler}>
+          {SAVE_CAPTION}
+        </Button>
+      </S.ButtonContainer>
     </S.Container>
   );
 };

@@ -1,8 +1,9 @@
 import React from 'react';
+import { useCloseDropdown } from 'hooks';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Button, Author, ControllerBtn } from 'components/ui';
+import { Author, ControllerBtn, DropDown } from 'components/ui';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -21,14 +22,12 @@ interface Props {
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
-  removeHanlder?: (
-    id: string
-  ) => (e: React.MouseEvent<HTMLButtonElement>) => void;
+  removeHanlder?: (id: string) => (e: React.MouseEvent) => void;
 }
 
 const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
   const { userId } = useLoginInfoState();
-
+  const [detailRef, closeDropDownHanlder] = useCloseDropdown();
   return (
     <>
       <S.Container>
@@ -52,37 +51,34 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
             </S.Info>
           </S.InfoContainer>
         </S.ContentsContainer>
-        {data.imageList && (
-          <S.ContentsContainer>
-            <ImageSlider imageList={data.imageList} />
-          </S.ContentsContainer>
-        )}
-        <S.UserContentsContainer>
-          {data.userId === userId && (
-            <S.AdminContainer>
-              <Button
-                href={`${routes.UPDATE_POST}/${data.docId}`}
-                theme="outlinedPrimary"
-                size="medium"
-                width="45%">
-                {UPDATE_BUTTON_CAPTION}
-              </Button>
-              <Button
-                theme="outlinedDanger"
-                size="medium"
-                width="45%"
-                onClick={removeHanlder && removeHanlder(data.docId)}>
-                {DELETE_BUTTON_CAPTION}
-              </Button>
-            </S.AdminContainer>
-          )}
+        <S.ContentsContainer>
           <Author
             userData={data.userData}
             createdAt={data.createdAt}
             size="medium"
-          />
+            detailRef={detailRef}>
+            {data.userId === userId && (
+              <DropDown
+                menuList={[
+                  {
+                    title: UPDATE_BUTTON_CAPTION,
+                    href: `${routes.UPDATE_POST}/${data.docId}`,
+                  },
+                  {
+                    title: DELETE_BUTTON_CAPTION,
+                    onClick: removeHanlder && removeHanlder(data.docId),
+                  },
+                ]}
+                closeHanlder={closeDropDownHanlder}
+              />
+            )}
+          </Author>
+          {data.imageList.length > 0 && (
+            <ImageSlider imageList={data.imageList} />
+          )}
           <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
-        </S.UserContentsContainer>
+        </S.ContentsContainer>
+        <S.ContentsContainer>댓글창이 들어갑니다</S.ContentsContainer>
       </S.Container>
       {NavigationInfo && <ControllerBtn {...NavigationInfo} />}
     </>

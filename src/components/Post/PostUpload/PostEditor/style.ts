@@ -4,15 +4,17 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 25px;
   width: 100%;
   height: 100%;
-  z-index: 5000;
+  z-index: 3000;
+  > * {
+    margin: 1rem 0;
+  }
 `;
 
-export const TopContainer = styled.div`
+export const TopContainer = styled.header`
   width: 100%;
-  height: 50px;
+  height: 35px;
   padding: 35px 80px;
   display: flex;
   justify-content: flex-end;
@@ -22,18 +24,29 @@ export const TopContainer = styled.div`
 `;
 
 export const MainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 70px;
-  flex-wrap: wrap;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(50vh, 1fr));
+  column-gap: 1rem;
+  row-gap: 1rem;
+  padding: 0 1.5rem;
+`;
+
+export const MapContainer = styled.div`
+  width: 100%;
+  padding: 0 1rem;
+  display: grid;
+  place-items: center;
 `;
 
 export const ReviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  flex-basis: 50%;
   align-items: center;
+  padding: 0 1rem;
+  > * {
+    margin: 1rem 0;
+  }
 `;
 
 export const UploadImageButton = styled.button`
@@ -102,5 +115,7 @@ export const RadioContainer = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
-  width: 50%;
+  display: grid;
+  place-items: center;
+  width: 100%;
 `;

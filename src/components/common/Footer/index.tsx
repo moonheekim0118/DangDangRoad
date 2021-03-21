@@ -23,15 +23,27 @@ const Footer = (): React.ReactElement => {
           <Link href={routes.HOME} align="left" size="medium" theme="secondary">
             {MENU_HOME_TITLE_ENG}
           </Link>
-          <Link href={routes.HOME} align="left" size="medium" theme="secondary">
+          <Link
+            href={routes.ABOUT}
+            align="left"
+            size="medium"
+            theme="secondary">
             {MENU_ABOUT_TITLE_ENG}
           </Link>
         </S.MenuContainer>
         <S.MenuContainer>
-          <Link href={routes.HOME} align="left" size="medium" theme="secondary">
+          <Link
+            href={routes.TERM_OF_USE}
+            align="left"
+            size="medium"
+            theme="secondary">
             {MENU_TERM_TITLE_ENG}
           </Link>
-          <Link href={routes.HOME} align="left" size="medium" theme="secondary">
+          <Link
+            href={routes.PRIVACY_POLICY}
+            align="left"
+            size="medium"
+            theme="secondary">
             {MENU_PRIVACY_POLICY_TITLE_ENG}
           </Link>
         </S.MenuContainer>

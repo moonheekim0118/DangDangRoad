@@ -6,7 +6,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 50px;
-  gap: 25px;
 `;
 
 export const TagContainer = styled.div`

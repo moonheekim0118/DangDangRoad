@@ -74,7 +74,10 @@ export const Container = styled.div`
   height: auto;
   display: flex;
   justify-content: center;
-  gap: 25px;
+
+  > * {
+    margin: 0.8rem 0;
+  }
 
   @media only screen and (max-width: 780px) {
     flex-direction: column;
@@ -98,14 +101,19 @@ export const ImageContainer = styled.div`
   place-items: center;
 `;
 
-export const ContentsCotnainer = styled.div`
+export const ContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  align-items: center;
   width: 30%;
+  margin: 0 1.5rem;
+  > * {
+    margin: 1rem 0;
+  }
 
   @media only screen and (max-width: 780px) {
     width: 100%;
+    margin: 0;
   }
 `;
 
@@ -119,6 +127,7 @@ export const TextContainer = styled.div`
   top: 0;
   right: -300px;
   opacity: 0;
+  width: 100%;
   background-color: #fff;
   border-radius: 25px;
   display: inline;
@@ -130,5 +139,9 @@ export const TextContainer = styled.div`
 
   &:hover {
     top: -15px;
+  }
+
+  @media only screen and (max-width: 780px) {
+    width: 80%;
   }
 `;

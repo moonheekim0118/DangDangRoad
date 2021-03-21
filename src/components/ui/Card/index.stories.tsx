@@ -9,13 +9,11 @@ export const NotModal = Template.bind({});
 
 Modal.args = {
   isModal: true,
-  isLoading: true,
   children: <div>This is Card</div>,
 };
 
 NotModal.args = {
   isModal: false,
-  isLoading: true,
   children: <div>This is Card</div>,
 };
 

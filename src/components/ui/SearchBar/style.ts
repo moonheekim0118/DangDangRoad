@@ -25,7 +25,7 @@ export const ButtonContainer = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: -40px;
+  right: 10px;
 
   @media only screen and (max-width: 910px) {
     right: 10px;
@@ -91,15 +91,12 @@ export const focusThemes = {
 export const inputStyle = css`
   border: none;
   border-radius: 20px;
-  width: 120%;
+  width: 100%;
   padding: 20px 40px;
   font-weight: bold;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {
     outline: none;
-  }
-  @media only screen and (max-width: 910px) {
-    width: 100%;
   }
 `;

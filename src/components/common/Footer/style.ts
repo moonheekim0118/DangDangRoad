@@ -25,7 +25,6 @@ export const Container = styled.footer`
 export const Grid = styled.div`
   display: grid;
   grid-gap: 2rem;
-  gap: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid ${colorCode['light-gray']};
   @media (min-width: 1024px) {
@@ -38,7 +37,11 @@ export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1rem;
+
+  > * {
+    margin: 0.5rem 0;
+  }
+
   @media (min-width: 1024px) {
     grid-column: span 2 / span 2;
     margin: 0;

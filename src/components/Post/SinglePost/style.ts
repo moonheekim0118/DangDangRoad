@@ -7,12 +7,17 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  padding: 25px;
+  > * {
+    margin: 0 1rem;
+  }
+  padding: 1.5rem;
   @media only screen and (max-width: 1024px) {
     flex-direction: column;
     justify-content: space-between;
     overflow-y: scroll;
+    > * {
+      margin: 1rem 0;
+    }
   }
 `;
 
@@ -23,26 +28,13 @@ export const ContentsContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 25px;
 
-  @media only screen and (max-width: 1024px) {
-    width: 100%;
-    min-height: 300px;
+  > * {
+    margin: 0.7rem 0;
   }
-`;
-
-export const UserContentsContainer = styled.div`
-  width: calc(100% / 3);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-align;
-  align-items: center;
-  gap: 25px;
 
   @media only screen and (max-width: 1024px) {
     width: 100%;
-    min-height: 300px;
   }
 `;
 
@@ -51,6 +43,7 @@ export const Header = styled.div`
   top: -25px;
   left: 0;
   width: 100%;
+  height: 50px;
   background-color: #fff;
   z-index: 7000;
   display: none;
@@ -58,7 +51,7 @@ export const Header = styled.div`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.8rem;
   color: ${colorCode['blue']};
-  padding: 10px;
+  padding: 0.5rem;
 
   @media only screen and (max-width: 1024px) {
     display: flex;
@@ -87,7 +80,10 @@ export const PlaceDetail = styled.span`
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  flex-grow: 1;
 
   @media only screen and (max-width: 1024px) {
     flex-direction: row;
@@ -101,9 +97,8 @@ export const Info = styled.span`
 `;
 
 export const FreeCommentContainer = styled.div`
-  border: 1px solid ${colorCode['light-gray']};
-  border-radius: 25px;
-  padding: 15px;
+  font-size: 1rem;
+  flex-basis: 50%;
 `;
 
 export const AdminContainer = styled.div`

@@ -1,7 +1,6 @@
 import React from 'react';
 import { SerializedStyles } from '@emotion/react';
 import Link from 'next/link';
-import { anchorStyle } from 'components/ui/Button/style';
 import * as S from './style';
 
 export interface Props {
@@ -32,12 +31,16 @@ const LinkComponent = ({
 }: Props): React.ReactElement => {
   return (
     <Link href={href}>
-      <a css={[anchorStyle, { width }]}>
-        <S.Component
-          css={[style, S.aligns[align], S.sizes[size], S.themes[theme]]}>
-          {children}
-        </S.Component>
-      </a>
+      <S.Component
+        css={[
+          style,
+          S.aligns[align],
+          S.sizes[size],
+          S.themes[theme],
+          { width },
+        ]}>
+        <a>{children}</a>
+      </S.Component>
     </Link>
   );
 };

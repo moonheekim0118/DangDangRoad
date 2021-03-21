@@ -1,8 +1,16 @@
 import React from 'react';
 import Author, { Props } from '.';
+import { css } from '@emotion/react';
 import { Story } from '@storybook/react';
 
-const Template: Story<Props> = (args) => <Author {...args} />;
+const Template: Story<Props> = (args) => (
+  <div
+    css={css`
+      width: 200px;
+    `}>
+    <Author {...args} />
+  </div>
+);
 
 export const Medium = Template.bind({});
 export const Small = Template.bind({});

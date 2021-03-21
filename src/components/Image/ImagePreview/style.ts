@@ -19,6 +19,10 @@ export const Container = styled.div`
   justify-content: space-around;
   gap: 10px;
   align-items: center;
+
+  > * {
+    margin: 0 0.3rem;
+  }
 `;
 
 export const ImagePlusButton = styled.div`

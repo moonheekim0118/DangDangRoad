@@ -32,7 +32,7 @@ export const Button = styled.button<{ title: string }>`
   width: 50%;
   height: 100%;
   background-color: inherit;
-  padding: 17px 10px;
+  padding: 1.2rem 0.8rem;
   font-weight: bold;
   color: ${(props) => (props.title === 'close' ? 'red' : 'green')};
   cursor: pointer;

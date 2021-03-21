@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 250px;
   overflow: hidden;
 `;
 
@@ -25,10 +25,13 @@ export const NavigatorContainer = styled.div`
   width: 30%;
   display: flex;
   justify-content: center;
-  gap: 25px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 7000;
+
+  > * {
+    margin: 0 0.9rem;
+  }
 `;
 
 export const Navigator = styled.div<{ current: boolean }>`

@@ -31,7 +31,7 @@ const Toast = ({ children, theme, size, show, animation }: Props) => {
           show && animation && S.showAnimation,
         ]}>
         <Icon icon={icons[theme]} size={size} />
-        <span>{children}</span>
+        <S.Message>{children}</S.Message>
       </S.Component>
     </S.Container>
   );
