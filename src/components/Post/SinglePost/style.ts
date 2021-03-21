@@ -28,8 +28,9 @@ export const ContentsContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   > * {
-    margin: 0.8rem 0;
+    margin: 0.7rem 0;
   }
 
   @media only screen and (max-width: 1024px) {
@@ -96,8 +97,8 @@ export const Info = styled.span`
 `;
 
 export const FreeCommentContainer = styled.div`
-  border: 1px solid ${colorCode['light-gray']};
-  padding: 1rem;
+  font-size: 1rem;
+  flex-basis: 50%;
 `;
 
 export const AdminContainer = styled.div`

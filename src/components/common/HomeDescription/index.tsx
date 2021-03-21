@@ -24,13 +24,13 @@ const HomeDescription = ({ show }: Props) => {
         <Image
           src={EXAMPLE_DOG_IMAGE}
           alt={EXAMPLE_DOG_IMAGE_ALT}
-          width={350}
-          height={350}
+          width="350"
+          height="350"
         />
       </S.ImageContainer>
       <S.ContentsContainer>
         <S.TextContainer css={S.calculateAnimation(2, show, descDir)}>
-          <S.ContentsTitle>🌼 우리애기 꽃길만 걷게해주세요</S.ContentsTitle>
+          <S.ContentsTitle>🌼 강아지들이 꽃길만 걷게해주세요</S.ContentsTitle>
           오늘 반려견과의 탐험지를 댕댕로드에서 찾아보세요
         </S.TextContainer>
         <S.TextContainer css={S.calculateAnimation(3, show, descDir)}>

@@ -6,11 +6,7 @@ import * as S from './style';
 const LoadingSinglePost = () => {
   return (
     <>
-      <ContentLoader
-        width="100%"
-        height="100%"
-        viewBox="0 0 100% 650"
-        css={S.contentsLoaderStyle}>
+      <ContentLoader width="100%" height="100%" css={S.contentsLoaderStyle}>
         <rect x="5%" y="50" rx="0" ry="0" width="calc(100%/4)" height="80%" />
         <rect x="35%" y="50" rx="0" ry="0" width="calc(100%/4)" height="80%" />
         <rect x="75%" y="80" rx="4" ry="4" width="254" height="6" />

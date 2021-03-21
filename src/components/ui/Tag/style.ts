@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div<{ color: string }>`
-  display: inline-block;
-  vertical-align: middle;
+  max-width: 300px;
+  display: flex;
   background-color: ${(props) => props.color};
   color: #fff;
   font-weight: bold;
@@ -18,7 +18,6 @@ export const Container = styled.div<{ color: string }>`
 `;
 
 export const Text = styled.span`
-  display: grid;
-  place-items: center;
-  height: 100%;
+  padding: 0.4rem;
+  align-self: center;
 `;
