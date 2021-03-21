@@ -31,7 +31,6 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
   return (
     <>
       <S.Container>
-        <S.Header>{data.placeInfo.place_name}</S.Header>
         <S.ContentsContainer>
           <S.PlaceName>{data.placeInfo.place_name}</S.PlaceName>
           <S.PlaceDetail>{data.placeInfo.address_name}</S.PlaceDetail>

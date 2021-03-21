@@ -4,6 +4,11 @@ export const Post = styled.div`
   width: 300px;
   height: 300px;
   cursor: pointer;
+
+  @media only screen and (max-width: 380px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 export const Image = styled.img`
   width: 100%;
@@ -29,6 +34,11 @@ export const Overlay = styled.div`
 
   &:hover {
     opacity: 1;
+  }
+
+  @media only screen and (max-width: 380px) {
+    width: 100%;
+    height: 100%;
   }
 `;
 

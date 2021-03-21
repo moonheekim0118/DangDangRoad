@@ -3,7 +3,7 @@ import { baseModalStyle } from 'common/style/baseStyle';
 
 const Container = styled.div<{ isModal: boolean }>`
   width: 80vw;
-  height: 80vh;
+  height: 600px;
   margin: ${(props) => !props.isModal && '25px 0'};
   background-color: #fff;
   border-radius: 20px;
@@ -12,6 +12,10 @@ const Container = styled.div<{ isModal: boolean }>`
     props.isModal && '0px 0px 5px 0px rgba(0, 0, 0, 0.75)'};
 
   ${(props) => props.isModal && baseModalStyle};
+
+  @media only screen and (max-width: 1024px) {
+    height: 80vh;
+  }
 `;
 
 export default Container;
