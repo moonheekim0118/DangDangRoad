@@ -68,7 +68,10 @@ const Index = ({ reviewSize }): React.ReactElement => {
         <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
       <ReviewCount ref={counterRef}>
-        🧾지금 까지 작성된 리뷰 <HomeCounter end={countEnd} duration={1.2} />개
+        <h2>
+          🧾지금 까지 작성된 리뷰 <HomeCounter end={countEnd} duration={1.2} />
+          개
+        </h2>
       </ReviewCount>
       <Observer ref={examplePostObserverTarget} />
       <HomeDescription show={showPostExample} />
@@ -116,7 +119,6 @@ const MainTitle = styled.div`
 
 const ReviewCount = styled.div`
   opacity: 0;
-  font-size: 2rem;
   color: #fff;
   margin-bottom: 120px;
   text-align: center;

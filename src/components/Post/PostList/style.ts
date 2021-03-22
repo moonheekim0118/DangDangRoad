@@ -16,7 +16,7 @@ export const TagContainer = styled.div`
   align-items: center;
 `;
 
-export const ReviewContainer = styled.div`
+export const ReviewContainer = styled.article`
   margin-top: 50px;
   width: 100%;
   display: grid;

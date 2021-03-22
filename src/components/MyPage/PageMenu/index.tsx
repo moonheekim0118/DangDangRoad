@@ -28,7 +28,7 @@ const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
   return (
     <S.Container>
       {datas.map((v) => (
-        <S.Menu
+        <S.MenuList
           key={v.key}
           onClick={onClick}
           warn={v.title === '계정 삭제'}
@@ -41,7 +41,7 @@ const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
           ) : (
             <span>{v.title}</span>
           )}
-        </S.Menu>
+        </S.MenuList>
       ))}
     </S.Container>
   );

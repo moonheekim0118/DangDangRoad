@@ -8,8 +8,6 @@ import useApiFetch, {
   FAILURE,
 } from 'hooks/common/useApiFetch';
 import {
-  NOT_SELECT_PLACE_ERROR,
-  FREE_TEXT_LIMIT_ERROR,
   RAIDO_HAS_DONTKNOW_VALUE,
   RAIDO_AVAILABLE_DONTKNOW_VALUE,
   RAIDO_RECOMMENDATION_SOSO_VALUE,
@@ -61,34 +59,31 @@ const WritePost = ({ userId }: Props) => {
   const submitHandler = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      const { value: freeText, error: freeTextError } = freeTextRef.current;
+      const { value: freeText } = freeTextRef.current;
       const { value: hasParkingLot } = hasParkingLotRef.current;
       const { value: hasOffLeash } = hasOffLeashRef.current;
       const { value: recommendation } = recommendationRef.current;
       const { value: imageUrl } = imageUrlRef.current;
-      if (!selectedPlace) {
-        return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
-      } else if (freeTextError || freeText.length === 0) {
-        return dispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
+      if (selectedPlace) {
+        const data = {
+          userId,
+          hasParkingLot,
+          hasOffLeash,
+          recommendation,
+          freeText,
+          imageList: imageUrl,
+          placeInfo: {
+            address_name: selectedPlace.address_name,
+            place_name: selectedPlace.place_name,
+            x: selectedPlace.x,
+            y: selectedPlace.y,
+          },
+        };
+        fetchDispatch({
+          type: REQUEST,
+          params: [data],
+        });
       }
-      const data = {
-        userId,
-        hasParkingLot,
-        hasOffLeash,
-        recommendation,
-        freeText,
-        imageList: imageUrl,
-        placeInfo: {
-          address_name: selectedPlace.address_name,
-          place_name: selectedPlace.place_name,
-          x: selectedPlace.x,
-          y: selectedPlace.y,
-        },
-      };
-      fetchDispatch({
-        type: REQUEST,
-        params: [data],
-      });
     },
     [selectedPlace]
   );

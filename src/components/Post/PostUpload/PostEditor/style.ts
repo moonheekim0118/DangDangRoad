@@ -2,120 +2,88 @@ import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  width: 50%;
+  height: 100%;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  z-index: 3000;
-  > * {
-    margin: 1rem 0;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
   }
 `;
 
-export const TopContainer = styled.header`
+export const Component = styled.section`
   width: 100%;
-  height: 35px;
-  padding: 35px 80px;
+  height: 80%;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  border-bottom: 1px solid ${colorCode['light-gray']};
+  flex-grow: 1;
+  > * {
+    min-width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+  }
 `;
 
-export const MainContainer = styled.div`
-  display: grid;
-  place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(50vh, 1fr));
-  column-gap: 1rem;
-  row-gap: 1rem;
-  padding: 0 1.5rem;
-`;
-
-export const MapContainer = styled.div`
+export const PostImageContainer = styled.div`
   width: 100%;
-  padding: 0 1rem;
-  display: grid;
-  place-items: center;
+  height: 150px;
 `;
 
 export const ReviewContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+export const Header = styled.header`
+  width: 100%;
+  height: 50px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
-  > * {
-    margin: 1rem 0;
-  }
+
+  border-bottom: 1px solid ${colorCode['light-gray']};
 `;
 
-export const UploadImageButton = styled.button`
-  width: 100%;
-  border: 3px dashed ${colorCode['light-blue']};
-  padding: 20px;
-  background-color: inherit;
-  cursor: pointer;
-
-  &:hover {
-    border-color: ${colorCode['blue']};
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const Description = styled.div`
-  width: 100%;
-`;
-
-export const Label = styled.label`
+export const Label = styled.h2`
   font-family: 'Do Hyeon', sans-serif;
-  font-size: 1.2rem;
-`;
-
-export const LengthCounter = styled.span<{ error: boolean }>`
-  margin-left: 10px;
-  color: ${(props) => (props.error ? colorCode['red'] : colorCode['green'])};
-  font-weight: bold;
+  padding: 1.2rem;
 `;
 
 export const PlaceName = styled.span`
+  width: 70%;
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.5rem;
   color: ${colorCode['blue']};
-`;
-
-export const TextArea = styled.textarea`
-  width: 100%;
-  resize: none;
-  margin-top: 10px;
-  padding: 20px;
-  height: 100px;
-  font-size: 1rem;
-  background-color: #fff;
-  border: none;
-  border-radius: 25px;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const PlaceInfo = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 export const RadioContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+export const ControllerContainer = styled.div`
+  height: 20%;
 `;
 
 export const ButtonContainer = styled.div`
-  display: grid;
-  place-items: center;
+  padding: 1.5rem;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const MainContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 `;

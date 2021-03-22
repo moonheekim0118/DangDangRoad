@@ -7,12 +7,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import {
-  NOT_SELECT_PLACE_ERROR,
-  FREE_TEXT_LIMIT_ERROR,
-  NO_UPDATE_ERROR,
-  UPDATE_MESSAGE,
-} from 'common/constant/string';
+import { NO_UPDATE_ERROR, UPDATE_MESSAGE } from 'common/constant/string';
 import { ReviewData } from 'types/API';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import { PostEditor } from 'components/Post/PostUpload';
@@ -71,17 +66,11 @@ const UpdatePost = ({ initialData, userId }: Props) => {
   const submitHandler = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      const { value: freeText, error: freeTextError } = freeTextRef.current;
+      const { value: freeText } = freeTextRef.current;
       const { value: hasParkingLot } = hasParkingLotRef.current;
       const { value: hasOffLeash } = hasOffLeashRef.current;
       const { value: recommendation } = recommendationRef.current;
       const { value: imageUrl } = imageUrlRef.current;
-
-      if (!selectedPlace) {
-        return dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
-      } else if (freeTextError) {
-        return dispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
-      }
 
       if (
         freeText === initialData.freeText &&

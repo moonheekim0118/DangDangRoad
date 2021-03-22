@@ -31,15 +31,15 @@ const HomeDescription = ({ show }: Props) => {
       <S.ContentsContainer>
         <S.TextContainer css={S.calculateAnimation(2, show, descDir)}>
           <S.ContentsTitle>🌼 강아지들이 꽃길만 걷게해주세요</S.ContentsTitle>
-          오늘 반려견과의 탐험지를 댕댕로드에서 찾아보세요
+          <span>오늘 반려견과의 탐험지를 댕댕로드에서 찾아보세요</span>
         </S.TextContainer>
         <S.TextContainer css={S.calculateAnimation(3, show, descDir)}>
           <S.ContentsTitle>📍 지도로 더 정확하게 찾아가세요</S.ContentsTitle>
-          지도를 통해서 정확한 장소를 알려드려요
+          <span>지도를 통해서 정확한 장소를 알려드려요</span>
         </S.TextContainer>
         <S.TextContainer css={S.calculateAnimation(4, show, descDir)}>
           <S.ContentsTitle>💛 반려견과의 추억을 공유해요</S.ContentsTitle>
-          사진과 글로 애기와의 추억을 공유해주세요
+          <span>사진과 글로 추억을 공유해주세요</span>
         </S.TextContainer>
       </S.ContentsContainer>
     </S.Container>

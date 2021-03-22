@@ -18,11 +18,36 @@ export const SideContainer = styled.aside`
   height: 80%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+
+  > * {
+    margin-bottom: 1rem;
+  }
   margin-right: 25px;
   @media only screen and (max-width: 570px) {
     width: 100%;
     margin: 0;
+    > * {
+      margin-bottom: 0;
+    }
+  }
+`;
+
+export const NavigationContainer = styled.nav`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  > * {
+    margin-bottom: 1rem;
+  }
+
+  @media only screen and (max-width: 570px) {
+    > * {
+      margin-bottom: 0;
+    }
   }
 `;
 

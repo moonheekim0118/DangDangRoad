@@ -13,7 +13,6 @@ export const Container = styled.header`
   flex-wrap: wrap;
   align-items: center;
   padding: 16px 30px;
-
   position: sticky;
   top: 0;
 
@@ -57,6 +56,13 @@ export const UserInfoSummary = styled.summary`
   &:focus {
     outline: none;
   }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+  &&::marker {
+    display: none;
+  }
 `;
 
 export const DetailsMenu = styled.menu`
@@ -66,53 +72,63 @@ export const DetailsMenu = styled.menu`
 `;
 
 export const MenuToggler = styled.div`
-  margin-right: 25px;
+  margin-right: 1.5rem;
   display: none;
   align-items: center;
+  flex-shrink: 1;
   @media only screen and (max-width: 910px) {
     display: flex;
   }
 `;
 
-export const LogoContainer = styled.div`
+export const MainContainer = styled.div`
   align-self: center;
-  flex: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 1;
+  flex-grow: 1;
 `;
 
-export const SearchBarContainer = styled.div`
-  width: 30%;
+export const Navigation = styled.div`
   position: absolute;
+  align-self: center;
+  width: 30%;
   left: 250px;
+
   @media only screen and (max-width: 910px) {
+    width: 100%;
+    position: relative;
     display: none;
-  }
-`;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 
-export const ToggleContainer = styled.div`
-  width: 100%;
+    > * {
+      margin: 1rem 0;
+    }
+  }
+
   @media only screen and (min-width: 910px) {
-    display: none;
+    display: flex !important;
   }
-`;
-
-export const NavigationContainer = styled.nav`
-  display: none;
-  width: 100%;
-  flex-direction: column;
-  margin-top: 20px;
 `;
 
 export const NavigationContents = styled.div`
   width: 100%;
-  border-top: 1px solid #fff;
   background-color: ${colorCode['blue']};
   display: flex;
   flex-direction: column;
-  justify-contents: center;
-  padding: 15px 20px;
-  margin-top: 15px;
+  align-items: center;
+  padding: 0.7rem 0.3rem;
+  border-top: 1px solid #fff;
 
   > * {
-    margin: 0.7rem 0;
+    margin-top: 0.6rem;
   }
+
+  @media only screen and (min-width: 910px) {
+    display: none;
+  } ;
 `;

@@ -89,65 +89,60 @@ const Header = (): React.ReactElement => {
           onClick={toggleNavigation}
         />
       </S.MenuToggler>
-      <S.LogoContainer>
+      <S.MainContainer>
         <Logo color="white" />
-      </S.LogoContainer>
-      <S.SearchBarContainer>
-        <PlaceSearch />
-      </S.SearchBarContainer>
-      {isLoaded && (
-        <>
-          {isLoggedIn ? (
-            <S.SideNavigation>
-              <S.AuthDetailsContainer ref={detailRef}>
-                <S.UserInfoSummary>
-                  <Avatar imageUrl={profilePic} size="small" />
-                  <Icon icon={faCaretDown} size="medium" />
-                </S.UserInfoSummary>
-                <S.DetailsMenu>
-                  <DropDown
-                    menuList={[
-                      { title: MENU_MYPAGE_TITLE, href: routes.MYPAGE },
-                      { title: MENU_BOOKMARK_TITLE, href: routes.MYPAGE },
-                      { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
-                    ]}
-                    closeHanlder={closeDropDownHanlder}
-                  />
-                </S.DetailsMenu>
-              </S.AuthDetailsContainer>
-              <S.HideInMobile>{WriteReviewLink}</S.HideInMobile>
-            </S.SideNavigation>
-          ) : (
-            <S.SideNavigation>
-              {!checkPath(routes.LOGIN) ? (
-                !checkPath(routes.SIGNUP) ? (
-                  <>
-                    {LoginLink}
-                    <S.HideInMobile>{SignUpLink}</S.HideInMobile>
-                  </>
+        {isLoaded && (
+          <>
+            {isLoggedIn ? (
+              <S.SideNavigation>
+                <S.AuthDetailsContainer ref={detailRef}>
+                  <S.UserInfoSummary>
+                    <Avatar imageUrl={profilePic} size="small" />
+                    <Icon icon={faCaretDown} size="medium" />
+                  </S.UserInfoSummary>
+                  <S.DetailsMenu>
+                    <DropDown
+                      menuList={[
+                        { title: MENU_MYPAGE_TITLE, href: routes.MYPAGE },
+                        { title: MENU_BOOKMARK_TITLE, href: routes.MYPAGE },
+                        { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
+                      ]}
+                      closeHanlder={closeDropDownHanlder}
+                    />
+                  </S.DetailsMenu>
+                </S.AuthDetailsContainer>
+                <S.HideInMobile>{WriteReviewLink}</S.HideInMobile>
+              </S.SideNavigation>
+            ) : (
+              <S.SideNavigation>
+                {!checkPath(routes.LOGIN) ? (
+                  !checkPath(routes.SIGNUP) ? (
+                    <>
+                      {LoginLink}
+                      <S.HideInMobile>{SignUpLink}</S.HideInMobile>
+                    </>
+                  ) : (
+                    LoginLink
+                  )
                 ) : (
-                  LoginLink
-                )
-              ) : (
-                SignUpLink
-              )}
-            </S.SideNavigation>
-          )}
-        </>
-      )}
-      <S.ToggleContainer>
-        <S.NavigationContainer ref={navRef}>
-          <PlaceSearch />
-          {isLoggedIn && (
-            <S.NavigationContents>{WriteReviewLink}</S.NavigationContents>
-          )}
-          {!isLoggedIn &&
-            !checkPath(routes.SIGNUP) &&
-            !checkPath(routes.LOGIN) && (
-              <S.NavigationContents>{SignUpLink}</S.NavigationContents>
+                  SignUpLink
+                )}
+              </S.SideNavigation>
             )}
-        </S.NavigationContainer>
-      </S.ToggleContainer>
+          </>
+        )}
+      </S.MainContainer>
+      <S.Navigation ref={navRef}>
+        <PlaceSearch />
+        {isLoggedIn && (
+          <S.NavigationContents>{WriteReviewLink}</S.NavigationContents>
+        )}
+        {!isLoggedIn &&
+          !checkPath(routes.SIGNUP) &&
+          !checkPath(routes.LOGIN) && (
+            <S.NavigationContents>{SignUpLink}</S.NavigationContents>
+          )}
+      </S.Navigation>
     </S.Container>
   );
 };

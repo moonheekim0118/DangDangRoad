@@ -12,7 +12,6 @@ const Container = styled.div<{ isModal: boolean }>`
     props.isModal && '0px 0px 5px 0px rgba(0, 0, 0, 0.75)'};
 
   ${(props) => props.isModal && baseModalStyle};
-
   @media only screen and (max-width: 1024px) {
     height: 80vh;
   }

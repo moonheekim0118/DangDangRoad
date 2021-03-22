@@ -11,10 +11,11 @@ export const Container = styled.article`
     margin: 0 1rem;
   }
   padding: 1.5rem;
+
   @media only screen and (max-width: 1024px) {
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: scroll;
+    overflow-y: auto;
     > * {
       margin: 1rem 0;
     }
@@ -36,10 +37,6 @@ export const ContentsContainer = styled.div`
   @media only screen and (max-width: 1024px) {
     width: 100%;
     height: 450px;
-
-    > * {
-      margin: 0.5rem 0;
-    }
   }
 `;
 
@@ -63,20 +60,21 @@ export const PlaceDetail = styled.span`
   white-space: nowrap;
 `;
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
   flex-grow: 1;
+  list-style-type: none;
 
   @media only screen and (max-width: 1024px) {
     flex-direction: row;
   }
 `;
 
-export const Info = styled.span`
+export const Info = styled.li`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.1rem;
   color: ${colorCode['gray']};
