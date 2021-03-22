@@ -1,7 +1,7 @@
 import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
 
-export const Container = styled.h1`
+export const Container = styled.h2`
   font-family: 'Do Hyeon', sans-serif;
 
   &::before {

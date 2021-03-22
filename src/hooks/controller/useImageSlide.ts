@@ -7,7 +7,7 @@ interface Props {
 
 const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
   const [index, setIndex] = useState<number>(initialIndex);
-  const slideRef = useRef<HTMLInputElement>(null);
+  const slideRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIndex(initialIndex);
