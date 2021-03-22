@@ -1,6 +1,6 @@
 import React from 'react';
 import { ControllerBtn } from 'components/ui';
-import { useImageSlide } from 'hooks';
+import { useSlide } from 'hooks';
 import * as S from './style';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ImageSlider = ({ imageList }: Props) => {
-  const data = useImageSlide({ totalSlide: imageList.length });
+  const data = useSlide({ totalSlide: imageList.length });
 
   return (
     <S.Container>

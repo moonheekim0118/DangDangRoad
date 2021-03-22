@@ -62,7 +62,6 @@ export const WRITE_REVIEW_TITLE = '리뷰 작성';
 export const IMAGE_UPLOAD_LABEL = '사진 업로드📸';
 export const IMAGE_UPLOAD_DESC = '(최대 3장까지 업로드 가능합니다)';
 export const FREE_TEXT_LABEL = '자유롭게 장소에 대해 적어주세요 ✨';
-export const RADIO_BOX_LABEL = '장소에대해 알려주세요 🌠';
 export const RADIO_TITLE_PARKING_LOT = '주차장이 있나요?';
 export const RADIO_TITLE_OFFLEASH = '오프리쉬 가능한가요?';
 export const RADIO_TITLE_RECOMMENDATION = '다른 멍멍이들에게 추천하나요?';
@@ -128,3 +127,12 @@ export const RADIO_LIST = {
 
 export const PRIVACY_TERM_TITLE = '개인정보 수집에 동의하십니까';
 export const SERVICE_TERM_TITLE = '이용 약관에 동의하십니까';
+
+export const WRITE_REVIEW_SELECT_PLACE_TITLE =
+  '1. 지도에서 산책로를 선택해주세요';
+export const WRITE_REVIEW_ADD_CONTENTS_TITLE =
+  '2. 글과 사진으로 리뷰를 남겨주세요';
+export const WRITE_REVIEW_ADD_RADIO_INPUT = '3. 산책로에 대해 알려주세요';
+
+export const NEXT_CAPTION = '다음';
+export const PREV_CAPTION = '이전';
