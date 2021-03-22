@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.nav`
+export const Container = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@ export const Container = styled.nav`
   }
 `;
 
-export const Menu = styled.div<{ warn: boolean; visiting: boolean }>`
+export const MenuList = styled.li<{ warn: boolean; visiting: boolean }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -24,6 +24,7 @@ export const Menu = styled.div<{ warn: boolean; visiting: boolean }>`
   background-color: ${(props) => props.visiting && '#e0e0e0'};
 
   transition: background-color 0.3s ease;
+  list-style-type: none;
 
   &:hover {
     background-color: ${(props) =>
@@ -45,4 +46,8 @@ export const Menu = styled.div<{ warn: boolean; visiting: boolean }>`
       border-radius: 0;
     }
   }
+`;
+
+export const Menu = styled.li`
+  width: 100%;
 `;

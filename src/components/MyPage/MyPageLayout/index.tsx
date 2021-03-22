@@ -54,8 +54,10 @@ const MyPage = ({
         ) : (
           <Loading />
         )}
-        <PageMenu datas={menus.GeneralMenu} />
-        <PageMenu datas={menus.DestoryMenu} onClick={modalHandler} />
+        <S.NavigationContainer>
+          <PageMenu datas={menus.GeneralMenu} />
+          <PageMenu datas={menus.DestoryMenu} onClick={modalHandler} />
+        </S.NavigationContainer>
       </S.SideContainer>
       <S.MainContainer>
         <S.TitleContainer>

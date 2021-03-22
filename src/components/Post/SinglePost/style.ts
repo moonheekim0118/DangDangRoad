@@ -60,20 +60,21 @@ export const PlaceDetail = styled.span`
   white-space: nowrap;
 `;
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
   flex-grow: 1;
+  list-style-type: none;
 
   @media only screen and (max-width: 1024px) {
     flex-direction: row;
   }
 `;
 
-export const Info = styled.span`
+export const Info = styled.li`
   font-family: 'Do Hyeon', sans-serif;
   font-size: 1.1rem;
   color: ${colorCode['gray']};
