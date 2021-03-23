@@ -1,4 +1,5 @@
 import React from 'react';
+import { CommentSection } from 'components/comment';
 import { useCloseDropdown } from 'hooks';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
@@ -77,7 +78,9 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
           )}
           <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
         </S.ContentsContainer>
-        <S.ContentsContainer>댓글창이 들어갑니다</S.ContentsContainer>
+        <S.ContentsContainer>
+          {userId && <CommentSection userId={userId} postId={data.docId} />}
+        </S.ContentsContainer>
       </S.Container>
       {NavigationInfo && <ControllerBtn {...NavigationInfo} />}
     </>

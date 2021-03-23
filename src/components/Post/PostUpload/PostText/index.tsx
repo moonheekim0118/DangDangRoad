@@ -15,7 +15,7 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 const PostText = (props: Props, ref: React.Ref<InputRef>) => {
-  const [value, error, valueChangeHanlder] = useValidation({
+  const { value, error, valueChangeHanlder } = useValidation({
     initialValue: props.initValue,
     validator: freeTextLengthCheck,
   });
