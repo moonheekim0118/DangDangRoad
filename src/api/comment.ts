@@ -9,6 +9,7 @@ interface tempCommentData extends T.CommentData {
   userRef: any;
 }
 
+// extract & parse Comment data from Firebase response
 const extractCommentData = async (response): Promise<T.CommentResult> => {
   try {
     let comments: T.CommentData[] = [];
@@ -22,6 +23,7 @@ const extractCommentData = async (response): Promise<T.CommentResult> => {
         postId: data.postId,
         userId: data.userId,
         userRef: data.userRef,
+        createdAt: data.createdAt,
       } as tempCommentData;
       temp.push(comment);
       lastKey = data.createdAt;
@@ -38,17 +40,29 @@ const extractCommentData = async (response): Promise<T.CommentResult> => {
   }
 };
 
+/** get COmments By 5*/
 export const getComments = async (
   postId: string,
   key?: string
 ): T.APIResponse<T.CommentResult> => {
   try {
-    const response = await db
-      .collection('comments')
-      .where('postId', '==', postId)
-      .limit(COMMENT_DATA_LIMIT)
-      .get();
-
+    let response;
+    if (key) {
+      response = await db
+        .collection('comments')
+        .where('postId', '==', postId)
+        .orderBy('createdAt', 'desc')
+        .startAfter(key)
+        .limit(COMMENT_DATA_LIMIT)
+        .get();
+    } else {
+      response = await db
+        .collection('comments')
+        .where('postId', '==', postId)
+        .orderBy('createdAt', 'desc')
+        .limit(COMMENT_DATA_LIMIT)
+        .get();
+    }
     const data = await extractCommentData(response);
     return { isError: false, data };
   } catch (error) {
@@ -63,6 +77,7 @@ export const createComment = async (
 ): T.APIResponse<T.CommentData> => {
   try {
     data['userRef'] = db.collection('users').doc(data.userId);
+    data['createdAt'] = Date.now();
     const response = await db.collection('comments').add(data);
     const result = await response.get();
     const newComment = result.data();
@@ -80,9 +95,10 @@ export const createComment = async (
 };
 
 // remove comment
-
-export const removeComment = async () => {
+export const removeComment = async (id: string): T.APIResponse<string> => {
   try {
+    await db.collection('comments').doc(id).delete();
+    return { isError: false, data: id };
   } catch (error) {
     throw error;
   }

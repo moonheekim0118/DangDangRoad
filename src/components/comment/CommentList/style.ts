@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 import { css } from '@emotion/react';
+import { colorCode } from 'common/style/color';
 
 export const moreIconStyle = css`
   color: ${colorCode['light-blue']};
@@ -10,15 +10,7 @@ export const moreIconStyle = css`
   }
 `;
 
-export const Container = styled.section`
-  width: 100%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const CommentList = styled.ul`
+export const List = styled.ul`
   width: 100%;
   overflow: visible;
   display: flex;
@@ -29,7 +21,7 @@ export const CommentList = styled.ul`
   list-style-type: none;
 `;
 
-export const CommentContainer = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: calc(100% - 110px);
   overflow-y: scroll;

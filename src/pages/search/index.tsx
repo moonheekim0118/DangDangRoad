@@ -6,7 +6,7 @@ import {
   useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
-import { REQUEST } from 'hooks/common/useApiFetch';
+import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading, Card, LoadingSinglePost } from 'components/ui';
 import { Modal } from 'components/ui';
 import { ReviewResult } from 'types/API';
@@ -59,7 +59,8 @@ const SearchMain = ({ reviews }: Props) => {
         modalHandler={modalDatas.closeModal}>
         <Card isModal={true}>
           {!modalDatas.singleReview ||
-          modalDatas.fetchSingleReviewResult.type === REQUEST ? (
+          modalDatas.fetchSingleReviewResult.type === REQUEST ||
+          modalDatas.fetchSingleReviewResult.type === SUCCESS ? (
             <LoadingSinglePost />
           ) : (
             <SinglePost

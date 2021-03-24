@@ -2,6 +2,7 @@ import { FREE_TEXT_LIMIT } from 'common/constant/number';
 
 export const SAVE_MESSAGE = '저장 되었습니다';
 export const UPDATE_MESSAGE = '수정 되었습니다';
+export const REMOVE_MESSAGE = '삭제 되었습니다';
 export const DEFAULT_ERROR = '잠시 후에 다시 시도해주세요';
 export const EMAIL_ALREADY_IN_USE_ERROR = '이미 사용중인 이메일 입니다';
 export const WRONG_PASSWORD_ERROR = '잘못된 비밀번호 입니다.';
@@ -133,6 +134,8 @@ export const WRITE_REVIEW_SELECT_PLACE_TITLE =
 export const WRITE_REVIEW_ADD_CONTENTS_TITLE =
   '2. 글과 사진으로 리뷰를 남겨주세요';
 export const WRITE_REVIEW_ADD_RADIO_INPUT = '3. 산책로에 대해 알려주세요';
+export const EMPTY_COMMENT_TITLE = '아직 댓글이 없습니다';
+export const COMMENT_PLACEHOLDER = '댓글을 남겨주세요..';
 
 export const NEXT_CAPTION = '다음';
 export const PREV_CAPTION = '이전';

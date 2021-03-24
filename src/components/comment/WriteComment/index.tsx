@@ -5,6 +5,7 @@ import React, {
   FormEvent,
   useCallback,
 } from 'react';
+import { COMMENT_PLACEHOLDER } from 'common/constant/string';
 import { commentTextLengthCheck } from 'util/reviewTextValidation';
 import { useValidation } from 'hooks';
 import { InputRef } from 'types/Ref';
@@ -38,7 +39,7 @@ const WriteComment = (props: Props, ref: React.Ref<InputRef>) => {
     <S.Form onSubmit={submitHandler}>
       <S.TextArea
         cols={1}
-        placeholder="댓글을 작성해주세요..."
+        placeholder={COMMENT_PLACEHOLDER}
         value={value}
         onChange={valueChangeHanlder}
         {...rest}

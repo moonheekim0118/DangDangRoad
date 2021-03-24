@@ -74,7 +74,7 @@ export interface CommentData {
   userId: string;
   userData: UserContents;
   contents: string;
-  createdAt: number;
+  createdAt: string;
 }
 
 export interface UserContents {

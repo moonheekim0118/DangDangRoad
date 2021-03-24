@@ -79,7 +79,7 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
           <S.FreeCommentContainer>{data.freeText}</S.FreeCommentContainer>
         </S.ContentsContainer>
         <S.ContentsContainer>
-          {userId && <CommentSection userId={userId} postId={data.docId} />}
+          <CommentSection userId={userId} postId={data.docId} />
         </S.ContentsContainer>
       </S.Container>
       {NavigationInfo && <ControllerBtn {...NavigationInfo} />}

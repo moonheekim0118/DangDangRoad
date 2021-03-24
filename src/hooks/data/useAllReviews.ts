@@ -62,6 +62,7 @@ const useAllReviews = ({ initReviews, initLastKey }: Props = {}) => {
   }, [allReviews, hasMore, lastKey]);
 
   // remove
+  // TODO : API에서 결과로 ID 값을 받아오게 수정하시오
   const fetchRemove = useCallback((id: string) => {
     fetchRemoveDispatch({ type: REQUEST, params: [id] });
     setSelectId(id);

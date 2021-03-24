@@ -142,5 +142,3 @@ export const getReviewsCount = async (): T.APIResponse<number> => {
     throw error;
   }
 };
-
-/** get Reviews */
