@@ -32,7 +32,7 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
   const commentRef = useRef<InputRef>(inputDefaultRef());
   const [comments, setComments] = useState<CommentData[]>([]);
   const [lastKey, setLastKey] = useState<string>('');
-  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [hasMore, setHasMore] = useState<boolean>(false);
 
   const [
     createCommentResult,

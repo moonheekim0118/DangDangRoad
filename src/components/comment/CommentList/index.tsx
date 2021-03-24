@@ -1,5 +1,4 @@
 import React from 'react';
-import { useCloseDropdown } from 'hooks';
 import { Loading, DropDown, Author, Button, Icon } from 'components/ui';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -26,14 +25,13 @@ const CommentList = ({
   hasMore,
   isLoading,
 }: Props) => {
-  const [detailRef, closeDropDownHanlder] = useCloseDropdown();
   return (
     <S.Container>
       <S.List>
         {comments.length > 0 &&
           comments.map((v) => (
             <S.CommentCard key={v.docId}>
-              <Author userData={v.userData} size="small" detailRef={detailRef}>
+              <Author userData={v.userData} size="small">
                 {v.userId === userId && (
                   <DropDown
                     menuList={[
@@ -42,7 +40,6 @@ const CommentList = ({
                         onClick: removeCommentHandler(v.docId),
                       },
                     ]}
-                    closeHanlder={closeDropDownHanlder}
                   />
                 )}
               </Author>
