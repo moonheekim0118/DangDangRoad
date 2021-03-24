@@ -44,7 +44,8 @@ const SearchMain = ({ reviews }: Props) => {
 
   const removeHanlder = useCallback(
     (id: string) => () => {
-      modalDatas.closeModal();
+      modalDatas.closeModal(); // close Modal
+      modalDatas.removeCache(id); // remove Cache
       fetchRemove(id);
     },
     [modalDatas]

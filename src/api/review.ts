@@ -34,10 +34,10 @@ export const updateReview = async (
 };
 
 /** remove review */
-export const removeReview = async (id: string): T.APIResponse => {
+export const removeReview = async (id: string): T.APIResponse<string> => {
   try {
     await db.collection('reviews').doc(id).delete();
-    return T.defaultSuccess;
+    return { isError: false, data: id };
   } catch (error) {
     throw error;
   }

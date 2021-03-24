@@ -23,7 +23,7 @@ interface Props {
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
-  removeHanlder: (id: string) => (e: React.MouseEvent) => void;
+  removeHanlder?: (id: string) => (e: React.MouseEvent) => void;
 }
 
 const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
@@ -66,7 +66,7 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
                   },
                   {
                     title: DELETE_BUTTON_CAPTION,
-                    onClick: removeHanlder(data.docId),
+                    onClick: removeHanlder && removeHanlder(data.docId),
                   },
                 ]}
                 closeHanlder={closeDropDownHanlder}

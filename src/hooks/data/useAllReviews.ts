@@ -20,14 +20,13 @@ const useAllReviews = ({ initReviews, initLastKey }: Props = {}) => {
     fetchRemoveResult,
     fetchRemoveDispatch,
     setRemoveDefault,
-  ] = useApiFetch(removeReview);
+  ] = useApiFetch<string>(removeReview);
 
   const [lastKey, setLastKey] = useState<string>(initLastKey || '');
   const [allReviews, setAllReviews] = useState<T.LightReviewData[]>(
     initReviews || []
   );
   const [hasMore, setHasMore] = useState<boolean>(true); // let us know if there is more data to fetch in db
-  const [selectId, setSelectId] = useState<string>('');
 
   useEffect(() => {
     switch (fetchResult.type) {
@@ -47,13 +46,14 @@ const useAllReviews = ({ initReviews, initLastKey }: Props = {}) => {
   useEffect(() => {
     switch (fetchRemoveResult.type) {
       case SUCCESS:
-        const newReviews = allReviews.filter((v) => v.docId !== selectId);
+        const deletedId = fetchRemoveResult.data;
+        const newReviews = allReviews.filter((v) => v.docId !== deletedId);
         setAllReviews(newReviews);
         setRemoveDefault();
         break;
       case FAILURE:
     }
-  }, [fetchRemoveResult, allReviews, selectId]);
+  }, [fetchRemoveResult, allReviews]);
 
   const fetchReview = useCallback(() => {
     if (hasMore) {
@@ -62,10 +62,8 @@ const useAllReviews = ({ initReviews, initLastKey }: Props = {}) => {
   }, [allReviews, hasMore, lastKey]);
 
   // remove
-  // TODO : API에서 결과로 ID 값을 받아오게 수정하시오
   const fetchRemove = useCallback((id: string) => {
     fetchRemoveDispatch({ type: REQUEST, params: [id] });
-    setSelectId(id);
   }, []);
 
   return [allReviews, fetchReview, fetchRemove, fetchResult, hasMore] as const;

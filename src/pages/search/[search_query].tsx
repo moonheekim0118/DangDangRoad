@@ -28,6 +28,7 @@ const SearchResult = () => {
   const removeHanlder = useCallback(
     (id: string) => () => {
       modalDatas.closeModal();
+      modalDatas.removeCache(id); // remove Cache
       fetchRemove(id);
     },
     []

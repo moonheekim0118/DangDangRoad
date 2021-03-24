@@ -23,8 +23,8 @@ export async function getStaticProps() {
 }
 
 const singlePost = ({ reviews }) => {
-  const { user } = useUser();
-  const [singleReview, fetchResult] = useSingleReview(true);
+  useUser();
+  const { singleReview, fetchResult } = useSingleReview(true);
 
   const openSinglePost = useCallback(
     (id: string) => () => {

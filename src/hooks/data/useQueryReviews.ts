@@ -15,13 +15,12 @@ const useQueryReviews = () => {
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<
     T.LightReviewData[]
   >(searchByKeyword);
-  const [selectId, setSelectId] = useState<string>('');
 
   const [
     fetchRemoveResult,
     fetchRemoveDispatch,
     setRemoveDefault,
-  ] = useApiFetch(removeReview);
+  ] = useApiFetch<string>(removeReview);
 
   useEffect(() => {
     if (typeof query === 'string') {
@@ -46,13 +45,14 @@ const useQueryReviews = () => {
   useEffect(() => {
     switch (fetchRemoveResult.type) {
       case SUCCESS:
-        const newReviews = allReviews.filter((v) => v.docId !== selectId);
+        const deletedId = fetchRemoveResult.data;
+        const newReviews = allReviews.filter((v) => v.docId !== deletedId);
         setAllReviews(newReviews);
         setRemoveDefault();
         break;
       case FAILURE:
     }
-  }, [fetchRemoveResult, allReviews, selectId]);
+  }, [fetchRemoveResult, allReviews]);
 
   const fetchReview = useCallback(() => {
     if (hasMore && query) {
@@ -62,7 +62,6 @@ const useQueryReviews = () => {
 
   const fetchRemove = useCallback((id: string) => {
     fetchRemoveDispatch({ type: REQUEST, params: [id] });
-    setSelectId(id);
   }, []);
 
   return [
