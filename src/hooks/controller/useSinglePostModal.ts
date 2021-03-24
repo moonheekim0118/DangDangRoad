@@ -8,11 +8,12 @@ const useSinglePostModal = (fullReviews: T.LightReviewData[]) => {
   const [originPath, setOriginPath] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
   const [showModal, modalHandler] = useModal(false);
-  const [
+  const {
     singleReview,
-    fetchSingleReviewResult,
-    fetchSingleReview,
-  ] = useSingleReview(false);
+    fetchResult: fetchSingleReviewResult,
+    fetchData: fetchSingleReview,
+    removeCache,
+  } = useSingleReview(false);
 
   useEffect(() => {
     const query = Router.query.search_query;
@@ -56,6 +57,7 @@ const useSinglePostModal = (fullReviews: T.LightReviewData[]) => {
     fetchSingleReviewResult,
     showModal,
     index,
+    removeCache,
     openModal,
     closeModal,
     prevHandler,

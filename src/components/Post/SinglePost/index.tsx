@@ -12,9 +12,9 @@ import {
   UPDATE_BUTTON_CAPTION,
   DELETE_BUTTON_CAPTION,
 } from 'common/constant/string';
-import routes from 'common/constant/routes';
 import { ImageSlider } from 'components/Image';
 import { BasicMap } from 'components/Map';
+import routes from 'common/constant/routes';
 import * as S from './style';
 
 interface Props {
@@ -23,7 +23,7 @@ interface Props {
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
-  removeHanlder?: (id: string) => (e: React.MouseEvent) => void;
+  removeHanlder: (id: string) => (e: React.MouseEvent) => void;
 }
 
 const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
@@ -66,7 +66,7 @@ const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
                   },
                   {
                     title: DELETE_BUTTON_CAPTION,
-                    onClick: removeHanlder && removeHanlder(data.docId),
+                    onClick: removeHanlder(data.docId),
                   },
                 ]}
                 closeHanlder={closeDropDownHanlder}

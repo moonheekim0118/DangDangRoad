@@ -22,11 +22,12 @@ export const createReview = async (
 export const updateReview = async (
   id: string,
   data: T.WriteReviewParams
-): T.APIResponse => {
+): T.APIResponse<T.WriteReviewParams> => {
   try {
     data['createdAt'] = Date.now();
     await db.collection('reviews').doc(id).update(data);
-    return T.defaultSuccess;
+    console.log(data);
+    return { isError: false, data };
   } catch (error) {
     throw error;
   }

@@ -1,6 +1,10 @@
 const EXPIRE_TIME = 10000000;
 
 interface CacheData<T> {
+  [key: string]: ValueData<T>;
+}
+
+interface ValueData<T> {
   value: T;
   // To Expire Data after specific time
   expiry: number;
@@ -8,10 +12,10 @@ interface CacheData<T> {
 
 // Prototype for Caching Data
 class cacheProto<T> {
-  private data: CacheData<T>[];
+  private data: CacheData<T>;
 
   constructor() {
-    this.data = [];
+    this.data = {};
   }
 
   // check if there is Data with Cache Key
@@ -26,8 +30,8 @@ class cacheProto<T> {
   };
 
   // Get Value from Data by Its key
-  get = (key: string): T => {
-    return this.data[key].value;
+  get = (key: string): T | null => {
+    return this.data[key]?.value || null;
   };
 
   // Set Value with Key

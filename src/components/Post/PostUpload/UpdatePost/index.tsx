@@ -8,7 +8,7 @@ import useApiFetch, {
   FAILURE,
 } from 'hooks/common/useApiFetch';
 import { NO_UPDATE_ERROR, UPDATE_MESSAGE } from 'common/constant/string';
-import { ReviewData } from 'types/API';
+import { ReviewData, WriteReviewParams } from 'types/API';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import { PostEditor } from 'components/Post/PostUpload';
 import routes from 'common/constant/routes';
@@ -18,11 +18,11 @@ import * as Action from 'action';
 interface Props {
   initialData: ReviewData;
   userId: string;
+  updateCache: (postId: string, data: ReviewData) => void;
 }
 
-const UpdatePost = ({ initialData, userId }: Props) => {
+const UpdatePost = ({ initialData, userId, updateCache }: Props) => {
   const dispatch = useNotificationDispatch();
-
   const freeTextRef = useRef<InputRef>(inputDefaultRef(initialData.freeText));
   const hasParkingLotRef = useRef<InputRef>(
     inputDefaultRef(initialData.hasParkingLot)
@@ -37,7 +37,11 @@ const UpdatePost = ({ initialData, userId }: Props) => {
     defaultRef<string[]>(initialData.imageList ? initialData.imageList : [])
   );
 
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(updateReview);
+  const [
+    fetchResult,
+    fetchDispatch,
+    setDefault,
+  ] = useApiFetch<WriteReviewParams>(updateReview);
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType>(
     initialData.placeInfo
@@ -47,6 +51,13 @@ const UpdatePost = ({ initialData, userId }: Props) => {
     switch (fetchResult.type) {
       case SUCCESS:
         dispatch(Action.showSuccess(UPDATE_MESSAGE));
+        if (fetchResult.data) {
+          const updatedData = {
+            ...initialData,
+            ...fetchResult.data,
+          };
+          updateCache(initialData.docId, updatedData);
+        }
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
