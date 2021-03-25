@@ -9,22 +9,8 @@ import {
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading, Card, LoadingSinglePost } from 'components/ui';
 import { Modal } from 'components/ui';
-import { ReviewResult } from 'types/API';
-import { getReviewsFirst } from 'api/review';
 
-export async function getStaticProps() {
-  return {
-    props: {
-      reviews: await getReviewsFirst(),
-    },
-  };
-}
-
-interface Props {
-  reviews: { data: ReviewResult };
-}
-
-const SearchMain = ({ reviews }: Props) => {
+const SearchMain = () => {
   const { user } = useUser();
   const [
     allReviews,
@@ -32,12 +18,10 @@ const SearchMain = ({ reviews }: Props) => {
     fetchRemove,
     fetchResult,
     hasMore,
-  ] = useAllReviews({
-    initReviews: reviews.data.reviews,
-    initLastKey: reviews.data.lastKey,
-  });
+    lastKey,
+  ] = useAllReviews();
   const observerTarget = useIntersectionObserver({
-    deps: [hasMore],
+    deps: [hasMore, lastKey],
     fetcher: fetchReview,
   });
   const modalDatas = useSinglePostModal(allReviews);

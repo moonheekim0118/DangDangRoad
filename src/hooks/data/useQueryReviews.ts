@@ -3,13 +3,21 @@ import { useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { removeReview } from 'api/review';
-import searchByKeyword from 'api/search';
 import { useRouter } from 'next/router';
+import searchByKeyword from 'api/search';
+import cacheProto from 'util/cache';
 import * as T from 'types/API';
+
+interface DataType {
+  reviews: T.LightReviewData[];
+  hasMore: boolean;
+}
+
+const CACHE = new cacheProto<DataType>();
 
 const useQueryReviews = () => {
   const router = useRouter();
-  const query = router.query.search_query;
+  const query = router.query.search_query as string;
   const [allReviews, setAllReviews] = useState<T.LightReviewData[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [fetchResult, fetchDispatch, setDefault] = useApiFetch<
@@ -23,7 +31,11 @@ const useQueryReviews = () => {
   ] = useApiFetch<string>(removeReview);
 
   useEffect(() => {
-    if (typeof query === 'string') {
+    const cachedData = CACHE.get(query);
+    if (CACHE.has(query) && cachedData) {
+      setAllReviews(cachedData.reviews);
+      setHasMore(cachedData.hasMore);
+    } else {
       fetchDispatch({ type: REQUEST, params: [query] });
     }
   }, []);
@@ -33,8 +45,14 @@ const useQueryReviews = () => {
       case SUCCESS:
         if (fetchResult.data) {
           const newReviews = fetchResult.data;
-          setAllReviews(allReviews.concat(newReviews));
+          const updatedReviews = allReviews.concat(newReviews);
+          const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+          setAllReviews(updatedReviews);
           setHasMore(newReviews.length === REVIEW_DATA_LIMIT);
+          CACHE.set(query, {
+            reviews: updatedReviews,
+            hasMore,
+          });
         }
         setDefault();
         break;
@@ -49,6 +67,11 @@ const useQueryReviews = () => {
         const newReviews = allReviews.filter((v) => v.docId !== deletedId);
         setAllReviews(newReviews);
         setRemoveDefault();
+        const cachedData = CACHE.get(query);
+        CACHE.set(query, {
+          ...cachedData,
+          reviews: newReviews,
+        } as DataType);
         break;
       case FAILURE:
     }

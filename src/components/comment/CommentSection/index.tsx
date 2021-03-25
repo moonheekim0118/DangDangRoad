@@ -21,11 +21,13 @@ interface Props {
   postId: string;
 }
 
-const CACHE = new cacheProto<{
+interface DataType {
   lastKey: string;
   hasMore: boolean;
   comments: CommentData[];
-}>();
+}
+
+const CACHE = new cacheProto<DataType>();
 
 const CommentSection = ({ userId, postId = '' }: Props) => {
   const dispatch = useNotificationDispatch();
@@ -55,9 +57,11 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
   useEffect(() => {
     if (CACHE.has(postId)) {
       const cachedData = CACHE.get(postId);
-      setLastKey(cachedData.lastKey);
-      setComments(cachedData.comments);
-      setHasMore(cachedData.hasMore);
+      if (cachedData) {
+        setLastKey(cachedData.lastKey);
+        setComments(cachedData.comments);
+        setHasMore(cachedData.hasMore);
+      }
     } else {
       getCommentFetch({ type: REQUEST, params: [postId] });
     }
@@ -101,8 +105,8 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
           const updatedData = {
             ...cachedData,
             comments: updatedComments,
-          };
-          CACHE.set(postId, updatedData); // update Cached Data
+          } as DataType;
+          CACHE.set(postId, updatedData);
         }
         setDefaultCreateComment();
         break;
@@ -117,22 +121,22 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
     switch (removeCommentResult.type) {
       case SUCCESS:
         const id = removeCommentResult.data; // removed data's Id
-        let updatedLastKey = lastKey;
+        const cachedData = CACHE.get(postId);
+        let updatedLastKey = cachedData?.lastKey || 0;
         // remove item & update LastKey if it need to be
         const updatedComments = comments.filter((v, i) => {
-          if (v.docId === id && v.createdAt === lastKey) {
+          if (v.docId === id && v.createdAt === updatedLastKey) {
             updatedLastKey = comments[i - 1].createdAt;
           }
           return v.docId !== id;
         });
         setComments(updatedComments);
         setDefaultRemoveComment();
-        const cachedData = CACHE.get(postId);
         const updatedData = {
           ...cachedData,
           comments: updatedComments,
           lastKey: updatedLastKey,
-        };
+        } as DataType;
         CACHE.set(postId, updatedData); // update Cached Data
         dispatch(Action.showSuccess(REMOVE_MESSAGE));
         break;
@@ -140,7 +144,7 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
         dispatch(Action.showError(removeCommentResult.error));
         setDefaultRemoveComment();
     }
-  }, [removeCommentResult, comments, lastKey]);
+  }, [removeCommentResult, comments]);
 
   const submitCommentHanlder = useCallback(() => {
     const { value: contents } = commentRef.current;

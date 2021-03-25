@@ -45,7 +45,7 @@ const SearchResult = () => {
       <Modal
         showModal={modalDatas.showModal}
         modalHandler={modalDatas.closeModal}>
-        <Card isModal={false}>
+        <Card isModal={true}>
           {!modalDatas.singleReview ||
           modalDatas.fetchSingleReviewResult.type === REQUEST ? (
             <LoadingSinglePost />

@@ -79,14 +79,15 @@ const extractReviewData = async (response): Promise<T.ReviewResult> => {
   }
 };
 
-export const getReviewsFirst = async (): T.APIResponse<T.ReviewResult> => {
+export const getReviewsFirst = async (
+  key: string
+): T.APIResponse<T.ReviewResult> => {
   try {
     const response = await db
       .collection('reviews')
       .orderBy('createdAt', 'desc')
-      .limit(REVIEW_DATA_LIMIT)
+      .endBefore(+key)
       .get();
-
     const data = await extractReviewData(response);
     return { isError: false, data };
   } catch (error) {
@@ -94,20 +95,26 @@ export const getReviewsFirst = async (): T.APIResponse<T.ReviewResult> => {
   }
 };
 
-/**
- *  this function is for data fetch when user
- *  clicked 'More' button
- */
-export const getReviewsMore = async (
-  key: string
+/** get Reviews with key */
+export const getReviews = async (
+  key?: string
 ): T.APIResponse<T.ReviewResult> => {
   try {
-    const response = await db
-      .collection('reviews')
-      .orderBy('createdAt', 'desc')
-      .startAfter(key)
-      .limit(REVIEW_DATA_LIMIT)
-      .get();
+    let response;
+    if (key) {
+      response = await db
+        .collection('reviews')
+        .orderBy('createdAt', 'desc')
+        .startAfter(+key)
+        .limit(REVIEW_DATA_LIMIT)
+        .get();
+    } else {
+      response = await db
+        .collection('reviews')
+        .orderBy('createdAt', 'desc')
+        .limit(REVIEW_DATA_LIMIT)
+        .get();
+    }
     const data = await extractReviewData(response);
     return { isError: false, data };
   } catch (error) {
