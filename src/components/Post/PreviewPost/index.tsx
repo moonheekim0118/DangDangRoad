@@ -27,7 +27,12 @@ const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
           </div>
         </S.Description>
       </S.Overlay>
-      <S.Image src={imageSrc} ref={imageRef} loaded={imageSrc.length > 0} />
+      <S.Image
+        src={imageSrc}
+        ref={imageRef}
+        loaded={imageSrc.length > 0}
+        loading="lazy"
+      />
     </S.Post>
   );
 };

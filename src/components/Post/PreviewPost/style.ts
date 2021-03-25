@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
 
 export const Post = styled.div`
   width: 300px;
@@ -16,6 +15,7 @@ export const Image = styled.img<{ loaded: boolean }>`
   height: 100%;
   object-fit: cover;
   cursor: pointer;
+  transition: opacity 0.5s linear 0.2s;
   opacity: ${(props) => (props.loaded ? '1' : '0')};
 `;
 
