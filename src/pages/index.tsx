@@ -1,37 +1,17 @@
-import React, { useEffect, useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
 import { useUser, useIntersectionObserver } from 'hooks';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
-import { getReviewsCount } from 'api/review';
-import { HomeCounter, HomeDescription } from 'components/common';
+import { HomeDescription } from 'components/common';
 import { Button } from 'components/ui';
 
-export async function getStaticProps() {
-  return {
-    props: {
-      reviewSize: await getReviewsCount(),
-    },
-  };
-}
-
-const Index = ({ reviewSize }): React.ReactElement => {
+const Index = (): React.ReactElement => {
   useUser();
-
-  const counterRef = useRef<HTMLInputElement>(null);
-  const [countEnd, setCountEnd] = useState<number>(0);
   const [showPostExample, setShowPostExample] = useState<'show' | 'hide' | ''>(
     ''
   );
-
-  useEffect(() => {
-    if (counterRef.current) {
-      counterRef.current.style.opacity = '1';
-      counterRef.current.style.transition = 'all 0.5s ease-in-out';
-      setCountEnd(reviewSize.data);
-    }
-  }, []);
 
   const openExamplePost = useCallback(() => {
     setShowPostExample('show');
@@ -67,12 +47,7 @@ const Index = ({ reviewSize }): React.ReactElement => {
         </SubContetns>
         <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
       </MainContents>
-      <ReviewCount ref={counterRef}>
-        <h2>
-          🧾지금 까지 작성된 리뷰 <HomeCounter end={countEnd} duration={1.2} />
-          개
-        </h2>
-      </ReviewCount>
+      <Description>오늘 반려견을 위해 댕댕로드에 가입하세요!</Description>
       <Observer ref={examplePostObserverTarget} />
       <HomeDescription show={showPostExample} />
     </Container>
@@ -117,8 +92,7 @@ const MainTitle = styled.div`
   }
 `;
 
-const ReviewCount = styled.div`
-  opacity: 0;
+const Description = styled.h1`
   color: #fff;
   margin-bottom: 120px;
   text-align: center;
