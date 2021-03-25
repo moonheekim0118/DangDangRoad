@@ -4,6 +4,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
+import { COMMENT_DATA_LIMIT } from 'common/constant/number';
 import { REMOVE_MESSAGE } from 'common/constant/string';
 import { CommentResult, CommentData } from 'types/API';
 import { InputRef, inputDefaultRef } from 'types/Ref';
@@ -13,8 +14,6 @@ import { useNotificationDispatch } from 'context/Notification';
 import cacheProto from 'util/cache';
 import * as Action from 'action';
 import * as S from './style';
-
-const COMMENT_DATA_LIMIT = 5;
 
 interface Props {
   userId?: string;
@@ -99,7 +98,7 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
         const newComment = createCommentResult.data;
         if (newComment) {
           // add New Comment
-          const updatedComments = comments.concat(newComment);
+          const updatedComments = [...comments, newComment];
           setComments(updatedComments);
           const cachedData = CACHE.get(postId);
           const updatedData = {
