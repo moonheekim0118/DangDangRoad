@@ -7,6 +7,7 @@ const useCloseDropdown = () => {
     const overalyCloseHanlder = (e) => {
       const targetElement = e.target as Node;
       const detailElements = detailRef.current;
+
       if (detailElements && !detailElements.contains(targetElement)) {
         closeDropDownHanlder();
       }

@@ -17,6 +17,8 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   color: 'blue' | 'white';
   /** have a focus effects or not */
   focusTheme?: 'fromBlueToWhite' | 'fromWhiteToBlue';
+  /** initial value */
+  initialValue?: string;
   /** submit handler */
   submitHandler?: (e: FormEvent<HTMLFormElement>) => void;
 }
@@ -25,9 +27,16 @@ const SearchBar = (
   props: Props,
   ref: React.Ref<InputRef>
 ): React.ReactElement => {
-  const { id, color, focusTheme = 'default', submitHandler, ...rest } = props;
+  const {
+    id,
+    color,
+    focusTheme = 'default',
+    initialValue = '',
+    submitHandler,
+    ...rest
+  } = props;
 
-  const [value, valueChangeHandler] = useInput();
+  const [value, valueChangeHandler] = useInput(initialValue);
 
   useImperativeHandle(ref, () => ({ value }), [value]);
 

@@ -6,25 +6,11 @@ import {
   useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
-import { REQUEST } from 'hooks/common/useApiFetch';
+import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading, Card, LoadingSinglePost } from 'components/ui';
 import { Modal } from 'components/ui';
-import { ReviewResult } from 'types/API';
-import { getReviewsFirst } from 'api/review';
 
-export async function getStaticProps() {
-  return {
-    props: {
-      reviews: await getReviewsFirst(),
-    },
-  };
-}
-
-interface Props {
-  reviews: { data: ReviewResult };
-}
-
-const SearchMain = ({ reviews }: Props) => {
+const SearchMain = () => {
   const { user } = useUser();
   const [
     allReviews,
@@ -32,19 +18,18 @@ const SearchMain = ({ reviews }: Props) => {
     fetchRemove,
     fetchResult,
     hasMore,
-  ] = useAllReviews({
-    initReviews: reviews.data.reviews,
-    initLastKey: reviews.data.lastKey,
-  });
+    lastKey,
+  ] = useAllReviews();
   const observerTarget = useIntersectionObserver({
-    deps: [hasMore],
+    deps: [hasMore, lastKey],
     fetcher: fetchReview,
   });
   const modalDatas = useSinglePostModal(allReviews);
 
   const removeHanlder = useCallback(
     (id: string) => () => {
-      modalDatas.closeModal();
+      modalDatas.closeModal(); // close Modal
+      modalDatas.removeCache(id); // remove Cache
       fetchRemove(id);
     },
     [modalDatas]
@@ -59,7 +44,8 @@ const SearchMain = ({ reviews }: Props) => {
         modalHandler={modalDatas.closeModal}>
         <Card isModal={true}>
           {!modalDatas.singleReview ||
-          modalDatas.fetchSingleReviewResult.type === REQUEST ? (
+          modalDatas.fetchSingleReviewResult.type === REQUEST ||
+          modalDatas.fetchSingleReviewResult.type === SUCCESS ? (
             <LoadingSinglePost />
           ) : (
             <SinglePost

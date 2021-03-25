@@ -8,7 +8,7 @@ import Router from 'next/router';
 
 const updatePost = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
-  const [singleReview] = useSingleReview(true);
+  const { singleReview, updateCache } = useSingleReview(true);
 
   useWarnUsavedChange(routes.SEARCH);
 
@@ -21,7 +21,11 @@ const updatePost = () => {
   return !singleReview || !user ? (
     <Loading />
   ) : (
-    <UpdatePost initialData={singleReview} userId={user.userId} />
+    <UpdatePost
+      initialData={singleReview}
+      userId={user.userId}
+      updateCache={updateCache}
+    />
   );
 };
 

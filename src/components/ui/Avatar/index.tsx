@@ -1,4 +1,5 @@
 import React from 'react';
+import { AVATAR_ALT } from 'common/constant/images';
 import { Icon } from 'components/ui';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import * as S from './style';
@@ -21,7 +22,7 @@ const Avatar = ({
   size = 'medium',
 }: Props): React.ReactElement => {
   return imageUrl ? (
-    <S.StyledAvatar src={imageUrl} size={AvatarSize[size]} />
+    <S.StyledAvatar src={imageUrl} alt={AVATAR_ALT} size={AvatarSize[size]} />
   ) : (
     <S.Container size={AvatarSize[size]}>
       <Icon icon={faUser} size={size} style={S.iconStyle} />

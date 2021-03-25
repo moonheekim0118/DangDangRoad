@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, ControllerBtn } from 'components/ui';
-import { useImageSlide } from 'hooks';
+import { useSlide } from 'hooks';
 import * as S from './style';
 
 interface Props {
@@ -20,7 +20,7 @@ const ImageCarousel = ({
   showModal,
   modalHanlder,
 }: Props) => {
-  const data = useImageSlide({
+  const data = useSlide({
     initialIndex: startIdx,
     totalSlide: imageList.length,
   });

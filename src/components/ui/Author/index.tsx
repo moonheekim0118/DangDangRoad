@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCloseDropdown } from 'hooks';
 import { Avatar, Icon } from 'components/ui';
 import { UserContents } from 'types/API';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';

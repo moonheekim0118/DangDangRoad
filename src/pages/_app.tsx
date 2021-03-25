@@ -4,14 +4,14 @@ import { Layout, Notification } from 'components/common';
 import GlobalStyle from 'common/style/globalStyle';
 import fetcher from 'libs/fetcher';
 import { Loading } from 'components/ui';
-import { useRouterStatus } from 'hooks';
+import { useRouterStatus, useScroll } from 'hooks';
 import { SWRConfig } from 'swr';
 import { NotificationProvider } from 'context/Notification';
 import { LoginInfoProvider } from 'context/LoginInfo';
 
 const App = ({ Component, pageProps }) => {
   const isLoading = useRouterStatus();
-
+  useScroll();
   return (
     <SWRConfig
       value={{

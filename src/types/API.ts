@@ -43,7 +43,6 @@ export interface WriteCommentParams {
   userId: string;
   postId: string;
   contents: string;
-  createdAt: number;
 }
 
 export interface ReviewResult {
@@ -52,7 +51,7 @@ export interface ReviewResult {
 }
 
 export interface CommentResult {
-  commnets: CommentData[];
+  comments: CommentData[];
   lastKey: string;
 }
 
@@ -75,7 +74,7 @@ export interface CommentData {
   userId: string;
   userData: UserContents;
   contents: string;
-  createdAt: number;
+  createdAt: string;
 }
 
 export interface UserContents {

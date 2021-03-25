@@ -9,7 +9,7 @@ export const submitBtnStyle = css`
 
 export const Form = styled.form`
   width: 100%;
-  height: 100%;
+  height: 110px;
 `;
 
 export const TextArea = styled.textarea`
@@ -27,12 +27,10 @@ export const TextArea = styled.textarea`
 `;
 
 export const ButtonContainer = styled.div`
-  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
   color: ${colorCode['light-blue']};
-  top: 50%;
-  transform: translateY(-50%);
-  right: -40px;
-
   @media only screen and (max-width: 910px) {
     right: 10px;
   }

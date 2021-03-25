@@ -22,21 +22,22 @@ export const createReview = async (
 export const updateReview = async (
   id: string,
   data: T.WriteReviewParams
-): T.APIResponse => {
+): T.APIResponse<T.WriteReviewParams> => {
   try {
     data['createdAt'] = Date.now();
     await db.collection('reviews').doc(id).update(data);
-    return T.defaultSuccess;
+    console.log(data);
+    return { isError: false, data };
   } catch (error) {
     throw error;
   }
 };
 
 /** remove review */
-export const removeReview = async (id: string): T.APIResponse => {
+export const removeReview = async (id: string): T.APIResponse<string> => {
   try {
     await db.collection('reviews').doc(id).delete();
-    return T.defaultSuccess;
+    return { isError: false, data: id };
   } catch (error) {
     throw error;
   }
@@ -78,14 +79,15 @@ const extractReviewData = async (response): Promise<T.ReviewResult> => {
   }
 };
 
-export const getReviewsFirst = async (): T.APIResponse<T.ReviewResult> => {
+export const getReviewsFirst = async (
+  key: string
+): T.APIResponse<T.ReviewResult> => {
   try {
     const response = await db
       .collection('reviews')
       .orderBy('createdAt', 'desc')
-      .limit(REVIEW_DATA_LIMIT)
+      .endBefore(+key)
       .get();
-
     const data = await extractReviewData(response);
     return { isError: false, data };
   } catch (error) {
@@ -93,20 +95,26 @@ export const getReviewsFirst = async (): T.APIResponse<T.ReviewResult> => {
   }
 };
 
-/**
- *  this function is for data fetch when user
- *  clicked 'More' button
- */
-export const getReviewsMore = async (
-  key: string
+/** get Reviews with key */
+export const getReviews = async (
+  key?: string
 ): T.APIResponse<T.ReviewResult> => {
   try {
-    const response = await db
-      .collection('reviews')
-      .orderBy('createdAt', 'desc')
-      .startAfter(key)
-      .limit(REVIEW_DATA_LIMIT)
-      .get();
+    let response;
+    if (key) {
+      response = await db
+        .collection('reviews')
+        .orderBy('createdAt', 'desc')
+        .startAfter(+key)
+        .limit(REVIEW_DATA_LIMIT)
+        .get();
+    } else {
+      response = await db
+        .collection('reviews')
+        .orderBy('createdAt', 'desc')
+        .limit(REVIEW_DATA_LIMIT)
+        .get();
+    }
     const data = await extractReviewData(response);
     return { isError: false, data };
   } catch (error) {
@@ -142,5 +150,3 @@ export const getReviewsCount = async (): T.APIResponse<number> => {
     throw error;
   }
 };
-
-/** get Reviews */

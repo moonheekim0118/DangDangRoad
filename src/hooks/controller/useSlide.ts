@@ -41,6 +41,7 @@ const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
     toPrev,
     toNext,
     changeIndexHandler,
+    setIndex,
   };
 };
 

@@ -5,6 +5,7 @@ export const SENT_EMAIL_IMAGE = '/sentEmailImage.png';
 export const SENT_EMAIL_IMAGE_ALT = 'Email Sent image';
 export const LOGO_IMAGE = '/logo.png';
 export const LOGO_IMAGE_ALT = 'logo image';
+export const AVATAR_ALT = 'user image';
 export const EXAMPLE_DOG_IMAGE = '/dog.jpg';
 export const EXAMPLE_DOG_IMAGE_ALT = 'dog image';
 export const MARKER_URL =

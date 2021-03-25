@@ -32,14 +32,14 @@ const useValidation = ({ initialValue = '', validator }: Props = {}) => {
     }
   }, [value]);
 
-  return [
+  return {
     value,
     error,
     valueChangeHanlder,
     checkValidation,
     setError,
     setValue,
-  ] as const;
+  };
 };
 
 export default useValidation;

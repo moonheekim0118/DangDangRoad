@@ -176,6 +176,7 @@ const SearchMap = ({
         color="white"
         placeholder={MAP_SEARCH_PLACEHOLDER}
         ref={keywordRef}
+        initialValue={nowSelectedAddress}
         submitHandler={searchHadler}
       />
       <S.Map id="map" />
