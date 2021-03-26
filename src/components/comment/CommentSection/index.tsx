@@ -16,7 +16,9 @@ import * as Action from 'action';
 import * as S from './style';
 
 interface Props {
+  /** logged-in user Id */
   userId?: string;
+  /** post Id of comments */
   postId: string;
 }
 
@@ -28,7 +30,7 @@ interface DataType {
 
 const CACHE = new cacheProto<DataType>();
 
-const CommentSection = ({ userId, postId = '' }: Props) => {
+const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
   const dispatch = useNotificationDispatch();
   const commentRef = useRef<InputRef>(inputDefaultRef());
   const [comments, setComments] = useState<CommentData[]>([]);
@@ -37,19 +39,20 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
 
   const [
     createCommentResult,
-    createCommenFetch,
-    setDefaultCreateComment,
+    createCommentFetch,
+    createCommentSetDefault,
   ] = useApiFetch<CommentData>(createComment);
+
   const [
     getCommentResult,
     getCommentFetch,
-    setDefaultGetComment,
+    getCommentSetDefault,
   ] = useApiFetch<CommentResult>(getComments);
 
   const [
     removeCommentResult,
     removeCommentFetch,
-    setDefaultRemoveComment,
+    removeCommentSetDefault,
   ] = useApiFetch<string>(removeComment);
 
   /** initially get Comments Datas from Cache or API fetching */
@@ -83,11 +86,11 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
             hasMore,
           });
         }
-        setDefaultGetComment();
+        getCommentSetDefault();
         break;
       case FAILURE:
         dispatch(Action.showError(getCommentResult.error));
-        setDefaultGetComment();
+        getCommentSetDefault();
     }
   }, [getCommentResult, comments]);
 
@@ -107,11 +110,11 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
           } as DataType;
           CACHE.set(postId, updatedData);
         }
-        setDefaultCreateComment();
+        createCommentSetDefault();
         break;
       case FAILURE:
         dispatch(Action.showError(getCommentResult.error));
-        setDefaultCreateComment();
+        createCommentSetDefault();
     }
   }, [createCommentResult, comments]);
 
@@ -130,7 +133,7 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
           return v.docId !== id;
         });
         setComments(updatedComments);
-        setDefaultRemoveComment();
+        removeCommentSetDefault();
         const updatedData = {
           ...cachedData,
           comments: updatedComments,
@@ -141,13 +144,13 @@ const CommentSection = ({ userId, postId = '' }: Props) => {
         break;
       case FAILURE:
         dispatch(Action.showError(removeCommentResult.error));
-        setDefaultRemoveComment();
+        removeCommentSetDefault();
     }
   }, [removeCommentResult, comments]);
 
   const submitCommentHanlder = useCallback(() => {
     const { value: contents } = commentRef.current;
-    createCommenFetch({
+    createCommentFetch({
       type: REQUEST,
       params: [
         {

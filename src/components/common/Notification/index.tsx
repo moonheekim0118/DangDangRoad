@@ -7,13 +7,13 @@ import {
 import { Toast } from 'components/ui';
 import { NOTI_TIME } from 'common/constant/number';
 
-const Notification = () => {
+const Notification = (): React.ReactElement | null => {
   const { notiType, notiMessage } = useNotificationState();
   const dispatch = useNotificationDispatch();
 
   useEffect(() => {
     if (notiType) {
-      setTimeout(function () {
+      setTimeout(() => {
         dispatch(hideAlert());
       }, NOTI_TIME);
     }

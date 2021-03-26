@@ -14,7 +14,11 @@ interface Props {
   openSinglePost: (postId: string) => () => void;
 }
 
-const PostList = ({ searchKeyword, reviewData, openSinglePost }: Props) => {
+const PostList = ({
+  searchKeyword,
+  reviewData,
+  openSinglePost,
+}: Props): React.ReactElement => {
   return (
     <S.Container>
       <S.TagContainer>

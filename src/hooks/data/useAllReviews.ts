@@ -21,19 +21,19 @@ const CACHE = new cacheProto<DataType>();
 
 const useAllReviews = () => {
   const [
-    fetchReviewsResult,
-    fetchReviewsDispatch,
-    setReviewsDefault,
+    getReviewsResult,
+    getReviewsFetch,
+    getReviewsSetDefault,
   ] = useApiFetch<T.ReviewResult>(getReviews);
   const [
-    fetchRecentReviewsResult,
-    fetchRecentReviewsDispatch,
-    setRecentReviewsDefault,
+    recentReviewsResult,
+    recentReviewsFetch,
+    recentReviewsSetDefault,
   ] = useApiFetch<T.ReviewResult>(getReviewsFirst);
   const [
-    fetchRemoveResult,
-    fetchRemoveDispatch,
-    setRemoveDefault,
+    removeReviewResult,
+    removeReviewFetch,
+    removeReviewSetDefault,
   ] = useApiFetch<string>(removeReview);
 
   const [lastKey, setLastKey] = useState<string>('');
@@ -48,7 +48,7 @@ const useAllReviews = () => {
         setAllReviews(cachedData.reviews);
         setLastKey(cachedData.lastKey);
         setHasMore(cachedData.hasMore);
-        fetchRecentReviewsDispatch({
+        recentReviewsFetch({
           type: REQUEST,
           params: [cachedData.initialKey],
         });
@@ -57,12 +57,12 @@ const useAllReviews = () => {
   }, []);
 
   useEffect(() => {
-    switch (fetchRecentReviewsResult.type) {
+    switch (recentReviewsResult.type) {
       case SUCCESS:
-        if (fetchRecentReviewsResult.data?.reviews) {
-          const newReviews = fetchRecentReviewsResult.data.reviews;
+        if (recentReviewsResult.data?.reviews) {
+          const newReviews = recentReviewsResult.data.reviews;
           if (newReviews.length > 0) {
-            const updatedReviews = fetchRecentReviewsResult.data.reviews.concat(
+            const updatedReviews = recentReviewsResult.data.reviews.concat(
               allReviews
             );
             setAllReviews(updatedReviews);
@@ -74,18 +74,18 @@ const useAllReviews = () => {
             });
           }
         }
-        setRecentReviewsDefault();
+        recentReviewsSetDefault();
         break;
       case FAILURE:
     }
-  }, [fetchRecentReviewsResult, allReviews, lastKey, hasMore]);
+  }, [recentReviewsResult, allReviews, lastKey, hasMore]);
 
   useEffect(() => {
-    switch (fetchReviewsResult.type) {
+    switch (getReviewsResult.type) {
       case SUCCESS:
-        if (fetchReviewsResult.data) {
-          const newLastKey = fetchReviewsResult.data.lastKey;
-          const newReviews = fetchReviewsResult.data.reviews;
+        if (getReviewsResult.data) {
+          const newLastKey = getReviewsResult.data.lastKey;
+          const newReviews = getReviewsResult.data.reviews;
           const updatedReviews = allReviews.concat(newReviews);
           const newHasMore = newReviews.length === REVIEW_DATA_LIMIT;
           setLastKey(newLastKey);
@@ -98,16 +98,16 @@ const useAllReviews = () => {
             hasMore: newHasMore,
           });
         }
-        setReviewsDefault();
+        getReviewsSetDefault();
         break;
       case FAILURE:
     }
-  }, [fetchReviewsResult, allReviews]);
+  }, [getReviewsResult, allReviews]);
 
   useEffect(() => {
-    switch (fetchRemoveResult.type) {
+    switch (removeReviewResult.type) {
       case SUCCESS:
-        const deletedId = fetchRemoveResult.data;
+        const deletedId = removeReviewResult.data;
         const cachedData = CACHE.get('general-search');
         let updatedLastKey = cachedData?.lastKey || 0;
         const newReviews = allReviews.filter((v, i) => {
@@ -123,28 +123,28 @@ const useAllReviews = () => {
         } as DataType;
         CACHE.set('general-search', updatedData);
         setAllReviews(newReviews);
-        setRemoveDefault();
+        removeReviewSetDefault();
         break;
       case FAILURE:
     }
-  }, [fetchRemoveResult, allReviews]);
+  }, [removeReviewResult, allReviews]);
 
-  const fetchReview = useCallback(() => {
+  const fetchReviewHanlder = useCallback(() => {
     if (hasMore) {
-      fetchReviewsDispatch({ type: REQUEST, params: [lastKey] });
+      getReviewsFetch({ type: REQUEST, params: [lastKey] });
     }
   }, [allReviews, hasMore, lastKey]);
 
   // remove
-  const fetchRemove = useCallback((id: string) => {
-    fetchRemoveDispatch({ type: REQUEST, params: [id] });
+  const fetchRemoveHanlder = useCallback((id: string) => {
+    removeReviewFetch({ type: REQUEST, params: [id] });
   }, []);
 
   return [
     allReviews,
-    fetchReview,
-    fetchRemove,
-    fetchReviewsResult,
+    fetchReviewHanlder,
+    fetchRemoveHanlder,
+    getReviewsResult.type,
     hasMore,
     lastKey,
   ] as const;

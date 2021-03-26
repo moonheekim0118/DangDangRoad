@@ -6,7 +6,7 @@ export interface Props {
   children: React.ReactNode;
 }
 
-const Card = ({ isModal, children }: Props) => {
+const Card = ({ isModal, children }: Props): React.ReactElement => {
   return <Container isModal={isModal}>{children}</Container>;
 };
 

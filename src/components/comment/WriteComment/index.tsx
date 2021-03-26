@@ -16,7 +16,10 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   submitComment: () => void;
 }
 
-const WriteComment = (props: Props, ref: React.Ref<InputRef>) => {
+const WriteComment = (
+  props: Props,
+  ref: React.Ref<InputRef>
+): React.ReactElement => {
   const { submitComment, ...rest } = props;
   const { value, error, valueChangeHanlder, setValue } = useValidation({
     validator: commentTextLengthCheck,
@@ -35,6 +38,7 @@ const WriteComment = (props: Props, ref: React.Ref<InputRef>) => {
     submitComment();
     setValue('');
   }, []);
+
   return (
     <S.Form onSubmit={submitHandler}>
       <S.TextArea

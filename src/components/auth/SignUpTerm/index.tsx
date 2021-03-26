@@ -17,7 +17,10 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   termContents: string;
 }
 
-const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
+const SignUpTerm = (
+  props: Props,
+  ref: React.Ref<RefType<boolean>>
+): React.ReactElement => {
   const { id, label, termContents, ...rest } = props;
   const [checked, checkHanlder] = useToggle();
   const [showModal, modalHanlder] = useModal(false);

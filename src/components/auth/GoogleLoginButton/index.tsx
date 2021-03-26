@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import googleLogo from './logo';
 import useApiFetch, {
   REQUEST,
@@ -13,22 +13,29 @@ import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as S from './style';
 
-const GoogleLoginButton = () => {
+const GoogleLoginButton = (): React.ReactElement => {
   const dispatch = useNotificationDispatch();
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(googleSignIn);
+  const [googleAuthResult, googleAuthFetch, googleAuthSetDefault] = useApiFetch(
+    googleSignIn
+  );
+
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (googleAuthResult.type) {
       case SUCCESS:
         Router.push(routes.HOME);
         break;
       case FAILURE:
-        fetchResult.error && dispatch(showError(fetchResult.error));
-        setDefault();
+        googleAuthResult.error && dispatch(showError(googleAuthResult.error));
+        googleAuthSetDefault();
     }
-  }, [fetchResult]);
+  }, [googleAuthResult]);
+
+  const googleSignInHandler = useCallback(() => {
+    googleAuthFetch({ type: REQUEST });
+  }, []);
 
   return (
-    <S.Container type="button" onClick={() => fetchDispatch({ type: REQUEST })}>
+    <S.Container type="button" onClick={googleSignInHandler}>
       <S.Logo>{googleLogo}</S.Logo>
       <S.Title>{GOOGLE_LOGIN_CAPTION}</S.Title>
     </S.Container>

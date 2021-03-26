@@ -32,8 +32,8 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   );
   const [
     updateProfileResult,
-    updateProfileDispatch,
-    setDefaultProfile,
+    updateProfileFetch,
+    updateProfileSetDefault,
   ] = useApiFetch<UserContents>(updateProfile);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
       case SUCCESS:
         mutate({ ...user, ...updateProfileResult.data }, false).then(() => {
           dispatch(Action.showSuccess(UPDATE_MESSAGE));
-          setDefaultProfile();
+          updateProfileSetDefault();
         });
         break;
       case FAILURE:
@@ -67,7 +67,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
       nickname: trimedNickname,
     };
     const data = { id: user.userId, updateContents };
-    updateProfileDispatch({ type: REQUEST, params: [data] });
+    updateProfileFetch({ type: REQUEST, params: [data] });
   }, []);
 
   return (

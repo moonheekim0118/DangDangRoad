@@ -20,14 +20,15 @@ const useQueryReviews = () => {
   const query = router.query.search_query as string;
   const [allReviews, setAllReviews] = useState<T.LightReviewData[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<
+
+  const [getReviewsResult, getReviewsFetch, getReviewsSetDefault] = useApiFetch<
     T.LightReviewData[]
   >(searchByKeyword);
 
   const [
-    fetchRemoveResult,
-    fetchRemoveDispatch,
-    setRemoveDefault,
+    removeReviewResult,
+    removeReviewFetch,
+    removeReviewSetDefault,
   ] = useApiFetch<string>(removeReview);
 
   useEffect(() => {
@@ -36,15 +37,15 @@ const useQueryReviews = () => {
       setAllReviews(cachedData.reviews);
       setHasMore(cachedData.hasMore);
     } else {
-      fetchDispatch({ type: REQUEST, params: [query] });
+      getReviewsFetch({ type: REQUEST, params: [query] });
     }
   }, []);
 
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (getReviewsResult.type) {
       case SUCCESS:
-        if (fetchResult.data) {
-          const newReviews = fetchResult.data;
+        if (getReviewsResult.data) {
+          const newReviews = getReviewsResult.data;
           const updatedReviews = allReviews.concat(newReviews);
           const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
           setAllReviews(updatedReviews);
@@ -54,19 +55,19 @@ const useQueryReviews = () => {
             hasMore,
           });
         }
-        setDefault();
+        getReviewsSetDefault();
         break;
       case FAILURE:
     }
-  }, [fetchResult, allReviews]);
+  }, [getReviewsResult, allReviews]);
 
   useEffect(() => {
-    switch (fetchRemoveResult.type) {
+    switch (removeReviewResult.type) {
       case SUCCESS:
-        const deletedId = fetchRemoveResult.data;
+        const deletedId = removeReviewResult.data;
         const newReviews = allReviews.filter((v) => v.docId !== deletedId);
         setAllReviews(newReviews);
-        setRemoveDefault();
+        removeReviewSetDefault();
         const cachedData = CACHE.get(query);
         CACHE.set(query, {
           ...cachedData,
@@ -75,23 +76,23 @@ const useQueryReviews = () => {
         break;
       case FAILURE:
     }
-  }, [fetchRemoveResult, allReviews]);
+  }, [removeReviewResult, allReviews]);
 
-  const fetchReview = useCallback(() => {
+  const fetchReviewHandler = useCallback(() => {
     if (hasMore && query) {
-      fetchDispatch({ type: REQUEST, params: [query] });
+      getReviewsFetch({ type: REQUEST, params: [query] });
     }
   }, [allReviews, hasMore, query]);
 
-  const fetchRemove = useCallback((id: string) => {
-    fetchRemoveDispatch({ type: REQUEST, params: [id] });
+  const fetchRemoveHandler = useCallback((id: string) => {
+    removeReviewFetch({ type: REQUEST, params: [id] });
   }, []);
 
   return [
     allReviews,
-    fetchReview,
-    fetchRemove,
-    fetchResult,
+    fetchReviewHandler,
+    fetchRemoveHandler,
+    getReviewsResult.type,
     hasMore,
     query,
   ] as const;

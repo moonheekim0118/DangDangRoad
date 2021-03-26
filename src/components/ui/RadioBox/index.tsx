@@ -20,7 +20,7 @@ export interface Props {
 const RadioBox = (
   { title, list, initValue }: Props,
   ref: React.Ref<InputRef>
-) => {
+): React.ReactElement => {
   const [value, valueChangeHanlder] = useInput(initValue);
 
   useImperativeHandle(ref, () => ({ value }), [value]);

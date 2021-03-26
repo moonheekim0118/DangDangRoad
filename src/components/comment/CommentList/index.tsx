@@ -9,11 +9,17 @@ import * as T from 'types/API';
 import * as S from './style';
 
 interface Props {
+  /** fetch more comments handler */
   getMoreCommentsHandler: () => void;
+  /** remove comment from list handler */
   removeCommentHandler: (id: string) => () => void;
+  /** comments list to render */
   comments: T.CommentData[];
+  /** to check if comment writer and logged-in user is same user  */
   userId?: string;
+  /** to check if we can load more comments */
   hasMore: boolean;
+  /** fetch status */
   isLoading: boolean;
 }
 
@@ -24,7 +30,7 @@ const CommentList = ({
   userId,
   hasMore,
   isLoading,
-}: Props) => {
+}: Props): React.ReactElement => {
   return (
     <S.Container>
       <S.List>

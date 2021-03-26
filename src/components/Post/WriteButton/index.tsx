@@ -5,7 +5,7 @@ import { WRITE_REVIEW_BUTTON_CAPTION } from 'common/constant/string';
 import routes from 'common/constant/routes';
 import * as S from './style';
 
-const WriteButton = () => {
+const WriteButton = (): React.ReactElement => {
   return (
     <S.Container>
       <Link href={routes.WRITE_REIVEW} align="center" size="large">

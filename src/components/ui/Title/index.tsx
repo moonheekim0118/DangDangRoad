@@ -5,7 +5,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Title = ({ children }: Props) => {
+const Title = ({ children }: Props): React.ReactElement => {
   return <S.Container>{children}</S.Container>;
 };
 

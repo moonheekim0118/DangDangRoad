@@ -42,7 +42,6 @@ const fetchData = async <T>(
       dispatch({ type: SUCCESS, data: response.data });
     }
   } catch (error) {
-    console.log(error);
     dispatch({ type: FAILURE, error: errorExTxt(error.code) });
   }
 };

@@ -13,15 +13,15 @@ const SearchResult = () => {
   const { user } = useUser();
   const [
     allReviews,
-    fetchReview,
-    fetchRemove,
-    fetchResult,
+    fetchReviewHandler,
+    fetchRemoveHandler,
+    getReviewStatus,
     hasMore,
     query,
   ] = useQueryReviews();
   const observerTarget = useIntersectionObserver({
     deps: [hasMore],
-    fetcher: fetchReview,
+    fetcher: fetchReviewHandler,
   });
   const modalDatas = useSinglePostModal(allReviews);
 
@@ -29,7 +29,7 @@ const SearchResult = () => {
     (id: string) => () => {
       modalDatas.closeModal();
       modalDatas.removeCache(id); // remove Cache
-      fetchRemove(id);
+      fetchRemoveHandler(id);
     },
     []
   );
@@ -64,7 +64,7 @@ const SearchResult = () => {
         </Card>
       </Modal>
       <div ref={observerTarget}>
-        {fetchResult.type === REQUEST && <Loading />}
+        {getReviewStatus === REQUEST && <Loading />}
       </div>
     </>
   );

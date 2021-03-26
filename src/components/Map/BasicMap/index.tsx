@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-const Map = ({ coordX, coordY }: Props) => {
+const Map = ({ coordX, coordY }: Props): React.ReactElement => {
   const container = useElement('map');
 
   useEffect(() => {

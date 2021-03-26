@@ -13,7 +13,7 @@ interface Props {
 const PostImage = (
   { initialImageUrl }: Props,
   ref: React.Ref<RefType<string[]>>
-) => {
+): React.ReactElement => {
   const [imageUrl, imageUrlChangeHandler, imageRemoveHanlder] = useHandleImage(
     initialImageUrl
   );

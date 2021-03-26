@@ -16,12 +16,19 @@ import Router from 'next/router';
 import * as Action from 'action';
 
 interface Props {
+  /** updating-post data */
   initialData: ReviewData;
+  /** author & now loggedIn user's id */
   userId: string;
+  /** update Cache handler */
   updateCache: (postId: string, data: ReviewData) => void;
 }
 
-const UpdatePost = ({ initialData, userId, updateCache }: Props) => {
+const UpdatePost = ({
+  initialData,
+  userId,
+  updateCache,
+}: Props): React.ReactElement => {
   const dispatch = useNotificationDispatch();
   const freeTextRef = useRef<InputRef>(inputDefaultRef(initialData.freeText));
   const hasParkingLotRef = useRef<InputRef>(
@@ -38,9 +45,9 @@ const UpdatePost = ({ initialData, userId, updateCache }: Props) => {
   );
 
   const [
-    fetchResult,
-    fetchDispatch,
-    setDefault,
+    updateReviewResult,
+    updateReviewFetch,
+    updateReviewSetDefault,
   ] = useApiFetch<WriteReviewParams>(updateReview);
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType>(
@@ -48,23 +55,23 @@ const UpdatePost = ({ initialData, userId, updateCache }: Props) => {
   );
 
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (updateReviewResult.type) {
       case SUCCESS:
         dispatch(Action.showSuccess(UPDATE_MESSAGE));
-        if (fetchResult.data) {
+        if (updateReviewResult.data) {
           const updatedData = {
             ...initialData,
-            ...fetchResult.data,
+            ...updateReviewResult.data,
           };
           updateCache(initialData.docId, updatedData);
         }
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
-        dispatch(Action.showError(fetchResult.error));
-        setDefault();
+        dispatch(Action.showError(updateReviewResult.error));
+        updateReviewSetDefault();
     }
-  }, [fetchResult]);
+  }, [updateReviewResult]);
 
   const selectPlaceHandler = useCallback(
     (place: PlaceType) => () => {
@@ -107,7 +114,7 @@ const UpdatePost = ({ initialData, userId, updateCache }: Props) => {
           y: selectedPlace.y,
         },
       };
-      fetchDispatch({
+      updateReviewFetch({
         type: REQUEST,
         params: [initialData?.docId, data],
       });
@@ -129,7 +136,7 @@ const UpdatePost = ({ initialData, userId, updateCache }: Props) => {
       hasOffLeash={initialData.hasOffLeash}
       recommendationRef={recommendationRef}
       recommendation={initialData.recommendation}
-      loading={fetchResult.type === REQUEST}
+      loading={updateReviewResult.type === REQUEST}
       submitHandler={submitHandler}
     />
   );

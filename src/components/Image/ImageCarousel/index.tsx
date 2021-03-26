@@ -19,7 +19,7 @@ const ImageCarousel = ({
   startIdx,
   showModal,
   modalHanlder,
-}: Props) => {
+}: Props): React.ReactElement => {
   const data = useSlide({
     initialIndex: startIdx,
     totalSlide: imageList.length,

@@ -43,7 +43,7 @@ interface Props {
   submitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const PostEditor = (props: Props) => {
+const PostEditor = (props: Props): React.ReactElement => {
   const dispatch = useNotificationDispatch();
   const { index, slideRef, toPrev, toNext, setIndex } = useSlide({
     totalSlide: TOTAL_SLIDES,

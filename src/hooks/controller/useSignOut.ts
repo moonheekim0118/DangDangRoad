@@ -9,18 +9,18 @@ import * as Action from 'action';
 /** sign out logic  */
 const useSignOut = () => {
   const dispatch = useLoginInfoDispatch();
-  const [fetchResult, fetchDispatch] = useApiFetch(signOut);
+  const [signOutResult, signOutFetch] = useApiFetch(signOut);
 
   useEffect(() => {
-    if (fetchResult.type === SUCCESS) {
+    if (signOutResult.type === SUCCESS) {
       dispatch(Action.logoutSuccess);
       Router.push(routes.HOME);
     }
-  }, [fetchResult]);
+  }, [signOutResult]);
 
   // sign out handler
   const signOutHandler = useCallback(() => {
-    fetchDispatch({ type: REQUEST });
+    signOutFetch({ type: REQUEST });
   }, []);
 
   return signOutHandler;

@@ -27,20 +27,24 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
     passwordCheckRef,
     passwordCheckValidator,
   ] = usePasswordCheck();
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(updatePassword);
+  const [
+    updatePasswordResult,
+    updatePasswordFetch,
+    updatePasswordSetDefault,
+  ] = useApiFetch(updatePassword);
 
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (updatePasswordResult.type) {
       case SUCCESS:
         dispatch(Action.showSuccess(UPDATE_MESSAGE));
-        setDefault();
+        updatePasswordSetDefault();
         break;
       case FAILURE:
-        dispatch(Action.showError(fetchResult.error));
-        setDefault();
+        dispatch(Action.showError(updatePasswordResult.error));
+        updatePasswordSetDefault();
         break;
     }
-  }, [fetchResult]);
+  }, [updatePasswordResult]);
 
   const SubmitHanlder = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,7 +71,10 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
           passwordCheckFoucs();
         return dispatch(Action.showError(NOT_FULL_INFO_ERROR));
       }
-      fetchDispatch({ type: REQUEST, params: [{ id: userId, password }] });
+      updatePasswordFetch({
+        type: REQUEST,
+        params: [{ id: userId, password }],
+      });
     },
     []
   );

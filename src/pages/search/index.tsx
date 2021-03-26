@@ -14,15 +14,15 @@ const SearchMain = () => {
   const { user } = useUser();
   const [
     allReviews,
-    fetchReview,
-    fetchRemove,
-    fetchResult,
+    fetchReviewHanlder,
+    fetchRemoveHanlder,
+    getReviewStatus,
     hasMore,
     lastKey,
   ] = useAllReviews();
   const observerTarget = useIntersectionObserver({
     deps: [hasMore, lastKey],
-    fetcher: fetchReview,
+    fetcher: fetchReviewHanlder,
   });
   const modalDatas = useSinglePostModal(allReviews);
 
@@ -30,7 +30,7 @@ const SearchMain = () => {
     (id: string) => () => {
       modalDatas.closeModal(); // close Modal
       modalDatas.removeCache(id); // remove Cache
-      fetchRemove(id);
+      fetchRemoveHanlder(id);
     },
     [modalDatas]
   );
@@ -62,7 +62,7 @@ const SearchMain = () => {
         </Card>
       </Modal>
       <div ref={observerTarget}>
-        {fetchResult.type === REQUEST && <Loading />}
+        {getReviewStatus === REQUEST && <Loading />}
       </div>
     </>
   );

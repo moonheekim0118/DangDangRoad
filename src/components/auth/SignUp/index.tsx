@@ -27,7 +27,7 @@ import * as S from '../style';
 
 const SignUp = (): React.ReactElement => {
   const dispatch = useNotificationDispatch();
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(signUp);
+  const [signUpResult, signUpFetch, signUpSetDefault] = useApiFetch(signUp);
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const nicknameRef = useRef<InputRef>(inputDefaultRef());
   const [
@@ -39,18 +39,18 @@ const SignUp = (): React.ReactElement => {
   const privacyTermCheckRef = useRef<RefType<boolean>>(defaultRef(false));
 
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (signUpResult.type) {
       case SUCCESS:
         Router.push(routes.SIGNUP_PROCESS);
         break;
       case FAILURE:
-        dispatch(showError(fetchResult.error));
-        setDefault();
+        dispatch(showError(signUpResult.error));
+        signUpSetDefault();
     }
-  }, [fetchResult]);
+  }, [signUpResult]);
 
   /** submit handler */
-  const SubmitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const submitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const {
       value: email,
@@ -94,11 +94,11 @@ const SignUp = (): React.ReactElement => {
       password !== passwordCheck && passwordCheckFoucs && passwordCheckFoucs();
       return;
     }
-    fetchDispatch({ type: REQUEST, params: [{ email, nickname, password }] });
+    signUpFetch({ type: REQUEST, params: [{ email, nickname, password }] });
   }, []);
 
   return (
-    <S.Form signUp={true} onSubmit={SubmitHanlder}>
+    <S.Form signUp={true} onSubmit={submitHanlder}>
       <S.Title>{MENU_SIGNUP_TITLE}</S.Title>
       <Input
         type="email"
@@ -144,7 +144,7 @@ const SignUp = (): React.ReactElement => {
           theme="primary"
           size="large"
           width="100%"
-          loading={fetchResult.type === REQUEST}>
+          loading={signUpResult.type === REQUEST}>
           {SIGNUP_BUTTON_CAPTION}
         </Button>
         <GoogleLoginButton />

@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import PageMenu from '../PageMenu';
-import UserCard from '../UserCard';
+import { PageMenu, UserCard } from 'components/MyPage';
 import { Modal, Title, Button, Loading } from 'components/ui';
 import { useModal, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
@@ -18,8 +17,11 @@ import * as menus from 'common/constant/mypageDatas';
 import * as S from './style';
 
 interface Props {
+  /** logged in user Info */
   userInfo: UserType;
+  /** now visiting page Name(title) */
   pageName: string;
+  /** now visiting page component */
   children: React.ReactNode;
 }
 
@@ -29,17 +31,19 @@ const MyPage = ({
   children,
 }: Props): React.ReactElement => {
   const [showModal, modalHandler] = useModal(false);
-  const [destroyResult, destroyDispatch] = useApiFetch(destroyAccount);
+  const [destroyAccountResult, destroyAccountFetch] = useApiFetch(
+    destroyAccount
+  );
 
   useEffect(() => {
-    if (destroyResult.type === SUCCESS) {
+    if (destroyAccountResult.type === SUCCESS) {
       modalHandler();
       Router.push(routes.HOME);
     }
-  }, [destroyResult.type]);
+  }, [destroyAccountResult.type]);
 
-  const DestroyHandler = useCallback(() => {
-    destroyDispatch({ type: REQUEST, params: [userInfo.userId] });
+  const destroyHandler = useCallback(() => {
+    destroyAccountFetch({ type: REQUEST, params: [userInfo.userId] });
   }, []);
 
   return (
@@ -74,7 +78,7 @@ const MyPage = ({
               theme="danger"
               size="large"
               width="35%"
-              onClick={DestroyHandler}>
+              onClick={destroyHandler}>
               {DESTROY_BUTTON_CAPTION}
             </Button>
             <Button

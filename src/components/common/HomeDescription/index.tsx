@@ -10,7 +10,7 @@ export interface Props {
   show: 'show' | 'hide' | '';
 }
 
-const HomeDescription = ({ show }: Props) => {
+const HomeDescription = ({ show }: Props): React.ReactElement => {
   let titleDir: 'left' | 'right' = show === 'show' ? 'right' : 'left';
   let descDir: 'left' | 'right' = show === 'show' ? 'left' : 'right';
   return (

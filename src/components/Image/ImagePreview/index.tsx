@@ -19,7 +19,7 @@ const ImagePreview = ({
   imageList,
   imageUrlChangeHandler,
   imageRemoveHanlder,
-}: Props) => {
+}: Props): React.ReactElement => {
   const [startIndex, setStartIndex] = useState<number>(0);
   const [showCarousel, carousleHandler] = useModal(false);
 

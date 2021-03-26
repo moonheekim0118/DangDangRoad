@@ -14,7 +14,11 @@ interface Props {
   placeName: string;
 }
 
-const Preview = ({ previewClickHanlder, thumnail, placeName }: Props) => {
+const Preview = ({
+  previewClickHanlder,
+  thumnail,
+  placeName,
+}: Props): React.ReactElement => {
   const [imageSrc, imageRef] = useLazyLoadImage(thumnail || DEFAULT_IMAGE_URL);
 
   return (

@@ -8,29 +8,29 @@ interface Props {
   imageList: string[];
 }
 
-const ImageSlider = ({ imageList }: Props) => {
-  const data = useSlide({ totalSlide: imageList.length });
+const ImageSlider = ({ imageList }: Props): React.ReactElement => {
+  const controller = useSlide({ totalSlide: imageList.length });
 
   return (
     <S.Container>
-      <S.Slide ref={data.slideRef}>
+      <S.Slide ref={controller.slideRef}>
         {imageList.map((img) => (
           <S.Image src={img} key={img} />
         ))}
       </S.Slide>
       <ControllerBtn
-        prevHandler={data.toPrev}
-        hasPrev={data.index > 0}
-        nextHandler={data.toNext}
-        hasNext={data.index < imageList.length - 1}
+        prevHandler={controller.toPrev}
+        hasPrev={controller.index > 0}
+        nextHandler={controller.toNext}
+        hasNext={controller.index < imageList.length - 1}
         location={0}
       />
       <S.NavigatorContainer>
         {imageList.map((_, i) => (
           <S.Navigator
             key={i}
-            onClick={data.changeIndexHandler(i)}
-            current={i === data.index}
+            onClick={controller.changeIndexHandler(i)}
+            current={i === controller.index}
           />
         ))}
       </S.NavigatorContainer>
