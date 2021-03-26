@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useDebounce } from 'hooks';
 import { useRouter } from 'next/router';
+import debounce from 'util/debounce';
 import cacheProto from 'util/cache';
 
 /** to store Scroll Y's position */
 const CACHE = new cacheProto<number>();
 
 const useScroll = () => {
-  const inDebounce = useDebounce();
   const router = useRouter();
   const [pathname, setPathName] = useState<string>(router.pathname);
 
@@ -15,7 +14,7 @@ const useScroll = () => {
   useEffect(() => {
     const main = document.getElementById('__next');
     if (main) {
-      const scrollHandler = inDebounce({
+      const scrollHandler = debounce({
         // debounce
         cb: () => CACHE.set(router.pathname, main.scrollTop),
         delay: 100,
