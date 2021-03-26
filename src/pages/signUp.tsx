@@ -12,6 +12,12 @@ const SignUpPage = (): React.ReactElement => {
     <>
       <Head>
         <title>댕댕로드 | 회원가입</title>
+        <meta property="og:title" content="댕댕로드 회원가입" key="ogtitle" />
+        <meta
+          property="og:description"
+          content="댕댕로드 회원가입 페이지"
+          key="ogdesc"
+        />
       </Head>
       <SignUp />
     </>

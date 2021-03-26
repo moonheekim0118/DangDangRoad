@@ -43,6 +43,16 @@ const SearchMain = () => {
     <>
       <Head>
         <title>댕댕로드 | 산책로 후기</title>
+        <meta
+          property="og:title"
+          content="댕댕로드 강아지 산책로 후기"
+          key="ogtitle"
+        />
+        <meta
+          property="og:description"
+          content="대한민국 전체 지역 강아지 산책로 후기"
+          key="ogdesc"
+        />
       </Head>
       <PostList
         reviewData={allReviews}

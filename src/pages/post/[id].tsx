@@ -16,6 +16,16 @@ const singlePost = () => {
     <>
       <Head>
         <title>댕댕로드 | 산책로 후기 상세보기</title>
+        <meta
+          property="og:title"
+          content="댕댕로드 강아지 산책로 후기 상세보기"
+          key="ogtitle"
+        />
+        <meta
+          property="og:description"
+          content="강아지 산책로 후기"
+          key="ogdesc"
+        />
       </Head>
       <Card isModal={false}>
         {singleReview ? (

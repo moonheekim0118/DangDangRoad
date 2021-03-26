@@ -9,6 +9,8 @@ const About = () => {
     <div>
       <Head>
         <title>댕댕로드 | 어바웃</title>
+        <meta property="og:title" content="댕댕로드 어바웃" key="ogtitle" />
+        <meta property="og:description" content="댕댕로드 소개" key="ogdesc" />
       </Head>
       <Container>
         <Heading>댕댕로드에 대하여</Heading>

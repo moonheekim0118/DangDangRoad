@@ -7,6 +7,12 @@ const TermOfUse = () => {
     <Container>
       <Head>
         <title>댕댕로드 | 이용약관</title>
+        <meta property="og:title" content="댕댕로드 이용약관" key="ogtitle" />
+        <meta
+          property="og:description"
+          content="댕댕로드 이용약관"
+          key="ogdesc"
+        />
       </Head>
       <Title>제 1 장 총 칙</Title>
       <Heading>제 1 조 (목적)</Heading>

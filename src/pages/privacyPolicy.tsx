@@ -7,6 +7,16 @@ const PrivacyPolicy = () => {
     <Container>
       <Head>
         <title>댕댕로드 | 개인정보보호정책</title>
+        <meta
+          property="og:title"
+          content="댕댕로드 개인정보보호정책"
+          key="ogtitle"
+        />
+        <meta
+          property="og:description"
+          content="댕댕로드 개인정보보호정책"
+          key="ogdesc"
+        />
       </Head>
       <h2>개인정보보호정책</h2>
       <p>

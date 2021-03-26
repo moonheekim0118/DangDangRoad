@@ -41,6 +41,16 @@ const SearchResult = () => {
     <>
       <Head>
         <title>댕댕로드 | {query} 검색결과</title>
+        <meta
+          property="og:title"
+          content="댕댕로드 강아지 산책로 후기"
+          key="ogtitle"
+        />
+        <meta
+          property="og:description"
+          content={`${query} 지역 강아지 산책로 후기`}
+          key="ogdesc"
+        />
       </Head>
       <PostList
         searchKeyword={query?.toString()}
