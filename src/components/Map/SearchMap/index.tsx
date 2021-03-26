@@ -17,12 +17,6 @@ import {
 import * as T from 'types/Map';
 import * as S from './style';
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
-
 let markers: any[] = [];
 
 interface Props {

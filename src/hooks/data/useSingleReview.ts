@@ -54,7 +54,14 @@ const useSingleReview = (initialFetch: boolean) => {
     CACHE.set(postId, data);
   }, []);
 
-  return { singleReview, getReviewResult, fetchData, removeCache, updateCache };
+  return {
+    singleReview,
+    singleReviewFetchStatus: getReviewResult.type,
+    singleReviewFetchError: getReviewResult.error,
+    fetchData,
+    removeCache,
+    updateCache,
+  };
 };
 
 export default useSingleReview;

@@ -12,49 +12,55 @@ import { Modal } from 'components/ui';
 
 const SearchMain = () => {
   const { user } = useUser();
+
   const [
     allReviews,
     fetchReviewHanlder,
     fetchRemoveHanlder,
-    getReviewStatus,
+    allReviewsFetchStatus,
     hasMore,
     lastKey,
   ] = useAllReviews();
+
   const observerTarget = useIntersectionObserver({
     deps: [hasMore, lastKey],
     fetcher: fetchReviewHanlder,
   });
-  const modalDatas = useSinglePostModal(allReviews);
+
+  const modalController = useSinglePostModal(allReviews);
 
   const removeHanlder = useCallback(
     (id: string) => () => {
-      modalDatas.closeModal(); // close Modal
-      modalDatas.removeCache(id); // remove Cache
+      modalController.closeModal(); // close Modal
+      modalController.removeCache(id); // remove Cache
       fetchRemoveHanlder(id);
     },
-    [modalDatas]
+    [modalController]
   );
 
   return (
     <>
-      <PostList reviewData={allReviews} openSinglePost={modalDatas.openModal} />
+      <PostList
+        reviewData={allReviews}
+        openSinglePost={modalController.openModal}
+      />
       {user && user.isLoggedIn && <WriteButton />}
       <Modal
-        showModal={modalDatas.showModal}
-        modalHandler={modalDatas.closeModal}>
+        showModal={modalController.showModal}
+        modalHandler={modalController.closeModal}>
         <Card isModal={true}>
-          {!modalDatas.singleReview ||
-          modalDatas.fetchSingleReviewResult.type === REQUEST ||
-          modalDatas.fetchSingleReviewResult.type === SUCCESS ? (
+          {!modalController.singleReview ||
+          modalController.singleReviewFetchStatus === REQUEST ||
+          modalController.singleReviewFetchStatus === SUCCESS ? (
             <LoadingSinglePost />
           ) : (
             <SinglePost
-              data={modalDatas.singleReview}
+              data={modalController.singleReview}
               NavigationInfo={{
-                hasPrev: modalDatas.index > 0,
-                hasNext: modalDatas.index < allReviews.length - 1,
-                prevHandler: modalDatas.prevHandler,
-                nextHandler: modalDatas.nextHandler,
+                hasPrev: modalController.index > 0,
+                hasNext: modalController.index < allReviews.length - 1,
+                prevHandler: modalController.prevHandler,
+                nextHandler: modalController.nextHandler,
               }}
               removeHanlder={removeHanlder}
             />
@@ -62,7 +68,7 @@ const SearchMain = () => {
         </Card>
       </Modal>
       <div ref={observerTarget}>
-        {getReviewStatus === REQUEST && <Loading />}
+        {allReviewsFetchStatus === REQUEST && <Loading />}
       </div>
     </>
   );

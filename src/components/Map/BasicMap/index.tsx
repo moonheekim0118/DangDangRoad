@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useElement } from 'hooks';
 import * as S from './style';
 
 interface Props {
@@ -8,26 +7,16 @@ interface Props {
   coordY: string;
 }
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
-
 const Map = ({ coordX, coordY }: Props): React.ReactElement => {
-  const container = useElement('map');
-
   useEffect(() => {
-    if (container) {
-      // when client is loaded
-      const { kakao } = window;
-      const options = {
-        center: new kakao.maps.LatLng(+coordY, +coordX),
-        level: 3,
-      };
-      new kakao.maps.Map(container, options);
-    }
-  }, [container, coordX, coordY]);
+    const { kakao } = window;
+    const mapElement = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(+coordY, +coordX),
+      level: 3,
+    };
+    new kakao.maps.Map(mapElement, options);
+  }, [coordX, coordY]);
 
   return <S.Container id="map"></S.Container>;
 };

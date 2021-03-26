@@ -7,10 +7,10 @@ import routes from 'common/constant/routes';
 
 const singlePost = () => {
   useUser();
-  const { singleReview, fetchResult } = useSingleReview(true);
+  const { singleReview, singleReviewFetchError } = useSingleReview(true);
 
-  return fetchResult.error ? (
-    <span>{fetchResult.error}</span>
+  return singleReviewFetchError ? (
+    <span>{singleReviewFetchError}</span>
   ) : (
     <>
       <Card isModal={false}>
