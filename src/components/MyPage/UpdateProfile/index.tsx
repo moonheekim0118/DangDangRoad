@@ -3,7 +3,6 @@ import { Button, Input } from 'components/ui';
 import { inputId } from 'common/constant/input';
 import { UserType, MutateType } from 'types/User';
 import { SAVE_CAPTION, UPDATE_MESSAGE } from 'common/constant/string';
-import { ContentsContainer } from '../style';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { useNotificationDispatch } from 'context/Notification';
 import { UserContents } from 'types/API';
@@ -15,6 +14,7 @@ import useApiFetch, {
 } from 'hooks/common/useApiFetch';
 import { ProfilePicUpload } from 'components/MyPage';
 import { updateProfile } from 'api/user';
+import Form from '../style';
 import * as Action from 'action';
 
 interface Props {
@@ -50,7 +50,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   }, [updateProfileResult]);
 
   /** sumbit save */
-  const saveHandler = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+  const saveHandler = useCallback((e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { value: nickname, error: nickNameError } = nicknameRef.current;
     const { value: imageUrl } = imageUrlRef.current;
@@ -71,7 +71,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   }, []);
 
   return (
-    <ContentsContainer>
+    <Form onSubmit={saveHandler}>
       <div>
         <ProfilePicUpload initImageUrl={user.profilePic} ref={imageUrlRef} />
       </div>
@@ -83,15 +83,10 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
         validator={nicknameValidatorForUpdate}
         initValue={user.nickname}
       />
-      <Button
-        type="submit"
-        theme="primary"
-        size="large"
-        width="100%"
-        onClick={saveHandler}>
+      <Button type="submit" theme="primary" size="large" width="100%">
         {SAVE_CAPTION}
       </Button>
-    </ContentsContainer>
+    </Form>
   );
 };
 

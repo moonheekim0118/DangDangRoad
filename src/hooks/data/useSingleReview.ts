@@ -40,7 +40,6 @@ const useSingleReview = (initialFetch: boolean) => {
   const fetchData = useCallback((postId: string) => {
     if (CACHE.has(postId)) {
       // check if it's cached data or not
-      console.log(CACHE);
       return setSingleReview(CACHE.get(postId));
     }
     getReviewFetch({ type: REQUEST, params: [postId] });

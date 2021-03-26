@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import Router from 'next/router';
-import routes from 'common/constant/routes';
 import { Link } from 'components/ui';
 import * as S from './style';
 
@@ -20,7 +19,7 @@ interface Props {
 const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
   const checkPath = useCallback(
     (pathname: string): boolean => {
-      return `${routes.MYPAGE_INDEX}/${Router.query.page_name}` === pathname;
+      return Router.pathname === pathname;
     },
     [Router.query.page_name]
   );

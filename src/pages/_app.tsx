@@ -19,18 +19,26 @@ const App = ({ Component, pageProps }) => {
       }}>
       <LoginInfoProvider>
         <NotificationProvider>
+          <Head>
+            <link
+              href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
+              rel="stylesheet"
+            />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+              rel="stylesheet"></link>
+            <meta charSet="utf-8" />
+            <title>댕댕로드</title>
+            <meta
+              name="viewport"
+              content="initial-scale=1.0, width=device-width"
+            />
+            <meta
+              name="description"
+              content="댕댕로드는 반려견 산책로 후기를 공유합니다."
+            />
+          </Head>
           <Layout>
-            <Head>
-              <link
-                href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
-                rel="stylesheet"
-              />
-              <link
-                href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
-                rel="stylesheet"></link>
-              <meta charSet="utf-8" />
-              <title>댕댕로드</title>
-            </Head>
             <GlobalStyle />
             <Notification />
             {isLoading ? <Loading /> : <Component {...pageProps} />}

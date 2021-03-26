@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import Head from 'next/head';
 import { WriteButton, PostList, SinglePost } from 'components/Post';
 import {
   useUser,
@@ -40,6 +41,9 @@ const SearchMain = () => {
 
   return (
     <>
+      <Head>
+        <title>댕댕로드 | 산책로 후기</title>
+      </Head>
       <PostList
         reviewData={allReviews}
         openSinglePost={modalController.openModal}

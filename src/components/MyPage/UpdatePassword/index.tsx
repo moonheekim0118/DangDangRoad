@@ -13,7 +13,7 @@ import { updatePassword } from 'api/user';
 import { UPDATE_MESSAGE, NOT_FULL_INFO_ERROR } from 'common/constant/string';
 import { passwordValidator } from 'util/signUpValidations';
 import * as Action from 'action';
-import * as S from '../style';
+import Form from '../style';
 
 interface Props {
   userId: string;
@@ -46,41 +46,36 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
     }
   }, [updatePasswordResult]);
 
-  const SubmitHanlder = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      const {
-        value: password,
-        error: passwordError,
-        focus: passwordFocus,
-      } = passwordRef.current;
+  const SubmitHanlder = useCallback((e: React.MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const {
+      value: password,
+      error: passwordError,
+      focus: passwordFocus,
+    } = passwordRef.current;
 
-      const {
-        value: passwordCheck,
-        focus: passwordCheckFoucs,
-      } = passwordCheckRef.current;
-      if (
-        password.length === 0 ||
-        passwordError ||
-        passwordCheck.length === 0 ||
-        password !== passwordCheck
-      ) {
-        password.length === 0 && passwordFocus && passwordFocus();
-        password !== passwordCheck &&
-          passwordCheckFoucs &&
-          passwordCheckFoucs();
-        return notiDispatch(Action.showError(NOT_FULL_INFO_ERROR));
-      }
-      updatePasswordFetch({
-        type: REQUEST,
-        params: [{ id: userId, password }],
-      });
-    },
-    []
-  );
+    const {
+      value: passwordCheck,
+      focus: passwordCheckFoucs,
+    } = passwordCheckRef.current;
+    if (
+      password.length === 0 ||
+      passwordError ||
+      passwordCheck.length === 0 ||
+      password !== passwordCheck
+    ) {
+      password.length === 0 && passwordFocus && passwordFocus();
+      password !== passwordCheck && passwordCheckFoucs && passwordCheckFoucs();
+      return notiDispatch(Action.showError(NOT_FULL_INFO_ERROR));
+    }
+    updatePasswordFetch({
+      type: REQUEST,
+      params: [{ id: userId, password }],
+    });
+  }, []);
 
   return (
-    <S.ContentsContainer>
+    <Form onSubmit={SubmitHanlder}>
       <Input
         type="password"
         id={inputId['NEWPASSWORD']}
@@ -95,15 +90,10 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
         ref={passwordCheckRef}
         validator={passwordCheckValidator}
       />
-      <Button
-        type="submit"
-        theme="primary"
-        size="large"
-        width="100%"
-        onClick={SubmitHanlder}>
+      <Button type="submit" theme="primary" size="large" width="100%">
         {SAVE_CAPTION}
       </Button>
-    </S.ContentsContainer>
+    </Form>
   );
 };
 export default UpdatePassword;

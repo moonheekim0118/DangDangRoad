@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React from 'react';
+import Head from 'next/head';
 import { SinglePost } from 'components/Post';
 import { useSingleReview } from 'hooks';
 import { Link, Card, LoadingSinglePost } from 'components/ui';
@@ -13,6 +14,9 @@ const singlePost = () => {
     <span>{singleReviewFetchError}</span>
   ) : (
     <>
+      <Head>
+        <title>댕댕로드 | 산책로 후기 상세보기</title>
+      </Head>
       <Card isModal={false}>
         {singleReview ? (
           <SinglePost data={singleReview} />

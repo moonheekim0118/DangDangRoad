@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import Head from 'next/head';
 import {
   useUser,
   useQueryReviews,
@@ -38,6 +39,9 @@ const SearchResult = () => {
 
   return (
     <>
+      <Head>
+        <title>댕댕로드 | {query} 검색결과</title>
+      </Head>
       <PostList
         searchKeyword={query?.toString()}
         reviewData={allReviews}

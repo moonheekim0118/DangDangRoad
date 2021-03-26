@@ -1,9 +1,13 @@
 import React from 'react';
+import Head from 'next/head';
 import styled from '@emotion/styled';
 
 const TermOfUse = () => {
   return (
     <Container>
+      <Head>
+        <title>댕댕로드 | 이용약관</title>
+      </Head>
       <Title>제 1 장 총 칙</Title>
       <Heading>제 1 조 (목적)</Heading>
       <p>
@@ -61,9 +65,8 @@ const TermOfUse = () => {
         때까지 승낙을 유보할 수 있습니다. <br />
         가. 서비스 관련 설비에 여유가 없는 경우 <br />
         나. 기술상 지장이 있는 경우 <br />
-        다. 기타 사이트가 필요하다고 인정되는 경우 <br />
-        ③ 사이트는 신청자가 다음에 해당하는 경우에는 승낙을 거부할 수 있습니다.{' '}
-        <br />
+        다. 기타 사이트가 필요하다고 인정되는 경우 <br />③ 사이트는 신청자가
+        다음에 해당하는 경우에는 승낙을 거부할 수 있습니다. <br />
         가. 다른 개인(사이트)의 명의를 사용하여 신청한 경우 <br />
         나. 이용자 정보를 허위로 기재하여 신청한 경우 <br />
         다. 사회의 안녕질서 또는 미풍양속을 저해할 목적으로 신청한 경우 <br />
