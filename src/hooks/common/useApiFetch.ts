@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback } from 'react';
+import { useEffect, useReducer, useCallback, useRef } from 'react';
 import { APIResponse } from 'types/API';
 import errorExTxt from 'util/errorExTxt';
 
@@ -53,10 +53,15 @@ const useApiFetch = <T = null>(
     type: '',
   };
   const [result, dispatch] = useReducer<Reducer<T>>(reducer, initialState);
+  const fetched = useRef<boolean>(false);
 
   useEffect(() => {
-    if (result.type === REQUEST) {
+    if (result.type === REQUEST && !fetched.current) {
       fetchData<T>(apiRequest, dispatch, result.params);
+      fetched.current = true;
+    }
+    if (result.type === SUCCESS || result.type === FAILURE) {
+      fetched.current = false;
     }
   }, [result, apiRequest]);
 
