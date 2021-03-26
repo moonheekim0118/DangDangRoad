@@ -29,7 +29,7 @@ const UpdatePost = ({
   userId,
   updateCache,
 }: Props): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
   const freeTextRef = useRef<InputRef>(inputDefaultRef(initialData.freeText));
   const hasParkingLotRef = useRef<InputRef>(
     inputDefaultRef(initialData.hasParkingLot)
@@ -57,7 +57,7 @@ const UpdatePost = ({
   useEffect(() => {
     switch (updateReviewResult.type) {
       case SUCCESS:
-        dispatch(Action.showSuccess(UPDATE_MESSAGE));
+        notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
         if (updateReviewResult.data) {
           const updatedData = {
             ...initialData,
@@ -68,7 +68,7 @@ const UpdatePost = ({
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
-        dispatch(Action.showError(updateReviewResult.error));
+        notiDispatch(Action.showError(updateReviewResult.error));
         updateReviewSetDefault();
     }
   }, [updateReviewResult]);
@@ -98,7 +98,7 @@ const UpdatePost = ({
         imageUrl === initialData.imageList &&
         selectedPlace === initialData.placeInfo
       ) {
-        return dispatch(Action.showError(NO_UPDATE_ERROR));
+        return notiDispatch(Action.showError(NO_UPDATE_ERROR));
       }
       const data = {
         userId,

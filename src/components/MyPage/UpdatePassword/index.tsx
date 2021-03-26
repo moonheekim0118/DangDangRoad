@@ -20,7 +20,7 @@ interface Props {
 }
 
 const UpdatePassword = ({ userId }: Props): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
 
   const [
     passwordRef,
@@ -36,11 +36,11 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
   useEffect(() => {
     switch (updatePasswordResult.type) {
       case SUCCESS:
-        dispatch(Action.showSuccess(UPDATE_MESSAGE));
+        notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
         updatePasswordSetDefault();
         break;
       case FAILURE:
-        dispatch(Action.showError(updatePasswordResult.error));
+        notiDispatch(Action.showError(updatePasswordResult.error));
         updatePasswordSetDefault();
         break;
     }
@@ -69,7 +69,7 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
         password !== passwordCheck &&
           passwordCheckFoucs &&
           passwordCheckFoucs();
-        return dispatch(Action.showError(NOT_FULL_INFO_ERROR));
+        return notiDispatch(Action.showError(NOT_FULL_INFO_ERROR));
       }
       updatePasswordFetch({
         type: REQUEST,

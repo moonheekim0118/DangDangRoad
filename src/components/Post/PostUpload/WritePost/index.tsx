@@ -24,7 +24,7 @@ interface Props {
 }
 
 const WritePost = ({ userId }: Props): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
 
   const freeTextRef = useRef<InputRef>(inputDefaultRef());
   const hasParkingLotRef = useRef<InputRef>(inputDefaultRef());
@@ -43,11 +43,11 @@ const WritePost = ({ userId }: Props): React.ReactElement => {
   useEffect(() => {
     switch (createReviewResult.type) {
       case SUCCESS:
-        dispatch(Action.showSuccess(SAVE_MESSAGE));
+        notiDispatch(Action.showSuccess(SAVE_MESSAGE));
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
-        dispatch(Action.showError(createReviewResult.error));
+        notiDispatch(Action.showError(createReviewResult.error));
         createReviewSetDefault();
     }
   }, [createReviewResult]);

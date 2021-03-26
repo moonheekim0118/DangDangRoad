@@ -52,7 +52,6 @@ const useApiFetch = <T = null>(
   const initialState: Result<T> = {
     type: '',
   };
-
   const [result, dispatch] = useReducer<Reducer<T>>(reducer, initialState);
 
   useEffect(() => {

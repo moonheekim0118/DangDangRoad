@@ -25,7 +25,7 @@ interface Props {
 }
 
 const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
   const nicknameRef = useRef<InputRef>(inputDefaultRef(user.nickname));
   const imageUrlRef = useRef<RefType<string[]>>(
     defaultRef<string[]>([user.profilePic])
@@ -40,12 +40,12 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
     switch (updateProfileResult.type) {
       case SUCCESS:
         mutate({ ...user, ...updateProfileResult.data }, false).then(() => {
-          dispatch(Action.showSuccess(UPDATE_MESSAGE));
+          notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
           updateProfileSetDefault();
         });
         break;
       case FAILURE:
-        dispatch(Action.showError(updateProfileResult.error));
+        notiDispatch(Action.showError(updateProfileResult.error));
     }
   }, [updateProfileResult]);
 

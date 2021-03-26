@@ -31,7 +31,7 @@ const ImageUploader = ({
   children,
   type,
 }: Props): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
   const [
     imageUploadResult,
     imageUploadFetch,
@@ -50,7 +50,8 @@ const ImageUploader = ({
         imageUploadSetDefault();
         break;
       case FAILURE:
-        dispatch(showError(imageUploadResult.error));
+        notiDispatch(showError(imageUploadResult.error));
+        imageUploadSetDefault();
     }
   }, [imageUploadResult]);
 
@@ -67,7 +68,7 @@ const ImageUploader = ({
       const length =
         type === 'add' ? files.length + imageUrl.length : imageUrl.length;
       if (length > imageLimit) {
-        return dispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
+        return notiDispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
       }
       imageUploadFetch({ type: REQUEST, params: [files] });
     },

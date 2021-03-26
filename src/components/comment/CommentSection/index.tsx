@@ -31,7 +31,7 @@ interface DataType {
 const CACHE = new cacheProto<DataType>();
 
 const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
   const commentRef = useRef<InputRef>(inputDefaultRef());
   const [comments, setComments] = useState<CommentData[]>([]);
   const [lastKey, setLastKey] = useState<string>('');
@@ -89,7 +89,7 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
         getCommentSetDefault();
         break;
       case FAILURE:
-        dispatch(Action.showError(getCommentResult.error));
+        notiDispatch(Action.showError(getCommentResult.error));
         getCommentSetDefault();
     }
   }, [getCommentResult, comments]);
@@ -113,7 +113,7 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
         createCommentSetDefault();
         break;
       case FAILURE:
-        dispatch(Action.showError(getCommentResult.error));
+        notiDispatch(Action.showError(getCommentResult.error));
         createCommentSetDefault();
     }
   }, [createCommentResult, comments]);
@@ -140,10 +140,10 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
           lastKey: updatedLastKey,
         } as DataType;
         CACHE.set(postId, updatedData); // update Cached Data
-        dispatch(Action.showSuccess(REMOVE_MESSAGE));
+        notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
         break;
       case FAILURE:
-        dispatch(Action.showError(removeCommentResult.error));
+        notiDispatch(Action.showError(removeCommentResult.error));
         removeCommentSetDefault();
     }
   }, [removeCommentResult, comments]);

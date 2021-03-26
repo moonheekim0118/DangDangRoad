@@ -26,7 +26,7 @@ import * as checkers from 'util/signUpValidations';
 import * as S from '../style';
 
 const SignUp = (): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
   const [signUpResult, signUpFetch, signUpSetDefault] = useApiFetch(signUp);
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const nicknameRef = useRef<InputRef>(inputDefaultRef());
@@ -44,7 +44,7 @@ const SignUp = (): React.ReactElement => {
         Router.push(routes.SIGNUP_PROCESS);
         break;
       case FAILURE:
-        dispatch(showError(signUpResult.error));
+        notiDispatch(showError(signUpResult.error));
         signUpSetDefault();
     }
   }, [signUpResult]);
@@ -76,7 +76,7 @@ const SignUp = (): React.ReactElement => {
     const privacyTermChecked = privacyTermCheckRef.current.value;
 
     if (!serviceTermChecked || !privacyTermChecked) {
-      return dispatch(showError(TERM_NOT_CHECKED_ERROR));
+      return notiDispatch(showError(TERM_NOT_CHECKED_ERROR));
     }
     if (
       email.length === 0 ||

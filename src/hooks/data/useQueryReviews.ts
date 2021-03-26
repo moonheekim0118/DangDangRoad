@@ -4,8 +4,10 @@ import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { removeReview } from 'api/review';
 import { useRouter } from 'next/router';
+import { useNotificationDispatch } from 'context/Notification';
 import searchByKeyword from 'api/search';
 import cacheProto from 'util/cache';
+import * as Action from 'action';
 import * as T from 'types/API';
 
 interface DataType {
@@ -16,6 +18,7 @@ interface DataType {
 const CACHE = new cacheProto<DataType>();
 
 const useQueryReviews = () => {
+  const notiDispatch = useNotificationDispatch();
   const router = useRouter();
   const query = router.query.search_query as string;
   const [allReviews, setAllReviews] = useState<T.LightReviewData[]>([]);
@@ -58,6 +61,8 @@ const useQueryReviews = () => {
         getReviewsSetDefault();
         break;
       case FAILURE:
+        notiDispatch(Action.showError(getReviewsResult.error));
+        getReviewsSetDefault();
     }
   }, [getReviewsResult, allReviews]);
 
@@ -67,14 +72,16 @@ const useQueryReviews = () => {
         const deletedId = removeReviewResult.data;
         const newReviews = allReviews.filter((v) => v.docId !== deletedId);
         setAllReviews(newReviews);
-        removeReviewSetDefault();
         const cachedData = CACHE.get(query);
         CACHE.set(query, {
           ...cachedData,
           reviews: newReviews,
         } as DataType);
+        removeReviewSetDefault();
         break;
       case FAILURE:
+        notiDispatch(Action.showError(removeReviewResult.error));
+        removeReviewSetDefault();
     }
   }, [removeReviewResult, allReviews]);
 

@@ -14,7 +14,7 @@ import Router from 'next/router';
 import * as S from './style';
 
 const GoogleLoginButton = (): React.ReactElement => {
-  const dispatch = useNotificationDispatch();
+  const notiDispatch = useNotificationDispatch();
   const [googleAuthResult, googleAuthFetch, googleAuthSetDefault] = useApiFetch(
     googleSignIn
   );
@@ -25,7 +25,7 @@ const GoogleLoginButton = (): React.ReactElement => {
         Router.push(routes.HOME);
         break;
       case FAILURE:
-        googleAuthResult.error && dispatch(showError(googleAuthResult.error));
+        notiDispatch(showError(googleAuthResult.error));
         googleAuthSetDefault();
     }
   }, [googleAuthResult]);

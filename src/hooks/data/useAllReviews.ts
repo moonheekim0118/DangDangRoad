@@ -3,7 +3,9 @@ import { useApiFetch } from 'hooks';
 import { getReviewsFirst, getReviews, removeReview } from 'api/review';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
+import { useNotificationDispatch } from 'context/Notification';
 import cacheProto from 'util/cache';
+import * as Action from 'action';
 import * as T from 'types/API';
 
 interface DataType {
@@ -20,6 +22,7 @@ interface DataType {
 const CACHE = new cacheProto<DataType>();
 
 const useAllReviews = () => {
+  const notiDispatch = useNotificationDispatch();
   const [
     getReviewsResult,
     getReviewsFetch,
@@ -77,6 +80,8 @@ const useAllReviews = () => {
         recentReviewsSetDefault();
         break;
       case FAILURE:
+        notiDispatch(Action.showError(recentReviewsResult.error));
+        recentReviewsSetDefault();
     }
   }, [recentReviewsResult, allReviews, lastKey, hasMore]);
 
@@ -101,6 +106,8 @@ const useAllReviews = () => {
         getReviewsSetDefault();
         break;
       case FAILURE:
+        notiDispatch(Action.showError(getReviewsResult.error));
+        getReviewsSetDefault();
     }
   }, [getReviewsResult, allReviews]);
 
@@ -126,6 +133,8 @@ const useAllReviews = () => {
         removeReviewSetDefault();
         break;
       case FAILURE:
+        notiDispatch(Action.showError(removeReviewResult.error));
+        removeReviewSetDefault();
     }
   }, [removeReviewResult, allReviews]);
 
