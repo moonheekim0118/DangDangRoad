@@ -6,7 +6,7 @@ import {
   useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
-import { WriteButton, PostList } from 'components/Post';
+import { WriteButton } from 'components/Post';
 import { REQUEST } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/ui';
 import dynamic from 'next/dynamic';
@@ -16,6 +16,7 @@ const Card = dynamic(() => import('components/ui/Card'));
 const LoadingSinglePost = dynamic(
   () => import('components/ui/LoadingSinlgePost')
 );
+const PostList = dynamic(() => import('components/Post/PostList'));
 const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
 const SearchResult = () => {
@@ -60,11 +61,15 @@ const SearchResult = () => {
           key="ogdesc"
         />
       </Head>
-      <PostList
-        searchKeyword={query?.toString()}
-        reviewData={allReviews}
-        openSinglePost={modalController.openModal}
-      />
+      {allReviews.length > 0 ? (
+        <PostList
+          searchKeyword={query?.toString()}
+          reviewData={allReviews}
+          openSinglePost={modalController.openModal}
+        />
+      ) : (
+        <h1>아직 작성된 리뷰가 없습니다</h1>
+      )}
       {user && user.isLoggedIn && <WriteButton />}
       {modalController.showModal && (
         <Modal modalHandler={modalController.closeModal}>
