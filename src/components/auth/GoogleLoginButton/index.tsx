@@ -25,8 +25,10 @@ const GoogleLoginButton = (): React.ReactElement => {
         Router.push(routes.HOME);
         break;
       case FAILURE:
-        notiDispatch(showError(googleAuthResult.error));
-        googleAuthSetDefault();
+        if (googleAuthResult.error) {
+          notiDispatch(showError(googleAuthResult.error));
+          googleAuthSetDefault();
+        }
     }
   }, [googleAuthResult]);
 
