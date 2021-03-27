@@ -67,9 +67,7 @@ const SearchMain = () => {
       />
       {user && user.isLoggedIn && <WriteButton />}
       {modalController.showModal && (
-        <Modal
-          showModal={modalController.showModal}
-          modalHandler={modalController.closeModal}>
+        <Modal modalHandler={modalController.closeModal}>
           <Card isModal={true}>
             {!modalController.singleReview ||
             modalController.singleReviewFetchStatus === REQUEST ||

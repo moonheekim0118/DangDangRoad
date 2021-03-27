@@ -66,27 +66,27 @@ const SearchResult = () => {
         openSinglePost={modalController.openModal}
       />
       {user && user.isLoggedIn && <WriteButton />}
-      <Modal
-        showModal={modalController.showModal}
-        modalHandler={modalController.closeModal}>
-        <Card isModal={true}>
-          {!modalController.singleReview ||
-          modalController.singleReviewFetchStatus === REQUEST ? (
-            <LoadingSinglePost />
-          ) : (
-            <SinglePost
-              data={modalController.singleReview}
-              NavigationInfo={{
-                hasPrev: modalController.index > 0,
-                hasNext: modalController.index < allReviews.length - 1,
-                prevHandler: modalController.prevHandler,
-                nextHandler: modalController.nextHandler,
-              }}
-              removeHanlder={removeHanlder}
-            />
-          )}
-        </Card>
-      </Modal>
+      {modalController.showModal && (
+        <Modal modalHandler={modalController.closeModal}>
+          <Card isModal={true}>
+            {!modalController.singleReview ||
+            modalController.singleReviewFetchStatus === REQUEST ? (
+              <LoadingSinglePost />
+            ) : (
+              <SinglePost
+                data={modalController.singleReview}
+                NavigationInfo={{
+                  hasPrev: modalController.index > 0,
+                  hasNext: modalController.index < allReviews.length - 1,
+                  prevHandler: modalController.prevHandler,
+                  nextHandler: modalController.nextHandler,
+                }}
+                removeHanlder={removeHanlder}
+              />
+            )}
+          </Card>
+        </Modal>
+      )}
       <div ref={observerTarget}>
         {allReviewFetchStatus === REQUEST && <Loading />}
       </div>

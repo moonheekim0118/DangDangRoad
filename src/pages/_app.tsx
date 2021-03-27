@@ -1,8 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
-import { Layout, Notification } from 'components/common';
 import GlobalStyle from 'common/style/globalStyle';
 import fetcher from 'libs/fetcher';
+import { Layout } from 'components/common';
 import { Loading } from 'components/ui';
 import { useRouterStatus, useScroll } from 'hooks';
 import { SWRConfig } from 'swr';
@@ -80,7 +80,6 @@ const App = ({ Component, pageProps }) => {
           </Head>
           <Layout>
             <GlobalStyle />
-            <Notification />
             {isLoading ? <Loading /> : <Component {...pageProps} />}
           </Layout>
         </NotificationProvider>

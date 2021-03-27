@@ -1,9 +1,11 @@
 import React from 'react';
-import { WritePost } from 'components/Post/PostUpload';
 import { useUser, useWarnUsavedChange } from 'hooks';
 import { Loading } from 'components/ui';
 import Head from 'next/head';
 import routes from 'common/constant/routes';
+import dynamic from 'next/dynamic';
+
+const WritePost = dynamic(() => import('components/Post/PostUpload/WritePost'));
 
 const Write = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });

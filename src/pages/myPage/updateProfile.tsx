@@ -1,10 +1,14 @@
 import React from 'react';
-import { MyPageLayout, UpdateProfile } from 'components/MyPage';
 import { Loading } from 'components/ui';
 import { useUser } from 'hooks';
 import { MYPAGE_NAVIGATOR } from 'common/constant/string';
 import Head from 'next/head';
 import routes from 'common/constant/routes';
+import dynamic from 'next/dynamic';
+
+const MyPageLayout = dynamic(() => import('components/MyPage/MyPageLayout'));
+
+const UpdateProfile = dynamic(() => import('components/MyPage/UpdateProfile'));
 
 const updateProfile = () => {
   const { user, mutateUser } = useUser({ redirectTo: routes.LOGIN });

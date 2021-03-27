@@ -11,8 +11,8 @@ const SignUpProcess = (): React.ReactElement => {
       <Image
         src={SENT_EMAIL_IMAGE}
         alt={SENT_EMAIL_IMAGE_ALT}
-        width="300"
-        height="200"
+        width={300}
+        height={200}
       />
       <Title>{EMAIL_VERFY_TITLE}</Title>
       <Contents>{EMAIL_VERFY_DESC}</Contents>

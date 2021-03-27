@@ -1,10 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
-import { SinglePost } from 'components/Post';
 import { useSingleReview } from 'hooks';
 import { Link, Card, LoadingSinglePost } from 'components/ui';
 import { useUser } from 'hooks';
 import routes from 'common/constant/routes';
+import dynamic from 'next/dynamic';
+
+const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
 const singlePost = () => {
   useUser();

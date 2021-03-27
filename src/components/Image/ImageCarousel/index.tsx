@@ -9,8 +9,6 @@ interface Props {
   imageList: string[];
   /** start index of list */
   startIdx: number;
-  /** show this modal or not */
-  showModal: boolean;
   /** fucntion to close image carousel */
   modalHanlder: () => void;
 }
@@ -18,7 +16,6 @@ interface Props {
 const ImageCarousel = ({
   imageList,
   startIdx,
-  showModal,
   modalHanlder,
 }: Props): React.ReactElement => {
   const data = useSlide({
@@ -27,7 +24,7 @@ const ImageCarousel = ({
   });
 
   return (
-    <Modal showModal={showModal} modalHandler={modalHanlder}>
+    <Modal modalHandler={modalHanlder}>
       <S.Containter>
         <ControllerBtn
           prevHandler={data.toPrev}

@@ -53,7 +53,7 @@ const Index = (): React.ReactElement => {
       </MainContents>
       <Description>오늘 반려견을 위해 댕댕로드에 가입하세요!</Description>
       <Observer ref={examplePostObserverTarget} />
-      <HomeDescription show={showPostExample} />
+      {showPostExample !== '' && <HomeDescription show={showPostExample} />}
     </Container>
   );
 };
