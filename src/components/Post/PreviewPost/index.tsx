@@ -2,7 +2,7 @@ import React from 'react';
 import { useLazyLoadImage } from 'hooks';
 import { Icon } from 'components/ui';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
-import { DEFAULT_IMAGE_URL } from 'common/constant/images';
+import { DEFAULT_IMAGE_URL, REVIEW_IMAGE_ALT } from 'common/constant/images';
 import * as S from './style';
 
 interface Props {
@@ -34,6 +34,7 @@ const Preview = ({
       <S.Image
         src={imageSrc}
         ref={imageRef}
+        alt={REVIEW_IMAGE_ALT}
         loaded={imageSrc.length > 0}
         loading="lazy"
       />

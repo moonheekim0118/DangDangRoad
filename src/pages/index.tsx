@@ -2,10 +2,14 @@ import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
+import dynamic from 'next/dynamic';
 import { useUser, useIntersectionObserver } from 'hooks';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
-import { HomeDescription } from 'components/common';
 import { Button } from 'components/ui';
+
+const HomeDescription = dynamic(
+  () => import('components/common/HomeDescription')
+);
 
 const Index = (): React.ReactElement => {
   useUser();

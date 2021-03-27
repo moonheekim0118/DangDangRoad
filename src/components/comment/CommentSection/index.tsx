@@ -55,6 +55,15 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
     removeCommentSetDefault,
   ] = useApiFetch<string>(removeComment);
 
+  useEffect(() => {
+    /** clean up stauts - incase user close modal before comment loaded... */
+    return () => {
+      setComments([]);
+      setLastKey('');
+      setHasMore(false);
+    };
+  }, []);
+
   /** initially get Comments Datas from Cache or API fetching */
   useEffect(() => {
     if (CACHE.has(postId)) {

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Head from 'next/head';
-import { WriteButton, PostList, SinglePost } from 'components/Post';
+import { WriteButton, PostList } from 'components/Post';
 import {
   useUser,
   useAllReviews,
@@ -8,8 +8,15 @@ import {
   useSinglePostModal,
 } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
-import { Loading, Card, LoadingSinglePost } from 'components/ui';
-import { Modal } from 'components/ui';
+import { Loading } from 'components/ui';
+import dynamic from 'next/dynamic';
+
+const Modal = dynamic(() => import('components/ui/Modal'));
+const Card = dynamic(() => import('components/ui/Card'));
+const LoadingSinglePost = dynamic(
+  () => import('components/ui/LoadingSinlgePost')
+);
+const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
 const SearchMain = () => {
   const { user } = useUser();
@@ -59,28 +66,30 @@ const SearchMain = () => {
         openSinglePost={modalController.openModal}
       />
       {user && user.isLoggedIn && <WriteButton />}
-      <Modal
-        showModal={modalController.showModal}
-        modalHandler={modalController.closeModal}>
-        <Card isModal={true}>
-          {!modalController.singleReview ||
-          modalController.singleReviewFetchStatus === REQUEST ||
-          modalController.singleReviewFetchStatus === SUCCESS ? (
-            <LoadingSinglePost />
-          ) : (
-            <SinglePost
-              data={modalController.singleReview}
-              NavigationInfo={{
-                hasPrev: modalController.index > 0,
-                hasNext: modalController.index < allReviews.length - 1,
-                prevHandler: modalController.prevHandler,
-                nextHandler: modalController.nextHandler,
-              }}
-              removeHanlder={removeHanlder}
-            />
-          )}
-        </Card>
-      </Modal>
+      {modalController.showModal && (
+        <Modal
+          showModal={modalController.showModal}
+          modalHandler={modalController.closeModal}>
+          <Card isModal={true}>
+            {!modalController.singleReview ||
+            modalController.singleReviewFetchStatus === REQUEST ||
+            modalController.singleReviewFetchStatus === SUCCESS ? (
+              <LoadingSinglePost />
+            ) : (
+              <SinglePost
+                data={modalController.singleReview}
+                NavigationInfo={{
+                  hasPrev: modalController.index > 0,
+                  hasNext: modalController.index < allReviews.length - 1,
+                  prevHandler: modalController.prevHandler,
+                  nextHandler: modalController.nextHandler,
+                }}
+                removeHanlder={removeHanlder}
+              />
+            )}
+          </Card>
+        </Modal>
+      )}
       <div ref={observerTarget}>
         {allReviewsFetchStatus === REQUEST && <Loading />}
       </div>

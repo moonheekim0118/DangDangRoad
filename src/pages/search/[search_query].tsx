@@ -6,9 +6,17 @@ import {
   useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
-import { WriteButton, PostList, SinglePost } from 'components/Post';
+import { WriteButton, PostList } from 'components/Post';
 import { REQUEST } from 'hooks/common/useApiFetch';
-import { Loading, Card, Modal, LoadingSinglePost } from 'components/ui';
+import { Loading } from 'components/ui';
+import dynamic from 'next/dynamic';
+
+const Modal = dynamic(() => import('components/ui/Modal'));
+const Card = dynamic(() => import('components/ui/Card'));
+const LoadingSinglePost = dynamic(
+  () => import('components/ui/LoadingSinlgePost')
+);
+const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
 const SearchResult = () => {
   const { user } = useUser();
