@@ -45,7 +45,7 @@ const Index = (): React.ReactElement => {
             산책로 리뷰 보기
           </Button>
         </SubContetns>
-        <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width="600" height="500" />
+        <Image src={LOGO_IMAGE} alt={LOGO_IMAGE_ALT} width={600} height={500} />
       </MainContents>
       <Description>오늘 반려견을 위해 댕댕로드에 가입하세요!</Description>
       <Observer ref={examplePostObserverTarget} />

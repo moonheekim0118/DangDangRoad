@@ -24,8 +24,8 @@ const HomeDescription = ({ show }: Props): React.ReactElement => {
         <Image
           src={EXAMPLE_DOG_IMAGE}
           alt={EXAMPLE_DOG_IMAGE_ALT}
-          width="350"
-          height="350"
+          width={350}
+          height={350}
         />
       </S.ImageContainer>
       <S.ContentsContainer>

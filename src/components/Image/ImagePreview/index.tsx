@@ -4,6 +4,7 @@ import { useModal } from 'hooks';
 import { Icon } from 'components/ui';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
+import { REVIEW_IMAGE_ALT } from 'common/constant/images';
 import * as S from './style';
 
 interface Props {
@@ -49,7 +50,11 @@ const ImagePreview = ({
       {imageList &&
         imageList.map((v, i) => (
           <S.ImageContainer key={v + i}>
-            <S.Image src={v} onClick={imageZoomHanlder(i)} />
+            <S.Image
+              src={v}
+              onClick={imageZoomHanlder(i)}
+              alt={REVIEW_IMAGE_ALT}
+            />
             <S.RemoveImage>
               {' '}
               <Icon

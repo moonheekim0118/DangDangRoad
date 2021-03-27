@@ -63,15 +63,20 @@ const App = ({ Component, pageProps }) => {
               name="description"
               content="댕댕로드는 반려견 산책로 후기를 공유합니다."
             />
-            <meta property="og:title" content="댕댕로드" key="ogtitle" />
+            <meta
+              property="og:title"
+              content="강아지 산책로 후기"
+              key="ogtitle"
+            />
             <meta
               property="og:description"
               content="댕댕로드는 반려견 산책로 후기를 공유합니다."
               key="ogdesc"
             />
+            <meta property="og:image" content="/favicon.ico" key="ogimage" />
+            <meta property="og:site_name" content="댕댕로드" key="ogsitename" />
+            <meta property="og:type" content="website" key="ogtype" />
             <meta name="twitter:card" content="summary" key="twcard" />
-
-            {/* <meta name="twitter:creator" content={twitterHandle} key="twhandle" /> */}
           </Head>
           <Layout>
             <GlobalStyle />

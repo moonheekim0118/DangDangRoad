@@ -8,6 +8,7 @@ export const LOGO_IMAGE_ALT = 'logo image';
 export const AVATAR_ALT = 'user image';
 export const EXAMPLE_DOG_IMAGE = '/dog.jpg';
 export const EXAMPLE_DOG_IMAGE_ALT = 'dog image';
+export const REVIEW_IMAGE_ALT = '강아지 산책 이미지';
 export const MARKER_URL =
   'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
 export const MARKER_POSITIONS = [

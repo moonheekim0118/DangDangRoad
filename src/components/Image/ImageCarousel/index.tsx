@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, ControllerBtn } from 'components/ui';
 import { useSlide } from 'hooks';
+import { REVIEW_IMAGE_ALT } from 'common/constant/images';
 import * as S from './style';
 
 interface Props {
@@ -34,7 +35,7 @@ const ImageCarousel = ({
           nextHandler={data.toNext}
           hasNext={true}
         />
-        <S.Image src={imageList[data.index]} />
+        <S.Image src={imageList[data.index]} alt={REVIEW_IMAGE_ALT} />
       </S.Containter>
     </Modal>
   );

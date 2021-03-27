@@ -1,6 +1,7 @@
 import React from 'react';
 import { ControllerBtn } from 'components/ui';
 import { useSlide } from 'hooks';
+import { REVIEW_IMAGE_ALT } from 'common/constant/images';
 import * as S from './style';
 
 interface Props {
@@ -15,7 +16,7 @@ const ImageSlider = ({ imageList }: Props): React.ReactElement => {
     <S.Container>
       <S.Slide ref={controller.slideRef}>
         {imageList.map((img) => (
-          <S.Image src={img} key={img} />
+          <S.Image src={img} key={img} alt={REVIEW_IMAGE_ALT} />
         ))}
       </S.Slide>
       <ControllerBtn

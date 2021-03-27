@@ -40,7 +40,7 @@ const SearchResult = () => {
   return (
     <>
       <Head>
-        <title>댕댕로드 | {query} 검색결과</title>
+        <title>댕댕로드 | 검색결과</title>
         <meta
           property="og:title"
           content="댕댕로드 강아지 산책로 후기"
@@ -48,7 +48,7 @@ const SearchResult = () => {
         />
         <meta
           property="og:description"
-          content={`${query} 지역 강아지 산책로 후기`}
+          content={`강아지 산책로 후기`}
           key="ogdesc"
         />
       </Head>
