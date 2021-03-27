@@ -15,7 +15,11 @@ export interface Props {
 }
 
 /** confrim pop up atom */
-const ConfirmPopUp = ({ contents, closeHandler, submitHandler }: Props) => {
+const ConfirmPopUp = ({
+  contents,
+  closeHandler,
+  submitHandler,
+}: Props): React.ReactElement => {
   return (
     <S.Container>
       <S.Title>{contents}</S.Title>

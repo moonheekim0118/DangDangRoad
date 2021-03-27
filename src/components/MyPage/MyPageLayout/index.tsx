@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
-import PageMenu from '../PageMenu';
-import UserCard from '../UserCard';
-import { Modal, Title, Button, Loading } from 'components/ui';
+import { PageMenu, UserCard } from 'components/MyPage';
+import { Title, Button, Loading } from 'components/ui';
 import { useModal, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { UserType } from 'types/User';
@@ -16,10 +15,16 @@ import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as menus from 'common/constant/mypageDatas';
 import * as S from './style';
+import dynamic from 'next/dynamic';
+
+const Modal = dynamic(() => import('components/ui/Modal'));
 
 interface Props {
+  /** logged in user Info */
   userInfo: UserType;
+  /** now visiting page Name(title) */
   pageName: string;
+  /** now visiting page component */
   children: React.ReactNode;
 }
 
@@ -29,17 +34,19 @@ const MyPage = ({
   children,
 }: Props): React.ReactElement => {
   const [showModal, modalHandler] = useModal(false);
-  const [destroyResult, destroyDispatch] = useApiFetch(destroyAccount);
+  const [destroyAccountResult, destroyAccountFetch] = useApiFetch(
+    destroyAccount
+  );
 
   useEffect(() => {
-    if (destroyResult.type === SUCCESS) {
+    if (destroyAccountResult.type === SUCCESS) {
       modalHandler();
       Router.push(routes.HOME);
     }
-  }, [destroyResult.type]);
+  }, [destroyAccountResult.type]);
 
-  const DestroyHandler = useCallback(() => {
-    destroyDispatch({ type: REQUEST, params: [userInfo.userId] });
+  const destroyHandler = useCallback(() => {
+    destroyAccountFetch({ type: REQUEST, params: [userInfo.userId] });
   }, []);
 
   return (
@@ -65,28 +72,30 @@ const MyPage = ({
         </S.TitleContainer>
         {children}
       </S.MainContainer>
-      <Modal showModal={showModal} modalHandler={modalHandler}>
-        <S.DestroyConfirmContainer>
-          {DESTROY_ACCOUNT_TERM}
-          <S.DestroyTitle>{DESTROY_ACCOUNT_CAPTION}</S.DestroyTitle>
-          <S.DestroyButtonContainer>
-            <Button
-              theme="danger"
-              size="large"
-              width="35%"
-              onClick={DestroyHandler}>
-              {DESTROY_BUTTON_CAPTION}
-            </Button>
-            <Button
-              theme="info"
-              size="large"
-              width="35%"
-              onClick={modalHandler}>
-              {CANCLE_BUTTON_CAPTION}
-            </Button>
-          </S.DestroyButtonContainer>
-        </S.DestroyConfirmContainer>
-      </Modal>
+      {showModal && (
+        <Modal modalHandler={modalHandler}>
+          <S.DestroyConfirmContainer>
+            {DESTROY_ACCOUNT_TERM}
+            <S.DestroyTitle>{DESTROY_ACCOUNT_CAPTION}</S.DestroyTitle>
+            <S.DestroyButtonContainer>
+              <Button
+                theme="danger"
+                size="large"
+                width="35%"
+                onClick={destroyHandler}>
+                {DESTROY_BUTTON_CAPTION}
+              </Button>
+              <Button
+                theme="info"
+                size="large"
+                width="35%"
+                onClick={modalHandler}>
+                {CANCLE_BUTTON_CAPTION}
+              </Button>
+            </S.DestroyButtonContainer>
+          </S.DestroyConfirmContainer>
+        </Modal>
+      )}
     </S.Container>
   );
 };

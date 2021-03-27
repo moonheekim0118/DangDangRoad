@@ -1,6 +1,6 @@
 import React from 'react';
-import { colorCode } from 'common/style/color';
 import Image from 'next/image';
+import { colorCode } from 'common/style/color';
 import { SENT_EMAIL_IMAGE, SENT_EMAIL_IMAGE_ALT } from 'common/constant/images';
 import { EMAIL_VERFY_TITLE, EMAIL_VERFY_DESC } from 'common/constant/string';
 import styled from '@emotion/styled';
@@ -11,8 +11,8 @@ const SignUpProcess = (): React.ReactElement => {
       <Image
         src={SENT_EMAIL_IMAGE}
         alt={SENT_EMAIL_IMAGE_ALT}
-        width="300"
-        height="200"
+        width={300}
+        height={200}
       />
       <Title>{EMAIL_VERFY_TITLE}</Title>
       <Contents>{EMAIL_VERFY_DESC}</Contents>

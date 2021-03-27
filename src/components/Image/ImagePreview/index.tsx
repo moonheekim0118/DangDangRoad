@@ -1,10 +1,14 @@
 import React, { useState, useCallback } from 'react';
-import { ImageCarousel, ImageUploader } from 'components/Image';
+import { ImageUploader } from 'components/Image';
 import { useModal } from 'hooks';
 import { Icon } from 'components/ui';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
+import { REVIEW_IMAGE_ALT } from 'common/constant/images';
 import * as S from './style';
+import dynamic from 'next/dynamic';
+
+const ImageCarousel = dynamic(() => import('components/Image/ImageCarousel'));
 
 interface Props {
   /** image url List for Preview */
@@ -19,7 +23,7 @@ const ImagePreview = ({
   imageList,
   imageUrlChangeHandler,
   imageRemoveHanlder,
-}: Props) => {
+}: Props): React.ReactElement => {
   const [startIndex, setStartIndex] = useState<number>(0);
   const [showCarousel, carousleHandler] = useModal(false);
 
@@ -49,7 +53,11 @@ const ImagePreview = ({
       {imageList &&
         imageList.map((v, i) => (
           <S.ImageContainer key={v + i}>
-            <S.Image src={v} onClick={imageZoomHanlder(i)} />
+            <S.Image
+              src={v}
+              onClick={imageZoomHanlder(i)}
+              alt={REVIEW_IMAGE_ALT}
+            />
             <S.RemoveImage>
               {' '}
               <Icon
@@ -61,12 +69,13 @@ const ImagePreview = ({
             </S.RemoveImage>
           </S.ImageContainer>
         ))}
-      <ImageCarousel
-        imageList={imageList}
-        startIdx={startIndex}
-        showModal={showCarousel}
-        modalHanlder={carousleHandler}
-      />
+      {showCarousel && (
+        <ImageCarousel
+          imageList={imageList}
+          startIdx={startIndex}
+          modalHanlder={carousleHandler}
+        />
+      )}
     </S.Container>
   );
 };

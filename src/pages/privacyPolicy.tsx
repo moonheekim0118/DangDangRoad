@@ -1,9 +1,23 @@
 import React from 'react';
+import Head from 'next/head';
 import styled from '@emotion/styled';
 
 const PrivacyPolicy = () => {
   return (
     <Container>
+      <Head>
+        <title>댕댕로드 | 개인정보보호정책</title>
+        <meta
+          property="og:title"
+          content="댕댕로드 개인정보보호정책"
+          key="ogtitle"
+        />
+        <meta
+          property="og:description"
+          content="댕댕로드 개인정보보호정책"
+          key="ogdesc"
+        />
+      </Head>
       <h2>개인정보보호정책</h2>
       <p>
         댕댕로드 이용을 위해 수집한 귀하의 정보를 관리함에 있어서

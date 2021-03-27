@@ -23,8 +23,8 @@ interface Props {
   userId: string;
 }
 
-const WritePost = ({ userId }: Props) => {
-  const dispatch = useNotificationDispatch();
+const WritePost = ({ userId }: Props): React.ReactElement => {
+  const notiDispatch = useNotificationDispatch();
 
   const freeTextRef = useRef<InputRef>(inputDefaultRef());
   const hasParkingLotRef = useRef<InputRef>(inputDefaultRef());
@@ -32,21 +32,25 @@ const WritePost = ({ userId }: Props) => {
   const recommendationRef = useRef<InputRef>(inputDefaultRef());
   const imageUrlRef = useRef<RefType<string[]>>(defaultRef<string[]>([]));
 
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(createReview);
+  const [
+    createReviewResult,
+    createReviewFetch,
+    createReviewSetDefault,
+  ] = useApiFetch(createReview);
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
 
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (createReviewResult.type) {
       case SUCCESS:
-        dispatch(Action.showSuccess(SAVE_MESSAGE));
+        notiDispatch(Action.showSuccess(SAVE_MESSAGE));
         Router.push(routes.SEARCH);
         break;
       case FAILURE:
-        dispatch(Action.showError(fetchResult.error));
-        setDefault();
+        notiDispatch(Action.showError(createReviewResult.error));
+        createReviewSetDefault();
     }
-  }, [fetchResult]);
+  }, [createReviewResult]);
 
   const selectPlaceHandler = useCallback(
     (place: PlaceType) => () => {
@@ -79,7 +83,7 @@ const WritePost = ({ userId }: Props) => {
             y: selectedPlace.y,
           },
         };
-        fetchDispatch({
+        createReviewFetch({
           type: REQUEST,
           params: [data],
         });
@@ -103,7 +107,7 @@ const WritePost = ({ userId }: Props) => {
       recommendationRef={recommendationRef}
       recommendation={RAIDO_RECOMMENDATION_SOSO_VALUE}
       submitHandler={submitHandler}
-      loading={fetchResult.type === REQUEST}
+      loading={createReviewResult.type === REQUEST}
     />
   );
 };

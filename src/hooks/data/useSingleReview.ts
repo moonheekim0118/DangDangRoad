@@ -16,18 +16,20 @@ const useSingleReview = (initialFetch: boolean) => {
   const router = useRouter();
   const postId = router.query.id;
 
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<T.ReviewData>(
-    getReviewById
-  );
+  const [
+    getReviewResult,
+    getReviewFetch,
+    getReviewSetDefault,
+  ] = useApiFetch<T.ReviewData>(getReviewById);
   const [singleReview, setSingleReview] = useState<T.ReviewData | null>(null);
 
   useEffect(() => {
-    if (fetchResult.type === SUCCESS && fetchResult.data) {
-      setSingleReview(fetchResult.data);
-      CACHE.set(fetchResult.data.docId, fetchResult.data); // store in cache
-      setDefault();
+    if (getReviewResult.type === SUCCESS && getReviewResult.data) {
+      setSingleReview(getReviewResult.data);
+      CACHE.set(getReviewResult.data.docId, getReviewResult.data); // store in cache
+      getReviewSetDefault();
     }
-  }, [fetchResult]);
+  }, [getReviewResult]);
 
   useEffect(() => {
     if (initialFetch && typeof postId === 'string') {
@@ -38,10 +40,9 @@ const useSingleReview = (initialFetch: boolean) => {
   const fetchData = useCallback((postId: string) => {
     if (CACHE.has(postId)) {
       // check if it's cached data or not
-      console.log(CACHE);
       return setSingleReview(CACHE.get(postId));
     }
-    fetchDispatch({ type: REQUEST, params: [postId] });
+    getReviewFetch({ type: REQUEST, params: [postId] });
   }, []);
 
   const removeCache = useCallback((postId: string) => {
@@ -52,7 +53,14 @@ const useSingleReview = (initialFetch: boolean) => {
     CACHE.set(postId, data);
   }, []);
 
-  return { singleReview, fetchResult, fetchData, removeCache, updateCache };
+  return {
+    singleReview,
+    singleReviewFetchStatus: getReviewResult.type,
+    singleReviewFetchError: getReviewResult.error,
+    fetchData,
+    removeCache,
+    updateCache,
+  };
 };
 
 export default useSingleReview;

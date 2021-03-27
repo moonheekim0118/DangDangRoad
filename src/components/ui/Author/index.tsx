@@ -18,7 +18,13 @@ export interface Props {
   /** ref for Detail Element */
   detailRef?: React.Ref<HTMLDetailsElement>;
 }
-const Author = ({ userData, createdAt, size, children, detailRef }: Props) => {
+const Author = ({
+  userData,
+  createdAt,
+  size,
+  children,
+  detailRef,
+}: Props): React.ReactElement => {
   return (
     <S.Container css={S.mainSizes[size]}>
       <Avatar imageUrl={userData.profilePic} size={size} />

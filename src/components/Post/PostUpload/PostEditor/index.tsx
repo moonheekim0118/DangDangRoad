@@ -43,8 +43,8 @@ interface Props {
   submitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const PostEditor = (props: Props) => {
-  const dispatch = useNotificationDispatch();
+const PostEditor = (props: Props): React.ReactElement => {
+  const notiDispatch = useNotificationDispatch();
   const { index, slideRef, toPrev, toNext, setIndex } = useSlide({
     totalSlide: TOTAL_SLIDES,
   });
@@ -55,7 +55,7 @@ const PostEditor = (props: Props) => {
         if (!props.selectedPlace) {
           slideRef.current.style.transform = `translateX(0)`;
           slideRef.current.style.transition = 'all 0.5s ease-in-out';
-          dispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
+          notiDispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
           return setIndex(0);
         }
 
@@ -64,7 +64,7 @@ const PostEditor = (props: Props) => {
           if (value.length <= 0 || error) {
             slideRef.current.style.transform = `translateX(-100%)`;
             slideRef.current.style.transition = 'all 0.5s ease-in-out';
-            dispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
+            notiDispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
             return setIndex(1);
           }
         }

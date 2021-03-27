@@ -30,27 +30,30 @@ const ImageUploader = ({
   imageLimit,
   children,
   type,
-}: Props) => {
-  const dispatch = useNotificationDispatch();
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch<string[]>(
-    uploadImage
-  );
+}: Props): React.ReactElement => {
+  const notiDispatch = useNotificationDispatch();
+  const [
+    imageUploadResult,
+    imageUploadFetch,
+    imageUploadSetDefault,
+  ] = useApiFetch<string[]>(uploadImage);
   const imageInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (imageUploadResult.type) {
       case SUCCESS:
-        if (fetchResult.data) {
-          imageUrl.length + fetchResult.data.length <= imageLimit
-            ? imageUrlChangeHandler(imageUrl.concat(fetchResult.data))
-            : imageUrlChangeHandler(fetchResult.data);
+        if (imageUploadResult.data) {
+          imageUrl.length + imageUploadResult.data.length <= imageLimit
+            ? imageUrlChangeHandler(imageUrl.concat(imageUploadResult.data))
+            : imageUrlChangeHandler(imageUploadResult.data);
         }
-        setDefault();
+        imageUploadSetDefault();
         break;
       case FAILURE:
-        dispatch(showError(fetchResult.error));
+        notiDispatch(showError(imageUploadResult.error));
+        imageUploadSetDefault();
     }
-  }, [fetchResult]);
+  }, [imageUploadResult]);
 
   const uploaderClickHanlder = useCallback(() => {
     if (imageInput.current) {
@@ -65,16 +68,20 @@ const ImageUploader = ({
       const length =
         type === 'add' ? files.length + imageUrl.length : imageUrl.length;
       if (length > imageLimit) {
-        return dispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
+        return notiDispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
       }
-      fetchDispatch({ type: REQUEST, params: [files] });
+      imageUploadFetch({ type: REQUEST, params: [files] });
     },
     [imageUrl]
   );
 
   return (
     <Container onClick={uploaderClickHanlder}>
-      {fetchResult.type === REQUEST ? <Loading size="medium" /> : children}
+      {imageUploadResult.type === REQUEST ? (
+        <Loading size="medium" />
+      ) : (
+        children
+      )}
       <input
         type="file"
         multiple

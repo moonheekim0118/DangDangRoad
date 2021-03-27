@@ -10,7 +10,7 @@ const useSinglePostModal = (fullReviews: T.LightReviewData[]) => {
   const [showModal, modalHandler] = useModal(false);
   const {
     singleReview,
-    fetchResult: fetchSingleReviewResult,
+    singleReviewFetchStatus,
     fetchData: fetchSingleReview,
     removeCache,
   } = useSingleReview(false);
@@ -54,7 +54,7 @@ const useSinglePostModal = (fullReviews: T.LightReviewData[]) => {
 
   return {
     singleReview,
-    fetchSingleReviewResult,
+    singleReviewFetchStatus,
     showModal,
     index,
     removeCache,

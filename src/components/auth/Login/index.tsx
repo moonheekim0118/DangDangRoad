@@ -19,32 +19,32 @@ const Login = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const passwordRef = useRef<InputRef>(inputDefaultRef());
-  const [fetchResult, fetchDispatch, setDefault] = useApiFetch(signIn);
+  const [signInResult, signInFetch, signInSetDefault] = useApiFetch(signIn);
 
   useEffect(() => {
-    switch (fetchResult.type) {
+    switch (signInResult.type) {
       case SUCCESS:
         Router.push(routes.HOME);
         break;
       case FAILURE:
-        notiDispatch(Action.showError(fetchResult.error));
-        setDefault();
+        notiDispatch(Action.showError(signInResult.error));
+        signInSetDefault();
     }
-  }, [fetchResult]);
+  }, [signInResult]);
 
   /** submit handler */
-  const SignInHandler = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const submitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
       return notiDispatch(Action.showError(NOT_FULL_INFO_ERROR));
     }
-    fetchDispatch({ type: REQUEST, params: [{ email, password }] });
+    signInFetch({ type: REQUEST, params: [{ email, password }] });
   }, []);
 
   return (
-    <S.Form onSubmit={SignInHandler}>
+    <S.Form onSubmit={submitHanlder}>
       <S.Title>{MENU_LOGIN_TITLE}</S.Title>
       <Input type="email" id={inputId.EMAIL} required={true} ref={emailRef} />
       <Input
@@ -59,7 +59,7 @@ const Login = (): React.ReactElement => {
           theme="primary"
           size="large"
           width="100%"
-          loading={fetchResult.type === REQUEST}>
+          loading={signInResult.type === REQUEST}>
           {MENU_LOGIN_TITLE}
         </Button>
         <GoogleLoginButton />

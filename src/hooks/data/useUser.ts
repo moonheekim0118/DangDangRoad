@@ -34,15 +34,14 @@ const useUser = ({ redirectTo, redirectIfFound = false }: Props = {}): {
     if (user && user.isLoggedIn) dispatch(Action.loginSuccess(user));
     if (user && !user.isLoggedIn) dispatch(Action.logoutSuccess);
 
-    // if data is not yet here
-    if (!redirectTo || !user) return;
-
-    /** when it needs to be redirected */
-    if (
-      (redirectTo && !redirectIfFound && !user.isLoggedIn) ||
-      (redirectIfFound && user.isLoggedIn)
-    ) {
-      Router.push(redirectTo);
+    if (redirectTo && user) {
+      /** when it needs to be redirected */
+      if (
+        (redirectTo && !redirectIfFound && !user.isLoggedIn) ||
+        (redirectIfFound && user.isLoggedIn)
+      ) {
+        Router.push(redirectTo);
+      }
     }
   }, [user, redirectTo, redirectIfFound]);
 

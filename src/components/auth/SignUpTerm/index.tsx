@@ -4,11 +4,13 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { SHOW_TERMS_CAPTION } from 'common/constant/string';
-import { Modal } from 'components/ui';
 import { Button, CloseBtn } from 'components/ui';
 import { RefType } from 'types/Ref';
 import { useToggle, useModal } from 'hooks';
+import dynamic from 'next/dynamic';
 import * as S from './style';
+
+const Modal = dynamic(() => import('components/ui/Modal'));
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** label for checkbox */
@@ -17,7 +19,10 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   termContents: string;
 }
 
-const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
+const SignUpTerm = (
+  props: Props,
+  ref: React.Ref<RefType<boolean>>
+): React.ReactElement => {
   const { id, label, termContents, ...rest } = props;
   const [checked, checkHanlder] = useToggle();
   const [showModal, modalHanlder] = useModal(false);
@@ -48,12 +53,14 @@ const SignUpTerm = (props: Props, ref: React.Ref<RefType<boolean>>) => {
         onClick={modalHanlder}>
         {SHOW_TERMS_CAPTION}
       </Button>
-      <Modal showModal={showModal} modalHandler={modalHanlder}>
-        <S.DetailContainer>
-          <CloseBtn onClick={modalHanlder} />
-          <S.Contents>{termContents}</S.Contents>
-        </S.DetailContainer>
-      </Modal>
+      {showModal && (
+        <Modal modalHandler={modalHanlder}>
+          <S.DetailContainer>
+            <CloseBtn onClick={modalHanlder} />
+            <S.Contents>{termContents}</S.Contents>
+          </S.DetailContainer>
+        </Modal>
+      )}
     </S.Container>
   );
 };

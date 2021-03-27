@@ -26,7 +26,11 @@ interface Props {
   removeHanlder?: (id: string) => (e: React.MouseEvent) => void;
 }
 
-const SinglePost = ({ data, NavigationInfo, removeHanlder }: Props) => {
+const SinglePost = ({
+  data,
+  NavigationInfo,
+  removeHanlder,
+}: Props): React.ReactElement => {
   const { userId } = useLoginInfoState();
   const [detailRef, closeDropDownHanlder] = useCloseDropdown();
   return (

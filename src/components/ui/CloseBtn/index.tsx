@@ -10,7 +10,7 @@ export interface Props {
   onClick: () => void;
 }
 
-const CloseBtn = ({ size = 'large', onClick }: Props) => {
+const CloseBtn = ({ size = 'large', onClick }: Props): React.ReactElement => {
   return (
     <S.Container>
       <Icon icon={faTimes} style={S.iconStyle} size={size} onClick={onClick} />

@@ -13,7 +13,7 @@ const ControllerBtn = ({
   hasPrev,
   hasNext,
   location = -50,
-}: NavigationInfo) => {
+}: NavigationInfo): React.ReactElement => {
   return (
     <>
       {hasPrev && (

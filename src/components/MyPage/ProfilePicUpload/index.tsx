@@ -13,7 +13,7 @@ interface Props {
 const ProfilePicUpload = (
   { initImageUrl }: Props,
   ref: React.Ref<RefType<string[]>>
-) => {
+): React.ReactElement => {
   const [imageUrl, imageUrlChangeHandler] = useHandleImage([initImageUrl]);
   useImperativeHandle(ref, () => ({ value: imageUrl }), [imageUrl]);
 

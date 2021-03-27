@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Head from 'next/head';
 import { Author } from 'components/ui';
 import { colorCode } from 'common/style/color';
 
 const About = () => {
   return (
     <div>
+      <Head>
+        <title>댕댕로드 | 어바웃</title>
+        <meta property="og:title" content="댕댕로드 어바웃" key="ogtitle" />
+        <meta property="og:description" content="댕댕로드 소개" key="ogdesc" />
+      </Head>
       <Container>
         <Heading>댕댕로드에 대하여</Heading>
         <p>

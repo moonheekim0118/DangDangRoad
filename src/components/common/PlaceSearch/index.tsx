@@ -8,7 +8,7 @@ import { InputRef, inputDefaultRef } from 'types/Ref';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 
-const PlaceSearch = () => {
+const PlaceSearch = (): React.ReactElement => {
   const keywordRef = useRef<InputRef>(inputDefaultRef());
 
   const submitHandler = useCallback(

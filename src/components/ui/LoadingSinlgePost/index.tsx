@@ -3,7 +3,7 @@ import { Loading } from 'components/ui';
 import ContentLoader from 'react-content-loader';
 import * as S from './style';
 
-const LoadingSinglePost = () => {
+const LoadingSinglePost = (): React.ReactElement => {
   return (
     <>
       <ContentLoader width="100%" height="100%" css={S.contentsLoaderStyle}>

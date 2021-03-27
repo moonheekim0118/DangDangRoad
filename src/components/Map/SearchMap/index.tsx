@@ -17,12 +17,6 @@ import {
 import * as T from 'types/Map';
 import * as S from './style';
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
-
 let markers: any[] = [];
 
 interface Props {
@@ -39,7 +33,7 @@ const SearchMap = ({
   nowSelectedAddress,
   initialCoordX,
   initialCoordY,
-}: Props) => {
+}: Props): React.ReactElement => {
   const container = useElement('map');
   const [map, setMap] = useState<any>();
   const [placeData, setPlacesData] = useState<T.PlaceType[] | null>(null);

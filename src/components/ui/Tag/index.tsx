@@ -12,7 +12,7 @@ export interface Props {
   colorIndex?: number;
 }
 
-const Tag = ({ children, size, colorIndex = 0 }: Props) => {
+const Tag = ({ children, size, colorIndex = 0 }: Props): React.ReactElement => {
   return (
     <S.Container color={colorList[colorIndex]} css={sizes[size]}>
       <S.Text>#{children}</S.Text>

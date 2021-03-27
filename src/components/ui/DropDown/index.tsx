@@ -11,7 +11,7 @@ export interface Props {
   closeHanlder?: () => void;
 }
 
-const DropDown = ({ menuList, closeHanlder }: Props) => {
+const DropDown = ({ menuList, closeHanlder }: Props): React.ReactElement => {
   /** after excuting Menu's onClick function, close Dropdown */
   const clickHanlder = useCallback(
     (onClick?: (e: React.MouseEvent) => void) => (e: React.MouseEvent) => {

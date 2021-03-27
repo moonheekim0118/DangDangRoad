@@ -10,7 +10,7 @@ export interface Props {
   show: 'show' | 'hide' | '';
 }
 
-const HomeDescription = ({ show }: Props) => {
+const HomeDescription = ({ show }: Props): React.ReactElement => {
   let titleDir: 'left' | 'right' = show === 'show' ? 'right' : 'left';
   let descDir: 'left' | 'right' = show === 'show' ? 'left' : 'right';
   return (
@@ -24,8 +24,8 @@ const HomeDescription = ({ show }: Props) => {
         <Image
           src={EXAMPLE_DOG_IMAGE}
           alt={EXAMPLE_DOG_IMAGE_ALT}
-          width="350"
-          height="350"
+          width={350}
+          height={350}
         />
       </S.ImageContainer>
       <S.ContentsContainer>

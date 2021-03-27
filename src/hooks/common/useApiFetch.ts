@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback } from 'react';
+import { useEffect, useReducer, useCallback, useRef } from 'react';
 import { APIResponse } from 'types/API';
 import errorExTxt from 'util/errorExTxt';
 
@@ -42,7 +42,6 @@ const fetchData = async <T>(
       dispatch({ type: SUCCESS, data: response.data });
     }
   } catch (error) {
-    console.log(error);
     dispatch({ type: FAILURE, error: errorExTxt(error.code) });
   }
 };
@@ -53,12 +52,25 @@ const useApiFetch = <T = null>(
   const initialState: Result<T> = {
     type: '',
   };
-
   const [result, dispatch] = useReducer<Reducer<T>>(reducer, initialState);
+  const fetched = useRef<boolean>(false);
+  const mounted = useRef<boolean>(false);
 
   useEffect(() => {
-    if (result.type === REQUEST) {
+    mounted.current = true;
+    return () => {
+      setDefault();
+      mounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (result.type === REQUEST && !fetched.current && mounted.current) {
       fetchData<T>(apiRequest, dispatch, result.params);
+      fetched.current = true;
+    }
+    if (result.type === SUCCESS || result.type === FAILURE) {
+      fetched.current = false;
     }
   }, [result, apiRequest]);
 

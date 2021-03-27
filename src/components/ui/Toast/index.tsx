@@ -21,7 +21,13 @@ const icons = {
   fail: faExclamationTriangle,
 };
 
-const Toast = ({ children, theme, size, show, animation }: Props) => {
+const Toast = ({
+  children,
+  theme,
+  size,
+  show,
+  animation,
+}: Props): React.ReactElement => {
   return (
     <S.Container>
       <S.Component
