@@ -1,10 +1,12 @@
 import React from 'react';
-import { useCloseDropdown } from 'hooks';
-import { Avatar, Icon } from 'components/ui';
+import { Avatar } from 'components/ui';
 import { UserContents } from 'types/API';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import formatDate from 'util/formatDate';
+import dynamic from 'next/dynamic';
 import * as S from './style';
+
+const Icon = dynamic(() => import('components/ui/Icon'));
 
 export interface Props {
   /** user data to show */

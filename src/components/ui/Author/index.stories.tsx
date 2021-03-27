@@ -1,5 +1,6 @@
 import React from 'react';
 import Author, { Props } from '.';
+import { DropDown } from 'components/ui';
 import { css } from '@emotion/react';
 import { Story } from '@storybook/react';
 
@@ -14,6 +15,7 @@ const Template: Story<Props> = (args) => (
 
 export const Medium = Template.bind({});
 export const Small = Template.bind({});
+export const WithDropDown = Template.bind({});
 
 Medium.args = {
   userData: {
@@ -26,6 +28,11 @@ Medium.args = {
 Small.args = {
   ...Medium.args,
   size: 'small',
+};
+
+WithDropDown.args = {
+  ...Medium.args,
+  children: <DropDown menuList={[{ title: 'test' }]} />,
 };
 
 export default {
