@@ -60,3 +60,13 @@ export const PlaceName = styled.span`
   text-overflow: ellipsis;
   margin-bottom: 0.6rem;
 `;
+
+export const CommentsInfoContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  > * {
+    margin: 0 0.5rem;
+  }
+`;

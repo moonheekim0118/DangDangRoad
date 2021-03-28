@@ -12,12 +12,15 @@ interface Props {
   thumnail: string | null;
   /** place name to be shown in Preview */
   placeName: string;
+  /** comments Length */
+  commentsLength?: number;
 }
 
 const Preview = ({
   previewClickHanlder,
   thumnail,
   placeName,
+  commentsLength = 0,
 }: Props): React.ReactElement => {
   const [imageSrc, imageRef] = useLazyLoadImage(thumnail || DEFAULT_IMAGE_URL);
 
@@ -26,9 +29,10 @@ const Preview = ({
       <S.Overlay>
         <S.Description>
           <S.PlaceName>{placeName}</S.PlaceName>
-          <div>
-            <Icon icon={faComment} size="large" /> 12
-          </div>
+          <S.CommentsInfoContainer>
+            <Icon icon={faComment} size="large" />
+            {commentsLength}
+          </S.CommentsInfoContainer>
         </S.Description>
       </S.Overlay>
       <S.Image

@@ -66,6 +66,7 @@ export interface LightReviewData {
   thumbNail: string | null;
   placeName: string;
   createdAt: number;
+  commentsLength?: number;
 }
 
 export interface CommentData {

@@ -1,6 +1,7 @@
 import db from 'firebaseConfigs/db';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { EMPTY_USER_NICKNAME } from 'common/constant/string';
+import { getCommentsCount } from 'api/comment';
 import * as T from 'types/API';
 
 /** create new Review */
@@ -73,6 +74,10 @@ const extractReviewData = async (response): Promise<T.ReviewResult> => {
       reviews.push(review);
       lastKey = data.createdAt;
     });
+    for (const reviewData of reviews) {
+      const legnthCount = await getCommentsCount(reviewData.docId);
+      reviewData['commentsLength'] = legnthCount.data;
+    }
     return { reviews, lastKey };
   } catch (error) {
     throw error;

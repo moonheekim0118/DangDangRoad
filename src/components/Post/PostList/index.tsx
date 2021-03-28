@@ -35,6 +35,7 @@ const PostList = ({
             previewClickHanlder={openSinglePost(v.docId)}
             placeName={v.placeName}
             thumnail={v.thumbNail}
+            commentsLength={v.commentsLength}
           />
         ))}
       </S.ReviewContainer>
