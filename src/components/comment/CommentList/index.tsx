@@ -6,10 +6,7 @@ import useApiFetch, {
 } from 'hooks/common/useApiFetch';
 import { Loading, DropDown, Author, Button, Icon } from 'components/ui';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import {
-  EMPTY_COMMENT_TITLE,
-  DELETE_BUTTON_CAPTION,
-} from 'common/constant/string';
+import { DELETE_BUTTON_CAPTION } from 'common/constant/string';
 import { removeComment } from 'api/comment';
 import { REMOVE_MESSAGE } from 'common/constant/string';
 import { useNotificationDispatch } from 'context/Notification';
@@ -74,31 +71,30 @@ const CommentList = ({
   return (
     <S.Container>
       <S.List>
-        {comments.length > 0 &&
-          comments.map((v) => (
-            <S.CommentCard key={v.docId}>
-              <Author userData={v.userData} size="small">
-                {v.userId === userId && (
-                  <DropDown
-                    menuList={[
-                      {
-                        title: DELETE_BUTTON_CAPTION,
-                        onClick: removeCommentSubmitHandler(v.docId),
-                      },
-                    ]}
-                  />
-                )}
-              </Author>
-              <S.CommentContents>{v.contents}</S.CommentContents>
-            </S.CommentCard>
-          ))}
+        {comments.map((v) => (
+          <S.CommentCard key={v.docId}>
+            <Author userData={v.userData} size="small">
+              {v.userId === userId && (
+                <DropDown
+                  menuList={[
+                    {
+                      title: DELETE_BUTTON_CAPTION,
+                      onClick: removeCommentSubmitHandler(v.docId),
+                    },
+                  ]}
+                />
+              )}
+            </Author>
+            <S.CommentContents>{v.contents}</S.CommentContents>
+          </S.CommentCard>
+        ))}
         {isLoading ? (
           <S.LoadingContainer>
             <Loading size="medium" />
           </S.LoadingContainer>
         ) : (
           <>
-            {hasMore ? (
+            {hasMore && (
               <Button
                 size="large"
                 width="100%"
@@ -109,8 +105,6 @@ const CommentList = ({
                   style={S.moreIconStyle}
                 />
               </Button>
-            ) : (
-              comments.length === 0 && <span>{EMPTY_COMMENT_TITLE}</span>
             )}
           </>
         )}

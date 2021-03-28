@@ -4,9 +4,10 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
+import { EMPTY_COMMENT_TITLE } from 'common/constant/string';
+import { Loading } from 'components/ui';
 import { COMMENT_DATA_LIMIT } from 'common/constant/number';
 import { CommentResult, CommentData } from 'types/API';
-import { CommentList } from 'components/comment';
 import { getComments } from 'api/comment';
 import { useNotificationDispatch } from 'context/Notification';
 import cacheProto from 'util/cache';
@@ -15,6 +16,7 @@ import * as Action from 'action';
 import * as S from './style';
 
 const WriteComment = dynamic(() => import('components/comment/WriteComment'));
+const CommentList = dynamic(() => import('components/comment/CommentList'));
 
 interface Props {
   /** logged-in user Id */
@@ -124,16 +126,28 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
 
   return (
     <S.Container>
-      <CommentList
-        getMoreCommentsHandler={getMoreCommentsHandler}
-        removeCommentHandler={removeCommentHandler}
-        comments={comments}
-        userId={userId}
-        hasMore={hasMore}
-        isLoading={
-          getCommentResult.type === REQUEST || getCommentResult.type === SUCCESS
-        }
-      />
+      {comments.length > 0 ? (
+        <CommentList
+          getMoreCommentsHandler={getMoreCommentsHandler}
+          removeCommentHandler={removeCommentHandler}
+          comments={comments}
+          userId={userId}
+          hasMore={hasMore}
+          isLoading={
+            getCommentResult.type === REQUEST ||
+            getCommentResult.type === SUCCESS
+          }
+        />
+      ) : (
+        <S.LoadingContainer>
+          {getCommentResult.type === REQUEST ||
+          getCommentResult.type === SUCCESS ? (
+            <Loading />
+          ) : (
+            <span>{EMPTY_COMMENT_TITLE}</span>
+          )}
+        </S.LoadingContainer>
+      )}
       {userId && (
         <WriteComment
           addCommentHandler={addCommentHandler}
