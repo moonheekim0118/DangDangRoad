@@ -15,7 +15,7 @@ export const getPostData = async (postRef) => {
 /** get All BookMark Reviews*/
 export const getBookMarkedReviews = async (
   userId: string
-): T.APIResponse<T.BookMarkListResult> => {
+): T.APIResponse<T.BookMarkListType[]> => {
   try {
     const response = await db.collection('bookmarks').doc(userId).get();
     const postRefs = response.get('postRefs');
@@ -30,7 +30,7 @@ export const getBookMarkedReviews = async (
     }));
     return {
       isError: false,
-      data: { length: postLists.lenght, bookMarkList: postLists },
+      data: postLists,
     };
   } catch (error) {
     throw error;

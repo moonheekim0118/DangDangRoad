@@ -68,11 +68,6 @@ export interface BookMarkListType {
   };
 }
 
-export interface BookMarkListResult {
-  length: number;
-  bookMarkList: BookMarkListType[];
-}
-
 export interface ReviewData extends WriteReviewParams {
   docId: string;
   userData: UserContents;

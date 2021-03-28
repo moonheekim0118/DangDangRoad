@@ -29,7 +29,7 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
     getBookMarksResult,
     getBookMarksFetch,
     getBookMarksSetDefault,
-  ] = useApiFetch<BookMarkListResult>(getBookMarkedReviews);
+  ] = useApiFetch<BookMarkListType[]>(getBookMarkedReviews);
 
   const [
     removeBookMarkResult,
@@ -39,7 +39,7 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
 
   useEffect(() => {
     if (getBookMarksResult.type === SUCCESS) {
-      const bookMarkList = getBookMarksResult.data?.bookMarkList || [];
+      const bookMarkList = getBookMarksResult.data || [];
       setTotalLength(bookMarkList.length);
       setReviewList(
         bookMarkList.slice(pageNum - 1, pageNum + BOOKMARK_DATA_LIMIT - 1)
