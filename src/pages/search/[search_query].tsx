@@ -9,6 +9,7 @@ import {
 import { WriteButton } from 'components/Post';
 import { REQUEST } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/ui';
+import { LoaderContainer } from './index';
 import dynamic from 'next/dynamic';
 
 const Modal = dynamic(() => import('components/ui/Modal'));
@@ -92,9 +93,9 @@ const SearchResult = () => {
           </Card>
         </Modal>
       )}
-      <div ref={observerTarget}>
+      <LoaderContainer ref={observerTarget}>
         {allReviewFetchStatus === REQUEST && <Loading />}
-      </div>
+      </LoaderContainer>
     </>
   );
 };
