@@ -55,6 +55,11 @@ export interface CommentResult {
   lastKey: string;
 }
 
+export interface BookMarkResult {
+  isBookMarked: boolean;
+  postId: string;
+}
+
 export interface ReviewData extends WriteReviewParams {
   docId: string;
   userData: UserContents;

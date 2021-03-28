@@ -75,9 +75,9 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
             comments: updatedComments,
             hasMore,
           });
+          getCommentSetDefault();
+          break;
         }
-        getCommentSetDefault();
-        break;
       case FAILURE:
         notiDispatch(Action.showError(getCommentResult.error));
         getCommentSetDefault();

@@ -82,8 +82,14 @@ const Header = (): React.ReactElement => {
                   <S.DetailsMenu>
                     <DropDown
                       menuList={[
-                        { title: MENU_MYPAGE_TITLE, href: routes.MYPAGE },
-                        { title: MENU_BOOKMARK_TITLE, href: routes.MYPAGE },
+                        {
+                          title: MENU_MYPAGE_TITLE,
+                          href: routes.MYPAGE_UPDATE_PROFILE,
+                        },
+                        {
+                          title: MENU_BOOKMARK_TITLE,
+                          href: routes.MYPAGE_BOOKMARK,
+                        },
                         { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
                       ]}
                       closeHanlder={closeDropDownHanlder}

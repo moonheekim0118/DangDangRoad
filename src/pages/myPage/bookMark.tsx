@@ -7,22 +7,21 @@ import routes from 'common/constant/routes';
 import dynamic from 'next/dynamic';
 
 const MyPageLayout = dynamic(() => import('components/MyPage/MyPageLayout'));
+const MyReviews = dynamic(() => import('components/MyPage/MyReviews'));
 
-const UpdateProfile = dynamic(() => import('components/MyPage/UpdateProfile'));
-
-const updateProfile = () => {
-  const { user, mutateUser } = useUser({ redirectTo: routes.LOGIN });
+const BookMark = () => {
+  const { user } = useUser({ redirectTo: routes.LOGIN });
 
   return user && user.isLoggedIn ? (
-    <MyPageLayout pageName={MYPAGE_NAVIGATOR.updatePassword} userInfo={user}>
+    <MyPageLayout pageName={MYPAGE_NAVIGATOR.bookMark} userInfo={user}>
       <Head>
-        <title>댕댕로드 | 내 정보 변경</title>
+        <title>댕댕로드 | 북마크한 리뷰</title>
       </Head>
-      <UpdateProfile user={user} mutate={mutateUser} />
+      <MyReviews />
     </MyPageLayout>
   ) : (
     <Loading />
   );
 };
 
-export default updateProfile;
+export default BookMark;
