@@ -1,43 +1,67 @@
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  TextareaHTMLAttributes,
-  FormEvent,
-  useCallback,
-} from 'react';
+import React, { FormEvent, useCallback, useEffect } from 'react';
+import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { COMMENT_PLACEHOLDER } from 'common/constant/string';
 import { commentTextLengthCheck } from 'util/reviewTextValidation';
-import { useValidation } from 'hooks';
-import { InputRef } from 'types/Ref';
+import { useValidation, useApiFetch } from 'hooks';
+import { CommentData } from 'types/API';
 import { Button } from 'components/ui';
+import { createComment } from 'api/comment';
+import { useNotificationDispatch } from 'context/Notification';
+import * as Action from 'action';
 import * as S from './style';
 
-interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  submitComment: () => void;
+interface Props {
+  /** author's id */
+  userId: string;
+  /** comment's postId */
+  postId: string;
+  /** to store new Comment in cache and state */
+  addCommentHandler: (newComments: CommentData) => void;
 }
 
-const WriteComment = (
-  props: Props,
-  ref: React.Ref<InputRef>
-): React.ReactElement => {
-  const { submitComment, ...rest } = props;
+const WriteComment = ({
+  userId,
+  postId,
+  addCommentHandler,
+}: Props): React.ReactElement => {
+  const notiDispatch = useNotificationDispatch();
   const { value, error, valueChangeHanlder, setValue } = useValidation({
     validator: commentTextLengthCheck,
   });
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      value,
-    }),
+  const [
+    createCommentResult,
+    createCommentFetch,
+    createCommentSetDefault,
+  ] = useApiFetch<CommentData>(createComment);
+
+  useEffect(() => {
+    switch (createCommentResult.type) {
+      case SUCCESS:
+        const newComment = createCommentResult.data;
+        if (newComment) {
+          // add New Comment
+          addCommentHandler(newComment);
+          createCommentSetDefault();
+          break;
+        }
+      case FAILURE:
+        notiDispatch(Action.showError(createCommentResult.error));
+        createCommentSetDefault();
+    }
+  }, [createCommentResult]);
+
+  const submitHandler = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      createCommentFetch({
+        type: REQUEST,
+        params: [{ userId, postId, contents: value }],
+      });
+      setValue('');
+    },
     [value]
   );
-
-  const submitHandler = useCallback((e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    submitComment();
-    setValue('');
-  }, []);
 
   return (
     <S.Form onSubmit={submitHandler}>
@@ -46,7 +70,6 @@ const WriteComment = (
         placeholder={COMMENT_PLACEHOLDER}
         value={value}
         onChange={valueChangeHanlder}
-        {...rest}
       />
       <S.ButtonContainer>
         <Button
@@ -62,4 +85,4 @@ const WriteComment = (
   );
 };
 
-export default forwardRef(WriteComment);
+export default WriteComment;

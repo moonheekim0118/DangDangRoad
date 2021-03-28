@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
 import { COMMENT_DATA_LIMIT } from 'common/constant/number';
-import { REMOVE_MESSAGE } from 'common/constant/string';
 import { CommentResult, CommentData } from 'types/API';
-import { InputRef, inputDefaultRef } from 'types/Ref';
-import { WriteComment, CommentList } from 'components/comment';
-import { createComment, getComments, removeComment } from 'api/comment';
+import { CommentList } from 'components/comment';
+import { getComments } from 'api/comment';
 import { useNotificationDispatch } from 'context/Notification';
 import cacheProto from 'util/cache';
+import dynamic from 'next/dynamic';
 import * as Action from 'action';
 import * as S from './style';
+
+const WriteComment = dynamic(() => import('components/comment/WriteComment'));
 
 interface Props {
   /** logged-in user Id */
@@ -32,28 +33,15 @@ const CACHE = new cacheProto<DataType>();
 
 const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const commentRef = useRef<InputRef>(inputDefaultRef());
   const [comments, setComments] = useState<CommentData[]>([]);
   const [lastKey, setLastKey] = useState<string>('');
   const [hasMore, setHasMore] = useState<boolean>(false);
-
-  const [
-    createCommentResult,
-    createCommentFetch,
-    createCommentSetDefault,
-  ] = useApiFetch<CommentData>(createComment);
 
   const [
     getCommentResult,
     getCommentFetch,
     getCommentSetDefault,
   ] = useApiFetch<CommentResult>(getComments);
-
-  const [
-    removeCommentResult,
-    removeCommentFetch,
-    removeCommentSetDefault,
-  ] = useApiFetch<string>(removeComment);
 
   /** initially get Comments Datas from Cache or API fetching */
   useEffect(() => {
@@ -94,83 +82,44 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
     }
   }, [getCommentResult, comments]);
 
-  /** hanlding result of createComment data fetching */
-  useEffect(() => {
-    switch (createCommentResult.type) {
-      case SUCCESS:
-        const newComment = createCommentResult.data;
-        if (newComment) {
-          // add New Comment
-          const updatedComments = [...comments, newComment];
-          setComments(updatedComments);
-          const cachedData = CACHE.get(postId);
-          const updatedData = {
-            ...cachedData,
-            comments: updatedComments,
-          } as DataType;
-          CACHE.set(postId, updatedData);
-        }
-        createCommentSetDefault();
-        break;
-      case FAILURE:
-        notiDispatch(Action.showError(getCommentResult.error));
-        createCommentSetDefault();
-    }
-  }, [createCommentResult, comments]);
-
-  /** hanlding result of remove Comment data fetching */
-  useEffect(() => {
-    switch (removeCommentResult.type) {
-      case SUCCESS:
-        const id = removeCommentResult.data; // removed data's Id
-        const cachedData = CACHE.get(postId);
-        let updatedLastKey = cachedData?.lastKey || 0;
-        // remove item & update LastKey if it need to be
-        const updatedComments = comments.filter((v, i) => {
-          if (v.docId === id && v.createdAt === updatedLastKey) {
-            updatedLastKey = comments[i - 1].createdAt;
-          }
-          return v.docId !== id;
-        });
-        setComments(updatedComments);
-        removeCommentSetDefault();
-        const updatedData = {
-          ...cachedData,
-          comments: updatedComments,
-          lastKey: updatedLastKey,
-        } as DataType;
-        CACHE.set(postId, updatedData); // update Cached Data
-        notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
-        break;
-      case FAILURE:
-        notiDispatch(Action.showError(removeCommentResult.error));
-        removeCommentSetDefault();
-    }
-  }, [removeCommentResult, comments]);
-
-  const submitCommentHanlder = useCallback(() => {
-    const { value: contents } = commentRef.current;
-    createCommentFetch({
-      type: REQUEST,
-      params: [
-        {
-          userId,
-          postId,
-          contents,
-        },
-      ],
-    });
-  }, []);
+  const addCommentHandler = useCallback(
+    (newComment: CommentData) => {
+      const updatedComments = [newComment, ...comments];
+      setComments(updatedComments);
+      const cachedData = CACHE.get(postId);
+      const updatedData = {
+        ...cachedData,
+        comments: updatedComments,
+      } as DataType;
+      CACHE.set(postId, updatedData);
+    },
+    [comments]
+  );
 
   const getMoreCommentsHandler = useCallback(() => {
     hasMore && getCommentFetch({ type: REQUEST, params: [postId, lastKey] });
   }, [lastKey, hasMore, postId]);
 
   const removeCommentHandler = useCallback(
-    (id: string) => () => {
-      removeCommentFetch({ type: REQUEST, params: [id] });
+    (id: string) => {
+      const cachedData = CACHE.get(postId);
+      let updatedLastKey = cachedData?.lastKey || 0;
+      // remove item & update LastKey if it need to be
+      const updatedComments = comments.filter((v, i) => {
+        if (v.docId === id && v.createdAt === updatedLastKey) {
+          updatedLastKey = comments[i - 1].createdAt;
+        }
+        return v.docId !== id;
+      });
+      const updatedData = {
+        ...cachedData,
+        comments: updatedComments,
+        lastKey: updatedLastKey,
+      } as DataType;
+      setComments(updatedComments);
+      CACHE.set(postId, updatedData);
     },
-    []
+    [comments]
   );
 
   return (
@@ -186,7 +135,11 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
         }
       />
       {userId && (
-        <WriteComment submitComment={submitCommentHanlder} ref={commentRef} />
+        <WriteComment
+          addCommentHandler={addCommentHandler}
+          userId={userId}
+          postId={postId}
+        />
       )}
     </S.Container>
   );
