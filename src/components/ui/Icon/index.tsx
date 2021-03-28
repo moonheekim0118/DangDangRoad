@@ -17,7 +17,7 @@ export interface Props {
 const Icon = ({ icon, style, size, onClick }: Props): React.ReactElement => {
   return onClick ? (
     <S.ButtonComponent onClick={onClick} css={S.sizes[size]}>
-      <S.Component icon={icon} css={style} />
+      <S.Component icon={icon} css={[style, S.sizes[size]]} />
     </S.ButtonComponent>
   ) : (
     <S.Component icon={icon} css={[S.sizes[size], style]} />

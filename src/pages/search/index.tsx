@@ -9,6 +9,7 @@ import {
 } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/ui';
+import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 
 const Modal = dynamic(() => import('components/ui/Modal'));
@@ -88,11 +89,18 @@ const SearchMain = () => {
           </Card>
         </Modal>
       )}
-      <div ref={observerTarget}>
+      <LoaderContainer ref={observerTarget}>
         {allReviewsFetchStatus === REQUEST && <Loading />}
-      </div>
+      </LoaderContainer>
     </>
   );
 };
+
+export const LoaderContainer = styled.div`
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+`;
 
 export default SearchMain;

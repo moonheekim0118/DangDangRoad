@@ -15,7 +15,6 @@ export { default as useQueryReviews } from './data/useQueryReviews';
 export { default as useSinglePostModal } from './controller/useSinglePostModal';
 export { default as usePasswordCheck } from './controller/usePasswordCheck';
 export { default as useHandleImage } from './controller/useHandleImage';
-export { default as useSessionStorage } from './common/useSessionStorage';
 export { default as useWarnUsavedChange } from './common/useWarnUnsavedChange';
 export { default as useCloseDropdown } from './common/useCloseDropdown';
 export { default as useLazyLoadImage } from './common/useLazyLoadImage';
