@@ -1,9 +1,37 @@
 import db from 'firebaseConfigs/db';
 import * as T from 'types/API';
 
-/** get Book Mark reviews by 5 limits */
-export const getBookMarkedReviews = async (userId: string) => {
+export const getPostData = async (postRef) => {
   try {
+    const response = await postRef.get();
+    const postData = response.data();
+    postData['docId'] = response.id;
+    return postData ? postData : null;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/** get All BookMark Reviews*/
+export const getBookMarkedReviews = async (
+  userId: string
+): T.APIResponse<T.BookMarkListResult> => {
+  try {
+    const response = await db.collection('bookmarks').doc(userId).get();
+    const postRefs = response.get('postRefs');
+    let postLists = [] as any;
+    for (const ref of postRefs) {
+      const data = await getPostData(ref);
+      data && postLists.push(data);
+    }
+    postLists = postLists.map((v) => ({
+      docId: v.docId,
+      placeInfo: v.placeInfo,
+    }));
+    return {
+      isError: false,
+      data: { length: postLists.lenght, bookMarkList: postLists },
+    };
   } catch (error) {
     throw error;
   }

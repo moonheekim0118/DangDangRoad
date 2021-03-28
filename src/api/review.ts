@@ -27,7 +27,6 @@ export const updateReview = async (
   try {
     data['createdAt'] = Date.now();
     await db.collection('reviews').doc(id).update(data);
-    console.log(data);
     return { isError: false, data };
   } catch (error) {
     throw error;
@@ -49,11 +48,7 @@ export const getUserData = async (userRef): Promise<T.UserContents> => {
   try {
     const response = await userRef.get();
     const userData = response.data();
-    if (userData) {
-      return userData;
-    } else {
-      return { nickname: EMPTY_USER_NICKNAME };
-    }
+    return userData ? userData : { nickname: EMPTY_USER_NICKNAME };
   } catch (error) {
     throw error;
   }

@@ -82,10 +82,12 @@ const PostBookMark = ({ postId }: Props) => {
 
   /** handling remove bookmark api fetch result  */
   useEffect(() => {
-    const postId = removeBookMarkResult.data;
-    if (removeBookMarkResult.type === SUCCESS && postId) {
-      setIsBookMarked(false);
-      CACHE.delete(postId);
+    if (removeBookMarkResult.type === SUCCESS) {
+      const postId = removeBookMarkResult.data;
+      if (postId) {
+        setIsBookMarked(false);
+        CACHE.delete(postId);
+      }
       return removeBookMarkSetDefault();
     }
   }, [removeBookMarkResult]);

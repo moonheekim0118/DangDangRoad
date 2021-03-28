@@ -60,6 +60,19 @@ export interface BookMarkResult {
   postId: string;
 }
 
+export interface BookMarkListType {
+  docId: string;
+  placeInfo: {
+    address_name: string;
+    place_name: string;
+  };
+}
+
+export interface BookMarkListResult {
+  length: number;
+  bookMarkList: BookMarkListType[];
+}
+
 export interface ReviewData extends WriteReviewParams {
   docId: string;
   userData: UserContents;
