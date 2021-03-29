@@ -8,6 +8,7 @@ export const Post = styled.div`
   @media only screen and (max-width: 380px) {
     width: 100%;
     height: 100%;
+    min-height: 200px;
   }
 `;
 export const Image = styled.img<{ loaded: boolean }>`

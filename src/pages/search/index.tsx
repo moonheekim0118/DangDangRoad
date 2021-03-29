@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Head from 'next/head';
-import { WriteButton, PostList } from 'components/Post';
+import { PostList } from 'components/Post';
 import {
   useUser,
   useAllReviews,
@@ -17,6 +17,7 @@ const Card = dynamic(() => import('components/ui/Card'));
 const LoadingSinglePost = dynamic(
   () => import('components/ui/LoadingSinlgePost')
 );
+const WriteButton = dynamic(() => import('components/Post/WriteButton'));
 const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
 const SearchMain = () => {

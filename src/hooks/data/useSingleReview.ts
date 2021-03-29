@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
-import { useRouter } from 'next/router';
 import { getReviewById } from 'api/review';
 import cacheProto from 'util/cache';
 import * as T from 'types/API';
@@ -12,10 +11,7 @@ import * as T from 'types/API';
 
 const CACHE = new cacheProto<T.ReviewData>();
 
-const useSingleReview = (initialFetch: boolean) => {
-  const router = useRouter();
-  const postId = router.query.id;
-
+const useSingleReview = () => {
   const [
     getReviewResult,
     getReviewFetch,
@@ -23,12 +19,6 @@ const useSingleReview = (initialFetch: boolean) => {
   ] = useApiFetch<T.ReviewData>(getReviewById);
 
   const [singleReview, setSingleReview] = useState<T.ReviewData | null>(null);
-
-  useEffect(() => {
-    if (initialFetch && typeof postId === 'string') {
-      fetchData(postId);
-    }
-  }, []);
 
   useEffect(() => {
     if (getReviewResult.type === SUCCESS && getReviewResult.data) {
