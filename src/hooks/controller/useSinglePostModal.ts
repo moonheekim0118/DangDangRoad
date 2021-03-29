@@ -13,7 +13,7 @@ const useSinglePostModal = (fullReviews: T.LightReviewData[]) => {
     singleReviewFetchStatus,
     fetchData: fetchSingleReview,
     removeCache,
-  } = useSingleReview(false);
+  } = useSingleReview();
 
   useEffect(() => {
     const query = Router.query.search_query;
