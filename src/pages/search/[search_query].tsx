@@ -6,7 +6,6 @@ import {
   useIntersectionObserver,
   useSinglePostModal,
 } from 'hooks';
-import { WriteButton } from 'components/Post';
 import { REQUEST } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/ui';
 import { LoaderContainer } from './index';
@@ -17,6 +16,7 @@ const Card = dynamic(() => import('components/ui/Card'));
 const LoadingSinglePost = dynamic(
   () => import('components/ui/LoadingSinlgePost')
 );
+const WriteButton = dynamic(() => import('components/Post/WriteButton'));
 const PostList = dynamic(() => import('components/Post/PostList'));
 const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
