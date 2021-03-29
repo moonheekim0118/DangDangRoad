@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useSingleReview } from 'hooks';
 import { Link, Card, LoadingSinglePost } from 'components/ui';
 import { useUser } from 'hooks';
+import Router from 'next/router';
 import routes from 'common/constant/routes';
 import dynamic from 'next/dynamic';
 
@@ -10,7 +11,12 @@ const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
 const singlePost = () => {
   useUser();
-  const { singleReview, singleReviewFetchError } = useSingleReview(true);
+  const { fetchData, singleReview, singleReviewFetchError } = useSingleReview();
+
+  useEffect(() => {
+    const postId = Router.query.id;
+    typeof postId === 'string' && fetchData(postId);
+  }, []);
 
   return singleReviewFetchError ? (
     <span>{singleReviewFetchError}</span>
