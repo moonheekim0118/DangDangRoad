@@ -12,9 +12,14 @@ const UpdatePost = dynamic(
 
 const updatePost = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
-  const { singleReview, updateCache } = useSingleReview(true);
+  const { fetchData, singleReview, updateCache } = useSingleReview();
 
   useWarnUsavedChange(routes.SEARCH);
+
+  useEffect(() => {
+    const postId = Router.query.id;
+    typeof postId === 'string' && fetchData(postId);
+  }, []);
 
   useEffect(() => {
     if (user && singleReview && singleReview.userId !== user.userId) {
