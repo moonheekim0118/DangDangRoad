@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
-import { useRouter } from 'next/router';
 import { getReviewById } from 'api/review';
 import cacheProto from 'util/cache';
 import * as T from 'types/API';

@@ -54,18 +54,15 @@ const useApiFetch = <T = null>(
   };
   const [result, dispatch] = useReducer<Reducer<T>>(reducer, initialState);
   const fetched = useRef<boolean>(false);
-  const mounted = useRef<boolean>(false);
 
   useEffect(() => {
-    mounted.current = true;
     return () => {
       setDefault();
-      mounted.current = false;
     };
   }, []);
 
   useEffect(() => {
-    if (result.type === REQUEST && !fetched.current && mounted.current) {
+    if (result.type === REQUEST && !fetched.current) {
       fetchData<T>(apiRequest, dispatch, result.params);
       fetched.current = true;
     }
