@@ -1,5 +1,6 @@
 import algoliasearch from 'algoliasearch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
+import { getCommentsCount } from 'api/comment';
 import * as T from 'types/API';
 
 const client = algoliasearch(
@@ -16,7 +17,6 @@ const getDatasFromAlgolia = async (
 ): Promise<T.LightReviewData[]> => {
   try {
     const response = await index.search(keyword);
-    console.log(keyword, response);
     let reviews: T.LightReviewData[] = [];
     response.hits.forEach((data) => {
       const review = {
@@ -27,6 +27,10 @@ const getDatasFromAlgolia = async (
       };
       reviews.push(review);
     });
+    for (const reviewData of reviews) {
+      const legnthCount = await getCommentsCount(reviewData.docId);
+      reviewData['commentsLength'] = legnthCount.data;
+    }
     return reviews.sort((a, b) => b.createdAt - a.createdAt); // recent
   } catch (error) {
     throw error;

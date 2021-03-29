@@ -46,6 +46,11 @@ class cacheProto<T> {
   delete = (key: string) => {
     delete this.data[key];
   };
+
+  // Clear all Datas
+  clear = () => {
+    this.data = {};
+  };
 }
 
 export default cacheProto;

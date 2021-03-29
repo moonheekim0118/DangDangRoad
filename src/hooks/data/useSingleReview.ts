@@ -21,7 +21,14 @@ const useSingleReview = (initialFetch: boolean) => {
     getReviewFetch,
     getReviewSetDefault,
   ] = useApiFetch<T.ReviewData>(getReviewById);
+
   const [singleReview, setSingleReview] = useState<T.ReviewData | null>(null);
+
+  useEffect(() => {
+    if (initialFetch && typeof postId === 'string') {
+      fetchData(postId);
+    }
+  }, []);
 
   useEffect(() => {
     if (getReviewResult.type === SUCCESS && getReviewResult.data) {
@@ -30,12 +37,6 @@ const useSingleReview = (initialFetch: boolean) => {
       getReviewSetDefault();
     }
   }, [getReviewResult]);
-
-  useEffect(() => {
-    if (initialFetch && typeof postId === 'string') {
-      fetchData(postId);
-    }
-  }, []);
 
   const fetchData = useCallback((postId: string) => {
     if (CACHE.has(postId)) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { PostBookMark } from 'components/Post';
 import { CommentSection } from 'components/comment';
 import { useCloseDropdown } from 'hooks';
 import { ReviewData } from 'types/API';
@@ -37,6 +38,7 @@ const SinglePost = ({
     <>
       <S.Container>
         <S.ContentsContainer>
+          <PostBookMark postId={data.docId} />
           <S.PlaceName>{data.placeInfo.place_name}</S.PlaceName>
           <S.PlaceDetail>{data.placeInfo.address_name}</S.PlaceDetail>
           <BasicMap coordX={data.placeInfo.x} coordY={data.placeInfo.y} />

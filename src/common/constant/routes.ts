@@ -1,9 +1,9 @@
 export default {
   HOME: '/',
   MYPAGE_INDEX: '/myPage',
-  MYPAGE: '/myPage',
   MYPAGE_UPDATE_PASSWORD: '/myPage/updatePassword',
-  MYPAGE_UPDATE_PROFILE: '/myPage/updateProfile',
+  MYPAGE_UPDATE_PROFILE: '/myPage',
+  MYPAGE_BOOKMARK: '/myPage/bookMark',
   POST: '/post',
   SEARCH: '/search',
   UPDATE_POST: '/update_post',

@@ -55,6 +55,19 @@ export interface CommentResult {
   lastKey: string;
 }
 
+export interface BookMarkResult {
+  isBookMarked: boolean;
+  postId: string;
+}
+
+export interface BookMarkListType {
+  docId: string;
+  placeInfo: {
+    address_name: string;
+    place_name: string;
+  };
+}
+
 export interface ReviewData extends WriteReviewParams {
   docId: string;
   userData: UserContents;
@@ -66,6 +79,7 @@ export interface LightReviewData {
   thumbNail: string | null;
   placeName: string;
   createdAt: number;
+  commentsLength?: number;
 }
 
 export interface CommentData {

@@ -40,7 +40,7 @@ const extractCommentData = async (response): Promise<T.CommentResult> => {
   }
 };
 
-/** get COmments By 5*/
+/** get Comments By 5*/
 export const getComments = async (
   postId: string,
   key?: string
@@ -99,6 +99,18 @@ export const removeComment = async (id: string): T.APIResponse<string> => {
   try {
     await db.collection('comments').doc(id).delete();
     return { isError: false, data: id };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCommentsCount = async (id: string): T.APIResponse<number> => {
+  try {
+    const snpashot = await db
+      .collection('comments')
+      .where('postId', '==', id)
+      .get();
+    return { isError: false, data: snpashot.size };
   } catch (error) {
     throw error;
   }
