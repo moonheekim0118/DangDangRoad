@@ -42,7 +42,7 @@
 
 ## 서비스 로직
 
-![](https://drive.google.com/file/d/1rPoh6JtQIGggwZDXzWuWrKKJj3ZI5GAn/view?usp=sharing)
+![](https://i.imgur.com/svhTaFE.jpg)
 
 - 프론트엔드는 React 와 Next.js 를 사용했습니다.
   - Next.js를 사용한 이유 : 리액트 라우팅의 편리함, 자동 코드 스플릿팅, SEO 향상의 이유로 Next.js 프레임워크를 사용했습니다.
