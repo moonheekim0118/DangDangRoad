@@ -1,6 +1,5 @@
 import React from 'react';
 import Author, { Props } from '.';
-import { DropDown } from 'components/ui';
 import { css } from '@emotion/react';
 import { Story } from '@storybook/react';
 
@@ -32,7 +31,12 @@ Small.args = {
 
 WithDropDown.args = {
   ...Medium.args,
-  children: <DropDown menuList={[{ title: 'test' }]} />,
+  menuList: [
+    {
+      title: 'test',
+    },
+    { title: 'test2' },
+  ],
 };
 
 export default {
