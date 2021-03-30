@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Avatar } from 'components/ui';
 import { UserContents } from 'types/API';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
-import formatDate from 'util/formatDate';
 import dynamic from 'next/dynamic';
 import * as S from './style';
 
 const Icon = dynamic(() => import('components/ui/Icon'));
+const DetailsDropdown = dynamic(() => import('components/ui/DetailsDropdown'));
 
 export interface Props {
   /** user data to show */
@@ -15,36 +15,49 @@ export interface Props {
   createdAt?: number;
   /** size of author card */
   size: 'medium' | 'small';
-  /** dropdown children for editing post or comment */
-  children?: React.ReactNode;
-  /** ref for Detail Element */
-  detailRef?: React.Ref<HTMLDetailsElement>;
+  /** dropdown menu list */
+  menuList?: {
+    title: string;
+    href?: string;
+    onClick?: (e: React.MouseEvent) => void;
+  }[];
 }
 const Author = ({
   userData,
   createdAt,
   size,
-  children,
-  detailRef,
+  menuList,
 }: Props): React.ReactElement => {
+  const formatDate = useMemo((): string => {
+    if (createdAt) {
+      let parsedDate = new Date(createdAt);
+      const year = parsedDate.getFullYear();
+      const month = parsedDate.getMonth() + 1;
+      const day = parsedDate.getDate();
+
+      return `${year}년 ${month}월 ${day}일`;
+    }
+    return '';
+  }, [createdAt]);
+
   return (
     <S.Container css={S.mainSizes[size]}>
       <Avatar imageUrl={userData.profilePic} size={size} />
       <S.Info css={S.infoSizes[size]}>
         <S.Nickname>{userData.nickname}</S.Nickname>
         {createdAt && (
-          <S.TimeStamp css={S.timeSizes[size]}>
-            {formatDate(createdAt)} 작성
-          </S.TimeStamp>
+          <S.TimeStamp css={S.timeSizes[size]}>{formatDate} 작성</S.TimeStamp>
         )}
       </S.Info>
-      {children && (
-        <S.EditDetailsContainer ref={detailRef}>
+      {menuList && (
+        <DetailsDropdown
+          menuList={menuList}
+          detailStyle={S.detailStyle}
+          menuStyle={S.menuStyle}>
           <summary>
             <Icon icon={faEllipsisV} size={size} />
           </summary>
-          <S.DetailsMenu>{children}</S.DetailsMenu>
-        </S.EditDetailsContainer>
+        </DetailsDropdown>
       )}
     </S.Container>
   );

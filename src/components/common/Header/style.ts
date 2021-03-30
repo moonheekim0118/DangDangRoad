@@ -37,7 +37,7 @@ export const HideInMobile = styled.div`
   }
 `;
 
-export const AuthDetailsContainer = styled.details`
+export const authDetailStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,7 +61,7 @@ export const UserInfoSummary = styled.summary`
   }
 `;
 
-export const DetailsMenu = styled.menu`
+export const detailMenuStyle = css`
   position: absolute;
   top: 2.5rem;
   right: 2.5rem;
