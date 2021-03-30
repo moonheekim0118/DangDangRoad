@@ -75,6 +75,23 @@ export const EditDetailsContainer = styled.details`
   }
 `;
 
+export const detailStyle = css`
+  right: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  > summary {
+    display: block;
+    &:focus {
+      outline: none;
+    }
+  }
+`;
+
+export const menuStyle = css`
+  position: absolute;
+  right: 1rem;
+`;
+
 export const DetailsMenu = styled.menu`
   position: absolute;
   right: 1rem;

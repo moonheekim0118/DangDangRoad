@@ -1,11 +1,10 @@
 import React from 'react';
 import { PostBookMark } from 'components/Post';
 import { CommentSection } from 'components/comment';
-import { useCloseDropdown } from 'hooks';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Author, ControllerBtn, DropDown } from 'components/ui';
+import { Author, ControllerBtn } from 'components/ui';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -33,7 +32,6 @@ const SinglePost = ({
   removeHanlder,
 }: Props): React.ReactElement => {
   const { userId } = useLoginInfoState();
-  const [detailRef, closeDropDownHanlder] = useCloseDropdown();
   return (
     <>
       <S.Container>
@@ -62,23 +60,21 @@ const SinglePost = ({
             userData={data.userData}
             createdAt={data.createdAt}
             size="medium"
-            detailRef={detailRef}>
-            {data.userId === userId && (
-              <DropDown
-                menuList={[
-                  {
-                    title: UPDATE_BUTTON_CAPTION,
-                    href: `${routes.UPDATE_POST}/${data.docId}`,
-                  },
-                  {
-                    title: DELETE_BUTTON_CAPTION,
-                    onClick: removeHanlder && removeHanlder(data.docId),
-                  },
-                ]}
-                closeHanlder={closeDropDownHanlder}
-              />
-            )}
-          </Author>
+            menuList={
+              userId === data.userId
+                ? [
+                    {
+                      title: UPDATE_BUTTON_CAPTION,
+                      href: `${routes.UPDATE_POST}/${data.docId}`,
+                    },
+                    {
+                      title: DELETE_BUTTON_CAPTION,
+                      onClick: removeHanlder && removeHanlder(data.docId),
+                    },
+                  ]
+                : undefined
+            }
+          />
           {data.imageList.length > 0 && (
             <ImageSlider imageList={data.imageList} />
           )}

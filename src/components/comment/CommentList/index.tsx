@@ -4,7 +4,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import { Loading, DropDown, Author, Button, Icon } from 'components/ui';
+import { Loading, Author, Button, Icon } from 'components/ui';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { DELETE_BUTTON_CAPTION } from 'common/constant/string';
 import { removeComment } from 'api/comment';
@@ -73,18 +73,20 @@ const CommentList = ({
       <S.List>
         {comments.map((v) => (
           <S.CommentCard key={v.docId}>
-            <Author userData={v.userData} size="small">
-              {v.userId === userId && (
-                <DropDown
-                  menuList={[
-                    {
-                      title: DELETE_BUTTON_CAPTION,
-                      onClick: removeCommentSubmitHandler(v.docId),
-                    },
-                  ]}
-                />
-              )}
-            </Author>
+            <Author
+              userData={v.userData}
+              size="small"
+              menuList={
+                v.userId === userId
+                  ? [
+                      {
+                        title: DELETE_BUTTON_CAPTION,
+                        onClick: removeCommentSubmitHandler(v.docId),
+                      },
+                    ]
+                  : undefined
+              }
+            />
             <S.CommentContents>{v.contents}</S.CommentContents>
           </S.CommentCard>
         ))}

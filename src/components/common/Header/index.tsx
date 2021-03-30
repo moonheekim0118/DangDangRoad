@@ -9,24 +9,15 @@ import {
   MENU_LOGOUT_TITLE,
   MENU_BOOKMARK_TITLE,
 } from 'common/constant/string';
+import { SignUpLink, WriteReviewLink, LoginLink } from './navigations';
 import { useRouter } from 'next/router';
 import routes from 'common/constant/routes';
 import dynamic from 'next/dynamic';
 import * as S from './style';
 
-const DropDown = dynamic(() => import('components/ui/DropDown'));
+const Details = dynamic(() => import('components/ui/DetailsDropdown'));
+const DetailsDropdown = dynamic(() => import('components/ui/DetailsDropdown'));
 const Avatar = dynamic(() => import('components/ui/Avatar'));
-const SignUpLink = dynamic(() =>
-  import('components/common/Header/navigations').then((mod) => mod.SignUpLink)
-) as React.ComponentType;
-const LoginLink = dynamic(() =>
-  import('components/common/Header/navigations').then((mod) => mod.LoginLink)
-) as React.ComponentType;
-const WriteReviewLink = dynamic(() =>
-  import('components/common/Header/navigations').then(
-    (mod) => mod.WriteReviewLink
-  )
-) as React.ComponentType;
 
 const Header = (): React.ReactElement => {
   const router = useRouter();
@@ -74,28 +65,25 @@ const Header = (): React.ReactElement => {
           <>
             {isLoggedIn ? (
               <S.SideNavigation>
-                <S.AuthDetailsContainer ref={detailRef}>
+                <DetailsDropdown
+                  detailStyle={S.authDetailStyle}
+                  menuStyle={S.detailMenuStyle}
+                  menuList={[
+                    {
+                      title: MENU_MYPAGE_TITLE,
+                      href: routes.MYPAGE_UPDATE_PROFILE,
+                    },
+                    {
+                      title: MENU_BOOKMARK_TITLE,
+                      href: routes.MYPAGE_BOOKMARK,
+                    },
+                    { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
+                  ]}>
                   <S.UserInfoSummary>
                     <Avatar imageUrl={profilePic} size="small" />
                     <Icon icon={faCaretDown} size="medium" />
                   </S.UserInfoSummary>
-                  <S.DetailsMenu>
-                    <DropDown
-                      menuList={[
-                        {
-                          title: MENU_MYPAGE_TITLE,
-                          href: routes.MYPAGE_UPDATE_PROFILE,
-                        },
-                        {
-                          title: MENU_BOOKMARK_TITLE,
-                          href: routes.MYPAGE_BOOKMARK,
-                        },
-                        { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
-                      ]}
-                      closeHanlder={closeDropDownHanlder}
-                    />
-                  </S.DetailsMenu>
-                </S.AuthDetailsContainer>
+                </DetailsDropdown>
                 <S.HideInMobile>
                   <WriteReviewLink />
                 </S.HideInMobile>
