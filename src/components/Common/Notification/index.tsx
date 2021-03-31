@@ -12,11 +12,13 @@ const Notification = (): React.ReactElement | null => {
   const dispatch = useNotificationDispatch();
 
   useEffect(() => {
+    let timer;
     if (notiType) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         dispatch(hideAlert());
       }, NOTI_TIME);
     }
+    return () => clearTimeout(timer);
   }, [notiType]);
 
   return notiType ? (
