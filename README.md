@@ -42,7 +42,7 @@
 
 ## 서비스 로직
 
-![](https://ibb.co/QkmLMNc)
+![](https://i.imgur.com/OcVkVHf.jpg)
 
 - 프론트엔드는 React 와 Next.js 를 사용했습니다.
   - Next.js를 사용한 이유 : 리액트 라우팅의 편리함, 자동 코드 스플릿팅, SEO 향상의 이유로 Next.js 프레임워크를 사용했습니다.
@@ -92,53 +92,47 @@ value에 대한 validation 역시도 자식(Input component) 에서 하도록 �
 
 ### 컴포넌트 구조
 
-#### UI
+`UI`
 
 - Button, Input, Loading, Modal, DropDown 등 프로젝트 전반에서 Element 처럼 사용되거나 Element의 조합으로 사용되는 컴포넌트를 담았습니다.
 - 주로 2개 이상의 스타일링 Theme 을 가지고 있거나 , 스타일링의 변화가 잧은 컴포넌트들을 담았습니다.
 - 재사용성이 높은 컴포넌트를 담았습니다.
 - Theme 이 있거나, 스타이링에 관한 문서화가 필요하다고 판단된 경우 스토리북을 추가하였습니다.
 
-#### Image
+`Image`
 
 - ImageCarousel , ImagePreview , ImageSlider, ImageUploader
 - 이미지 처리와 관련된 컴포넌트들을 담았습니다.
 
-<br/>
 
-### Map
+`Map`
 
 - BasicMap (받은 정보로 지도 보여주는 Map) , SearchMap (검색 가능 Map)
 - 카카오 맵 API 를 사용하는 컴포넌트들을 담았습니다.
 
-<br/>
 
-### MyPage
+`MyPage`
 
 - BookMarkList, ProfilePicupload, UpdaetePassword, UpdateProfile , 그외 마이페이지 레이아웃 컴포넌트들
 - /myPage/[...] 에서 사용되는 컴포넌트들입니다.
 - 북마크 리스트 / 비밀번호 변경 / 프로필 변경을 제공합니다.
 
-<br/>
-
-### Post
+`Post`
 
 - PostList, Upload (Write/Update) , Preview, SinlgePost, WriteButton, BookMark 기능 등 리뷰(포스트)와 관련된 컴포넌트들
 - 필요한 로직은 해당 단위의 컴포넌트에서 진행하도록 쪼갰습니다. ex) SinglePost 내 북마크 기능-> BookMark 컴포넌트에서 담당하도록
 
-<br/>
 
-### Auth
+`Auth`
 
 - Login / GoogleLogin / SignUp 등 로그인과 회원가입과 관련한 컴포넌트들
 
-### Comment
+`Comment`
 
 - CommentSection, CommentList, WriteComment , 코멘트 작성 및 보여주기와 관련된 컴포넌트들
 - Post 내 댓글 작성과 관련한 컴포넌트들입니다.
 
-### Common
-
+`Common`
 - Layout, Header, Footer , Notification, PlaceSearchBar 등 어플리케이션 전반에서 공통으로 사용되는컴포넌트들
 
 <br/>
