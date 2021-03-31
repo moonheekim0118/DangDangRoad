@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   WRITE_REVIEW_TITLE,
   RADIO_TITLE_PARKING_LOT,
@@ -17,7 +17,7 @@ import {
 import { RefType, InputRef } from 'types/Ref';
 import { SearchMap } from 'components/Map';
 import { PostImage, PostText } from 'components/Post/PostUpload';
-import { Title, Button, RadioBox } from 'components/ui';
+import { Title, Button, RadioBox } from 'components/UI';
 import { PlaceType } from 'types/Map';
 import { useSlide } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
@@ -74,15 +74,22 @@ const PostEditor = (props: Props): React.ReactElement => {
     [props.selectedPlace]
   );
 
-  const NextBtn = (
-    <Button theme="primary" size="large" width="40%" onClick={toNext}>
-      {NEXT_CAPTION}
-    </Button>
+  const NextBtn = useMemo(
+    (): React.ReactElement => (
+      <Button theme="primary" size="large" width="40%" onClick={toNext}>
+        {NEXT_CAPTION}
+      </Button>
+    ),
+    [index]
   );
-  const PrevBtn = (
-    <Button theme="primary" size="large" width="40%" onClick={toPrev}>
-      {PREV_CAPTION}
-    </Button>
+
+  const PrevBtn = useMemo(
+    (): React.ReactElement => (
+      <Button theme="primary" size="large" width="40%" onClick={toPrev}>
+        {PREV_CAPTION}
+      </Button>
+    ),
+    [index]
   );
 
   return (

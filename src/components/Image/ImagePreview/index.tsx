@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { ImageUploader } from 'components/Image';
 import { useModal } from 'hooks';
-import { Icon } from 'components/ui';
+import { Icon } from 'components/UI';
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { POST_IMAGE_LIMIT } from 'common/constant/number';
 import { REVIEW_IMAGE_ALT } from 'common/constant/images';

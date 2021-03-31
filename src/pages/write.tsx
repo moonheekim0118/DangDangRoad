@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUser, useWarnUsavedChange } from 'hooks';
-import { Loading } from 'components/ui';
+import { Loading } from 'components/UI';
 import Head from 'next/head';
 import routes from 'common/constant/routes';
 import dynamic from 'next/dynamic';

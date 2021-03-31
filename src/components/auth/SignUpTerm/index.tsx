@@ -4,13 +4,13 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { SHOW_TERMS_CAPTION } from 'common/constant/string';
-import { Button, CloseBtn } from 'components/ui';
+import { Button, CloseBtn } from 'components/UI';
 import { RefType } from 'types/Ref';
 import { useToggle, useModal } from 'hooks';
 import dynamic from 'next/dynamic';
 import * as S from './style';
 
-const Modal = dynamic(() => import('components/ui/Modal'));
+const Modal = dynamic(() => import('components/UI/Modal'));
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** label for checkbox */

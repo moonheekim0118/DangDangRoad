@@ -9,7 +9,7 @@ import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
 import { InputRef, inputDefaultRef, RefType, defaultRef } from 'types/Ref';
-import { Input, Button } from 'components/ui';
+import { Input, Button } from 'components/UI';
 import { inputId } from 'common/constant/input';
 import {
   TERM_NOT_CHECKED_ERROR,
@@ -19,7 +19,7 @@ import {
   SERVICE_TERM_TITLE,
 } from 'common/constant/string';
 import { SERVICE_TERM, PRIVACY_TERM } from 'common/constant/terms';
-import { SignUpTerm, GoogleLoginButton } from 'components/auth';
+import { SignUpTerm, GoogleLoginButton } from 'components/Auth';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as checkers from 'util/signUpValidations';

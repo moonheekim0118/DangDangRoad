@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ControllerBtn } from 'components/ui';
+import { Modal, ControllerBtn } from 'components/UI';
 import { useSlide } from 'hooks';
 import { REVIEW_IMAGE_ALT } from 'common/constant/images';
 import * as S from './style';

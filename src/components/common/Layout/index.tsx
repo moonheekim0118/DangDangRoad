@@ -1,10 +1,10 @@
 import React from 'react';
-import { Header, Footer } from 'components/common';
+import { Header, Footer } from 'components/Common';
 import { useNotificationState } from 'context/Notification';
 import dynamic from 'next/dynamic';
 import * as S from './style';
 
-const Notification = dynamic(() => import('components/common/Notification'));
+const Notification = dynamic(() => import('components/Common/Notification'));
 
 interface Props {
   children: React.ReactNode;

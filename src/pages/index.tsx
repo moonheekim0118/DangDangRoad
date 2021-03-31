@@ -5,10 +5,10 @@ import routes from 'common/constant/routes';
 import dynamic from 'next/dynamic';
 import { useUser, useIntersectionObserver } from 'hooks';
 import { LOGO_IMAGE, LOGO_IMAGE_ALT } from 'common/constant/images';
-import { Button } from 'components/ui';
+import { Button } from 'components/UI';
 
 const HomeDescription = dynamic(
-  () => import('components/common/HomeDescription')
+  () => import('components/Common/HomeDescription')
 );
 
 const Index = (): React.ReactElement => {

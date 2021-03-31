@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'components/ui';
+import { Icon } from 'components/UI';
 import {
   faChevronLeft,
   faChevronRight,

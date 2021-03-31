@@ -4,7 +4,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import { Loading, Author, Button, Icon } from 'components/ui';
+import { Loading, Author, Button, Icon } from 'components/UI';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { DELETE_BUTTON_CAPTION } from 'common/constant/string';
 import { removeComment } from 'api/comment';

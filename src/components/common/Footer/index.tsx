@@ -7,7 +7,7 @@ import {
   MENU_TERM_TITLE_ENG,
   MENU_PRIVACY_POLICY_TITLE_ENG,
 } from 'common/constant/string';
-import { Logo, Link, Icon } from 'components/ui';
+import { Logo, Link, Icon } from 'components/UI';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import routes, { githubUrl } from 'common/constant/routes';
 import * as S from './style';

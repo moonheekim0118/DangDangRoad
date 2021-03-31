@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react';
-import { PlaceSearch } from 'components/common';
-import { Icon, Logo } from 'components/ui';
-import { useSignOut, useCloseDropdown } from 'hooks';
+import { PlaceSearch } from 'components/Common';
+import { Icon, Logo } from 'components/UI';
+import { useSignOut } from 'hooks';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { faList, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -15,16 +15,14 @@ import routes from 'common/constant/routes';
 import dynamic from 'next/dynamic';
 import * as S from './style';
 
-const Details = dynamic(() => import('components/ui/DetailsDropdown'));
-const DetailsDropdown = dynamic(() => import('components/ui/DetailsDropdown'));
-const Avatar = dynamic(() => import('components/ui/Avatar'));
+const DetailsDropdown = dynamic(() => import('components/UI/DetailsDropdown'));
+const Avatar = dynamic(() => import('components/UI/Avatar'));
 
 const Header = (): React.ReactElement => {
   const router = useRouter();
   const signOutHandler = useSignOut();
   const navRef = useRef<HTMLDivElement>(null);
   const { isLoaded, isLoggedIn, profilePic } = useLoginInfoState();
-  const [detailRef, closeDropDownHanlder] = useCloseDropdown();
 
   const toggleNavigation = useCallback(
     (e: React.MouseEvent) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { PreviewPost } from 'components/Post';
 import { LightReviewData } from 'types/API';
 import { DEFAULT_KEYWORD } from 'common/constant/string';
-import { Tag } from 'components/ui';
+import { Tag } from 'components/UI';
 import * as S from './style';
 
 interface Props {

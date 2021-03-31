@@ -8,14 +8,14 @@ import {
   useSinglePostModal,
 } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
-import { Loading } from 'components/ui';
+import { Loading } from 'components/UI';
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 
-const Modal = dynamic(() => import('components/ui/Modal'));
-const Card = dynamic(() => import('components/ui/Card'));
+const Modal = dynamic(() => import('components/UI/Modal'));
+const Card = dynamic(() => import('components/UI/Card'));
 const LoadingSinglePost = dynamic(
-  () => import('components/ui/LoadingSinlgePost')
+  () => import('components/UI/LoadingSinlgePost')
 );
 const WriteButton = dynamic(() => import('components/Post/WriteButton'));
 const SinglePost = dynamic(() => import('components/Post/SinglePost'));

@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { Avatar } from 'components/ui';
+import { Avatar } from 'components/UI';
 import { UserContents } from 'types/API';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import * as S from './style';
 
-const Icon = dynamic(() => import('components/ui/Icon'));
-const DetailsDropdown = dynamic(() => import('components/ui/DetailsDropdown'));
+const Icon = dynamic(() => import('components/UI/Icon'));
+const DetailsDropdown = dynamic(() => import('components/UI/DetailsDropdown'));
 
 export interface Props {
   /** user data to show */

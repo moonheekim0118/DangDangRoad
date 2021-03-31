@@ -1,6 +1,6 @@
 import React from 'react';
 import { AVATAR_ALT } from 'common/constant/images';
-import { Icon } from 'components/ui';
+import { Icon } from 'components/UI';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import * as S from './style';
 

@@ -1,4 +1,4 @@
-import Icon from 'components/ui/Icon';
+import Icon from 'components/UI/Icon';
 import { css } from '@emotion/react';
 
 import {

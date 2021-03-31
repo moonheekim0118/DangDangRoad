@@ -4,7 +4,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
-import { Input, Button } from 'components/ui';
+import { Input, Button } from 'components/UI';
 import { usePasswordCheck } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
 import { inputId } from 'common/constant/input';

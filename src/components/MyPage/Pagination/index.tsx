@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Icon } from 'components/ui';
+import { Icon } from 'components/UI';
 import {
   faChevronLeft,
   faChevronRight,

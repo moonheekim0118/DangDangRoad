@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import { Author } from 'components/ui';
+import { Author } from 'components/UI';
 import { colorCode } from 'common/style/color';
 
 const About = () => {

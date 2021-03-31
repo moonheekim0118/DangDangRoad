@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLazyLoadImage } from 'hooks';
-import { Icon } from 'components/ui';
+import { Icon } from 'components/UI';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { DEFAULT_IMAGE_URL, REVIEW_IMAGE_ALT } from 'common/constant/images';
 import * as S from './style';

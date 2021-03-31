@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react';
-import { Loading } from 'components/ui';
+import { Loading } from 'components/UI';
 import Link from 'next/link';
 import * as S from './style';
 

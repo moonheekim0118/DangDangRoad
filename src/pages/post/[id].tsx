@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
-import { useSingleReview } from 'hooks';
-import { Link, Card, LoadingSinglePost } from 'components/ui';
-import { useUser } from 'hooks';
-import Router from 'next/router';
+import { useSingleReview, useUser } from 'hooks';
+import { Link, Card, LoadingSinglePost } from 'components/UI';
 import routes from 'common/constant/routes';
+import Router from 'next/router';
 import dynamic from 'next/dynamic';
 
 const SinglePost = dynamic(() => import('components/Post/SinglePost'));

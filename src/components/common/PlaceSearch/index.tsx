@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, FormEvent } from 'react';
-import { SearchBar } from 'components/ui';
+import { SearchBar } from 'components/UI';
 import {
   REVIEW_SEARCH_PLACEHODLER,
   NO_KEYWORD_ERROR,

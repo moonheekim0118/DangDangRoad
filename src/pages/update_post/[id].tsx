@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useUser } from 'hooks';
 import { useSingleReview, useWarnUsavedChange } from 'hooks';
-import { Loading } from 'components/ui';
+import { Loading } from 'components/UI';
 import dynamic from 'next/dynamic';
 import routes from 'common/constant/routes';
 import Router from 'next/router';

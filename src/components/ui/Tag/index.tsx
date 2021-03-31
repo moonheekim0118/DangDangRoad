@@ -1,6 +1,6 @@
 import React from 'react';
 import colorList from 'util/colorGenerator';
-import { sizes } from 'components/ui/Button/style';
+import { sizes } from 'components/UI/Button/style';
 import * as S from './style';
 
 export interface Props {

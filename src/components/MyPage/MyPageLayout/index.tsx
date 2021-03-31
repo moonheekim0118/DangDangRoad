@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
+import { destroyAccount } from 'api/user';
 import { PageMenu, UserCard } from 'components/MyPage';
-import { Title, Button, Loading } from 'components/ui';
+import { Title, Button, Loading } from 'components/UI';
 import { useModal, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { UserType } from 'types/User';
@@ -10,14 +11,13 @@ import {
   DESTROY_BUTTON_CAPTION,
 } from 'common/constant/string';
 import { DESTROY_ACCOUNT_TERM } from 'common/constant/terms';
-import { destroyAccount } from 'api/user';
 import routes from 'common/constant/routes';
-import Router from 'next/router';
 import * as menus from 'common/constant/mypageDatas';
 import * as S from './style';
+import Router from 'next/router';
 import dynamic from 'next/dynamic';
 
-const Modal = dynamic(() => import('components/ui/Modal'));
+const Modal = dynamic(() => import('components/UI/Modal'));
 
 interface Props {
   /** logged in user Info */

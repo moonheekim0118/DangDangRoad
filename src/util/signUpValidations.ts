@@ -66,6 +66,5 @@ export const passwordValidator = (value: string): boolean => {
 export const passwordCheckValidator = (target: string) => (
   value: string
 ): boolean => {
-  console.log(target, value);
   return target === value;
 };

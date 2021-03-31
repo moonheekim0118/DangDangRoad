@@ -1,4 +1,4 @@
-import { Link } from 'components/ui';
+import { Link } from 'components/UI';
 import {
   MENU_LOGIN_TITLE,
   MENU_SIGNUP_TITLE,

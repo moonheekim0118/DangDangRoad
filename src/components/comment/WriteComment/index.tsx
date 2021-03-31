@@ -4,7 +4,7 @@ import { COMMENT_PLACEHOLDER } from 'common/constant/string';
 import { commentTextLengthCheck } from 'util/reviewTextValidation';
 import { useValidation, useApiFetch } from 'hooks';
 import { CommentData } from 'types/API';
-import { Button } from 'components/ui';
+import { Button } from 'components/UI';
 import { createComment } from 'api/comment';
 import { useNotificationDispatch } from 'context/Notification';
 import * as Action from 'action';

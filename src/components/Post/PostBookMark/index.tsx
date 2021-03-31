@@ -5,11 +5,11 @@ import {
   addBookMarkReview,
   removeBookMarkReview,
 } from 'api/bookmark';
-import { BookMarkResult } from 'types/API';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
+import { BookMarkResult } from 'types/API';
 import { faBookmark as checkedBookMark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as unCheckdBookMark } from '@fortawesome/free-regular-svg-icons';
-import { Icon, Button } from 'components/ui';
+import { Icon, Button } from 'components/UI';
 import cacheProto from 'util/cache';
 import * as S from './style';
 

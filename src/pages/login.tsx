@@ -1,6 +1,6 @@
 import React from 'react';
-import { Loading } from 'components/ui';
-import { Login } from 'components/auth';
+import { Loading } from 'components/UI';
+import { Login } from 'components/Auth';
 import { useUser } from 'hooks';
 import Head from 'next/head';
 import routes from 'common/constant/routes';

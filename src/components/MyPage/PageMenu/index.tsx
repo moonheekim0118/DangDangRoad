@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Router from 'next/router';
-import { Link } from 'components/ui';
+import { Link } from 'components/UI';
 import * as S from './style';
 
 interface DataTypes {

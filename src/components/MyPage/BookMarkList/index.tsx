@@ -4,7 +4,7 @@ import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { useApiFetch } from 'hooks';
 import { getBookMarkedReviews, removeBookMarkReview } from 'api/bookmark';
 import { BOOKMARK_DATA_LIMIT } from 'common/constant/number';
-import { Button, Icon, Loading } from 'components/ui';
+import { Button, Icon, Loading } from 'components/UI';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'components/MyPage';
 import routes from 'common/constant/routes';
@@ -38,6 +38,22 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
   ] = useApiFetch<string>(removeBookMarkReview);
 
   useEffect(() => {
+    if (userId) {
+      if (CACHED_USER === userId && CACHE.has(userId)) {
+        const cachedData = CACHE.get(userId);
+        if (cachedData) {
+          setReviewList(sliceArray(cachedData, pageNum));
+          setTotalLength(cachedData.length);
+        }
+      } else {
+        CACHED_USER = userId;
+        CACHE.clear();
+        getBookMarksFetch({ type: REQUEST, params: [userId] });
+      }
+    }
+  }, [userId, pageNum]);
+
+  useEffect(() => {
     if (getBookMarksResult.type === SUCCESS) {
       const bookMarkList = getBookMarksResult.data || [];
       setTotalLength(bookMarkList.length);
@@ -60,22 +76,6 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
       removeBookMarkSetDefault();
     }
   }, [removeBookMarkResult]);
-
-  useEffect(() => {
-    if (userId) {
-      if (CACHED_USER === userId && CACHE.has(userId)) {
-        const cachedData = CACHE.get(userId);
-        if (cachedData) {
-          setReviewList(sliceArray(cachedData, pageNum));
-          setTotalLength(cachedData.length);
-        }
-      } else {
-        CACHED_USER = userId;
-        CACHE.clear();
-        getBookMarksFetch({ type: REQUEST, params: [userId] });
-      }
-    }
-  }, [userId, pageNum]);
 
   // get sliced array to show
   const sliceArray = useCallback((array: any[], pageNum: number) => {

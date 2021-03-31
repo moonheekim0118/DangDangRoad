@@ -5,7 +5,7 @@ import useApiFetch, {
   FAILURE,
 } from 'hooks/common/useApiFetch';
 import { EMPTY_COMMENT_TITLE } from 'common/constant/string';
-import { Loading } from 'components/ui';
+import { Loading } from 'components/UI';
 import { COMMENT_DATA_LIMIT } from 'common/constant/number';
 import { CommentResult, CommentData } from 'types/API';
 import { getComments } from 'api/comment';
@@ -15,8 +15,8 @@ import dynamic from 'next/dynamic';
 import * as Action from 'action';
 import * as S from './style';
 
-const WriteComment = dynamic(() => import('components/comment/WriteComment'));
-const CommentList = dynamic(() => import('components/comment/CommentList'));
+const WriteComment = dynamic(() => import('components/Comment/WriteComment'));
+const CommentList = dynamic(() => import('components/Comment/CommentList'));
 
 interface Props {
   /** logged-in user Id */

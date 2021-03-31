@@ -1,10 +1,10 @@
 import React from 'react';
 import { PostBookMark } from 'components/Post';
-import { CommentSection } from 'components/comment';
+import { CommentSection } from 'components/Comment';
 import { ReviewData } from 'types/API';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Author, ControllerBtn } from 'components/ui';
+import { Author, ControllerBtn } from 'components/UI';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,

@@ -5,7 +5,7 @@ import React, {
   FormEvent,
 } from 'react';
 import { useInput } from 'hooks';
-import { Icon, Button } from 'components/ui';
+import { Icon, Button } from 'components/UI';
 import { SEARCH_BUTTON_CAPTION } from 'common/constant/string';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { InputRef } from 'types/Ref';

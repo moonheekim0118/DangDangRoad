@@ -4,7 +4,7 @@ import {
   useNotificationState,
   useNotificationDispatch,
 } from 'context/Notification';
-import { Toast } from 'components/ui';
+import { Toast } from 'components/UI';
 import { NOTI_TIME } from 'common/constant/number';
 
 const Notification = (): React.ReactElement | null => {
