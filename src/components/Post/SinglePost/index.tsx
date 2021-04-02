@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { PostBookMark } from 'components/Post';
 import { CommentSection } from 'components/Comment';
 import { ReviewData } from 'types/API';
@@ -12,8 +12,16 @@ import {
   UPDATE_BUTTON_CAPTION,
   DELETE_BUTTON_CAPTION,
 } from 'common/constant/string';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
+import { removeReview } from 'api/review';
 import { ImageSlider } from 'components/Image';
 import { BasicMap } from 'components/Map';
+import { useNotificationDispatch } from 'context/Notification';
+import * as Action from 'action';
 import routes from 'common/constant/routes';
 import * as S from './style';
 
@@ -23,15 +31,39 @@ interface Props {
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */
-  removeHanlder?: (id: string) => (e: React.MouseEvent) => void;
+  removeHandler: (id: string) => void;
 }
 
 const SinglePost = ({
   data,
   NavigationInfo,
-  removeHanlder,
+  removeHandler,
 }: Props): React.ReactElement => {
+  const notiDispatch = useNotificationDispatch();
   const { userId } = useLoginInfoState();
+
+  const [
+    removeReviewResult,
+    removeReviewFetch,
+    removeReviewSetDefault,
+  ] = useApiFetch<string>(removeReview);
+
+  useEffect(() => {
+    switch (removeReviewResult.type) {
+      case SUCCESS:
+        removeHandler(data.docId);
+        break;
+      case FAILURE:
+        notiDispatch(Action.showError(removeReviewResult.error));
+        removeReviewSetDefault();
+    }
+  }, [removeReviewResult]);
+
+  // remove
+  const fetchRemoveHanlder = useCallback(() => {
+    removeReviewFetch({ type: REQUEST, params: [data.docId] });
+  }, [data.docId]);
+
   return (
     <>
       <S.Container>
@@ -69,7 +101,7 @@ const SinglePost = ({
                     },
                     {
                       title: DELETE_BUTTON_CAPTION,
-                      onClick: removeHanlder && removeHanlder(data.docId),
+                      onClick: fetchRemoveHanlder,
                     },
                   ]
                 : undefined

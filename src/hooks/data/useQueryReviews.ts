@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
-import { removeReview } from 'api/review';
 import { useRouter } from 'next/router';
 import { useNotificationDispatch } from 'context/Notification';
 import searchByKeyword from 'api/search';
@@ -27,12 +26,6 @@ const useQueryReviews = () => {
   const [getReviewsResult, getReviewsFetch, getReviewsSetDefault] = useApiFetch<
     T.LightReviewData[]
   >(searchByKeyword);
-
-  const [
-    removeReviewResult,
-    removeReviewFetch,
-    removeReviewSetDefault,
-  ] = useApiFetch<string>(removeReview);
 
   useEffect(() => {
     const cachedData = CACHE.get(query);
@@ -66,39 +59,29 @@ const useQueryReviews = () => {
     }
   }, [getReviewsResult, allReviews]);
 
-  useEffect(() => {
-    switch (removeReviewResult.type) {
-      case SUCCESS:
-        const deletedId = removeReviewResult.data;
-        const newReviews = allReviews.filter((v) => v.docId !== deletedId);
-        setAllReviews(newReviews);
-        const cachedData = CACHE.get(query);
-        CACHE.set(query, {
-          ...cachedData,
-          reviews: newReviews,
-        } as DataType);
-        removeReviewSetDefault();
-        break;
-      case FAILURE:
-        notiDispatch(Action.showError(removeReviewResult.error));
-        removeReviewSetDefault();
-    }
-  }, [removeReviewResult, allReviews]);
-
   const fetchReviewHandler = useCallback(() => {
     if (hasMore && query) {
       getReviewsFetch({ type: REQUEST, params: [query] });
     }
   }, [allReviews, hasMore, query]);
 
-  const fetchRemoveHandler = useCallback((id: string) => {
-    removeReviewFetch({ type: REQUEST, params: [id] });
-  }, []);
+  const removeCacheHandler = useCallback(
+    (id: string) => {
+      const newReviews = allReviews.filter((v) => v.docId !== id);
+      setAllReviews(newReviews);
+      const cachedData = CACHE.get(query);
+      CACHE.set(query, {
+        ...cachedData,
+        reviews: newReviews,
+      } as DataType);
+    },
+    [allReviews]
+  );
 
   return [
     allReviews,
     fetchReviewHandler,
-    fetchRemoveHandler,
+    removeCacheHandler,
     getReviewsResult.type,
     hasMore,
     query,
