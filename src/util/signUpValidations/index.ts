@@ -32,7 +32,7 @@ export const checkEmptySpace = (value: string): boolean => {
 /** check if there is empty space at the beginning or end
  *  this will allow value to have Empty Space in the middle of string
  */
-export const AllowEmptySpaceMiddle = (value: string): boolean => {
+export const allowEmptySpaceinMiddle = (value: string): boolean => {
   const re = /^[^\s]+(\s+[^\s]+)*$/;
   return re.test(value);
 };
@@ -50,13 +50,18 @@ export const nicknameValidator = (value: string): boolean => {
   return (
     checkLength(value, 20, 2) &&
     checkSpecialChars(value) &&
-    AllowEmptySpaceMiddle(value)
+    allowEmptySpaceinMiddle(value)
   );
 };
 
 /** in Update, empty value could means 'Not gonna change nickname' */
 export const nicknameValidatorForUpdate = (value: string): boolean => {
-  return checkLength(value, 20, 0) && checkSpecialChars(value);
+  if (value.length === 1 && !checkEmptySpace(value)) return true;
+  return (
+    checkLength(value, 20, 0) &&
+    checkSpecialChars(value) &&
+    checkEmptySpace(value)
+  );
 };
 
 export const passwordValidator = (value: string): boolean => {
