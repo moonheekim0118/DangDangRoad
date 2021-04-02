@@ -1,7 +1,7 @@
 import React, { FormEvent, useCallback, useEffect } from 'react';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { COMMENT_PLACEHOLDER } from 'common/constant/string';
-import { commentTextLengthCheck } from 'util/reviewTextValidation';
+import { checkCommentLength } from 'util/reviewTextValidations';
 import { useValidation, useApiFetch } from 'hooks';
 import { CommentData } from 'types/API';
 import { Button } from 'components/UI';
@@ -26,7 +26,7 @@ const WriteComment = ({
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
   const { value, error, valueChangeHanlder, setValue } = useValidation({
-    validator: commentTextLengthCheck,
+    validator: checkCommentLength,
   });
 
   const [

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { useSingleReview, useUser } from 'hooks';
 import { Link, Card, LoadingSinglePost } from 'components/UI';
@@ -10,11 +10,21 @@ const SinglePost = dynamic(() => import('components/Post/SinglePost'));
 
 const singlePost = () => {
   useUser();
-  const { fetchData, singleReview, singleReviewFetchError } = useSingleReview();
+  const {
+    fetchData,
+    singleReview,
+    removeCache,
+    singleReviewFetchError,
+  } = useSingleReview();
 
   useEffect(() => {
     const postId = Router.query.id;
     typeof postId === 'string' && fetchData(postId);
+  }, []);
+
+  const removeHandler = useCallback((id: string) => {
+    removeCache(id);
+    Router.push(routes.SEARCH);
   }, []);
 
   return singleReviewFetchError ? (
@@ -36,7 +46,7 @@ const singlePost = () => {
       </Head>
       <Card isModal={false}>
         {singleReview ? (
-          <SinglePost data={singleReview} />
+          <SinglePost data={singleReview} removeHandler={removeHandler} />
         ) : (
           <LoadingSinglePost />
         )}

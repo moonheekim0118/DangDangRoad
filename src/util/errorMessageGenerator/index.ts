@@ -1,7 +1,7 @@
 import * as MESSAGE from 'common/constant/string';
 
 /** transform error code to Korean Message */
-const errorExTxt = (errorCode: string): string => {
+const errorMessageGenerator = (errorCode: string): string => {
   switch (errorCode) {
     case 'auth/email-already-in-use':
       return MESSAGE.EMAIL_ALREADY_IN_USE_ERROR;
@@ -20,4 +20,4 @@ const errorExTxt = (errorCode: string): string => {
   }
 };
 
-export default errorExTxt;
+export default errorMessageGenerator;

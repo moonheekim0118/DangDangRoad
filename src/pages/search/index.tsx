@@ -1,24 +1,13 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Head from 'next/head';
-import { PostList } from 'components/Post';
-import {
-  useUser,
-  useAllReviews,
-  useIntersectionObserver,
-  useSinglePostModal,
-} from 'hooks';
+import { useUser, useAllReviews, useIntersectionObserver } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/UI';
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 
-const Modal = dynamic(() => import('components/UI/Modal'));
-const Card = dynamic(() => import('components/UI/Card'));
-const LoadingSinglePost = dynamic(
-  () => import('components/UI/LoadingSinlgePost')
-);
 const WriteButton = dynamic(() => import('components/Post/WriteButton'));
-const SinglePost = dynamic(() => import('components/Post/SinglePost'));
+const PostList = dynamic(() => import('components/Post/PostList'));
 
 const SearchMain = () => {
   const { user } = useUser();
@@ -26,7 +15,7 @@ const SearchMain = () => {
   const [
     allReviews,
     fetchReviewHanlder,
-    fetchRemoveHanlder,
+    removeCacheHandler,
     allReviewsFetchStatus,
     hasMore,
     lastKey,
@@ -36,17 +25,6 @@ const SearchMain = () => {
     deps: [hasMore, lastKey],
     fetcher: fetchReviewHanlder,
   });
-
-  const modalController = useSinglePostModal(allReviews);
-
-  const removeHanlder = useCallback(
-    (id: string) => () => {
-      modalController.closeModal(); // close Modal
-      modalController.removeCache(id); // remove Cache
-      fetchRemoveHanlder(id);
-    },
-    [modalController]
-  );
 
   return (
     <>
@@ -63,33 +41,15 @@ const SearchMain = () => {
           key="ogdesc"
         />
       </Head>
-      <PostList
-        reviewData={allReviews}
-        openSinglePost={modalController.openModal}
-      />
-      {user && user.isLoggedIn && <WriteButton />}
-      {modalController.showModal && (
-        <Modal modalHandler={modalController.closeModal}>
-          <Card isModal={true}>
-            {!modalController.singleReview ||
-            modalController.singleReviewFetchStatus === REQUEST ||
-            modalController.singleReviewFetchStatus === SUCCESS ? (
-              <LoadingSinglePost />
-            ) : (
-              <SinglePost
-                data={modalController.singleReview}
-                NavigationInfo={{
-                  hasPrev: modalController.index > 0,
-                  hasNext: modalController.index < allReviews.length - 1,
-                  prevHandler: modalController.prevHandler,
-                  nextHandler: modalController.nextHandler,
-                }}
-                removeHanlder={removeHanlder}
-              />
-            )}
-          </Card>
-        </Modal>
+      {allReviews.length > 0 ? (
+        <PostList
+          reviewData={allReviews}
+          removeCacheFromDataHandler={removeCacheHandler}
+        />
+      ) : (
+        <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
       )}
+      {user && user.isLoggedIn && <WriteButton />}
       <LoaderContainer ref={observerTarget}>
         {allReviewsFetchStatus === REQUEST && <Loading />}
       </LoaderContainer>

@@ -4,7 +4,7 @@ import React, {
   TextareaHTMLAttributes,
 } from 'react';
 import { useValidation } from 'hooks';
-import { freeTextLengthCheck } from 'util/reviewTextValidation';
+import { checkFreeTextLength } from 'util/reviewTextValidations';
 import { InputRef } from 'types/Ref';
 import { FREE_TEXT_LABEL } from 'common/constant/string';
 import { FREE_TEXT_LIMIT } from 'common/constant/number';
@@ -20,7 +20,7 @@ const PostText = (
 ): React.ReactElement => {
   const { value, error, valueChangeHanlder } = useValidation({
     initialValue: props.initValue,
-    validator: freeTextLengthCheck,
+    validator: checkFreeTextLength,
   });
 
   useImperativeHandle(

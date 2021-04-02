@@ -1,7 +1,10 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useApiFetch } from 'hooks';
-import { getReviewsFirst, getReviews, removeReview } from 'api/review';
-import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
+import { getReviewsFirst, getReviews } from 'api/review';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { useNotificationDispatch } from 'context/Notification';
 import cacheProto from 'util/cache';
@@ -33,11 +36,6 @@ const useAllReviews = () => {
     recentReviewsFetch,
     recentReviewsSetDefault,
   ] = useApiFetch<T.ReviewResult>(getReviewsFirst);
-  const [
-    removeReviewResult,
-    removeReviewFetch,
-    removeReviewSetDefault,
-  ] = useApiFetch<string>(removeReview);
 
   const [lastKey, setLastKey] = useState<string>('');
   const [allReviews, setAllReviews] = useState<T.LightReviewData[]>([]);
@@ -111,48 +109,38 @@ const useAllReviews = () => {
     }
   }, [getReviewsResult, allReviews]);
 
-  useEffect(() => {
-    switch (removeReviewResult.type) {
-      case SUCCESS:
-        const deletedId = removeReviewResult.data;
-        const cachedData = CACHE.get('general-search');
-        let updatedLastKey = cachedData?.lastKey || 0;
-        const newReviews = allReviews.filter((v, i) => {
-          if (v.docId === deletedId && v.createdAt === updatedLastKey) {
-            updatedLastKey = allReviews[i - 1].createdAt;
-          }
-          return v.docId !== deletedId;
-        });
-        const updatedData = {
-          ...cachedData,
-          lastKey: updatedLastKey,
-          reviews: newReviews,
-        } as DataType;
-        CACHE.set('general-search', updatedData);
-        setAllReviews(newReviews);
-        removeReviewSetDefault();
-        break;
-      case FAILURE:
-        notiDispatch(Action.showError(removeReviewResult.error));
-        removeReviewSetDefault();
-    }
-  }, [removeReviewResult, allReviews]);
-
   const fetchReviewHanlder = useCallback(() => {
     if (hasMore) {
       getReviewsFetch({ type: REQUEST, params: [lastKey] });
     }
   }, [allReviews, hasMore, lastKey]);
 
-  // remove
-  const fetchRemoveHanlder = useCallback((id: string) => {
-    removeReviewFetch({ type: REQUEST, params: [id] });
-  }, []);
+  const removeCacheHandler = useCallback(
+    (id: string) => {
+      const cachedData = CACHE.get('general-search');
+      let updatedLastKey = cachedData?.lastKey || 0;
+      const newReviews = allReviews.filter((v, i) => {
+        if (v.docId === id && v.createdAt === updatedLastKey) {
+          updatedLastKey = allReviews[i - 1].createdAt;
+        }
+        return v.docId !== id;
+      });
+
+      const updatedData = {
+        ...cachedData,
+        lastKey: updatedLastKey,
+        reviews: newReviews,
+      } as DataType;
+      CACHE.set('general-search', updatedData);
+      setAllReviews(newReviews);
+    },
+    [allReviews]
+  );
 
   return [
     allReviews,
     fetchReviewHanlder,
-    fetchRemoveHanlder,
+    removeCacheHandler,
     getReviewsResult.type,
     hasMore,
     lastKey,
