@@ -46,7 +46,7 @@ describe('check if there is no Empty space in string', () => {
     expect(checkEmptySpace('thereisEmpty ')).toBe(false);
   });
   test('when there is no empty string', () => {
-    expect(checkEmptySpace('noEmptySpace')).toBe(false);
+    expect(checkEmptySpace('noEmptySpace')).toBe(true);
   });
 });
 
