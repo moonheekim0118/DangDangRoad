@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { useUser, useQueryReviews, useIntersectionObserver } from 'hooks';
-import { REQUEST } from 'hooks/common/useApiFetch';
+import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/UI';
 import { LoaderContainer } from './index';
 import dynamic from 'next/dynamic';
@@ -16,7 +16,7 @@ const SearchResult = () => {
     allReviews,
     fetchReviewHandler,
     removeCacheHandler,
-    allReviewFetchStatus,
+    allReviewsFetchStatus,
     hasMore,
     query,
   ] = useQueryReviews();
@@ -48,11 +48,11 @@ const SearchResult = () => {
           removeCacheFromDataHandler={removeCacheHandler}
         />
       ) : (
-        <h1>아직 작성된 리뷰가 없습니다</h1>
+        <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
       )}
       {user && user.isLoggedIn && <WriteButton />}
       <LoaderContainer ref={observerTarget}>
-        {allReviewFetchStatus === REQUEST && <Loading />}
+        {allReviewsFetchStatus === REQUEST && <Loading />}
       </LoaderContainer>
     </>
   );

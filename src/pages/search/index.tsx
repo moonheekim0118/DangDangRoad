@@ -1,13 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
-import { PostList } from 'components/Post';
 import { useUser, useAllReviews, useIntersectionObserver } from 'hooks';
-import { REQUEST } from 'hooks/common/useApiFetch';
+import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/UI';
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 
 const WriteButton = dynamic(() => import('components/Post/WriteButton'));
+const PostList = dynamic(() => import('components/Post/PostList'));
 
 const SearchMain = () => {
   const { user } = useUser();
@@ -41,10 +41,14 @@ const SearchMain = () => {
           key="ogdesc"
         />
       </Head>
-      <PostList
-        reviewData={allReviews}
-        removeCacheFromDataHandler={removeCacheHandler}
-      />
+      {allReviews.length > 0 ? (
+        <PostList
+          reviewData={allReviews}
+          removeCacheFromDataHandler={removeCacheHandler}
+        />
+      ) : (
+        <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
+      )}
       {user && user.isLoggedIn && <WriteButton />}
       <LoaderContainer ref={observerTarget}>
         {allReviewsFetchStatus === REQUEST && <Loading />}
