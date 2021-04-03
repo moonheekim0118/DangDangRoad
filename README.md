@@ -38,6 +38,8 @@
 
 [9.리다이렉션 없이 url 변경하기 해결](https://mooneedev.netlify.app/Frontend/%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%EC%85%98%20%EC%97%86%EC%9D%B4%20url%20%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0/)
 
+[10.search Page 역할 분리에 관하여 고민](https://github.com/moonheekim0118/DangDangRoad/issues/66)
+
 <br/>
 
 ## 서비스 로직
