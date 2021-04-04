@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
@@ -8,7 +8,6 @@ import { LightReview } from 'types/Review';
 import searchByKeyword from 'api/search';
 import cacheProto from 'util/cache';
 import * as Action from 'action';
-import * as T from 'types/API';
 
 interface DataType {
   reviews: LightReview[];
@@ -23,6 +22,7 @@ const useQueryReviews = () => {
   const query = router.query.search_query as string;
   const [allReviews, setAllReviews] = useState<LightReview[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const isMounted = useRef<boolean>(false);
 
   const [getReviewsResult, getReviewsFetch, getReviewsSetDefault] = useApiFetch<
     LightReview[]
@@ -33,9 +33,8 @@ const useQueryReviews = () => {
     if (CACHE.has(query) && cachedData) {
       setAllReviews(cachedData.reviews);
       setHasMore(cachedData.hasMore);
-    } else {
-      getReviewsFetch({ type: REQUEST, params: [query] });
     }
+    isMounted.current = true;
   }, []);
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const useQueryReviews = () => {
   }, [getReviewsResult, allReviews]);
 
   const fetchReviewHandler = useCallback(() => {
-    if (hasMore && query) {
+    if (hasMore && query && isMounted.current) {
       getReviewsFetch({ type: REQUEST, params: [query] });
     }
   }, [allReviews, hasMore, query]);

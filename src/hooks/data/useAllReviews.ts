@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { getReviewsFirst, getReviews } from 'api/review';
 import useApiFetch, {
   REQUEST,
@@ -41,6 +41,7 @@ const useAllReviews = () => {
   const [lastKey, setLastKey] = useState<string>('');
   const [allReviews, setAllReviews] = useState<LightReview[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true); // let us know if there is more data to fetch in db
+  const isMounted = useRef<boolean>(false);
 
   useEffect(() => {
     // if there is Cached Data , we will call 'endBefore' API call and add Cached Data to it
@@ -56,6 +57,7 @@ const useAllReviews = () => {
         });
       }
     }
+    isMounted.current = true;
   }, []);
 
   useEffect(() => {
@@ -111,7 +113,7 @@ const useAllReviews = () => {
   }, [getReviewsResult, allReviews]);
 
   const fetchReviewHanlder = useCallback(() => {
-    if (hasMore) {
+    if (hasMore && isMounted.current) {
       getReviewsFetch({ type: REQUEST, params: [lastKey] });
     }
   }, [allReviews, hasMore, lastKey]);
