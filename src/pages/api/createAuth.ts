@@ -12,7 +12,7 @@ const createAuth = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
       const idToken = req.body.token; // get token
       const decodedIdToken = await admin.auth().verifyIdToken(idToken); // verifyToken
-      let cookie;
+      let cookie = null as unknown;
       // check if token is created in an hour
       if (new Date().getTime() / 1000 - decodedIdToken.auth_time < EXPIRE) {
         cookie = await admin.auth().createSessionCookie(idToken, { expiresIn });

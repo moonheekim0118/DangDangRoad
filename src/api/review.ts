@@ -105,7 +105,7 @@ export const getReviews = async (
   key?: string
 ): T.APIResponse<T.ReviewResult> => {
   try {
-    let response = '' as unknown;
+    let response = null as unknown;
     if (key) {
       response = await db
         .collection('reviews')

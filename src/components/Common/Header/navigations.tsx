@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import { Link } from 'components/UI';
 import {
   MENU_LOGIN_TITLE,
@@ -6,7 +7,7 @@ import {
 } from 'common/constant/string';
 import routes from 'common/constant/routes';
 
-export const SignUpLink = () => {
+export const SignUpLink = memo(() => {
   return (
     <Link
       align="left"
@@ -17,9 +18,9 @@ export const SignUpLink = () => {
       {MENU_SIGNUP_TITLE}
     </Link>
   );
-};
+});
 
-export const LoginLink = () => {
+export const LoginLink = memo(() => {
   return (
     <Link
       align="left"
@@ -30,9 +31,9 @@ export const LoginLink = () => {
       {MENU_LOGIN_TITLE}
     </Link>
   );
-};
+});
 
-export const WriteReviewLink = () => {
+export const WriteReviewLink = memo(() => {
   return (
     <Link
       align="left"
@@ -43,4 +44,4 @@ export const WriteReviewLink = () => {
       {MENU_WRITE_REVIEW_TITLE}
     </Link>
   );
-};
+});

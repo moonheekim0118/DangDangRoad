@@ -48,7 +48,7 @@ export const getComments = async (
   key?: string
 ): T.APIResponse<T.CommentResult> => {
   try {
-    let response = '' as unknown;
+    let response = null as unknown;
     if (key) {
       response = await db
         .collection('comments')

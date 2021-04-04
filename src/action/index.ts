@@ -1,7 +1,7 @@
 import * as T from 'types/Context';
-import { UserType } from 'types/User';
+import { UserInfo } from 'types/User';
 
-export const loginSuccess = (data: UserType): T.LoginSuccessAction => {
+export const loginSuccess = (data: UserInfo): T.LoginSuccessAction => {
   return {
     type: 'loginSuccess',
     data,

@@ -17,8 +17,8 @@ const useSinglePostModal = (fullReviews: LightReview[]) => {
 
   useEffect(() => {
     const query = Router.query.search_query;
-    let pathName = '/search/';
-    if (typeof query === 'string' && query) pathName = pathName + query;
+    let pathName = routes.SEARCH;
+    if (typeof query === 'string' && query) pathName = `${pathName}/${query}`;
     setOriginPath(pathName);
   }, []);
 

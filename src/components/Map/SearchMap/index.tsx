@@ -35,9 +35,9 @@ const SearchMap = ({
   initialCoordY,
 }: Props): React.ReactElement => {
   const container = useElement('map');
-  const [map, setMap] = useState<any>();
   const [placeData, setPlacesData] = useState<T.PlaceType[] | null>(null);
   const [pagination, setPagination] = useState<T.PaginationType | null>(null);
+  const [map, setMap] = useState<any>();
   const [ps, setPs] = useState<any>();
   const [infoWindow, setInfoWindow] = useState<any>();
   const keywordRef = useRef<InputRef>(inputDefaultRef());
@@ -103,7 +103,7 @@ const SearchMap = ({
     (data) => {
       if (map) {
         const { kakao } = window;
-        let placePosition;
+        let placePosition = null;
         let bounds = new kakao.maps.LatLngBounds();
         for (let i = 0; i < data.length; i++) {
           placePosition = new kakao.maps.LatLng(data[i].y, data[i].x);
@@ -127,7 +127,7 @@ const SearchMap = ({
   );
 
   const placeSearchCB = useCallback(
-    (data, stauts, pagination) => {
+    (data, _, pagination) => {
       if (data.length === 0) {
         return alert(NO_SEARCH_RESULT_ERROR);
       }

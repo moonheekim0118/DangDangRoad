@@ -7,7 +7,6 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 
 const MyPageLayout = dynamic(() => import('components/MyPage/MyPageLayout'));
-
 const UpdateProfile = dynamic(() => import('components/MyPage/UpdateProfile'));
 
 const updateProfile = () => {
