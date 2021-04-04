@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { useUser, useAllReviews, useIntersectionObserver } from 'hooks';
-import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
+import { REQUEST } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/UI';
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';

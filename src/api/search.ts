@@ -1,6 +1,7 @@
 import algoliasearch from 'algoliasearch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { getCommentsCount } from 'api/comment';
+import { LightReview } from 'types/Review';
 import * as T from 'types/API';
 
 const client = algoliasearch(
@@ -12,12 +13,10 @@ let cachedData = {};
 
 // search Query with algolia
 // get All the data
-const getDatasFromAlgolia = async (
-  keyword: string
-): Promise<T.LightReviewData[]> => {
+const getDatasFromAlgolia = async (keyword: string): Promise<LightReview[]> => {
   try {
     const response = await index.search(keyword);
-    let reviews: T.LightReviewData[] = [];
+    let reviews: LightReview[] = [];
     response.hits.forEach((data) => {
       const review = {
         docId: data.objectID,
@@ -37,9 +36,7 @@ const getDatasFromAlgolia = async (
   }
 };
 
-const searchByKeyword = async (
-  query: string
-): T.APIResponse<T.LightReviewData[]> => {
+const searchByKeyword = async (query: string): T.APIResponse<LightReview[]> => {
   try {
     if (!cachedData[query]) {
       const result = await getDatasFromAlgolia(query);

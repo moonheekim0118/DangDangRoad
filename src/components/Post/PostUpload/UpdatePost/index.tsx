@@ -8,7 +8,8 @@ import useApiFetch, {
   FAILURE,
 } from 'hooks/common/useApiFetch';
 import { NO_UPDATE_ERROR, UPDATE_MESSAGE } from 'common/constant/string';
-import { ReviewData, WriteReviewParams } from 'types/API';
+import { WriteReviewParams } from 'types/API';
+import { FullReview } from 'types/Review';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import { PostEditor } from 'components/Post/PostUpload';
 import routes from 'common/constant/routes';
@@ -17,11 +18,11 @@ import * as Action from 'action';
 
 interface Props {
   /** updating-post data */
-  initialData: ReviewData;
+  initialData: FullReview;
   /** author & now loggedIn user's id */
   userId: string;
   /** update Cache handler */
-  updateCache: (postId: string, data: ReviewData) => void;
+  updateCache: (postId: string, data: FullReview) => void;
 }
 
 const UpdatePost = ({

@@ -1,5 +1,4 @@
 import React from 'react';
-import colorList from 'util/colorGenerator';
 import { sizes } from 'components/UI/Button/style';
 import * as S from './style';
 
@@ -8,13 +7,11 @@ export interface Props {
   children: React.ReactNode;
   /** font size*/
   size: 'large' | 'medium' | 'small';
-  /** colorRandom or not */
-  colorIndex?: number;
 }
 
-const Tag = ({ children, size, colorIndex = 0 }: Props): React.ReactElement => {
+const Tag = ({ children, size }: Props): React.ReactElement => {
   return (
-    <S.Container color={colorList[colorIndex]} css={sizes[size]}>
+    <S.Container css={sizes[size]}>
       <S.Text>#{children}</S.Text>
     </S.Container>
   );

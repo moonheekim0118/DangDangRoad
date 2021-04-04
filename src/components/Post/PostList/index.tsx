@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { PreviewPost } from 'components/Post';
-import { LightReviewData } from 'types/API';
+import { LightReview } from 'types/Review';
 import { DEFAULT_KEYWORD } from 'common/constant/string';
 import { useSinglePostModal } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
@@ -19,7 +19,7 @@ interface Props {
   /** search keyword */
   searchKeyword?: string;
   /** fetched datas to show */
-  reviewData: LightReviewData[];
+  reviewData: LightReview[];
   /** remove cache Handler */
   removeCacheFromDataHandler: (id: string) => void;
 }

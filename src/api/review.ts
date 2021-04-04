@@ -2,12 +2,15 @@ import db from 'firebaseConfigs/db';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 import { getCommentsCount } from 'api/comment';
+import { DocumentData, QuerySnapshot } from '@firebase/firestore-types';
+import { User } from 'types/User';
+import * as Review from 'types/Review';
 import * as T from 'types/API';
 
 /** create new Review */
 export const createReview = async (
   data: T.WriteReviewParams
-): T.APIResponse<null> => {
+): T.APIResponse => {
   try {
     data['createdAt'] = Date.now();
     // add User Ref by user Id
@@ -44,7 +47,7 @@ export const removeReview = async (id: string): T.APIResponse<string> => {
 };
 
 // extract user data by userRef
-export const getUserData = async (userRef): Promise<T.UserContents> => {
+export const getUserData = async (userRef: DocumentData): Promise<User> => {
   try {
     const response = await userRef.get();
     const userData = response.data();
@@ -54,9 +57,11 @@ export const getUserData = async (userRef): Promise<T.UserContents> => {
   }
 };
 
-const extractReviewData = async (response): Promise<T.ReviewResult> => {
+const extractReviewData = async (
+  response: QuerySnapshot
+): Promise<T.ReviewResult> => {
   try {
-    let reviews: T.LightReviewData[] = [];
+    let reviews: Review.LightReview[] = [];
     let lastKey = '';
     response.forEach((doc) => {
       const data = doc.data();
@@ -100,7 +105,7 @@ export const getReviews = async (
   key?: string
 ): T.APIResponse<T.ReviewResult> => {
   try {
-    let response;
+    let response = null as unknown;
     if (key) {
       response = await db
         .collection('reviews')
@@ -115,7 +120,7 @@ export const getReviews = async (
         .limit(REVIEW_DATA_LIMIT)
         .get();
     }
-    const data = await extractReviewData(response);
+    const data = await extractReviewData(response as QuerySnapshot);
     return { isError: false, data };
   } catch (error) {
     throw error;
@@ -125,14 +130,14 @@ export const getReviews = async (
 /** get sinlge Review By Id */
 export const getReviewById = async (
   id: string
-): T.APIResponse<T.ReviewData> => {
+): T.APIResponse<Review.FullReview> => {
   try {
     const response = await db.collection('reviews').doc(id).get();
     const data = response.data();
     if (data) {
       data['docId'] = id;
       data['userData'] = await getUserData(data['userRef']);
-      return { isError: false, data: data as T.ReviewData };
+      return { isError: false, data: data as Review.FullReview };
     } else {
       throw { code: 'Not exists data' };
     }

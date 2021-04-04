@@ -3,10 +3,10 @@ import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { COMMENT_PLACEHOLDER } from 'common/constant/string';
 import { checkCommentLength } from 'util/reviewTextValidations';
 import { useValidation, useApiFetch } from 'hooks';
-import { CommentData } from 'types/API';
 import { Button } from 'components/UI';
 import { createComment } from 'api/comment';
 import { useNotificationDispatch } from 'context/Notification';
+import Comment from 'types/Comment';
 import * as Action from 'action';
 import * as S from './style';
 
@@ -16,7 +16,7 @@ interface Props {
   /** comment's postId */
   postId: string;
   /** to store new Comment in cache and state */
-  addCommentHandler: (newComments: CommentData) => void;
+  addCommentHandler: (newComments: Comment) => void;
 }
 
 const WriteComment = ({
@@ -33,7 +33,7 @@ const WriteComment = ({
     createCommentResult,
     createCommentFetch,
     createCommentSetDefault,
-  ] = useApiFetch<CommentData>(createComment);
+  ] = useApiFetch<Comment>(createComment);
 
   useEffect(() => {
     switch (createCommentResult.type) {

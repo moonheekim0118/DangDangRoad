@@ -1,10 +1,11 @@
 import getFirebase from 'firebaseConfigs/firebase';
 import db from 'firebaseConfigs/db';
 import createUserToken from 'libs/createUserToken';
-import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 import api from 'common/constant/api';
 import axios from 'axios';
 import * as T from 'types/API';
+import { User } from 'types/User';
+import { EMPTY_USER_NICKNAME } from 'common/constant/string';
 
 const firebase = getFirebase();
 const auth = firebase.auth();
@@ -12,7 +13,7 @@ const auth = firebase.auth();
 /** update profile */
 export const updateProfile = async (
   data: T.UpdateProfileParams
-): T.APIResponse<T.UserContents> => {
+): T.APIResponse<User> => {
   try {
     await db.collection('users').doc(data.id).update(data.updateContents);
     return { isError: false, data: data.updateContents };
@@ -55,9 +56,7 @@ export const destroyAccount = async (id: string): T.APIResponse => {
 };
 
 /** get User info by Id */
-export const getUserById = async (
-  id: string
-): T.APIResponse<T.UserContents> => {
+export const getUserById = async (id: string): T.APIResponse<User> => {
   try {
     const response = await db.collection('users').doc(id).get();
     const data = response.data();

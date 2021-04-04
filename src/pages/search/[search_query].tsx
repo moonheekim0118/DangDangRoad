@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { useUser, useQueryReviews, useIntersectionObserver } from 'hooks';
-import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
+import { REQUEST } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/UI';
 import { LoaderContainer } from './index';
 import dynamic from 'next/dynamic';

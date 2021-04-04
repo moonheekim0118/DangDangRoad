@@ -1,15 +1,16 @@
-export interface ReviewDataType {
-  userId: string;
-  hasParkingLot: string;
-  hasOffLeash: string;
-  recommendation: string;
-  freeText: string;
-  imageList: string[];
-  placeInfo: {
-    address_name: string;
-    place_name: string;
-    x: string;
-    y: string;
-  };
-  createdAt: any;
+import { WriteReviewParams } from './API';
+import { User } from './User';
+
+export interface LightReview {
+  docId: string;
+  thumbNail: string | null;
+  placeName: string;
+  createdAt: number;
+  commentsLength?: number;
+}
+
+export interface FullReview extends WriteReviewParams {
+  docId: string;
+  userData: User;
+  createdAt: number;
 }

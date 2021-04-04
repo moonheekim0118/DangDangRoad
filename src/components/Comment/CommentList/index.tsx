@@ -4,6 +4,7 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
+import Comment from 'types/Comment';
 import { Loading, Author, Button, Icon } from 'components/UI';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { DELETE_BUTTON_CAPTION } from 'common/constant/string';
@@ -11,7 +12,6 @@ import { removeComment } from 'api/comment';
 import { REMOVE_MESSAGE } from 'common/constant/string';
 import { useNotificationDispatch } from 'context/Notification';
 import * as Action from 'action';
-import * as T from 'types/API';
 import * as S from './style';
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
   /** remove comment from list handler */
   removeCommentHandler: (id: string) => void;
   /** comments list to render */
-  comments: T.CommentData[];
+  comments: Comment[];
   /** to check if comment writer and logged-in user is same user  */
   userId?: string;
   /** to check if we can load more comments */

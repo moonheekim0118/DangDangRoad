@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div<{ color: string }>`
+export const Container = styled.div`
   max-width: 300px;
   display: flex;
-  background-color: ${(props) => props.color};
+  background-color: #fd2a1d;
   color: #fff;
   font-weight: bold;
   border-radius: 50px;

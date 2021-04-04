@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { Loading } from 'components/UI';
 import { useUser } from 'hooks';
 import { MYPAGE_NAVIGATOR } from 'common/constant/string';
-import routes from 'common/constant/routes';
 import { useRouter } from 'next/router';
+import routes from 'common/constant/routes';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 

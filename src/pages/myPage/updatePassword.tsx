@@ -7,7 +7,6 @@ import routes from 'common/constant/routes';
 import dynamic from 'next/dynamic';
 
 const MyPageLayout = dynamic(() => import('components/MyPage/MyPageLayout'));
-
 const UpdatePassword = dynamic(
   () => import('components/MyPage/UpdatePassword')
 );

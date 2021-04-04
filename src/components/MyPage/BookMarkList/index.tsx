@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { BookMarkListType } from 'types/API';
+import BookMark from 'types/BookMark';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { useApiFetch } from 'hooks';
 import { getBookMarkedReviews, removeBookMarkReview } from 'api/bookmark';
@@ -17,19 +17,19 @@ interface Props {
   pageNum: number;
 }
 
-const CACHE = new cacheProto<BookMarkListType[]>();
+const CACHE = new cacheProto<BookMark[]>();
 let CACHED_USER = '';
 
 const BookMarkList = ({ userId, pageNum }: Props) => {
   const [totalLength, setTotalLength] = useState<number>(0);
   const [isRemoveMode, setIsRemoveMode] = useState<boolean>(false);
-  const [reviewList, setReviewList] = useState<BookMarkListType[]>([]);
+  const [reviewList, setReviewList] = useState<BookMark[]>([]);
 
   const [
     getBookMarksResult,
     getBookMarksFetch,
     getBookMarksSetDefault,
-  ] = useApiFetch<BookMarkListType[]>(getBookMarkedReviews);
+  ] = useApiFetch<BookMark[]>(getBookMarkedReviews);
 
   const [
     removeBookMarkResult,

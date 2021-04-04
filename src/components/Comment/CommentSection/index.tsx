@@ -4,10 +4,11 @@ import useApiFetch, {
   SUCCESS,
   FAILURE,
 } from 'hooks/common/useApiFetch';
+import Comment from 'types/Comment';
 import { EMPTY_COMMENT_TITLE } from 'common/constant/string';
 import { Loading } from 'components/UI';
 import { COMMENT_DATA_LIMIT } from 'common/constant/number';
-import { CommentResult, CommentData } from 'types/API';
+import { CommentResult } from 'types/API';
 import { getComments } from 'api/comment';
 import { useNotificationDispatch } from 'context/Notification';
 import cacheProto from 'util/cache';
@@ -28,14 +29,14 @@ interface Props {
 interface DataType {
   lastKey: string;
   hasMore: boolean;
-  comments: CommentData[];
+  comments: Comment[];
 }
 
 const CACHE = new cacheProto<DataType>();
 
 const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [comments, setComments] = useState<CommentData[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [lastKey, setLastKey] = useState<string>('');
   const [hasMore, setHasMore] = useState<boolean>(false);
 
@@ -85,7 +86,7 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
   }, [getCommentResult, comments]);
 
   const addCommentHandler = useCallback(
-    (newComment: CommentData) => {
+    (newComment: Comment) => {
       const updatedComments = [newComment, ...comments];
       setComments(updatedComments);
       const cachedData = CACHE.get(postId);

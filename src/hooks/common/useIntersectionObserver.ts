@@ -15,7 +15,7 @@ const useIntersectionObserver = ({
   fetcher,
   removeFetcher,
 }: Props) => {
-  const observerTarget = useRef(null);
+  const observerTarget = useRef<HTMLDivElement>(null);
   const didMount = useRef<RefType<boolean>>(defaultRef(false));
 
   const onIntersect = useCallback(([entry]) => {
@@ -32,12 +32,16 @@ const useIntersectionObserver = ({
   }, deps);
 
   useEffect(() => {
-    let observer;
+    let observer = null as IntersectionObserver | null;
     if (observerTarget && observerTarget.current) {
       observer = new IntersectionObserver(onIntersect, { threshold: 1 });
-      observer.observe(observerTarget.current);
+      if (observer) {
+        observer.observe(observerTarget.current);
+      }
     }
-    return () => observer && observer.disconnect();
+    return () => {
+      if (observer) observer.disconnect();
+    };
   }, [observerTarget, ...deps]);
 
   return observerTarget;
