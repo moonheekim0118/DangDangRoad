@@ -1,3 +1,7 @@
+import * as Review from './Review';
+import Comment from './Comment';
+import { User } from './User';
+
 export interface AuthResult {
   userId: string;
   isLoggedIn: boolean;
@@ -16,7 +20,7 @@ export interface SignInParams {
 
 export interface UpdateProfileParams {
   id: string;
-  updateContents: UserContents;
+  updateContents: User;
 }
 
 export interface UpdatePasswordParams {
@@ -46,54 +50,18 @@ export interface WriteCommentParams {
 }
 
 export interface ReviewResult {
-  reviews: LightReviewData[];
+  reviews: Review.LightReview[];
   lastKey: string;
 }
 
 export interface CommentResult {
-  comments: CommentData[];
+  comments: Comment[];
   lastKey: string;
 }
 
 export interface BookMarkResult {
   isBookMarked: boolean;
   postId: string;
-}
-
-export interface BookMarkListType {
-  docId: string;
-  placeInfo: {
-    address_name: string;
-    place_name: string;
-  };
-}
-
-export interface ReviewData extends WriteReviewParams {
-  docId: string;
-  userData: UserContents;
-  createdAt: number;
-}
-
-export interface LightReviewData {
-  docId: string;
-  thumbNail: string | null;
-  placeName: string;
-  createdAt: number;
-  commentsLength?: number;
-}
-
-export interface CommentData {
-  docId: string;
-  postId: string;
-  userId: string;
-  userData: UserContents;
-  contents: string;
-  createdAt: string;
-}
-
-export interface UserContents {
-  nickname: string;
-  profilePic?: string;
 }
 
 export interface SuccessType<T = null> {

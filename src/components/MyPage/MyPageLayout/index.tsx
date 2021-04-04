@@ -4,7 +4,7 @@ import { PageMenu, UserCard } from 'components/MyPage';
 import { Title, Button, Loading } from 'components/UI';
 import { useModal, useApiFetch } from 'hooks';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
-import { UserType } from 'types/User';
+import { UserInfo } from 'types/User';
 import {
   DESTROY_ACCOUNT_CAPTION,
   CANCLE_BUTTON_CAPTION,
@@ -21,7 +21,7 @@ const Modal = dynamic(() => import('components/UI/Modal'));
 
 interface Props {
   /** logged in user Info */
-  userInfo: UserType;
+  userInfo: UserInfo;
   /** now visiting page Name(title) */
   pageName: string;
   /** now visiting page component */

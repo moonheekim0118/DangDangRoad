@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { colorType } from 'common/style/color';
 import * as S from './style';
 

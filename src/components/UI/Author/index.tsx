@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Avatar } from 'components/UI';
-import { UserContents } from 'types/API';
+import { User } from 'types/User';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import * as S from './style';
@@ -10,7 +10,7 @@ const DetailsDropdown = dynamic(() => import('components/UI/DetailsDropdown'));
 
 export interface Props {
   /** user data to show */
-  userData: UserContents;
+  userData: User;
   /** comment or Post created at (optional) */
   createdAt?: number;
   /** size of author card */

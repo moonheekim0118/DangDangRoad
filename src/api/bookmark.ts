@@ -1,7 +1,9 @@
 import db from 'firebaseConfigs/db';
+import { DocumentData } from '@firebase/firestore-types';
+import BookMark from 'types/BookMark';
 import * as T from 'types/API';
 
-export const getPostData = async (postRef) => {
+export const getPostData = async (postRef: DocumentData) => {
   try {
     const response = await postRef.get();
     const postData = response.data();
@@ -15,11 +17,11 @@ export const getPostData = async (postRef) => {
 /** get All BookMark Reviews*/
 export const getBookMarkedReviews = async (
   userId: string
-): T.APIResponse<T.BookMarkListType[]> => {
+): T.APIResponse<BookMark[]> => {
   try {
     const response = await db.collection('bookmarks').doc(userId).get();
     const postRefs = response.get('postRefs');
-    let postLists = [] as any;
+    let postLists = [] as BookMark[];
     for (const ref of postRefs) {
       const data = await getPostData(ref);
       data && postLists.push(data);
@@ -80,9 +82,9 @@ export const removeBookMarkReview = async (
     let postIds = response.get('postIds');
     let postRefs = response.get('postRefs');
     if (postIds && postRefs) {
-      const index = postIds.findIndex((v, i) => v === postId);
-      postIds = postIds.filter((v, i) => v !== postId);
-      postRefs = postRefs.filter((v, i) => i !== index);
+      const index = postIds.findIndex((v) => v === postId);
+      postIds = postIds.filter((v) => v !== postId);
+      postRefs = postRefs.filter((_, i) => i !== index);
       await db
         .collection('bookmarks')
         .doc(userId)

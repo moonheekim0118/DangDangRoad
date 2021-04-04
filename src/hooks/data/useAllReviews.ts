@@ -7,13 +7,14 @@ import useApiFetch, {
 } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { useNotificationDispatch } from 'context/Notification';
+import { LightReview } from 'types/Review';
 import cacheProto from 'util/cache';
 import * as Action from 'action';
 import * as T from 'types/API';
 
 interface DataType {
   /** reveiw lists */
-  reviews: T.LightReviewData[];
+  reviews: LightReview[];
   /** to continue infinite Scroll */
   lastKey: string;
   /** initial Key to get Recent datas */
@@ -38,7 +39,7 @@ const useAllReviews = () => {
   ] = useApiFetch<T.ReviewResult>(getReviewsFirst);
 
   const [lastKey, setLastKey] = useState<string>('');
-  const [allReviews, setAllReviews] = useState<T.LightReviewData[]>([]);
+  const [allReviews, setAllReviews] = useState<LightReview[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true); // let us know if there is more data to fetch in db
 
   useEffect(() => {

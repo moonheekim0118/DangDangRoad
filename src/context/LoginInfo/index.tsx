@@ -1,8 +1,8 @@
 import React, { useReducer, createContext, useContext } from 'react';
-import { UserType } from 'types/User';
+import { UserInfo } from 'types/User';
 import * as T from 'types/Context';
 
-interface State extends UserType {
+interface State extends UserInfo {
   isLoaded: boolean;
 }
 

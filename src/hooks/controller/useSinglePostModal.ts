@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useModal, useSingleReview } from 'hooks';
+import { LightReview } from 'types/Review';
 import Router from 'next/router';
 import routes from 'common/constant/routes';
-import * as T from 'types/API';
 
-const useSinglePostModal = (fullReviews: T.LightReviewData[]) => {
+const useSinglePostModal = (fullReviews: LightReview[]) => {
   const [originPath, setOriginPath] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
   const [showModal, modalHandler] = useModal(false);

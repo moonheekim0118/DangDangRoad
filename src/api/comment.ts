@@ -1,18 +1,20 @@
 import db from 'firebaseConfigs/db';
 import * as T from 'types/API';
+import Comment from 'types/Comment';
 import { COMMENT_DATA_LIMIT } from 'common/constant/number';
 import { getUserData } from 'api/review';
+import { QuerySnapshot } from '@firebase/firestore-types';
 
-//get comments by 5
-
-interface tempCommentData extends T.CommentData {
+interface tempCommentData extends Comment {
   userRef: any;
 }
 
 // extract & parse Comment data from Firebase response
-const extractCommentData = async (response): Promise<T.CommentResult> => {
+const extractCommentData = async (
+  response: QuerySnapshot
+): Promise<T.CommentResult> => {
   try {
-    let comments: T.CommentData[] = [];
+    let comments = [] as Comment[];
     let temp = [] as tempCommentData[];
     let lastKey = '';
     response.forEach((doc) => {
@@ -46,7 +48,7 @@ export const getComments = async (
   key?: string
 ): T.APIResponse<T.CommentResult> => {
   try {
-    let response;
+    let response = '' as unknown;
     if (key) {
       response = await db
         .collection('comments')
@@ -63,7 +65,7 @@ export const getComments = async (
         .limit(COMMENT_DATA_LIMIT)
         .get();
     }
-    const data = await extractCommentData(response);
+    const data = await extractCommentData(response as QuerySnapshot);
     return { isError: false, data };
   } catch (error) {
     throw error;
@@ -74,7 +76,7 @@ export const getComments = async (
 
 export const createComment = async (
   data: T.WriteCommentParams
-): T.APIResponse<T.CommentData> => {
+): T.APIResponse<Comment> => {
   try {
     data['userRef'] = db.collection('users').doc(data.userId);
     data['createdAt'] = Date.now();
@@ -85,7 +87,7 @@ export const createComment = async (
       newComment['docId'] = result.id;
       newComment['userData'] = await getUserData(newComment['userRef']);
       delete newComment['userRef'];
-      return { isError: false, data: newComment as T.CommentData };
+      return { isError: false, data: newComment as Comment };
     } else {
       throw { code: 'Not exists Data' };
     }

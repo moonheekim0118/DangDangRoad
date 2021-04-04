@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Router from 'next/router';
 import useSWR from 'swr';
-import { UserType } from 'types/User';
+import { UserInfo } from 'types/User';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
 import api from 'common/constant/api';
 import * as Action from 'action';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const useUser = ({ redirectTo, redirectIfFound = false }: Props = {}): {
-  user: UserType;
+  user: UserInfo;
   mutateUser: (
     data?: any,
     shouldRevalidate?: boolean | undefined

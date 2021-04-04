@@ -4,13 +4,14 @@ import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { useRouter } from 'next/router';
 import { useNotificationDispatch } from 'context/Notification';
+import { LightReview } from 'types/Review';
 import searchByKeyword from 'api/search';
 import cacheProto from 'util/cache';
 import * as Action from 'action';
 import * as T from 'types/API';
 
 interface DataType {
-  reviews: T.LightReviewData[];
+  reviews: LightReview[];
   hasMore: boolean;
 }
 
@@ -20,11 +21,11 @@ const useQueryReviews = () => {
   const notiDispatch = useNotificationDispatch();
   const router = useRouter();
   const query = router.query.search_query as string;
-  const [allReviews, setAllReviews] = useState<T.LightReviewData[]>([]);
+  const [allReviews, setAllReviews] = useState<LightReview[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
   const [getReviewsResult, getReviewsFetch, getReviewsSetDefault] = useApiFetch<
-    T.LightReviewData[]
+    LightReview[]
   >(searchByKeyword);
 
   useEffect(() => {

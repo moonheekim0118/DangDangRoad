@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { PostBookMark } from 'components/Post';
 import { CommentSection } from 'components/Comment';
-import { ReviewData } from 'types/API';
+import { FullReview } from 'types/Review';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
 import { Author, ControllerBtn } from 'components/UI';
@@ -27,7 +27,7 @@ import * as S from './style';
 
 interface Props {
   /** single Review Data */
-  data: ReviewData;
+  data: FullReview;
   /** Navigation info */
   NavigationInfo?: NavigationInfo;
   /** remove Handler */

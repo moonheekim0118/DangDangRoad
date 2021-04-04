@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { Button, Input } from 'components/UI';
 import { inputId } from 'common/constant/input';
-import { UserType, MutateType } from 'types/User';
+import { User, UserInfo, MutateType } from 'types/User';
 import { SAVE_CAPTION, UPDATE_MESSAGE } from 'common/constant/string';
 import { nicknameValidatorForUpdate } from 'util/signUpValidations';
 import { useNotificationDispatch } from 'context/Notification';
-import { UserContents } from 'types/API';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import useApiFetch, {
   REQUEST,
@@ -19,7 +18,7 @@ import * as Action from 'action';
 
 interface Props {
   /** user data */
-  user: UserType;
+  user: UserInfo;
   /** mutate function to mutate User's data when it's changed */
   mutate: MutateType;
 }
@@ -34,7 +33,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
     updateProfileResult,
     updateProfileFetch,
     updateProfileSetDefault,
-  ] = useApiFetch<UserContents>(updateProfile);
+  ] = useApiFetch<User>(updateProfile);
 
   useEffect(() => {
     switch (updateProfileResult.type) {
