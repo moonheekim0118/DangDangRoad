@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { useUser, useQueryReviews, useIntersectionObserver } from 'hooks';
-import { REQUEST } from 'hooks/common/useApiFetch';
+import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/UI';
-import { LoaderContainer } from './index';
+import { LoaderContainer, MainLoaderContainer } from './index';
 import dynamic from 'next/dynamic';
 
 const WriteButton = dynamic(() => import('components/Post/WriteButton'));
@@ -13,11 +13,12 @@ const SearchResult = () => {
   const { user } = useUser();
 
   const [
-    allReviews,
+    reviews,
+    hasMore,
     fetchReviewHandler,
     removeCacheHandler,
-    allReviewsFetchStatus,
-    hasMore,
+    getReviewsStatus,
+    getReviewMoreStatus,
     query,
   ] = useQueryReviews();
 
@@ -41,18 +42,28 @@ const SearchResult = () => {
           key="ogdesc"
         />
       </Head>
-      {allReviews.length > 0 ? (
-        <PostList
-          searchKeyword={query?.toString()}
-          reviewData={allReviews}
-          removeCacheFromDataHandler={removeCacheHandler}
-        />
+      {getReviewsStatus === REQUEST ? (
+        <MainLoaderContainer>
+          <Loading />
+        </MainLoaderContainer>
       ) : (
-        <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
+        <>
+          {reviews.length > 0 ? (
+            <>
+              <PostList
+                searchKeyword={query?.toString()}
+                reviewData={reviews}
+                removeCacheFromDataHandler={removeCacheHandler}
+              />
+            </>
+          ) : (
+            <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
+          )}
+        </>
       )}
       {user && user.isLoggedIn && <WriteButton />}
       <LoaderContainer ref={observerTarget}>
-        {allReviewsFetchStatus === REQUEST && <Loading />}
+        {getReviewMoreStatus === REQUEST && <Loading size="medium" />}
       </LoaderContainer>
     </>
   );

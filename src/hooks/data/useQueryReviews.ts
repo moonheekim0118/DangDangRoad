@@ -1,16 +1,26 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { useApiFetch } from 'hooks';
-import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
+import { useEffect, useCallback } from 'react';
+import useInfiniteData, {
+  INIT,
+  UPDATE,
+  REMOVE,
+} from 'hooks/data/useInfiniteData';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { useRouter } from 'next/router';
 import { useNotificationDispatch } from 'context/Notification';
 import { LightReview } from 'types/Review';
-import searchByKeyword from 'api/search';
 import cacheProto from 'util/cache';
+import searchByKeyword from 'api/search';
 import * as Action from 'action';
 
 interface DataType {
+  /** reveiw lists */
   reviews: LightReview[];
+  /** infinite Scrolling */
   hasMore: boolean;
 }
 
@@ -19,37 +29,53 @@ const CACHE = new cacheProto<DataType>();
 const useQueryReviews = () => {
   const notiDispatch = useNotificationDispatch();
   const router = useRouter();
+  const pathName = router.asPath;
   const query = router.query.search_query as string;
-  const [allReviews, setAllReviews] = useState<LightReview[]>([]);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const isMounted = useRef<boolean>(false);
+  const [result, dispatch, setDefault] = useInfiniteData<LightReview>();
+  const { type, dataList: reviews, hasMore } = result;
 
   const [getReviewsResult, getReviewsFetch, getReviewsSetDefault] = useApiFetch<
     LightReview[]
   >(searchByKeyword);
 
+  const [
+    getReviewsMoreResult,
+    getReviewsMoreFetch,
+    getReviewsMoreSetDefault,
+  ] = useApiFetch<LightReview[]>(searchByKeyword);
+
   useEffect(() => {
-    const cachedData = CACHE.get(query);
-    if (CACHE.has(query) && cachedData) {
-      setAllReviews(cachedData.reviews);
-      setHasMore(cachedData.hasMore);
+    const cachedData = CACHE.get(pathName);
+    if (CACHE.has(pathName) && cachedData) {
+      dispatch({
+        type: INIT,
+        data: {
+          dataList: cachedData.reviews,
+          hasMore: cachedData.hasMore,
+        },
+      });
+    } else {
+      getReviewsFetch({ type: REQUEST, params: [query] });
     }
-    isMounted.current = true;
   }, []);
+
+  useEffect(() => {
+    if (type === REMOVE || type === UPDATE) {
+      CACHE.set(pathName, {
+        reviews,
+        hasMore,
+      });
+      setDefault();
+    }
+  }, [result]);
 
   useEffect(() => {
     switch (getReviewsResult.type) {
       case SUCCESS:
         if (getReviewsResult.data) {
           const newReviews = getReviewsResult.data;
-          const updatedReviews = allReviews.concat(newReviews);
           const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
-          setAllReviews(updatedReviews);
-          setHasMore(newReviews.length === REVIEW_DATA_LIMIT);
-          CACHE.set(query, {
-            reviews: updatedReviews,
-            hasMore,
-          });
+          dispatch({ type: UPDATE, data: { dataList: newReviews, hasMore } });
         }
         getReviewsSetDefault();
         break;
@@ -57,33 +83,41 @@ const useQueryReviews = () => {
         notiDispatch(Action.showError(getReviewsResult.error));
         getReviewsSetDefault();
     }
-  }, [getReviewsResult, allReviews]);
+  }, [getReviewsResult]);
+
+  useEffect(() => {
+    switch (getReviewsMoreResult.type) {
+      case SUCCESS:
+        if (getReviewsMoreResult.data) {
+          const newReviews = getReviewsMoreResult.data;
+          const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+          dispatch({ type: UPDATE, data: { dataList: newReviews, hasMore } });
+        }
+        getReviewsMoreSetDefault();
+        break;
+      case FAILURE:
+        notiDispatch(Action.showError(getReviewsMoreResult.error));
+        getReviewsMoreSetDefault();
+    }
+  }, [getReviewsMoreResult]);
 
   const fetchReviewHandler = useCallback(() => {
-    if (hasMore && query && isMounted.current) {
-      getReviewsFetch({ type: REQUEST, params: [query] });
+    if (hasMore && query) {
+      getReviewsMoreFetch({ type: REQUEST, params: [query] });
     }
-  }, [allReviews, hasMore, query]);
+  }, [hasMore, query]);
 
-  const removeCacheHandler = useCallback(
-    (id: string) => {
-      const newReviews = allReviews.filter((v) => v.docId !== id);
-      setAllReviews(newReviews);
-      const cachedData = CACHE.get(query);
-      CACHE.set(query, {
-        ...cachedData,
-        reviews: newReviews,
-      } as DataType);
-    },
-    [allReviews]
-  );
+  const removeCacheHandler = useCallback((id: string) => {
+    dispatch({ type: REMOVE, data: { id } });
+  }, []);
 
   return [
-    allReviews,
+    reviews,
+    hasMore,
     fetchReviewHandler,
     removeCacheHandler,
     getReviewsResult.type,
-    hasMore,
+    getReviewsMoreResult.type,
     query,
   ] as const;
 };
