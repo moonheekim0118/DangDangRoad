@@ -6,5 +6,5 @@ export default interface Comment {
   userId: string;
   userData: User;
   contents: string;
-  createdAt: string;
+  createdAt: number;
 }

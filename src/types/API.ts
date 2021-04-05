@@ -74,3 +74,9 @@ export type FileType = Blob | Uint8Array | ArrayBuffer;
 export type APIResponse<T = null> = Promise<SuccessType<T>>;
 
 export const defaultSuccess: SuccessType = { isError: false, data: null };
+
+export enum Actions {
+  ADD = 'ADD',
+  UPDATE = 'UPDATE',
+  REMOVE = 'REMOVE',
+}

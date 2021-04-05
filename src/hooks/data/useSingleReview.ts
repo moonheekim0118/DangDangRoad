@@ -21,9 +21,10 @@ const useSingleReview = () => {
   const [singleReview, setSingleReview] = useState<FullReview | null>(null);
 
   useEffect(() => {
-    if (getReviewResult.type === SUCCESS && getReviewResult.data) {
-      setSingleReview(getReviewResult.data);
-      CACHE.set(getReviewResult.data.docId, getReviewResult.data); // store in cache
+    const newReview = getReviewResult.data;
+    if (getReviewResult.type === SUCCESS && newReview) {
+      setSingleReview(newReview);
+      CACHE.set(newReview.docId, newReview, 1); // store in cache
       getReviewSetDefault();
     }
   }, [getReviewResult]);
@@ -41,7 +42,7 @@ const useSingleReview = () => {
   }, []);
 
   const updateCache = useCallback((postId: string, data: FullReview) => {
-    CACHE.set(postId, data);
+    CACHE.set(postId, data, 1);
   }, []);
 
   return {

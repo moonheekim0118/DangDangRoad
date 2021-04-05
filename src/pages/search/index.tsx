@@ -1,8 +1,8 @@
 import React from 'react';
-import Head from 'next/head';
-import { useUser, useAllReviews, useIntersectionObserver } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';
+import { useUser, useAllReviews, useIntersectionObserver } from 'hooks';
 import { Loading } from 'components/UI';
+import Head from 'next/head';
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
 
@@ -13,12 +13,13 @@ const SearchMain = () => {
   const { user } = useUser();
 
   const [
-    allReviews,
-    fetchReviewHanlder,
-    removeCacheHandler,
-    allReviewsFetchStatus,
+    reviews,
     hasMore,
     lastKey,
+    fetchReviewHanlder,
+    removeCacheHandler,
+    getReviewsStatus,
+    getReviewsMoreStatus,
   ] = useAllReviews();
 
   const observerTarget = useIntersectionObserver({
@@ -41,24 +42,46 @@ const SearchMain = () => {
           key="ogdesc"
         />
       </Head>
-      {allReviews.length > 0 ? (
-        <PostList
-          reviewData={allReviews}
-          removeCacheFromDataHandler={removeCacheHandler}
-        />
+      {getReviewsStatus === REQUEST ? (
+        <MainLoaderContainer>
+          <Loading />
+        </MainLoaderContainer>
       ) : (
-        <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
+        <>
+          {reviews.length > 0 ? (
+            <>
+              <PostList
+                reviewData={reviews}
+                removeCacheFromDataHandler={removeCacheHandler}
+              />
+              <LoaderContainer ref={observerTarget}>
+                {getReviewsMoreStatus === REQUEST && <Loading size="medium" />}
+              </LoaderContainer>
+            </>
+          ) : (
+            <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
+          )}
+        </>
       )}
       {user && user.isLoggedIn && <WriteButton />}
-      <LoaderContainer ref={observerTarget}>
-        {allReviewsFetchStatus === REQUEST && <Loading />}
-      </LoaderContainer>
     </>
   );
 };
 
 export const LoaderContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  margin-top: 10px;
+  background-color: inherit;
   width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+`;
+
+export const MainLoaderContainer = styled.div`
+  width: 100%;
+  height: 110vh;
   display: grid;
   place-items: center;
   padding: 1.5rem;
