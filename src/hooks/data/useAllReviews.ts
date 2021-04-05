@@ -53,7 +53,7 @@ const useAllReviews = () => {
 
   const router = useRouter();
   const pathName = router.asPath;
-  const [result, dispatch, setDefault] = useInfiniteData<LightReview>();
+  const { result, dispatch, setDefault } = useInfiniteData<LightReview>();
   const { type, dataList: reviews, hasMore, lastKey } = result;
 
   useEffect(() => {
@@ -170,12 +170,9 @@ const useAllReviews = () => {
     }
   }, [hasMore, lastKey]);
 
-  const removeCacheHandler = useCallback(
-    (id: string) => {
-      dispatch({ type: REMOVE, data: { id, lastKey } });
-    },
-    [reviews, lastKey]
-  );
+  const removeCacheHandler = useCallback((id: string) => {
+    dispatch({ type: REMOVE, data: { id } });
+  }, []);
 
   return [
     reviews,

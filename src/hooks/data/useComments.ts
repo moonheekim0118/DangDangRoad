@@ -32,7 +32,7 @@ const useComments = (postId: string) => {
     getCommentFetch,
     getCommentSetDefault,
   ] = useApiFetch<CommentResult>(getComments);
-  const [result, dispatch, setDefault] = useInfiniteData<Comment>();
+  const { result, dispatch, setDefault } = useInfiniteData<Comment>();
   const { type, dataList: comments, hasMore, lastKey } = result;
 
   useEffect(() => {

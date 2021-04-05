@@ -31,7 +31,7 @@ const useQueryReviews = () => {
   const router = useRouter();
   const pathName = router.asPath;
   const query = router.query.search_query as string;
-  const [result, dispatch, setDefault] = useInfiniteData<LightReview>();
+  const { result, dispatch, setDefault } = useInfiniteData<LightReview>();
   const { type, dataList: reviews, hasMore } = result;
 
   const [getReviewsResult, getReviewsFetch, getReviewsSetDefault] = useApiFetch<

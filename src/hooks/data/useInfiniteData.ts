@@ -30,14 +30,14 @@ function reducer<T>(state: State<T>, action): State<T> {
         ...data,
       };
     case ADD:
-      let updatedDatas = data.dataList.concat(state.dataList);
+      let addedData = data.dataList.concat(state.dataList);
       return {
         ...state,
         type,
-        dataList: updatedDatas,
+        dataList: addedData,
       };
     case UPDATE:
-      updatedDatas = state.dataList.concat(data.dataList);
+      let updatedDatas = state.dataList.concat(data.dataList);
       return {
         type,
         hasMore: data.hasMore,
@@ -46,17 +46,18 @@ function reducer<T>(state: State<T>, action): State<T> {
       };
     case REMOVE:
       const id = data.id;
-      let updatedLastKey = data.lastKey || 0;
-      updatedDatas = state.dataList.filter((v, i) => {
+      let updatedLastKey = state.lastKey;
+      let removedDatas = state.dataList.filter((v, i) => {
         if (v.docId === id && v.createdAt === updatedLastKey) {
           updatedLastKey = state.dataList[i - 1].createdAt;
         }
         return v.docId !== id;
       });
+      if (removedDatas.length === 0) updatedLastKey = 0;
       return {
         ...state,
         type,
-        dataList: updatedDatas,
+        dataList: removedDatas,
         lastKey: updatedLastKey,
       };
     default:
@@ -71,13 +72,13 @@ const useInfiniteData = <T = DefaultProps>() => {
     lastKey: 0,
     hasMore: true,
   };
+  const [result, dispatch] = useReducer<Reducer<T>>(reducer, initialState);
 
   const setDefault = useCallback(() => {
     dispatch({ type: '' });
   }, []);
-  const [result, dispatch] = useReducer<Reducer<T>>(reducer, initialState);
 
-  return [result, dispatch, setDefault] as const;
+  return { result, dispatch, setDefault };
 };
 
 export default useInfiniteData;
