@@ -60,11 +60,15 @@ const useQueryReviews = () => {
   }, []);
 
   useEffect(() => {
-    if (type === REMOVE || type === UPDATE) {
-      CACHE.set(pathName, {
-        reviews,
-        hasMore,
-      });
+    if (type === UPDATE || type === REMOVE) {
+      CACHE.set(
+        pathName,
+        {
+          reviews,
+          hasMore,
+        },
+        reviews.length
+      );
       setDefault();
     }
   }, [result]);

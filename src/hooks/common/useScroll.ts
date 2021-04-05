@@ -8,7 +8,7 @@ const CACHE = new cacheProto<number>();
 
 const useScroll = () => {
   const router = useRouter();
-  const [pathname, setPathName] = useState<string>(router.pathname);
+  const [pathname, setPathName] = useState<string>(router.pathname + 'scroll');
 
   /** add Scroll position to cache*/
   useEffect(() => {
@@ -20,8 +20,8 @@ const useScroll = () => {
         delay: 100,
       });
 
-      if (pathname !== router.pathname) {
-        const scrollY = CACHE.get(router.pathname);
+      if (pathname !== router.pathname + 'scroll') {
+        const scrollY = CACHE.get(router.pathname + 'scroll');
         if (scrollY) {
           main.scrollTo(0, scrollY);
         } else {
@@ -30,7 +30,7 @@ const useScroll = () => {
       }
 
       main.addEventListener('scroll', scrollHandler);
-      setPathName(router.pathname);
+      setPathName(router.pathname + 'scroll');
       return () => {
         main.removeEventListener('scroll', scrollHandler);
       };

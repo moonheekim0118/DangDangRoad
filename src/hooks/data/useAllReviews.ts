@@ -81,11 +81,15 @@ const useAllReviews = () => {
 
   useEffect(() => {
     if (type === REMOVE || type === UPDATE || type === ADD) {
-      CACHE.set(pathName, {
-        reviews,
-        lastKey,
-        hasMore,
-      });
+      CACHE.set(
+        pathName,
+        {
+          reviews,
+          lastKey,
+          hasMore,
+        },
+        reviews.length
+      );
       setDefault();
     }
   }, [result]);

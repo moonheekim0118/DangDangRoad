@@ -11,7 +11,7 @@ import { LoginInfoProvider } from 'context/LoginInfo';
 
 const App = ({ Component, pageProps }) => {
   const isLoading = useRouterStatus();
-  useScroll();
+  // useScroll();
   return (
     <SWRConfig
       value={{

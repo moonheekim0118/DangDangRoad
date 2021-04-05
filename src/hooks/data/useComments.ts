@@ -54,13 +54,16 @@ const useComments = (postId: string) => {
   }, [postId]);
 
   useEffect(() => {
-    if (type === REMOVE || type === UPDATE || type === ADD) {
-      console.log(result);
-      CACHE.set(postId, {
-        comments,
-        lastKey,
-        hasMore,
-      });
+    if (type === REMOVE || type === ADD || type === UPDATE) {
+      CACHE.set(
+        postId,
+        {
+          comments,
+          lastKey,
+          hasMore,
+        },
+        comments.length
+      );
       setDefault();
     }
   }, [result, postId]);

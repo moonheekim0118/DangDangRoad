@@ -58,7 +58,7 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
       const bookMarkList = getBookMarksResult.data || [];
       setTotalLength(bookMarkList.length);
       setReviewList(sliceArray(bookMarkList, pageNum));
-      CACHE.set(userId, bookMarkList);
+      CACHE.set(userId, bookMarkList, bookMarkList.length);
       getBookMarksSetDefault();
     }
   }, [getBookMarksResult]);
@@ -71,7 +71,7 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
         const updatedList = cachedData.filter((v) => v.docId !== postId);
         setReviewList(sliceArray(updatedList, pageNum));
         setTotalLength(cachedData.length - 1);
-        CACHE.set(userId, updatedList);
+        CACHE.set(userId, updatedList, updatedList.length);
       }
       removeBookMarkSetDefault();
     }

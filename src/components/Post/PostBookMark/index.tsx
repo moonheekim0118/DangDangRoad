@@ -65,7 +65,7 @@ const PostBookMark = ({ postId }: Props) => {
     const result = checkBookMarkResult.data;
     if (checkBookMarkResult.type === SUCCESS && result) {
       setIsBookMarked(result.isBookMarked);
-      CACHE.set(result.postId, result.isBookMarked);
+      CACHE.set(result.postId, result.isBookMarked, 1);
       return checkBookMarkSetDefault();
     }
   }, [checkBookMarkResult]);
@@ -75,7 +75,7 @@ const PostBookMark = ({ postId }: Props) => {
     const postId = addBookMarkResult.data;
     if (addBookMarkResult.type === SUCCESS && postId) {
       setIsBookMarked(true);
-      CACHE.set(postId, true);
+      CACHE.set(postId, true, 1);
       return addBookMarkSetDefault();
     }
   }, [addBookMarkResult]);
