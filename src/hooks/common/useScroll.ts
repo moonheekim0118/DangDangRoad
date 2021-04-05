@@ -16,7 +16,7 @@ const useScroll = () => {
     if (main) {
       const scrollHandler = debounce({
         // debounce
-        cb: () => CACHE.set(router.pathname, main.scrollTop),
+        cb: () => CACHE.set(router.pathname, main.scrollTop, 1),
         delay: 100,
       });
 
