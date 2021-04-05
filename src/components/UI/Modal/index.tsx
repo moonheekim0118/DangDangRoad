@@ -10,7 +10,10 @@ interface Props {
   modalHandler: () => void;
 }
 
-const Modal = ({ children, modalHandler }: Props): React.ReactElement => {
+const Modal = ({
+  children,
+  modalHandler,
+}: Props): React.ReactElement | null => {
   const root = useElement('modal-root');
 
   return root
