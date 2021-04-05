@@ -75,7 +75,7 @@ const useAllReviews = () => {
         });
       }
     } else {
-      getReviewsFetch({ type: REQUEST });
+      reviews.length === 0 && getReviewsFetch({ type: REQUEST });
     }
   }, []);
 
@@ -132,11 +132,11 @@ const useAllReviews = () => {
             },
           });
         }
-        getReviewsMoreSetDefault();
+        getReviewsSetDefault();
         break;
       case FAILURE:
         notiDispatch(Action.showError(getReviewsResult.error));
-        getReviewsMoreSetDefault();
+        getReviewsSetDefault();
     }
   }, [getReviewsResult]);
 
@@ -156,19 +156,20 @@ const useAllReviews = () => {
             },
           });
         }
-        getReviewsSetDefault();
+        getReviewsMoreSetDefault();
         break;
       case FAILURE:
         notiDispatch(Action.showError(getReviewsMoreResult.error));
-        getReviewsSetDefault();
+        getReviewsMoreSetDefault();
     }
   }, [getReviewsMoreResult]);
 
   const fetchReviewHanlder = useCallback(() => {
-    if (hasMore) {
+    const fetchStatus = getReviewsResult.type;
+    if (hasMore && fetchStatus !== REQUEST && fetchStatus !== SUCCESS) {
       getReviewsMoreFetch({ type: REQUEST, params: [lastKey] });
     }
-  }, [hasMore, lastKey]);
+  }, [hasMore, lastKey, getReviewsResult]);
 
   const removeCacheHandler = useCallback((id: string) => {
     dispatch({ type: REMOVE, data: { id } });

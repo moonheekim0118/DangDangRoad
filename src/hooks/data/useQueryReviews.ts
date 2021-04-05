@@ -55,7 +55,8 @@ const useQueryReviews = () => {
         },
       });
     } else {
-      getReviewsFetch({ type: REQUEST, params: [query] });
+      reviews.length === 0 &&
+        getReviewsFetch({ type: REQUEST, params: [query] });
     }
   }, []);
 
@@ -106,10 +107,16 @@ const useQueryReviews = () => {
   }, [getReviewsMoreResult]);
 
   const fetchReviewHandler = useCallback(() => {
-    if (hasMore && query) {
+    const fetchStatus = getReviewsResult.type;
+    if (
+      hasMore &&
+      query &&
+      fetchStatus !== REQUEST &&
+      fetchStatus !== SUCCESS
+    ) {
       getReviewsMoreFetch({ type: REQUEST, params: [query] });
     }
-  }, [hasMore, query]);
+  }, [hasMore, query, getReviewsResult]);
 
   const removeCacheHandler = useCallback((id: string) => {
     dispatch({ type: REMOVE, data: { id } });
