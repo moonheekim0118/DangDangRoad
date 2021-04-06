@@ -9,7 +9,7 @@ import { NotificationProvider } from 'context/Notification';
 import { LoginInfoProvider } from 'context/LoginInfo';
 
 const App = ({ Component, pageProps }) => {
-  // useScroll();
+  useScroll();
   return (
     <SWRConfig
       value={{
