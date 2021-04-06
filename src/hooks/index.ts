@@ -1,7 +1,6 @@
 export { default as useElement } from './common/useElement';
 export { default as useInput } from './common/useInput';
 export { default as useModal } from './common/useModal';
-export { default as useRouterStatus } from './common/useRouterStatus';
 export { default as useToggle } from './common/useToggle';
 export { default as useApiFetch } from './common/useApiFetch';
 export { default as useValidation } from './common/useValidation';
