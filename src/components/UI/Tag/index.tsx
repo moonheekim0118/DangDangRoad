@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { sizes } from 'components/UI/Button/style';
 import * as S from './style';
 
@@ -17,4 +17,4 @@ const Tag = ({ children, size }: Props): React.ReactElement => {
   );
 };
 
-export default Tag;
+export default memo(Tag);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useLazyLoadImage } from 'hooks';
 import { Icon } from 'components/UI';
 import { faComment } from '@fortawesome/free-regular-svg-icons';
@@ -46,4 +46,4 @@ const Preview = ({
   );
 };
 
-export default Preview;
+export default memo(Preview);
