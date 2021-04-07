@@ -1,24 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { PAGE_LEAVE_WARNING } from 'common/constant/string';
 import { useRouter } from 'next/router';
 
-let leaveConfirmed = false;
-
 const useWarnUsavedChange = (exception?: string) => {
   const router = useRouter();
+  const leaveConfirm = useRef<boolean>(false);
 
   useEffect(() => {
-    leaveConfirmed = false;
+    leaveConfirm.current = false;
   }, []);
 
   // pop up when try to leave page inner app
   useEffect(() => {
     const hanlder = (route: string) => {
       if (exception && route.includes(exception)) return;
-      if (leaveConfirmed) return; // go
+      if (leaveConfirm.current) return; // go
       if (window.confirm(PAGE_LEAVE_WARNING)) {
         // leave
-        leaveConfirmed = true;
+        leaveConfirm.current = true;
       } else {
         router.events.emit('routeChangeError');
         throw 'routeChange aborted.';
