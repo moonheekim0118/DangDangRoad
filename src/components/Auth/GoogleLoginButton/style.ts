@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const Container = styled.button`
   width: 250px;
@@ -9,12 +8,12 @@ export const Container = styled.button`
   padding: 18px 20px;
   text-align: center;
   cursor: pointer;
-  color: ${colorCode['deep-gray']};
+  color: var(--colors-deep-gray);
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
   transition: all 0.3s ease;
 
   &:hover {
-    color: ${colorCode['blue']};
+    color: var(--colors-blue);
     box-shadow: 0px 0px 5px 0px rgba(2, 19, 188, 0.75);
   }
 

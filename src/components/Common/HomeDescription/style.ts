@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 const titleDelay = 1.8;
 const initialOpacityDelay = 2;
@@ -119,8 +118,8 @@ export const ContentsContainer = styled.div`
 
 export const ContentsTitle = styled.p`
   font-size: 1.4rem;
-  font-family: 'Do Hyeon', sans-serif;
-  color: ${colorCode['blue']};
+  font-family: var(--font-special);
+  color: var(--colors-blue);
 `;
 
 export const TextContainer = styled.div`

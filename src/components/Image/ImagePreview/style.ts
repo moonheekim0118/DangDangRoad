@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
   cursor: pointer;
-  color: ${colorCode['blue']};
+  color: var(--colors-blue);
 `;
 
 export const iconStyleWhite = css`
@@ -29,7 +28,7 @@ export const ImagePlusButton = styled.div`
   height: 100%;
   display: grid;
   place-items: center;
-  background-color: ${colorCode['light-gray']};
+  background-color: var(--colors-light-gray);
   cursor: pointer;
 `;
 

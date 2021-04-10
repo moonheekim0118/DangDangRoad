@@ -20,15 +20,15 @@ export const MenuList = styled.li<{ warn: boolean; visiting: boolean }>`
   align-items: center;
   padding: 15px;
   cursor: pointer;
-  color: ${(props) => (props.warn ? 'red' : 'black')};
-  background-color: ${(props) => props.visiting && '#e0e0e0'};
+  color: ${(props) => (props.warn ? 'var(--colors-red)' : 'black')};
+  background-color: ${(props) => props.visiting && 'var(--colors-light-gray)'};
 
   transition: background-color 0.3s ease;
   list-style-type: none;
 
   &:hover {
     background-color: ${(props) =>
-      props.warn ? 'rgba(255, 0, 0,0.2)' : '#e0e0e0'};
+      props.warn ? 'rgba(255, 0, 0,0.2)' : 'var(--colors-light-gray)'};
   }
 
   &:first-of-type {

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import { Author } from 'components/UI';
-import { colorCode } from 'common/style/color';
 
 const About = () => {
   return (
@@ -60,12 +59,12 @@ const Container = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-family: 'Do Hyeon', sans-serif;
-  border-bottom: 2px solid ${colorCode['dark-blue']};
+  font-family: var(--font-special);
+  border-bottom: 2px solid var(--colors-blue);
   margin-bottom: 1.5rem;
   transition: color 0.5s ease;
   &:hover {
-    color: ${colorCode['dark-blue']};
+    color: var(--colors-blue);
   }
 `;
 

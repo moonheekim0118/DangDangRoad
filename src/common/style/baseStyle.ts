@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 export const baseModalStyle = css`
   position: fixed;
@@ -15,6 +14,5 @@ export const navLinkStyle = css`
   color: #fff;
   cursor: pointer;
   &:hover {
-    color: ${colorCode['light-gray']};
-  }
+    color:var(--colors-light-gray);
 `;

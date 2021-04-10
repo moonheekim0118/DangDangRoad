@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { colorCode } from 'common/style/color';
 import { SENT_EMAIL_IMAGE, SENT_EMAIL_IMAGE_ALT } from 'common/constant/images';
 import { EMAIL_VERFY_TITLE, EMAIL_VERFY_DESC } from 'common/constant/string';
 import styled from '@emotion/styled';
@@ -26,12 +25,12 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  color: ${colorCode['blue']};
+  color: var(--colors-blue);
   margin: 20px 0;
 `;
 
 const Contents = styled.p`
-  color: ${colorCode['dark-gray']};
+  color: var(--colors-dark-gray);
 `;
 
 export default SignUpProcess;

@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
   color: #fff;
 `;
 
 export const Container = styled.div<{ size: number }>`
-  background-color: ${colorCode['dark-gray']};
+  background-color: var(--colors-dark-gray);
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   border-radius: 50%;

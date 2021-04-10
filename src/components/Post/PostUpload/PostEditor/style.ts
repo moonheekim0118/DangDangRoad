@@ -1,4 +1,3 @@
-import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
@@ -44,19 +43,19 @@ export const Header = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: 1px solid ${colorCode['light-gray']};
+  border-bottom: 1px solid var(--colors-light-gray);
 `;
 
 export const Label = styled.h2`
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
   padding: 1.2rem;
 `;
 
 export const PlaceName = styled.span`
   width: 70%;
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
   font-size: 1.5rem;
-  color: ${colorCode['blue']};
+  color: var(--colors-blue);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

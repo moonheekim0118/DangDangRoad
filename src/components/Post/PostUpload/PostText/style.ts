@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const Label = styled.label`
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
   font-size: 1.2rem;
 `;
 
@@ -12,7 +11,8 @@ export const Description = styled.div`
 
 export const LengthCounter = styled.span<{ error: boolean }>`
   margin-left: 10px;
-  color: ${(props) => (props.error ? colorCode['red'] : colorCode['green'])};
+  color: ${(props) =>
+    props.error ? 'var(--colors-red)' : 'var(--colors-green)'};
   font-weight: bold;
 `;
 

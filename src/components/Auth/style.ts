@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const Form = styled.form<{ signUp?: boolean }>`
   width: 600px;
@@ -28,9 +27,9 @@ export const Form = styled.form<{ signUp?: boolean }>`
 `;
 
 export const Title = styled.span`
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
   font-size: 1.6rem;
-  color: ${colorCode['blue']};
+  color: var(--colors-blue);
   padding: 10px;
 `;
 
@@ -45,7 +44,7 @@ export const ButtonContainer = styled.div`
 
 export const GoogleLoginButton = styled.button`
   color: #fff;
-  background-color: ${colorCode['light-blue']};
+  background-color: var(--colors-light-blue);
   padding: 14px 20px;
   text-align: center;
 `;

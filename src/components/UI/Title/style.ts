@@ -1,8 +1,7 @@
-import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
 
 export const Container = styled.h2`
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
 
   &::before {
     content: '';
@@ -13,7 +12,7 @@ export const Container = styled.h2`
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: ${colorCode['blue']};
+    background-color: var(--colors-blue);
   }
 
   @media only screen and (max-width: 500px) {

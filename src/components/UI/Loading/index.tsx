@@ -1,9 +1,8 @@
 import React from 'react';
-import { colorType } from 'common/style/color';
 import * as S from './style';
 
 export interface Props {
-  color?: colorType;
+  color?: 'gray' | 'blue';
   size?: 'large' | 'medium' | 'small';
 }
 
@@ -13,7 +12,12 @@ const Loading = ({
 }: Props): React.ReactElement => {
   return (
     <S.Container>
-      <S.Loader color={color} size={size} />
+      <S.Loader
+        color={
+          color === 'blue' ? 'var(--colors-blue)' : 'var(--colors-dark-gray)'
+        }
+        size={size}
+      />
     </S.Container>
   );
 };

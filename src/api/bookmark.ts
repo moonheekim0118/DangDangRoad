@@ -7,8 +7,9 @@ export const getPostData = async (postRef: DocumentData) => {
   try {
     const response = await postRef.get();
     const postData = response.data();
+    if (!postData) return null;
     postData['docId'] = response.id;
-    return postData ? postData : null;
+    return postData;
   } catch (error) {
     throw error;
   }
@@ -35,6 +36,7 @@ export const getBookMarkedReviews = async (
       data: postLists,
     };
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

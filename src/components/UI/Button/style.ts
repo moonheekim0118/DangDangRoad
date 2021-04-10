@@ -1,4 +1,3 @@
-import { colorCode } from 'common/style/color';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
@@ -18,56 +17,56 @@ export const Button = styled.button`
 
 export const themes = {
   primary: css`
-    background-color: ${colorCode['blue']};
+    background-color: var(--colors-blue);
     color: #fff;
 
     &:hover {
-      background-color: ${colorCode['light-blue']};
+      background-color: var(--colors-light-blue);
     }
   `,
   danger: css`
-    background-color: ${colorCode['red']};
+    background-color: var(--colors-red);
     color: #fff;
 
     &:hover {
-      background-color: ${colorCode['light-red']};
+      background-color: var(--colors-light-red);
     }
   `,
 
   info: css`
-    background-color: ${colorCode['light-gray']};
-    color: ${colorCode['dark-gray']};
+    background-color: var(--colors-light-gray);
+    color: var(--colors-dark-gray);
 
     &:hover {
-      background-color: ${colorCode['deep-gray']};
+      background-color: var(--colors-deep-gray);
     }
   `,
   outlinedPrimary: css`
-    border: 1px solid ${colorCode['blue']};
-    color: ${colorCode['blue']};
+    border: 1px solid var(--colors-blue);
+    color: var(--colors-blue);
 
     &:hover {
       background-color: rgba(128, 191, 255, 0.2);
     }
   `,
   outlinedDanger: css`
-    border: 1px solid ${colorCode['red']};
-    color: ${colorCode['red']};
+    border: 1px solid var(--colors-red);
+    color: var(--colors-red);
 
     &:hover {
       background-color: rgba(255, 0, 0, 0.1);
     }
   `,
   outlinedInfo: css`
-    border: 1px solid ${colorCode['dark-gray']};
-    color: ${colorCode['dark-gray']};
+    border: 1px solid var(--colors-dark-gray);
+    color: var(--colors-dark-gray);
     &:hover {
       background-color: rgba(225, 225, 208, 0.1);
     }
   `,
   special: css`
     background-color: #fff;
-    color: ${colorCode['blue']};
+    color: var(--colors-blue);
 
     &:hover {
       box-shadow: 0px 0px 10px 0px rgba(244, 244, 244, 0.75);

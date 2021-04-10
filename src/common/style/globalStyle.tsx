@@ -19,6 +19,19 @@ const GlobalStyle = () => {
           height: 100%;
           overflow-x: hidden;
         }
+
+        body {
+          --colors-white: #fff;
+          --colors-blue: #0277bc;
+          --colors-light-blue: #58a5f0;
+          --colors-light-gray: #e0e0e0;
+          --colors-dark-gray: #aeaeae;
+          --colors-deep-gray: #696969;
+          --colors-light-red: #fc655d;
+          --colors-red: #ff0000;
+          --colors-green: #33cc33;
+          --font-special: 'Do Hyeon', sans-serif;
+        }
       `}
     />
   );

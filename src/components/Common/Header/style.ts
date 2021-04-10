@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
   color: #fff;
@@ -16,7 +15,7 @@ export const Container = styled.header`
   position: sticky;
   top: 0;
 
-  background-color: ${colorCode['blue']};
+  background-color: var(--colors-blue);
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
   z-index: 4000;
 `;
@@ -113,7 +112,7 @@ export const Navigation = styled.div`
 
 export const NavigationContents = styled.div`
   width: 100%;
-  background-color: ${colorCode['blue']};
+  background-color: var(--colors-blue);
   display: flex;
   flex-direction: column;
   align-items: center;

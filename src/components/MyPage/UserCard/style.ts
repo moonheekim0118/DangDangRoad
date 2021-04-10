@@ -25,7 +25,7 @@ export const Name = styled.span`
 `;
 
 export const Email = styled.span`
-  color: #aeaeae;
+  color: var(--colors-dark-gray);
   fotn-size: 0.3rem;
   text-align: center;
   overflow: hidden;

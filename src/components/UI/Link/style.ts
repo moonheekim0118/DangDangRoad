@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 export const Component = styled.div`
   display: flex;
@@ -19,16 +18,16 @@ export const themes = {
     cursor: pointer;
     transition: color 0.5s ease;
     &:hover {
-      color: ${colorCode['light-gray']};
+      color: var(--colors-light-gray);
     }
   `,
   secondary: css`
     font-weight: bold;
-    color: ${colorCode['blue']};
+    color: var(--colors-blue);
     cursor: pointer;
     transition: color 0.5s ease;
     &:hover {
-      color: ${colorCode['light-blue']};
+      color: var(--colors-light-blue);
     }
   `,
   default: css``,

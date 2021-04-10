@@ -18,7 +18,7 @@ export const Label = styled.label`
   font-weight: bold;
   &::before {
     content: ' *';
-    color: red;
+    color: var(--colors-red);
   }
 `;
 

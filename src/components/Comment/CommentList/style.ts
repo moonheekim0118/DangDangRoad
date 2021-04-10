@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 export const moreIconStyle = css`
-  color: ${colorCode['light-blue']};
+  color: var(--colors-light-blue);
   transition: transform 0.3s ease;
   &:hover {
     transform: rotate(200deg);
