@@ -54,7 +54,7 @@ const Button = (props: Props): React.ReactElement => {
       css={[S.themes[theme], S.sizes[size], { width }]}
       onClick={onClick}
       {...rest}>
-      {loading ? <Loading size="small" color="light-gray" /> : children}
+      {loading ? <Loading size="small" color="gray" /> : children}
     </S.Button>
   );
 };
