@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 import { css } from '@emotion/react';
 
 export const Anchor = styled.a`
@@ -10,7 +9,7 @@ export const Anchor = styled.a`
 export const githubIconStyle = css`
   transition: color 0.5s ease;
   &:hover {
-    color: ${colorCode['light-blue']};
+    color: var(--colors-light-blue);
   }
 `;
 
@@ -26,7 +25,7 @@ export const Grid = styled.div`
   display: grid;
   grid-gap: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid ${colorCode['light-gray']};
+  border-bottom: 1px solid var(--colors-light-gray);
   @media (min-width: 1024px) {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     min-height: 75%;

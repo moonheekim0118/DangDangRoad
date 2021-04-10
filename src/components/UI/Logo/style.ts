@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const Title = styled.a<{ color: 'blue' | 'white' }>`
   position: relative;
-  color: ${(props) => colorCode[props.color]};
+  color: ${(props) => (props.color === 'blue' ? 'var(--colors-blue)' : '#fff')};
   text-decoration: none;
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
   font-size: 1.8rem;
   cursor: pointer;
 
@@ -22,7 +21,8 @@ export const Title = styled.a<{ color: 'blue' | 'white' }>`
     opacity: 0;
     transition: all 0.2s ease-in-out;
     transition-duration: 0.75s;
-    background-color: ${(props) => colorCode[props.color]};
+    background-color: ${(props) =>
+      props.color === 'blue' ? 'var(--colors-blue)' : '#fff'};
   }
 
   &:before {

@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 export const mainSizes = {
   medium: css`
@@ -57,7 +56,7 @@ export const Nickname = styled.span`
 `;
 
 export const TimeStamp = styled.span`
-  color: ${colorCode['dark-gray']};
+  color: var(--colors-dark-gray);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

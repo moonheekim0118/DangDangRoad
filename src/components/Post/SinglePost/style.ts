@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const Container = styled.article`
   width: 100%;
@@ -43,8 +42,8 @@ export const ContentsContainer = styled.div`
 export const PlaceName = styled.h1`
   width: 100%;
   text-align: center;
-  font-family: 'Do Hyeon', sans-serif;
-  color: ${colorCode['blue']};
+  font-family: var(--font-special);
+  color: var(--colors-blue);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -54,7 +53,7 @@ export const PlaceDetail = styled.span`
   width: 100%;
   text-align: center;
   font-size: 0.8rem;
-  color: ${colorCode['dark-gray']};
+  color: var(--colors-dark-gray);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -75,9 +74,9 @@ export const InfoContainer = styled.ul`
 `;
 
 export const Info = styled.li`
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
   font-size: 1.1rem;
-  color: ${colorCode['gray']};
+  color: var(--colors-dark-gray);
 `;
 
 export const FreeCommentContainer = styled.div`

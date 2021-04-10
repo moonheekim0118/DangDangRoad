@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 import { css } from '@emotion/react';
 
 export const submitBtnStyle = css`
@@ -18,7 +17,7 @@ export const TextArea = styled.textarea`
   width: 100%;
   color: black;
   border: none;
-  border-top: 1px solid ${colorCode['light-gray']};
+  border-top: 1px solid var(--colors-light-gray);
   padding: 15px;
 
   &:focus {
@@ -30,7 +29,7 @@ export const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  color: ${colorCode['light-blue']};
+  color: var(--colors-light-blue);
   @media only screen and (max-width: 910px) {
     right: 10px;
   }

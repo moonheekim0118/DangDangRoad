@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.span`
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
   font-size: 1.2rem;
   margin-bottom: 15px;
 `;
@@ -54,7 +54,7 @@ export const Label = styled.label`
   margin-bottom: 12px;
   user-select: none;
   cursor: pointer;
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: var(--font-special);
 
   &:hover ${Input} ~ ${CheckMark} {
     background-color: #ccc;

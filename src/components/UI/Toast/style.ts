@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 import { NOTI_TIME } from 'common/constant/number';
 
 const fade = keyframes`
@@ -35,13 +34,13 @@ export const Message = styled.span`
 
 export const themes = {
   success: css`
-    background-color: ${colorCode['green']};
+    background-color:var(--colors-green)';
   `,
   info: css`
-    background-color: ${colorCode['light-blue']};
+    background-color: var(--colors-light-blue);
   `,
   fail: css`
-    background-color: ${colorCode['light-red']};
+    background-color: var(--colors-light-red);
   `,
 };
 

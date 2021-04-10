@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 import { css } from '@emotion/react';
 
 export const Container = styled.section`
@@ -18,9 +17,9 @@ export const buttonStyle = css`
 `;
 
 export const iconStyle = css`
-  color: ${colorCode['light-blue']};
+  color: var(--colors-dark-gray);
   transition: color 0.5s ease;
   &:hover {
-    color: ${colorCode['light-blue']};
+    color: var(--colors-light-blue);
   }
 `;

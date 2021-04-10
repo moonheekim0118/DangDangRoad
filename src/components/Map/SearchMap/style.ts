@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { MARKER_URL, MARKER_POSITIONS } from 'common/constant/images';
-import { colorCode } from 'common/style/color';
 
 export const Container = styled.div`
   width: 100%;
@@ -54,7 +53,7 @@ export const AddressTitle = styled.div`
 
 export const PlaceName = styled.span<{ selected: boolean }>`
   font-weight: bold;
-  color: ${(props) => props.selected && colorCode['blue']};
+  color: ${(props) => props.selected && 'var(--colors-blue)'};
 `;
 
 export const AdressName = styled.span`

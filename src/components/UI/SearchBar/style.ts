@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const iconStyle = css`
   transform: rotateY(180deg);
@@ -34,28 +33,28 @@ export const ButtonContainer = styled.div`
 
 export const colorThemes = {
   blue: css`
-    background-color: ${colorCode['blue']};
-    color: ${colorCode['white']};
+    background-color: var(--colors-blue);
+    color: var(--colors-white);
   `,
   white: css`
-    background-color: ${colorCode['white']};
-    color: ${colorCode['blue']};
+    background-color: var(--colors-white);
+    color: var(--colors-blue);
   `,
 };
 
 export const inputColorThemes = {
   blue: css`
-    background-color: ${colorCode['blue']};
-    color: ${colorCode['white']};
+    background-color: var(--colors-blue);
+    color: var(--colors-white);
     ::placeholder {
-      color: ${colorCode['white']};
+      color: var(--colors-white);
     }
   `,
   white: css`
-    background-color: ${colorCode['white']};
-    color: ${colorCode['blue']};
+    background-color: var(--colors-white);
+    color: var(--colors-blue);
     ::placeholder {
-      color: ${colorCode['blue']};
+      color: var(--colors-blue);
     }
   `,
 };
@@ -64,25 +63,25 @@ export const focusThemes = {
   fromBlueToWhite: css`
     &:focus {
       outline: none;
-      background-color: ${colorCode['white']};
-      color: ${colorCode['blue']};
+      background-color: var(--colors-white);
+      color: var(--colors-blue);
     }
 
     &:focus ~ ${ButtonContainer}, &:focus ~ ${Label}, &:focus::placeholder {
-      background-color: ${colorCode['white']};
-      color: ${colorCode['blue']};
+      background-color: var(--colors-white);
+      color: var(--colors-blue);
     }
   `,
   fromWhiteToBlue: css`
     &:focus {
       outline: none;
-      background-color: ${colorCode['blue']};
-      color: ${colorCode['white']};
+      background-color: var(--colors-blue);
+      color: var(--colors-white);
     }
 
     &:focus ~ ${ButtonContainer}, &:focus ~ ${Label}, &:focus::placeholder {
-      background-color: ${colorCode['blue']};
-      color: ${colorCode['white']};
+      background-color: var(--colors-blue);
+      color: var(--colors-white);
     }
   `,
   default: css``,

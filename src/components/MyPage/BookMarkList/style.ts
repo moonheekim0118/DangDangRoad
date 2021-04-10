@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css, keyframes } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 
 export const shake = keyframes`
   0% { transform: translate(1px, 0px) rotate(0deg); }
@@ -38,7 +37,7 @@ export const Card = styled.div`
   width: 90%;
   height: 80px;
   border: 1px solid #f4f4f4;
-  border-left: 3px solid ${colorCode['light-blue']};
+  border-left: 3px solid var(--colors-light-blue);
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   border-top-left-radius: 10px;
@@ -65,7 +64,7 @@ export const PlaceInfoContainer = styled.div`
 
 export const PlaceName = styled.span`
   font-size: 1rem;
-  color: ${colorCode['dark-blue']};
+  color: var(--colors-light-blue);
   font-weight: bold;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -74,7 +73,7 @@ export const PlaceName = styled.span`
 
 export const AddressName = styled.span`
   font-size: 0.8rem;
-  color: ${colorCode['dark-gray']};
+  color: color: var( --colors-dark-gray);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

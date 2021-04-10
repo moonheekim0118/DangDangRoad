@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const Description = styled.span`
   text-align: center;
@@ -19,7 +18,7 @@ export const WriteComponent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${colorCode['blue']};
+  background-color: var(--colors-blue);
   color: #fff;
   width: 80px;
   height: 80px;

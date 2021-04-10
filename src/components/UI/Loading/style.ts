@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { colorCode } from 'common/style/color';
 import { keyframes } from '@emotion/react';
 
 const Spin = keyframes`
@@ -60,9 +59,8 @@ export const Loader = styled.div<{
         margin: auto;
         border-radius: 50%;
         ${(props) => sizes[props.size]}
-        border-color: ${(props) => colorCode[props.color]} transparent ${(
-  props
-) => colorCode[props.color]};
+        border-color: ${(props) => props.color} 
+        transparent ${(props) => props.color};
         animation: ${Spin} 1.2s linear infinite;
       }
     }

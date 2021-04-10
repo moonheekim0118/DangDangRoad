@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { colorCode } from 'common/style/color';
 
 export const Container = styled.div`
   max-width: 250px;
@@ -18,7 +17,7 @@ export const Menu = styled.div`
   cursor: pointer;
   &:hover {
     color: #fff;
-    background-color: ${colorCode['light-blue']};
+    background-color: var(--colors-light-blue);
   }
 
   &:first-of-type {
