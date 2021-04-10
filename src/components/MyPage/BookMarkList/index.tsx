@@ -20,6 +20,12 @@ interface Props {
 const CACHE = new cacheProto<BookMark[]>();
 let CACHED_USER = '';
 
+const sliceArray = (array: any[], pageNum: number) => {
+  const end = pageNum * BOOKMARK_DATA_LIMIT;
+  const start = end - 4;
+  return array.slice(start - 1, end);
+};
+
 const BookMarkList = ({ userId, pageNum }: Props) => {
   const [totalLength, setTotalLength] = useState<number>(0);
   const [isRemoveMode, setIsRemoveMode] = useState<boolean>(false);
@@ -54,6 +60,7 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
   }, [userId, pageNum]);
 
   useEffect(() => {
+    console.log(getBookMarksResult);
     if (getBookMarksResult.type === SUCCESS) {
       const bookMarkList = getBookMarksResult.data || [];
       setTotalLength(bookMarkList.length);
@@ -76,13 +83,6 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
       removeBookMarkSetDefault();
     }
   }, [removeBookMarkResult]);
-
-  // get sliced array to show
-  const sliceArray = useCallback((array: any[], pageNum: number) => {
-    const end = pageNum * BOOKMARK_DATA_LIMIT;
-    const start = end - 4;
-    return array.slice(start - 1, end);
-  }, []);
 
   // cacluate Total Pages number
   const totalPages = useMemo(() => {

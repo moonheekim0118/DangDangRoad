@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useCallback, FormEvent } from 'react';
-import { usePasswordCheck } from 'hooks';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import { useApiFetch, usePasswordCheck } from 'hooks';
+import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
