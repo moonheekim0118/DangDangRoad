@@ -36,7 +36,6 @@ export const getBookMarkedReviews = async (
       data: postLists,
     };
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -94,7 +93,6 @@ export const removeBookMarkReview = async (
     }
     return { isError: false, data: postId };
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

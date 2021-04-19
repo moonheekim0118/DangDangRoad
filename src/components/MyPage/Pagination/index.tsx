@@ -35,15 +35,16 @@ const Pagination = ({ totalPage, currentPage }: Props) => {
     setEndPage(end);
     setStartPage(start);
     const elements = [] as React.ReactElement[];
-    for (let i = start; i <= end; i++) {
+    while (start <= end) {
       elements.push(
         <S.PageButton
-          key={i}
-          onClick={pageNateHandler(i)}
-          current={i === currentPage}>
-          {i}
+          key={start}
+          onClick={pageNateHandler(start)}
+          current={start === currentPage}>
+          {start}
         </S.PageButton>
       );
+      start++;
     }
     setPages(elements);
   }, [currentPage, totalPage]);

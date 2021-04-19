@@ -30,7 +30,7 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
       {comments.length > 0 ? (
         <CommentList
           getMoreCommentsHandler={getMoreCommentsHandler}
-          removeCommentHandler={removeCacheHandler}
+          removeCacheHandler={removeCacheHandler}
           comments={comments}
           userId={userId}
           hasMore={hasMore}

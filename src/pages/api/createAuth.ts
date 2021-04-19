@@ -36,7 +36,6 @@ const createAuth = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json(error.data);
   }
 };

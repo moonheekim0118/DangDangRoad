@@ -23,8 +23,8 @@ class cacheProto<T> {
   constructor(maxAge?: number, maxSize?: number) {
     this.data = {};
     this.totalSize = 0;
-    this.maxAge = maxAge || EXPIRE_TIME;
-    this.maxSize = maxSize || MAX_SIZE;
+    this.maxAge = maxAge ?? EXPIRE_TIME;
+    this.maxSize = maxSize ?? MAX_SIZE;
   }
 
   // check if there is Data with Cache Key

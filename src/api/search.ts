@@ -5,8 +5,8 @@ import { LightReview } from 'types/Review';
 import * as T from 'types/API';
 
 const client = algoliasearch(
-  process.env.ALGOLIA_APP_ID || '',
-  process.env.ALGOLIA_APP_KEY || ''
+  process.env.ALGOLIA_APP_ID ?? '',
+  process.env.ALGOLIA_APP_KEY ?? ''
 );
 const index = client.initIndex('reviews');
 let cachedData = {};

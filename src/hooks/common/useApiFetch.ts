@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useCallback, useRef } from 'react';
 import { APIResponse } from 'types/API';
-import errorMessageGenerator from 'util/errorMessageGenerator';
+import errorMessage from 'util/errorMessage';
 
 export const REQUEST = 'REQEUST';
 export const SUCCESS = 'SUCCESS';
@@ -42,7 +42,10 @@ const fetchData = async <T>(
       dispatch({ type: SUCCESS, data: response.data });
     }
   } catch (error) {
-    dispatch({ type: FAILURE, error: errorMessageGenerator(error.code) });
+    dispatch({
+      type: FAILURE,
+      error: errorMessage[error.code] ?? errorMessage.default,
+    });
   }
 };
 

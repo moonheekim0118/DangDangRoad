@@ -16,7 +16,7 @@ export interface InputRef {
 
 export const inputDefaultRef = (initValue?: string) => {
   return {
-    value: initValue || '',
+    value: initValue ?? '',
     error: false,
     focus: function () {},
   };

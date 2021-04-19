@@ -60,9 +60,8 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
   }, [userId, pageNum]);
 
   useEffect(() => {
-    console.log(getBookMarksResult);
     if (getBookMarksResult.type === SUCCESS) {
-      const bookMarkList = getBookMarksResult.data || [];
+      const bookMarkList = getBookMarksResult.data ?? [];
       setTotalLength(bookMarkList.length);
       setReviewList(sliceArray(bookMarkList, pageNum));
       CACHE.set(userId, bookMarkList, bookMarkList.length);

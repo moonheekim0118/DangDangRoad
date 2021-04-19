@@ -18,7 +18,7 @@ interface Props {
   /** fetch more comments handler */
   getMoreCommentsHandler: () => void;
   /** remove comment from list handler */
-  removeCommentHandler: (id: string) => void;
+  removeCacheHandler: (id: string) => void;
   /** comments list to render */
   comments: Comment[];
   /** to check if comment writer and logged-in user is same user  */
@@ -31,7 +31,7 @@ interface Props {
 
 const CommentList = ({
   getMoreCommentsHandler,
-  removeCommentHandler,
+  removeCacheHandler,
   comments,
   userId,
   hasMore,
@@ -50,7 +50,7 @@ const CommentList = ({
       case SUCCESS:
         const id = removeCommentResult.data; // removed data's Id
         if (id) {
-          removeCommentHandler(id);
+          removeCacheHandler(id);
           removeCommentSetDefault();
           notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
           break;

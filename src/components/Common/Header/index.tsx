@@ -24,26 +24,21 @@ const Header = (): React.ReactElement => {
   const navRef = useRef<HTMLDivElement>(null);
   const { isLoaded, isLoggedIn, profilePic } = useLoginInfoState();
 
-  const toggleNavigation = useCallback(
-    (e: React.MouseEvent) => {
-      if (navRef.current) {
-        navRef.current.setAttribute('aria-expended', 'true');
-        const element = e.target as Element;
-        if (navRef.current.style.display === 'flex') {
-          navRef.current.style.display = 'none';
-          return element.parentElement?.setAttribute('aria-expended', 'false');
-        }
-        navRef.current.style.display = 'flex';
-        element.parentElement?.setAttribute('aria-expended', 'true');
+  const toggleNavigation = useCallback((e: React.MouseEvent) => {
+    if (navRef.current) {
+      navRef.current.setAttribute('aria-expended', 'true');
+      const element = e.target as Element;
+      if (navRef.current.style.display === 'flex') {
+        navRef.current.style.display = 'none';
+        return element.parentElement?.setAttribute('aria-expended', 'false');
       }
-    },
-    [navRef]
-  );
+      navRef.current.style.display = 'flex';
+      element.parentElement?.setAttribute('aria-expended', 'true');
+    }
+  }, []);
 
   const checkPath = useCallback(
-    (pathname: string): boolean => {
-      return pathname === router.pathname;
-    },
+    (pathname: string): boolean => pathname === router.pathname,
     [router.pathname]
   );
 

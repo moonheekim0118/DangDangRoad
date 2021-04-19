@@ -34,9 +34,9 @@ export const googleSignIn = async (): T.APIResponse => {
       const response = await auth.signInWithPopup(provider);
       if (response.user) {
         const user = response.user;
-        const email = user.email || '';
-        const nickname = user.displayName || '';
-        const profilePic = user.photoURL || '';
+        const email = user.email ?? '';
+        const nickname = user.displayName ?? '';
+        const profilePic = user.photoURL ?? '';
         const token = await user.getIdToken(); // get Firebase User Token
         const id = user.uid; // User id
         // Check if this user is stored in Firestore's user db

@@ -118,7 +118,7 @@ const PostEditor = (props: Props): React.ReactElement => {
             <S.ReviewContainer>
               <S.PostImageContainer>
                 <PostImage
-                  initialImageUrl={props.imageList || []}
+                  initialImageUrl={props.imageList ?? []}
                   ref={props.imageUrlRef}
                 />
               </S.PostImageContainer>
