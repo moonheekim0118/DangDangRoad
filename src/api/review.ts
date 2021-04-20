@@ -28,7 +28,6 @@ export const updateReview = async (
   data: T.WriteReviewParams
 ): T.APIResponse<T.WriteReviewParams> => {
   try {
-    data['createdAt'] = Date.now();
     await db.collection('reviews').doc(id).update(data);
     return { isError: false, data };
   } catch (error) {
