@@ -23,7 +23,7 @@ import * as S from '../style';
 
 const SignUp = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [signUpResult, signUpFetch, signUpSetDefault] = useApiFetch(signUp);
+  const [signUpResult, signUpFetch] = useApiFetch(signUp);
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const nicknameRef = useRef<InputRef>(inputDefaultRef());
   const [
@@ -41,11 +41,10 @@ const SignUp = (): React.ReactElement => {
         break;
       case FAILURE:
         notiDispatch(showError(signUpResult.error));
-        signUpSetDefault();
+        break;
     }
   }, [signUpResult]);
 
-  /** submit handler */
   const submitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const {

@@ -22,7 +22,7 @@ const Login = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const passwordRef = useRef<InputRef>(inputDefaultRef());
-  const [signInResult, signInFetch, signInSetDefault] = useApiFetch(signIn);
+  const [signInResult, signInFetch] = useApiFetch(signIn);
 
   useEffect(() => {
     switch (signInResult.type) {
@@ -31,11 +31,10 @@ const Login = (): React.ReactElement => {
         break;
       case FAILURE:
         notiDispatch(Action.showError(signInResult.error));
-        signInSetDefault();
+        break;
     }
   }, [signInResult]);
 
-  /** submit handler */
   const submitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current.value;

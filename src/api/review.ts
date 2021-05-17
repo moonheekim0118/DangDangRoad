@@ -13,7 +13,6 @@ export const createReview = async (
 ): T.APIResponse => {
   try {
     data['createdAt'] = Date.now();
-    // add User Ref by user Id
     data['userRef'] = db.collection('users').doc(data.userId);
     await db.collection('reviews').add(data);
     return T.defaultSuccess;

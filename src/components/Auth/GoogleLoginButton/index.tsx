@@ -15,9 +15,7 @@ import * as S from './style';
 
 const GoogleLoginButton = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [googleAuthResult, googleAuthFetch, googleAuthSetDefault] = useApiFetch(
-    googleSignIn
-  );
+  const [googleAuthResult, googleAuthFetch] = useApiFetch(googleSignIn);
 
   useEffect(() => {
     switch (googleAuthResult.type) {
@@ -27,7 +25,6 @@ const GoogleLoginButton = (): React.ReactElement => {
       case FAILURE:
         if (googleAuthResult.error) {
           notiDispatch(showError(googleAuthResult.error));
-          googleAuthSetDefault();
         }
     }
   }, [googleAuthResult]);
