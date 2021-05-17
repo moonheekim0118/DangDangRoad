@@ -29,25 +29,21 @@ const WriteComment = ({
     validator: checkCommentLength,
   });
 
-  const [
-    createCommentResult,
-    createCommentFetch,
-    createCommentSetDefault,
-  ] = useApiFetch<Comment>(createComment);
+  const [createCommentResult, createCommentFetch] = useApiFetch<Comment>(
+    createComment
+  );
 
   useEffect(() => {
     switch (createCommentResult.type) {
       case SUCCESS:
         const newComment = createCommentResult.data;
         if (newComment) {
-          // add New Comment
           addCommentHandler(newComment);
-          createCommentSetDefault();
           break;
         }
       case FAILURE:
         notiDispatch(Action.showError(createCommentResult.error));
-        createCommentSetDefault();
+        break;
     }
   }, [createCommentResult]);
 

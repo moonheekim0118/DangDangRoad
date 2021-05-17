@@ -49,11 +49,10 @@ function reducer<T>(state: State<T>, action): State<T> {
       let updatedLastKey = state.lastKey;
       let removedDatas = state.dataList.filter((v, i) => {
         if (v.docId === id && v.createdAt === updatedLastKey) {
-          updatedLastKey = state.dataList[i - 1].createdAt;
+          updatedLastKey = state.dataList[i - 1]?.createdAt || 0;
         }
         return v.docId !== id;
       });
-      if (removedDatas.length === 0) updatedLastKey = 0;
       return {
         ...state,
         type,

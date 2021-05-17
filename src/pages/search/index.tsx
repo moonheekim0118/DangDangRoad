@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 
 const WriteButton = dynamic(() => import('components/Post/WriteButton'));
 const PostList = dynamic(() => import('components/Post/PostList'));
+const EmptyState = dynamic(() => import('components/Common/EmptyState'));
 
 const SearchMain = () => {
   const { user } = useUser();
@@ -59,7 +60,7 @@ const SearchMain = () => {
               </LoaderContainer>
             </>
           ) : (
-            <>{!hasMore && <h1>아직 작성된 리뷰가 없습니다</h1>}</>
+            <>{!hasMore && <EmptyState />}</>
           )}
         </>
       )}
