@@ -31,12 +31,12 @@ const useQueryReviews = () => {
   const router = useRouter();
   const pathName = router.asPath;
   const query = router.query.search_query as string;
-  const { result, dispatch, setDefault } = useInfiniteData<LightReview>();
+  const { result, dispatch } = useInfiniteData<LightReview>();
   const { type, dataList: reviews, hasMore } = result;
 
-  const [getReviewsResult, getReviewsFetch, getReviewsSetDefault] = useApiFetch<
-    LightReview[]
-  >(searchByKeyword);
+  const [getReviewsResult, getReviewsFetch] = useApiFetch<LightReview[]>(
+    searchByKeyword
+  );
 
   const [
     getReviewsMoreResult,
@@ -45,6 +45,7 @@ const useQueryReviews = () => {
   ] = useApiFetch<LightReview[]>(searchByKeyword);
 
   useEffect(() => {
+    if (!query) return;
     const cachedData = CACHE.get(pathName);
     if (CACHE.has(pathName) && cachedData) {
       dispatch({
@@ -55,10 +56,9 @@ const useQueryReviews = () => {
         },
       });
     } else {
-      reviews.length === 0 &&
-        getReviewsFetch({ type: REQUEST, params: [query] });
+      getReviewsFetch({ type: REQUEST, params: [query] });
     }
-  }, []);
+  }, [pathName, query]);
 
   useEffect(() => {
     if (type === UPDATE || type === REMOVE) {
@@ -70,7 +70,6 @@ const useQueryReviews = () => {
         },
         reviews.length
       );
-      setDefault();
     }
   }, [result]);
 
@@ -82,11 +81,10 @@ const useQueryReviews = () => {
           const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
           dispatch({ type: UPDATE, data: { dataList: newReviews, hasMore } });
         }
-        getReviewsSetDefault();
         break;
       case FAILURE:
         notiDispatch(Action.showError(getReviewsResult.error));
-        getReviewsSetDefault();
+        break;
     }
   }, [getReviewsResult]);
 

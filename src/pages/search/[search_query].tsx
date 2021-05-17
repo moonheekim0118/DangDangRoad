@@ -58,7 +58,7 @@ const SearchResult = () => {
               />
             </>
           ) : (
-            <>{!hasMore && <EmptyState />}</>
+            <EmptyState />
           )}
         </>
       )}

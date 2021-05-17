@@ -60,7 +60,7 @@ const SearchMain = () => {
               </LoaderContainer>
             </>
           ) : (
-            <>{!hasMore && <EmptyState />}</>
+            <EmptyState />
           )}
         </>
       )}
