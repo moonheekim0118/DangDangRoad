@@ -45,6 +45,10 @@ const useQueryReviews = () => {
   ] = useApiFetch<LightReview[]>(searchByKeyword);
 
   useEffect(() => {
+    dispatch({ type: INIT, data: { dataList: [], hasMore: true } });
+  }, [query]);
+
+  useEffect(() => {
     if (!query) return;
     const cachedData = CACHE.get(pathName);
     if (CACHE.has(pathName) && cachedData) {

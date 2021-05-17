@@ -10,6 +10,8 @@ import { BookMarkResult } from 'types/API';
 import { faBookmark as checkedBookMark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as unCheckdBookMark } from '@fortawesome/free-regular-svg-icons';
 import { Icon, Button } from 'components/UI';
+import Router from 'next/router';
+import routes from 'common/constant/routes';
 import cacheProto from 'util/cache';
 import * as S from './style';
 
@@ -94,14 +96,11 @@ const PostBookMark = ({ postId }: Props) => {
 
   /** Toggle BookMark Button */
   const bookMarkToggleHanlder = useCallback(() => {
-    if (userId) {
-      if (isBookMarked) {
-        return removeBookMarkFetch({ type: REQUEST, params: [userId, postId] });
-      } else {
-        return addBookMarkFetch({ type: REQUEST, params: [userId, postId] });
-      }
+    if (!userId) Router.push(routes.LOGIN);
+    if (isBookMarked) {
+      return removeBookMarkFetch({ type: REQUEST, params: [userId, postId] });
     }
-    // TODO: REDIRECTUIN TO LOGIN PAGE
+    return addBookMarkFetch({ type: REQUEST, params: [userId, postId] });
   }, [postId, userId, isBookMarked]);
 
   return (

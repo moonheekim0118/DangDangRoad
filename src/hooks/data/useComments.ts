@@ -13,9 +13,9 @@ import useApiFetch, {
 import { CommentResult } from 'types/API';
 import { getComments } from 'api/comment';
 import { COMMENT_DATA_LIMIT } from 'common/constant/number';
+import { useNotificationDispatch } from 'context/Notification';
 import Comment from 'types/Comment';
 import cacheProto from 'util/cache';
-import { useNotificationDispatch } from 'context/Notification';
 import * as Action from 'action';
 
 interface DataType {
@@ -36,6 +36,7 @@ const useComments = (postId: string) => {
   const { type, dataList: comments, hasMore, lastKey } = result;
 
   useEffect(() => {
+    if (comments.length > 0) return;
     if (CACHE.has(postId)) {
       const cachedData = CACHE.get(postId);
       if (cachedData) {
@@ -68,7 +69,6 @@ const useComments = (postId: string) => {
     }
   }, [result, postId]);
 
-  /** hanlding result of getComments data fetching */
   useEffect(() => {
     switch (getCommentResult.type) {
       case SUCCESS:

@@ -39,7 +39,7 @@ class cacheProto<T> {
   };
 
   // Get Value from Data by Its key
-  get = (key: string): T | null => {
+  get = (key: string): T => {
     return this.data[key]?.value;
   };
 

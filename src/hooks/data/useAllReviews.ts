@@ -48,7 +48,7 @@ const useAllReviews = () => {
   const [
     recentReviewsResult,
     recentReviewsFetch,
-    recentReviewsSetDefault,
+    getRecentReviewSetDefault,
   ] = useApiFetch<T.ReviewResult>(getReviewsFirst);
 
   const router = useRouter();
@@ -57,25 +57,23 @@ const useAllReviews = () => {
   const { type, dataList: reviews, hasMore, lastKey } = result;
 
   useEffect(() => {
-    // if there is Cached Data , we will call 'endBefore' API call and add Cached Data to it
+    if (reviews.length > 0) return;
     if (CACHE.has(pathName)) {
       const cachedData = CACHE.get(pathName);
-      if (cachedData) {
-        dispatch({
-          type: INIT,
-          data: {
-            dataList: cachedData.reviews,
-            lastKey: cachedData.lastKey,
-            hasMore: cachedData.hasMore,
-          },
-        });
-        recentReviewsFetch({
-          type: REQUEST,
-          params: [cachedData.reviews[0].createdAt],
-        });
-      }
+      dispatch({
+        type: INIT,
+        data: {
+          dataList: cachedData.reviews,
+          lastKey: cachedData.lastKey,
+          hasMore: cachedData.hasMore,
+        },
+      });
+      recentReviewsFetch({
+        type: REQUEST,
+        params: [cachedData.reviews[0].createdAt],
+      });
     } else {
-      reviews.length === 0 && getReviewsFetch({ type: REQUEST });
+      getReviewsFetch({ type: REQUEST });
     }
   }, []);
 
@@ -99,20 +97,20 @@ const useAllReviews = () => {
       case SUCCESS:
         if (recentReviewsResult.data?.reviews) {
           const newReviews = recentReviewsResult.data.reviews;
-          if (reviews.length > 0) {
+          newReviews.length > 0 &&
             dispatch({
               type: ADD,
               data: {
                 dataList: newReviews,
               },
             });
-          }
         }
-        recentReviewsSetDefault();
+        getRecentReviewSetDefault();
         break;
       case FAILURE:
         notiDispatch(Action.showError(recentReviewsResult.error));
-        recentReviewsSetDefault();
+        getRecentReviewSetDefault();
+        break;
     }
   }, [recentReviewsResult]);
 
@@ -131,12 +129,13 @@ const useAllReviews = () => {
               hasMore,
             },
           });
+          getReviewsSetDefault();
         }
-        getReviewsSetDefault();
         break;
       case FAILURE:
         notiDispatch(Action.showError(getReviewsResult.error));
         getReviewsSetDefault();
+        break;
     }
   }, [getReviewsResult]);
 
@@ -161,6 +160,7 @@ const useAllReviews = () => {
       case FAILURE:
         notiDispatch(Action.showError(getReviewsMoreResult.error));
         getReviewsMoreSetDefault();
+        break;
     }
   }, [getReviewsMoreResult]);
 

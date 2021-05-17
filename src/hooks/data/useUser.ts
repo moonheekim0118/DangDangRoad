@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import Router from 'next/router';
-import useSWR from 'swr';
 import { UserInfo } from 'types/User';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
+import Router from 'next/router';
+import useSWR from 'swr';
 import api from 'common/constant/api';
 import * as Action from 'action';
 
