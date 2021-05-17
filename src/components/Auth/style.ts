@@ -1,4 +1,11 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+
+const popUp = keyframes`
+   100% {
+    transform: translateY(0%);
+   }
+`;
 
 export const Form = styled.form<{ signUp?: boolean }>`
   width: 600px;
@@ -6,6 +13,7 @@ export const Form = styled.form<{ signUp?: boolean }>`
   padding: 15px 25px;
   border-radius: 20px;
   background-color: #fff;
+  transform: translateY(100%);
 
   display: flex;
   flex-direction: column;
@@ -13,6 +21,7 @@ export const Form = styled.form<{ signUp?: boolean }>`
   align-items: center;
 
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
+  animation: ${popUp} 0.8s ease forwards;
 
   > * {
     margin: 1rem 0;
