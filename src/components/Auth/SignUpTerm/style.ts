@@ -7,7 +7,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-
   > * {
     margin-left: 1.2rem;
   }
@@ -29,11 +28,16 @@ export const DetailContainer = styled.div`
   background-color: #fff;
   border-radius: 25px;
   overflow-y: scroll;
+  scrollbar-width: none;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   ${baseModalStyle}
 
   @media only screen and (max-width: 780px) {
     width: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
 `;
 

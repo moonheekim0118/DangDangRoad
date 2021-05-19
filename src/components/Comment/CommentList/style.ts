@@ -24,6 +24,10 @@ export const Container = styled.div`
   width: 100%;
   height: calc(100% - 110px);
   overflow-y: scroll;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const CommentCard = styled.li`
