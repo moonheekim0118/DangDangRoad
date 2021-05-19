@@ -34,7 +34,7 @@ export const Message = styled.span`
 
 export const themes = {
   success: css`
-    background-color:var(--colors-green)';
+    background-color: var(--colors-green);
   `,
   info: css`
     background-color: var(--colors-light-blue);
