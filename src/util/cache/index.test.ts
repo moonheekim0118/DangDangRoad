@@ -7,7 +7,7 @@ import cacheProto from '.';
  *  3. 지정된 만료 기간 후, 캐시에 접근 시 접근 불가능한지
  */
 
-describe('should store Array data correctly', () => {
+describe('참조형 데이터를 올바르게 캐싱하는지 검사한다.', () => {
   let CACHE;
   let key;
   let mockData;
@@ -20,22 +20,22 @@ describe('should store Array data correctly', () => {
     mockDataSize = mockData.length;
   });
 
-  test('when set data initially - store size correctly', () => {
+  test('새로운 데이터를 캐싱 한 경우 - 데이터 크기', () => {
     CACHE.set(key, mockData, mockDataSize);
     expect(CACHE.getSize()).toBe(mockDataSize);
   });
 
-  test('when set data initially - can get Data correctly', () => {
+  test('새로운 데이터를 캐싱 한 경우 - 데이터 가져오기', () => {
     CACHE.set(key, mockData, mockDataSize);
     expect(CACHE.has(key)).toBe(true);
   });
 
-  test('when set data initially - store data correctly', () => {
+  test('새로운 데이터를 캐싱 한 경우 - 데이터 저장하기', () => {
     CACHE.set(key, mockData, mockDataSize);
     expect(CACHE.get(key)).toBe(mockData);
   });
 
-  test('when update exisited data - change data & size of it correctly', () => {
+  test('기존에 캐싱된 데이터를 수정 한 경우', () => {
     CACHE.set(key, mockData, mockDataSize);
     expect(CACHE.get(key)).toBe(mockData);
     let newData = ['changed'];
@@ -45,20 +45,20 @@ describe('should store Array data correctly', () => {
     expect(CACHE.getSize()).toBe(newDataSize);
   });
 
-  test('when store mutiple keys- update its size correctly', () => {
+  test('여러 데이터를 캐싱 한 경우', () => {
     CACHE.set(key, mockData, mockDataSize);
     CACHE.set('test1', mockData, mockDataSize);
     expect(CACHE.getSize()).toBe(mockDataSize * 2);
   });
 
-  test('clear data correctly', () => {
+  test('캐싱된 데이터를 초기화 한 경우', () => {
     CACHE.set(key, mockData);
     CACHE.clear();
     expect(CACHE.has(key)).toBe(false);
     expect(CACHE.getSize()).toBe(0);
   });
 
-  test('remove value by key correctly', () => {
+  test('특정 key 값을 삭제한 경우', () => {
     CACHE.set(key, mockData, mockDataSize);
     CACHE.delete(key);
     expect(CACHE.has(key)).toBe(false);
@@ -66,7 +66,7 @@ describe('should store Array data correctly', () => {
   });
 });
 
-describe('should store primitive value data correctly', () => {
+describe('일반형 데이터를 올바르게 캐싱하는지 검사한다', () => {
   let CACHE;
   let key;
 
@@ -75,22 +75,22 @@ describe('should store primitive value data correctly', () => {
     key = 'test';
   });
 
-  test('when set data initially - store size correctly', () => {
+  test('새로운 데이터를 캐싱 한 경우 - 데이터 크기', () => {
     CACHE.set(key, true, 1);
     expect(CACHE.getSize()).toBe(1);
   });
 
-  test('when set data initially - can get Data correctly', () => {
+  test('새로운 데이터를 캐싱 한 경우 - 데이터 가져오기', () => {
     CACHE.set(key, true, 1);
     expect(CACHE.has(key)).toBe(true);
   });
 
-  test('when set data initially - store data correctly', () => {
+  test('새로운 데이터를 캐싱 한 경우 - 데이터 저장하기', () => {
     CACHE.set(key, true, 1);
     expect(CACHE.get(key)).toBe(true);
   });
 
-  test('when update exisited data - change data & size of it correctly', () => {
+  test('기존에 캐싱된 데이터를 수정 한 경우', () => {
     CACHE.set(key, true, 1);
     expect(CACHE.get(key)).toBe(true);
     CACHE.set(key, false, 1);
@@ -98,13 +98,13 @@ describe('should store primitive value data correctly', () => {
     expect(CACHE.getSize()).toBe(1);
   });
 
-  test('when store mutiple keys- update its size correctly', () => {
+  test('여러 데이터를 캐싱 한 경우', () => {
     CACHE.set(key, true, 1);
     CACHE.set('test1', false, 1);
     expect(CACHE.getSize()).toBe(2);
   });
 
-  test('clear data correctly', () => {
+  test('캐싱된 데이터를 초기화 한 경우', () => {
     CACHE.set(key, true, 1);
     CACHE.clear();
     expect(CACHE.has(key)).toBe(false);
@@ -112,7 +112,7 @@ describe('should store primitive value data correctly', () => {
   });
 });
 
-describe('should not store data when cache size overs max limit', () => {
+describe('캐시된 데이터가 정해진 사이즈를 넘을 때 올바르게 처리하는지 검사', () => {
   let CACHE;
   let maxSize = 100;
   let key1;
@@ -128,7 +128,7 @@ describe('should not store data when cache size overs max limit', () => {
     mockDataSize = mockData.length;
   });
 
-  test('when limit is 100 and stored data size is 99', () => {
+  test('정해진 사이즈가 100이고 현재 캐싱된 데이터 크기가 99일 때', () => {
     CACHE.set(key1, mockData, mockDataSize);
     const notOverData = new Array(9);
     const notOverDataSize = notOverData.length;
@@ -139,7 +139,7 @@ describe('should not store data when cache size overs max limit', () => {
     expect(notOverDataSize + mockDataSize).toBeLessThan(maxSize);
   });
 
-  test('when new data over the limit', () => {
+  test('새로운 데이터 삽입 시, 데이터 사이즈를 초과할 경우', () => {
     CACHE.set(key1, mockData, mockDataSize);
     const overData = new Array(10);
     const overDataSize = overData.length;
@@ -150,7 +150,7 @@ describe('should not store data when cache size overs max limit', () => {
   });
 });
 
-describe('should expire data when maxAge overs', () => {
+describe('캐싱된 데이터가 정해진 만료 기간에 맞춰 올바르게 만료되는지 검사한다.', () => {
   let CACHE;
   let key;
   let mockData;
@@ -167,14 +167,14 @@ describe('should expire data when maxAge overs', () => {
     jest.useRealTimers();
   });
 
-  test('when expiry time not passed yet', () => {
+  test('만료 기간이 아직 지나지 않았을 경우', () => {
     CACHE.set(key, mockData, 1);
     expect(CACHE.has(key)).toBe(true);
     jest.setSystemTime(new Date().getTime() + maxAge - 10);
     expect(CACHE.has(key)).toBe(true);
   });
 
-  test('when expiry time passed', () => {
+  test('만료 기간이 지났을 경우', () => {
     CACHE.set(key, mockData, 1);
     expect(CACHE.has(key)).toBe(true);
     jest.setSystemTime(new Date().getTime() + maxAge + 1);
