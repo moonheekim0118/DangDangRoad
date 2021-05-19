@@ -2,7 +2,7 @@ import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { makeDecorator } from '@storybook/addons';
 import GlobalStyle from 'common/style/globalStyle';
-import { MainContents } from 'components/common/Layout/style';
+import { MainContents } from 'components/Common/Layout/style';
 
 const withGlobal = makeDecorator({
   name: 'withGlobalStyle',
