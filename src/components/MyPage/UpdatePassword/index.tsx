@@ -11,7 +11,7 @@ import { inputId } from 'common/constant/input';
 import { SAVE_CAPTION } from 'common/constant/string';
 import { updatePassword } from 'api/user';
 import { UPDATE_MESSAGE, NOT_FULL_INFO_ERROR } from 'common/constant/string';
-import { passwordValidator } from 'util/signUpValidations';
+import { passwordValidator } from 'util/validations';
 import * as Action from 'action';
 import Form from '../style';
 

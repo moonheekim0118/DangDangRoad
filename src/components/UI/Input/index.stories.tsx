@@ -2,10 +2,10 @@ import React from 'react';
 import { Story } from '@storybook/react';
 import { inputId } from 'common/constant/input';
 import {
-  checkEmail,
+  emailValidator,
   nicknameValidator,
   passwordValidator,
-} from 'util/signUpValidations';
+} from 'util/validations';
 import Input, { Props } from '.';
 
 const Template: Story<Props> = (args) => <Input {...args} />;
@@ -17,7 +17,7 @@ export const PasswordInput = Template.bind({});
 EmailInput.args = {
   id: inputId.EMAIL,
   required: true,
-  validator: checkEmail,
+  validator: emailValidator,
 };
 
 NicknameInput.args = {
