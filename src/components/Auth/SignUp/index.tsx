@@ -18,12 +18,17 @@ import { SERVICE_TERM, PRIVACY_TERM } from 'common/constant/terms';
 import { SignUpTerm, GoogleLoginButton } from 'components/Auth';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
-import * as checkers from 'util/signUpValidations';
 import * as S from '../style';
+import {
+  emailValidator,
+  conditionValidator,
+  nicknameValidator,
+  passwordValidator,
+} from 'util/validations';
 
 const SignUp = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [signUpResult, signUpFetch] = useApiFetch(signUp);
+  const [result, dispatch] = useApiFetch(signUp);
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const nicknameRef = useRef<InputRef>(inputDefaultRef());
   const [
@@ -35,17 +40,17 @@ const SignUp = (): React.ReactElement => {
   const privacyTermCheckRef = useRef<RefType<boolean>>(defaultRef(false));
 
   useEffect(() => {
-    switch (signUpResult.type) {
+    switch (result.type) {
       case SUCCESS:
         Router.push(routes.SIGNUP_PROCESS);
         break;
       case FAILURE:
-        notiDispatch(showError(signUpResult.error));
+        notiDispatch(showError(result.error));
         break;
     }
-  }, [signUpResult]);
+  }, [result]);
 
-  const submitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const {
       value: email,
@@ -73,48 +78,50 @@ const SignUp = (): React.ReactElement => {
     if (!serviceTermChecked || !privacyTermChecked) {
       return notiDispatch(showError(TERM_NOT_CHECKED_ERROR));
     }
-    if (
-      email.length === 0 ||
-      nickname.length === 0 ||
-      password.length === 0 ||
-      password.length === 0 ||
-      password !== passwordCheck ||
-      emailError ||
-      nicknameError ||
-      passwordError
-    ) {
-      email.length === 0 && emailFocus && emailFocus();
-      nickname.length === 0 && nicknameFocus && nicknameFocus();
-      password.length === 0 && passwordFocus && passwordFocus();
-      password !== passwordCheck && passwordCheckFoucs && passwordCheckFoucs();
+    if (emailError || nicknameError || passwordError) return;
+
+    const isEmptyEmail = conditionValidator(email.length > 0, emailFocus);
+    const isEmptyNickname = conditionValidator(
+      nickname.length > 0,
+      nicknameFocus
+    );
+    const isEmptyPassword = conditionValidator(
+      password.length > 0,
+      passwordFocus
+    );
+    const isCorrectPassword = conditionValidator(
+      password === passwordCheck,
+      passwordCheckFoucs
+    );
+    if (isEmptyEmail || isEmptyNickname || isEmptyPassword || isCorrectPassword)
       return;
-    }
-    signUpFetch({ type: REQUEST, params: [{ email, nickname, password }] });
+
+    dispatch({ type: REQUEST, params: [{ email, nickname, password }] });
   }, []);
 
   return (
-    <S.Form signUp={true} onSubmit={submitHanlder}>
+    <S.Form signUp={true} onSubmit={handleSubmit}>
       <S.Title>{MENU_SIGNUP_TITLE}</S.Title>
       <Input
         type="email"
         id={inputId.EMAIL}
         required={true}
         ref={emailRef}
-        validator={checkers.checkEmail}
+        validator={emailValidator}
       />
       <Input
         type="text"
         id={inputId.NICKNAME}
         required={true}
         ref={nicknameRef}
-        validator={checkers.nicknameValidator}
+        validator={nicknameValidator}
       />
       <Input
         type="password"
         id={inputId.PASSWORD}
         required={true}
         ref={passwordRef}
-        validator={checkers.passwordValidator}
+        validator={passwordValidator}
       />
       <Input
         type="password"
@@ -139,7 +146,7 @@ const SignUp = (): React.ReactElement => {
           theme="primary"
           size="large"
           width="100%"
-          loading={signUpResult.type === REQUEST}>
+          loading={result.type === REQUEST}>
           {SIGNUP_BUTTON_CAPTION}
         </Button>
         <GoogleLoginButton />

@@ -3,7 +3,7 @@ import { Button, Input } from 'components/UI';
 import { inputId } from 'common/constant/input';
 import { User, UserInfo, MutateType } from 'types/User';
 import { SAVE_CAPTION, UPDATE_MESSAGE } from 'common/constant/string';
-import { nicknameValidatorForUpdate } from 'util/signUpValidations';
+import { nicknameValidatorForUpdate } from 'util/validations';
 import { useNotificationDispatch } from 'context/Notification';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import useApiFetch, {

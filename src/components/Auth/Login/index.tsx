@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useCallback, FormEvent } from 'react';
-import { checkEmail } from 'util/signUpValidations';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -13,40 +12,41 @@ import { MENU_LOGIN_TITLE } from 'common/constant/string';
 import { inputId } from 'common/constant/input';
 import { Input, Button } from 'components/UI';
 import { GoogleLoginButton } from 'components/Auth';
+import { showError } from 'action';
+import { loginValidator } from 'util/validations';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
-import * as Action from 'action';
 import * as S from '../style';
 
 const Login = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const passwordRef = useRef<InputRef>(inputDefaultRef());
-  const [signInResult, signInFetch] = useApiFetch(signIn);
+  const [result, dispatch] = useApiFetch(signIn);
 
   useEffect(() => {
-    switch (signInResult.type) {
+    switch (result.type) {
       case SUCCESS:
         Router.push(routes.HOME);
-        break;
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(signInResult.error));
-        break;
+        notiDispatch(showError(result.error));
+        return;
     }
-  }, [signInResult]);
+  }, [result]);
 
-  const submitHanlder = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    if (email.length === 0 || password.length === 0 || !checkEmail(email)) {
-      return notiDispatch(Action.showError(NOT_FULL_INFO_ERROR));
+    if (!loginValidator(email, password)) {
+      return notiDispatch(showError(NOT_FULL_INFO_ERROR));
     }
-    signInFetch({ type: REQUEST, params: [{ email, password }] });
+    dispatch({ type: REQUEST, params: [{ email, password }] });
   }, []);
 
   return (
-    <S.Form onSubmit={submitHanlder}>
+    <S.Form onSubmit={handleSubmit}>
       <S.Title>{MENU_LOGIN_TITLE}</S.Title>
       <Input type="email" id={inputId.EMAIL} required={true} ref={emailRef} />
       <Input
@@ -61,7 +61,7 @@ const Login = (): React.ReactElement => {
           theme="primary"
           size="large"
           width="100%"
-          loading={signInResult.type === REQUEST}>
+          loading={result.type === REQUEST}>
           {MENU_LOGIN_TITLE}
         </Button>
         <GoogleLoginButton />
