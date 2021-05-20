@@ -107,7 +107,7 @@ export const conditionValidator = (
   condition: boolean,
   focus?: () => void
 ): boolean => {
-  if (condition) return false;
+  if (condition) return true;
   focus && focus();
-  return true;
+  return false;
 };

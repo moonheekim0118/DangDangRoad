@@ -1,7 +1,7 @@
 import React from 'react';
+import { EMPTY_COMMENT_TITLE } from 'common/constant/string';
 import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { useComments } from 'hooks';
-import { EMPTY_COMMENT_TITLE } from 'common/constant/string';
 import { Loading } from 'components/UI';
 import dynamic from 'next/dynamic';
 import * as S from './style';

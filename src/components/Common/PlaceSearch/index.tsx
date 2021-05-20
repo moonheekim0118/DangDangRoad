@@ -11,7 +11,7 @@ import Router from 'next/router';
 const PlaceSearch = (): React.ReactElement => {
   const keywordRef = useRef<InputRef>(inputDefaultRef());
 
-  const submitHandler = useCallback(
+  const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const keyword = keywordRef.current.value;
@@ -30,7 +30,7 @@ const PlaceSearch = (): React.ReactElement => {
       placeholder={REVIEW_SEARCH_PLACEHODLER}
       focusTheme="fromBlueToWhite"
       ref={keywordRef}
-      submitHandler={submitHandler}
+      handleSubmit={handleSubmit}
     />
   );
 };

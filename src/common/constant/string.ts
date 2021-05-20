@@ -132,6 +132,7 @@ export const WRITE_REVIEW_ADD_CONTENTS_TITLE =
 export const WRITE_REVIEW_ADD_RADIO_INPUT = '3. 산책로에 대해 알려주세요';
 export const EMPTY_COMMENT_TITLE = '아직 댓글이 없습니다';
 export const COMMENT_PLACEHOLDER = '댓글을 남겨주세요..';
+export const EMPTY_BOOKMARK_TITLE = '아직 북마크가 없습니다';
 
 export const NEXT_CAPTION = '다음';
 export const PREV_CAPTION = '이전';

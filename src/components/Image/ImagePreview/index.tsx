@@ -27,7 +27,7 @@ const ImagePreview = ({
   const [startIndex, setStartIndex] = useState<number>(0);
   const [showCarousel, carousleHandler] = useModal(false);
 
-  const imageZoomHanlder = useCallback(
+  const handleClick = useCallback(
     (index: number) => () => {
       setStartIndex(index);
       carousleHandler();
@@ -51,11 +51,11 @@ const ImagePreview = ({
         </S.ImageContainer>
       )}
       {imageList &&
-        imageList.map((v, i) => (
-          <S.ImageContainer key={v + i}>
+        imageList.map((image, index) => (
+          <S.ImageContainer key={image + index}>
             <S.Image
-              src={v}
-              onClick={imageZoomHanlder(i)}
+              src={image}
+              onClick={handleClick(index)}
               alt={REVIEW_IMAGE_ALT}
             />
             <S.RemoveImage>
@@ -64,7 +64,7 @@ const ImagePreview = ({
                 icon={faTrashAlt}
                 size="large"
                 style={S.iconStyleWhite}
-                onClick={imageRemoveHanlder(i)}
+                onClick={imageRemoveHanlder(index)}
               />
             </S.RemoveImage>
           </S.ImageContainer>

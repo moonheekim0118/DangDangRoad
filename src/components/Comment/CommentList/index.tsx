@@ -5,12 +5,11 @@ import useApiFetch, {
   FAILURE,
 } from 'hooks/common/useApiFetch';
 import Comment from 'types/Comment';
-import { Loading, Author, Button, Icon } from 'components/UI';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { DELETE_BUTTON_CAPTION } from 'common/constant/string';
 import { removeComment } from 'api/comment';
-import { REMOVE_MESSAGE } from 'common/constant/string';
+import { Loading, Author, Button, Icon } from 'components/UI';
+import { DELETE_BUTTON_CAPTION, REMOVE_MESSAGE } from 'common/constant/string';
 import { useNotificationDispatch } from 'context/Notification';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import * as Action from 'action';
 import * as S from './style';
 
@@ -38,32 +37,28 @@ const CommentList = ({
   isLoading,
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [
-    removeCommentResult,
-    removeCommentFetch,
-    removeCommentSetDefault,
-  ] = useApiFetch<string>(removeComment);
+  const [result, dispatch, setDefault] = useApiFetch<string>(removeComment);
 
-  /** hanlding result of remove Comment data fetching */
   useEffect(() => {
-    switch (removeCommentResult.type) {
+    switch (result.type) {
       case SUCCESS:
-        const id = removeCommentResult.data; // removed data's Id
+        const id = result.data;
         if (id) {
           removeCacheHandler(id);
-          removeCommentSetDefault();
+          setDefault();
           notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
-          break;
         }
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(removeCommentResult.error));
-        removeCommentSetDefault();
+        notiDispatch(Action.showError(result.error));
+        setDefault();
+        return;
     }
-  }, [removeCommentResult, comments]);
+  }, [result, comments]);
 
-  const removeCommentSubmitHandler = useCallback(
+  const handleRemoveComment = useCallback(
     (id: string) => () => {
-      removeCommentFetch({ type: REQUEST, params: [id] });
+      dispatch({ type: REQUEST, params: [id] });
     },
     []
   );
@@ -71,23 +66,23 @@ const CommentList = ({
   return (
     <S.Container>
       <S.List>
-        {comments.map((v) => (
-          <S.CommentCard key={v.docId}>
+        {comments.map((comment) => (
+          <S.CommentCard key={comment.docId}>
             <Author
-              userData={v.userData}
+              userData={comment.userData}
               size="small"
               menuList={
-                v.userId === userId
+                comment.userId === userId
                   ? [
                       {
                         title: DELETE_BUTTON_CAPTION,
-                        onClick: removeCommentSubmitHandler(v.docId),
+                        onClick: handleRemoveComment(comment.docId),
                       },
                     ]
                   : undefined
               }
             />
-            <S.CommentContents>{v.contents}</S.CommentContents>
+            <S.CommentContents>{comment.contents}</S.CommentContents>
           </S.CommentCard>
         ))}
         {isLoading ? (

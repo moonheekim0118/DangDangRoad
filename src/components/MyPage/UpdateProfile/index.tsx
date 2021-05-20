@@ -29,24 +29,21 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   const imageUrlRef = useRef<RefType<string[]>>(
     defaultRef<string[]>([user.profilePic])
   );
-  const [
-    updateProfileResult,
-    updateProfileFetch,
-    updateProfileSetDefault,
-  ] = useApiFetch<User>(updateProfile);
+  const [result, dispatch, setDefault] = useApiFetch<User>(updateProfile);
 
   useEffect(() => {
-    switch (updateProfileResult.type) {
+    switch (result.type) {
       case SUCCESS:
-        mutate({ ...user, ...updateProfileResult.data }, false).then(() => {
+        mutate({ ...user, ...result.data }, false).then(() => {
           notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
-          updateProfileSetDefault();
+          setDefault();
         });
-        break;
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(updateProfileResult.error));
+        notiDispatch(Action.showError(result.error));
+        return;
     }
-  }, [updateProfileResult]);
+  }, [result]);
 
   /** sumbit save */
   const saveHandler = useCallback((e: React.MouseEvent<HTMLFormElement>) => {
@@ -66,7 +63,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
       nickname: trimedNickname,
     };
     const data = { id: user.userId, updateContents };
-    updateProfileFetch({ type: REQUEST, params: [data] });
+    dispatch({ type: REQUEST, params: [data] });
   }, []);
 
   return (

@@ -23,7 +23,6 @@ const Pagination = ({ totalPage, currentPage }: Props) => {
     let end = currentPage;
     let start = 1;
     if (currentPage % 5 === 0) {
-      // currentPage is endPage
       start = end - 4;
     } else {
       while (end % 5 !== 0) {

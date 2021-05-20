@@ -32,37 +32,31 @@ const ImageUploader = ({
   type,
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [
-    imageUploadResult,
-    imageUploadFetch,
-    imageUploadSetDefault,
-  ] = useApiFetch<string[]>(uploadImage);
+  const [result, dispatch] = useApiFetch<string[]>(uploadImage);
   const imageInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    switch (imageUploadResult.type) {
+    switch (result.type) {
       case SUCCESS:
-        if (imageUploadResult.data) {
-          imageUrl.length + imageUploadResult.data.length <= imageLimit
-            ? imageUrlChangeHandler(imageUrl.concat(imageUploadResult.data))
-            : imageUrlChangeHandler(imageUploadResult.data);
+        if (result.data) {
+          imageUrl.length + result.data.length <= imageLimit
+            ? imageUrlChangeHandler(imageUrl.concat(result.data))
+            : imageUrlChangeHandler(result.data);
         }
-        imageUploadSetDefault();
-        break;
+        return;
       case FAILURE:
-        notiDispatch(showError(imageUploadResult.error));
-        imageUploadSetDefault();
+        notiDispatch(showError(result.error));
+        return;
     }
-  }, [imageUploadResult]);
+  }, [result]);
 
-  const uploaderClickHanlder = useCallback(() => {
+  const handleClick = useCallback(() => {
     if (imageInput.current) {
       imageInput.current.click();
     }
   }, []);
 
-  /** Upload Image Handler */
-  const uploadImageHanlder = useCallback(
+  const handleUploadImage = useCallback(
     (e) => {
       const files = e.target.files;
       const length =
@@ -70,25 +64,21 @@ const ImageUploader = ({
       if (length > imageLimit) {
         return notiDispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
       }
-      imageUploadFetch({ type: REQUEST, params: [files] });
+      dispatch({ type: REQUEST, params: [files] });
     },
     [imageUrl]
   );
 
   return (
-    <Container onClick={uploaderClickHanlder}>
-      {imageUploadResult.type === REQUEST ? (
-        <Loading size="medium" />
-      ) : (
-        children
-      )}
+    <Container onClick={handleClick}>
+      {result.type === REQUEST ? <Loading size="medium" /> : children}
       <input
         type="file"
         multiple
         name="image"
         hidden
         ref={imageInput}
-        onChange={uploadImageHanlder}
+        onChange={handleUploadImage}
       />
     </Container>
   );

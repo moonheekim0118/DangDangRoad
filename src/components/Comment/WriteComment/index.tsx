@@ -29,28 +29,26 @@ const WriteComment = ({
     validator: checkCommentLength,
   });
 
-  const [createCommentResult, createCommentFetch] = useApiFetch<Comment>(
-    createComment
-  );
+  const [result, dispatch] = useApiFetch<Comment>(createComment);
 
   useEffect(() => {
-    switch (createCommentResult.type) {
+    switch (result.type) {
       case SUCCESS:
-        const newComment = createCommentResult.data;
+        const newComment = result.data;
         if (newComment) {
           addCommentHandler(newComment);
-          break;
         }
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(createCommentResult.error));
-        break;
+        notiDispatch(Action.showError(result.error));
+        return;
     }
-  }, [createCommentResult]);
+  }, [result]);
 
-  const submitHandler = useCallback(
+  const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      createCommentFetch({
+      dispatch({
         type: REQUEST,
         params: [{ userId, postId, contents: value }],
       });
@@ -60,7 +58,7 @@ const WriteComment = ({
   );
 
   return (
-    <S.Form onSubmit={submitHandler}>
+    <S.Form onSubmit={handleSubmit}>
       <S.TextArea
         cols={1}
         placeholder={COMMENT_PLACEHOLDER}

@@ -34,19 +34,17 @@ const MyPage = ({
   children,
 }: Props): React.ReactElement => {
   const [showModal, modalHandler] = useModal(false);
-  const [destroyAccountResult, destroyAccountFetch] = useApiFetch(
-    destroyAccount
-  );
+  const [result, dispatch] = useApiFetch(destroyAccount);
 
   useEffect(() => {
-    if (destroyAccountResult.type === SUCCESS) {
+    if (result.type === SUCCESS) {
       modalHandler();
       Router.push(routes.HOME);
     }
-  }, [destroyAccountResult.type]);
+  }, [result.type]);
 
   const destroyHandler = useCallback(() => {
-    destroyAccountFetch({ type: REQUEST, params: [userInfo.userId] });
+    dispatch({ type: REQUEST, params: [userInfo.userId] });
   }, []);
 
   return (

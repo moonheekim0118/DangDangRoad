@@ -49,12 +49,10 @@ const PostBookMark = ({ postId }: Props) => {
   useEffect(() => {
     if (userId) {
       if (CACHED_USER === userId) {
-        // if it's same user (can reuse cached data)
         if (CACHE.has(postId)) {
           return setIsBookMarked(CACHE.get(postId) || false);
         }
       } else {
-        // if it's new user (can't reuse cached data)
         CACHED_USER = userId;
         CACHE.clear();
       }

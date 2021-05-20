@@ -17,6 +17,7 @@ import {
 import * as T from 'types/Map';
 import * as S from './style';
 
+const { kakao } = window;
 let markers: any[] = [];
 
 interface Props {
@@ -44,8 +45,6 @@ const SearchMap = ({
 
   useEffect(() => {
     if (container) {
-      // when client is loaded
-      const { kakao } = window;
       const options = {
         center: new kakao.maps.LatLng(
           initialCoordY ? +initialCoordY : 33.450701,
@@ -74,7 +73,6 @@ const SearchMap = ({
   const addMarkers = useCallback(
     (position, idx) => {
       if (map) {
-        const { kakao } = window;
         let imageSrc = MARKER_URL,
           imageSize = new kakao.maps.Size(36, 37),
           imgOptions = {
@@ -102,7 +100,6 @@ const SearchMap = ({
   const drawMap = useCallback(
     (data) => {
       if (map) {
-        const { kakao } = window;
         let placePosition = null;
         let bounds = new kakao.maps.LatLngBounds();
         for (let i = 0; i < data.length; i++) {
@@ -138,7 +135,6 @@ const SearchMap = ({
     [map, infoWindow]
   );
 
-  // SearchButton Click handler
   const searchHadler = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -153,7 +149,6 @@ const SearchMap = ({
     [keywordRef, ps]
   );
 
-  // pagination - page click handler function
   const pageClickHandler = useCallback(
     (index: number) => () => {
       if (pagination) {
@@ -171,7 +166,7 @@ const SearchMap = ({
         placeholder={MAP_SEARCH_PLACEHOLDER}
         ref={keywordRef}
         initialValue={nowSelectedAddress}
-        submitHandler={searchHadler}
+        handleSubmit={searchHadler}
       />
       <S.Map id="map" />
       <S.SearchResult>
@@ -191,12 +186,12 @@ const SearchMap = ({
           ))}
         <S.PaginationContainer>
           {pagination &&
-            Array.from(Array(pagination.last), (_, i) => (
+            Array.from(Array(pagination.last), (_, index) => (
               <S.Page
-                current={i + 1 === pagination?.current}
-                key={i}
-                onClick={pageClickHandler(i + 1)}>
-                {i + 1}
+                current={index + 1 === pagination?.current}
+                key={index}
+                onClick={pageClickHandler(index + 1)}>
+                {index + 1}
               </S.Page>
             ))}
         </S.PaginationContainer>

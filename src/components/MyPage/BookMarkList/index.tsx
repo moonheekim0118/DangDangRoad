@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import BookMark from 'types/BookMark';
-import { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
-import { useApiFetch } from 'hooks';
+import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { getBookMarkedReviews, removeBookMarkReview } from 'api/bookmark';
-import { BOOKMARK_DATA_LIMIT } from 'common/constant/number';
 import { Button, Icon, Loading } from 'components/UI';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'components/MyPage';
+import {
+  EMPTY_BOOKMARK_TITLE,
+  CANCLE_BUTTON_CAPTION,
+  UPDATE_BUTTON_CAPTION,
+} from 'common/constant/string';
+import { BOOKMARK_DATA_LIMIT } from 'common/constant/number';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import cacheProto from 'util/cache';
@@ -20,7 +24,7 @@ interface Props {
 const CACHE = new cacheProto<BookMark[]>();
 let CACHED_USER = '';
 
-const sliceArray = (array: any[], pageNum: number) => {
+const parseList = (array: any[], pageNum: number) => {
   const end = pageNum * BOOKMARK_DATA_LIMIT;
   const start = end - 4;
   return array.slice(start - 1, end);
@@ -31,64 +35,56 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
   const [isRemoveMode, setIsRemoveMode] = useState<boolean>(false);
   const [reviewList, setReviewList] = useState<BookMark[]>([]);
 
-  const [
-    getBookMarksResult,
-    getBookMarksFetch,
-    getBookMarksSetDefault,
-  ] = useApiFetch<BookMark[]>(getBookMarkedReviews);
+  const [getResult, getDispatch, getSetDefault] = useApiFetch<BookMark[]>(
+    getBookMarkedReviews
+  );
 
-  const [
-    removeBookMarkResult,
-    removeBookMarkFetch,
-    removeBookMarkSetDefault,
-  ] = useApiFetch<string>(removeBookMarkReview);
+  const [removeResult, removeDispatch, removeSetDefault] = useApiFetch<string>(
+    removeBookMarkReview
+  );
 
   useEffect(() => {
     if (userId) {
       if (CACHED_USER === userId && CACHE.has(userId)) {
         const cachedData = CACHE.get(userId);
         if (cachedData) {
-          setReviewList(sliceArray(cachedData, pageNum));
+          setReviewList(parseList(cachedData, pageNum));
           setTotalLength(cachedData.length);
         }
       } else {
         CACHED_USER = userId;
         CACHE.clear();
-        getBookMarksFetch({ type: REQUEST, params: [userId] });
+        getDispatch({ type: REQUEST, params: [userId] });
       }
     }
   }, [userId, pageNum]);
 
   useEffect(() => {
-    if (getBookMarksResult.type === SUCCESS) {
-      const bookMarkList = getBookMarksResult.data ?? [];
-      setTotalLength(bookMarkList.length);
-      setReviewList(sliceArray(bookMarkList, pageNum));
-      CACHE.set(userId, bookMarkList, bookMarkList.length);
-      getBookMarksSetDefault();
-    }
-  }, [getBookMarksResult]);
+    if (getResult.type !== SUCCESS) return;
+    const bookMarkList = getResult.data ?? [];
+    setTotalLength(bookMarkList.length);
+    setReviewList(parseList(bookMarkList, pageNum));
+    CACHE.set(userId, bookMarkList, bookMarkList.length);
+    getSetDefault();
+  }, [getResult]);
 
   useEffect(() => {
-    if (removeBookMarkResult.type === SUCCESS) {
-      const postId = removeBookMarkResult.data;
-      const cachedData = CACHE.get(userId);
-      if (postId && cachedData) {
-        const updatedList = cachedData.filter((v) => v.docId !== postId);
-        setReviewList(sliceArray(updatedList, pageNum));
-        setTotalLength(cachedData.length - 1);
-        CACHE.set(userId, updatedList, updatedList.length);
-      }
-      removeBookMarkSetDefault();
+    if (removeResult.type !== SUCCESS) return;
+    const postId = removeResult.data;
+    const cachedData = CACHE.get(userId);
+    if (postId && cachedData) {
+      const updatedList = cachedData.filter((data) => data.docId !== postId);
+      setReviewList(parseList(updatedList, pageNum));
+      setTotalLength(cachedData.length - 1);
+      CACHE.set(userId, updatedList, updatedList.length);
     }
-  }, [removeBookMarkResult]);
+    removeSetDefault();
+  }, [removeResult]);
 
-  // cacluate Total Pages number
   const totalPages = useMemo(() => {
     return Math.ceil(totalLength / BOOKMARK_DATA_LIMIT);
   }, [totalLength]);
 
-  // to set Mode (remove or general)
   const modeToggleHandler = useCallback(() => {
     setIsRemoveMode(!isRemoveMode);
   }, [isRemoveMode]);
@@ -96,19 +92,16 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
   const onClickCard = useCallback(
     (docId: string) => () => {
       if (!isRemoveMode) {
-        // push to post page
         return Router.push(`${routes.POST}/${docId}`);
       }
-      // remove from bookmark List
-      removeBookMarkFetch({ type: REQUEST, params: [userId, docId] });
+      removeDispatch({ type: REQUEST, params: [userId, docId] });
     },
     [isRemoveMode]
   );
 
   return (
     <S.Container>
-      {getBookMarksResult.type === REQUEST ||
-      getBookMarksResult.type === SUCCESS ? (
+      {getResult.type === REQUEST || getResult.type === SUCCESS ? (
         <Loading />
       ) : (
         <>
@@ -119,7 +112,7 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
                 size="medium"
                 width="100px"
                 onClick={modeToggleHandler}>
-                {isRemoveMode ? '돌아가기' : '수정하기'}
+                {isRemoveMode ? CANCLE_BUTTON_CAPTION : UPDATE_BUTTON_CAPTION}
               </Button>
               {reviewList.map((v) => (
                 <S.Card
@@ -136,7 +129,7 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
               <Pagination currentPage={pageNum} totalPage={totalPages} />
             </>
           ) : (
-            <div>아직 북마크가 없습니다</div>
+            <div>{EMPTY_BOOKMARK_TITLE}</div>
           )}
         </>
       )}

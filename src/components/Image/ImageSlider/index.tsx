@@ -27,11 +27,11 @@ const ImageSlider = ({ imageList }: Props): React.ReactElement => {
         location={0}
       />
       <S.NavigatorContainer>
-        {imageList.map((_, i) => (
+        {imageList.map((_, index) => (
           <S.Navigator
-            key={i}
-            onClick={controller.changeIndexHandler(i)}
-            current={i === controller.index}
+            key={index}
+            onClick={controller.changeIndexHandler(index)}
+            current={index === controller.index}
           />
         ))}
       </S.NavigatorContainer>

@@ -80,12 +80,12 @@ const SignUp = (): React.ReactElement => {
     }
     if (emailError || nicknameError || passwordError) return;
 
-    const isEmptyEmail = conditionValidator(email.length > 0, emailFocus);
-    const isEmptyNickname = conditionValidator(
+    const isFullEmail = conditionValidator(email.length > 0, emailFocus);
+    const isFullNickname = conditionValidator(
       nickname.length > 0,
       nicknameFocus
     );
-    const isEmptyPassword = conditionValidator(
+    const isFullPassword = conditionValidator(
       password.length > 0,
       passwordFocus
     );
@@ -93,9 +93,13 @@ const SignUp = (): React.ReactElement => {
       password === passwordCheck,
       passwordCheckFoucs
     );
-    if (isEmptyEmail || isEmptyNickname || isEmptyPassword || isCorrectPassword)
+    if (
+      !isFullEmail ||
+      !isFullNickname ||
+      !isFullPassword ||
+      !isCorrectPassword
+    )
       return;
-
     dispatch({ type: REQUEST, params: [{ email, nickname, password }] });
   }, []);
 

@@ -11,8 +11,8 @@ export interface Props {
 }
 
 const HomeDescription = ({ show }: Props): React.ReactElement => {
-  let titleDir: 'left' | 'right' = show === 'show' ? 'right' : 'left';
-  let descDir: 'left' | 'right' = show === 'show' ? 'left' : 'right';
+  const titleDir: 'left' | 'right' = show === 'show' ? 'right' : 'left';
+  const descDir: 'left' | 'right' = show === 'show' ? 'left' : 'right';
   return (
     <S.Container>
       <S.Title css={S.calculateAnimation(0, show)}>

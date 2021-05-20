@@ -20,7 +20,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   /** initial value */
   initialValue?: string;
   /** submit handler */
-  submitHandler?: (e: FormEvent<HTMLFormElement>) => void;
+  handleSubmit?: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 const SearchBar = (
@@ -32,7 +32,7 @@ const SearchBar = (
     color,
     focusTheme = 'default',
     initialValue = '',
-    submitHandler,
+    handleSubmit,
     ...rest
   } = props;
 
@@ -41,7 +41,7 @@ const SearchBar = (
   useImperativeHandle(ref, () => ({ value }), [value]);
 
   return (
-    <S.Form onSubmit={submitHandler}>
+    <S.Form onSubmit={handleSubmit}>
       <input
         type="search"
         id={id}

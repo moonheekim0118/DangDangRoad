@@ -165,11 +165,11 @@ describe('주어진 조건을 충족하는지 검사한다.', () => {
   });
 
   test('주어진 조건을 충족하지 않는 경우', () => {
-    expect(conditionValidator(false, mockFocus)).toBe(true);
+    expect(conditionValidator(false, mockFocus)).toBe(false);
     expect(mockFocus).toBeCalled();
   });
   test('주어진 조건을 충족한 경우', () => {
-    expect(conditionValidator(true, mockFocus)).toBe(false);
+    expect(conditionValidator(true, mockFocus)).toBe(true);
     expect(mockFocus).toBeCalledTimes(0);
   });
 });

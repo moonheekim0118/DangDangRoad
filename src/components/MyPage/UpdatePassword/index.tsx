@@ -11,7 +11,7 @@ import { inputId } from 'common/constant/input';
 import { SAVE_CAPTION } from 'common/constant/string';
 import { updatePassword } from 'api/user';
 import { UPDATE_MESSAGE, NOT_FULL_INFO_ERROR } from 'common/constant/string';
-import { passwordValidator } from 'util/validations';
+import { passwordValidator, conditionValidator } from 'util/validations';
 import * as Action from 'action';
 import Form from '../style';
 
@@ -27,24 +27,20 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
     passwordCheckRef,
     passwordCheckValidator,
   ] = usePasswordCheck();
-  const [
-    updatePasswordResult,
-    updatePasswordFetch,
-    updatePasswordSetDefault,
-  ] = useApiFetch(updatePassword);
+  const [result, dispatch, setDefault] = useApiFetch(updatePassword);
 
   useEffect(() => {
-    switch (updatePasswordResult.type) {
+    switch (result.type) {
       case SUCCESS:
         notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
-        updatePasswordSetDefault();
-        break;
+        setDefault();
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(updatePasswordResult.error));
-        updatePasswordSetDefault();
-        break;
+        notiDispatch(Action.showError(result.error));
+        setDefault();
+        return;
     }
-  }, [updatePasswordResult]);
+  }, [result]);
 
   const SubmitHanlder = useCallback((e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,17 +54,20 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
       value: passwordCheck,
       focus: passwordCheckFoucs,
     } = passwordCheckRef.current;
-    if (
-      password.length === 0 ||
-      passwordError ||
-      passwordCheck.length === 0 ||
-      password !== passwordCheck
-    ) {
-      password.length === 0 && passwordFocus && passwordFocus();
-      password !== passwordCheck && passwordCheckFoucs && passwordCheckFoucs();
+
+    if (passwordError) {
       return notiDispatch(Action.showError(NOT_FULL_INFO_ERROR));
     }
-    updatePasswordFetch({
+    const isFullPassword = conditionValidator(
+      password.length > 0,
+      passwordFocus
+    );
+    const isCorrectPassword = conditionValidator(
+      password === passwordCheck,
+      passwordCheckFoucs
+    );
+    if (!isFullPassword || !isCorrectPassword) return;
+    dispatch({
       type: REQUEST,
       params: [{ id: userId, password }],
     });
