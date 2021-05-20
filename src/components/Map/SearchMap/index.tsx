@@ -16,8 +16,6 @@ import {
 } from 'common/constant/string';
 import * as T from 'types/Map';
 import * as S from './style';
-
-const { kakao } = window;
 let markers: any[] = [];
 
 interface Props {
@@ -46,15 +44,15 @@ const SearchMap = ({
   useEffect(() => {
     if (container) {
       const options = {
-        center: new kakao.maps.LatLng(
+        center: new window.kakao.maps.LatLng(
           initialCoordY ? +initialCoordY : 33.450701,
           initialCoordX ? +initialCoordX : 126.570667
         ),
         level: 3,
       };
-      setMap(new kakao.maps.Map(container, options));
-      setPs(new kakao.maps.services.Places());
-      setInfoWindow(new kakao.maps.InfoWindow({ zIndex: 1 }));
+      setMap(new window.kakao.maps.Map(container, options));
+      setPs(new window.kakao.maps.services.Places());
+      setInfoWindow(new window.kakao.maps.InfoWindow({ zIndex: 1 }));
     }
   }, [container]);
 
@@ -74,18 +72,18 @@ const SearchMap = ({
     (position, idx) => {
       if (map) {
         let imageSrc = MARKER_URL,
-          imageSize = new kakao.maps.Size(36, 37),
+          imageSize = new window.kakao.maps.Size(36, 37),
           imgOptions = {
-            spriteSize: new kakao.maps.Size(36, 691),
-            spriteOrigin: new kakao.maps.Point(0, idx * 46 + 10),
-            offset: new kakao.maps.Point(13, 37),
+            spriteSize: new window.kakao.maps.Size(36, 691),
+            spriteOrigin: new window.kakao.maps.Point(0, idx * 46 + 10),
+            offset: new window.kakao.maps.Point(13, 37),
           },
-          markerImage = new kakao.maps.MarkerImage(
+          markerImage = new window.kakao.maps.MarkerImage(
             imageSrc,
             imageSize,
             imgOptions
           ),
-          marker = new kakao.maps.Marker({
+          marker = new window.kakao.maps.Marker({
             position: position,
             image: markerImage,
           });
@@ -101,17 +99,17 @@ const SearchMap = ({
     (data) => {
       if (map) {
         let placePosition = null;
-        let bounds = new kakao.maps.LatLngBounds();
+        let bounds = new window.kakao.maps.LatLngBounds();
         for (let i = 0; i < data.length; i++) {
-          placePosition = new kakao.maps.LatLng(data[i].y, data[i].x);
+          placePosition = new window.kakao.maps.LatLng(data[i].y, data[i].x);
           let marker = addMarkers(placePosition, i);
           bounds.extend(placePosition);
 
           (function (marker, title) {
-            kakao.maps.event.addListener(marker, 'mouseover', () => {
+            window.kakao.maps.event.addListener(marker, 'mouseover', () => {
               displayInfoWindow(marker, title);
             });
-            kakao.maps.event.addListener(marker, 'mouseout', () => {
+            window.kakao.maps.event.addListener(marker, 'mouseout', () => {
               infoWindow.close();
             });
           })(marker, data[i].place_name);

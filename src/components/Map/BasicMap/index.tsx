@@ -9,13 +9,12 @@ interface Props {
 
 const Map = ({ coordX, coordY }: Props): React.ReactElement => {
   useEffect(() => {
-    const { kakao } = window;
     const mapElement = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(+coordY, +coordX),
+      center: new window.kakao.maps.LatLng(+coordY, +coordX),
       level: 3,
     };
-    new kakao.maps.Map(mapElement, options);
+    new window.kakao.maps.Map(mapElement, options);
   }, [coordX, coordY]);
 
   return <S.Container id="map"></S.Container>;
