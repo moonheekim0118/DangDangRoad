@@ -7,7 +7,7 @@ const useInput = (initialValue: string = '') => {
     setValue(initialValue);
   }, [initialValue]);
 
-  const valueChangeHanlder = useCallback(
+  const handleChangeValue = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const target = (e.target as HTMLInputElement).value;
       setValue(target);
@@ -15,7 +15,7 @@ const useInput = (initialValue: string = '') => {
     []
   );
 
-  return [value, valueChangeHanlder, setValue] as const;
+  return [value, handleChangeValue, setValue] as const;
 };
 
 export default useInput;

@@ -7,19 +7,16 @@ interface Props {
   /** Modal's inner contents */
   children: React.ReactNode;
   /** close / open modal handler */
-  modalHandler: () => void;
+  onClick: () => void;
 }
 
-const Modal = ({
-  children,
-  modalHandler,
-}: Props): React.ReactElement | null => {
+const Modal = ({ children, onClick }: Props): React.ReactElement | null => {
   const root = useElement('modal-root');
 
   return root
     ? ReactDOM.createPortal(
         <>
-          <S.Overlay onClick={modalHandler} />
+          <S.Overlay onClick={onClick} />
           {children}
         </>,
         root

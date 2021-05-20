@@ -36,11 +36,11 @@ const useSingleReview = () => {
     getReviewFetch({ type: REQUEST, params: [postId] });
   }, []);
 
-  const removeCache = useCallback((postId: string) => {
+  const handleRemoveCache = useCallback((postId: string) => {
     CACHE.delete(postId);
   }, []);
 
-  const updateCache = useCallback((postId: string, data: FullReview) => {
+  const handleUpdateCache = useCallback((postId: string, data: FullReview) => {
     CACHE.set(postId, data, 1);
   }, []);
 
@@ -49,8 +49,8 @@ const useSingleReview = () => {
     singleReviewFetchStatus: getReviewResult.type,
     singleReviewFetchError: getReviewResult.error,
     fetchData,
-    removeCache,
-    updateCache,
+    handleRemoveCache,
+    handleUpdateCache,
   };
 };
 

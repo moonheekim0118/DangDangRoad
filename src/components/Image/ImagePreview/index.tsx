@@ -25,14 +25,14 @@ const ImagePreview = ({
   imageRemoveHanlder,
 }: Props): React.ReactElement => {
   const [startIndex, setStartIndex] = useState<number>(0);
-  const [showCarousel, carousleHandler] = useModal(false);
+  const [showModal, handleModal] = useModal(false);
 
   const handleClick = useCallback(
     (index: number) => () => {
       setStartIndex(index);
-      carousleHandler();
+      handleModal();
     },
-    [showCarousel, startIndex]
+    [showModal, startIndex]
   );
 
   return (
@@ -40,8 +40,8 @@ const ImagePreview = ({
       {imageList.length < POST_IMAGE_LIMIT && (
         <S.ImageContainer>
           <ImageUploader
+            onChangeUrl={imageUrlChangeHandler}
             imageUrl={imageList}
-            imageUrlChangeHandler={imageUrlChangeHandler}
             imageLimit={POST_IMAGE_LIMIT}
             type="add">
             <S.ImagePlusButton>
@@ -69,11 +69,11 @@ const ImagePreview = ({
             </S.RemoveImage>
           </S.ImageContainer>
         ))}
-      {showCarousel && (
+      {showModal && (
         <ImageCarousel
+          onClick={handleModal}
           imageList={imageList}
           startIdx={startIndex}
-          modalHanlder={carousleHandler}
         />
       )}
     </S.Container>

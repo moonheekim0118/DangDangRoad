@@ -11,7 +11,7 @@ const useValidation = ({ initialValue = '', validator }: Props = {}) => {
   const [value, setValue] = useState<string>(initialValue);
   const [error, setError] = useState<boolean>(false);
 
-  const valueChangeHanlder = useCallback(
+  const handleChangeValue = useCallback(
     (
       e:
         | React.ChangeEvent<HTMLInputElement>
@@ -35,7 +35,7 @@ const useValidation = ({ initialValue = '', validator }: Props = {}) => {
   return {
     value,
     error,
-    valueChangeHanlder,
+    handleChangeValue,
     checkValidation,
     setError,
     setValue,

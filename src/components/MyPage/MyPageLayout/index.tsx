@@ -33,12 +33,12 @@ const MyPage = ({
   pageName,
   children,
 }: Props): React.ReactElement => {
-  const [showModal, modalHandler] = useModal(false);
+  const [showModal, handleModal] = useModal(false);
   const [result, dispatch] = useApiFetch(destroyAccount);
 
   useEffect(() => {
     if (result.type === SUCCESS) {
-      modalHandler();
+      handleModal();
       Router.push(routes.HOME);
     }
   }, [result.type]);
@@ -61,7 +61,7 @@ const MyPage = ({
         )}
         <S.NavigationContainer>
           <PageMenu datas={menus.GeneralMenu} />
-          <PageMenu datas={menus.DestoryMenu} onClick={modalHandler} />
+          <PageMenu datas={menus.DestoryMenu} onClick={handleModal} />
         </S.NavigationContainer>
       </S.SideContainer>
       <S.MainContainer>
@@ -71,7 +71,7 @@ const MyPage = ({
         {children}
       </S.MainContainer>
       {showModal && (
-        <Modal modalHandler={modalHandler}>
+        <Modal onClick={handleModal}>
           <S.DestroyConfirmContainer>
             {DESTROY_ACCOUNT_TERM}
             <S.DestroyTitle>{DESTROY_ACCOUNT_CAPTION}</S.DestroyTitle>
@@ -87,7 +87,7 @@ const MyPage = ({
                 theme="info"
                 size="large"
                 width="35%"
-                onClick={modalHandler}>
+                onClick={handleModal}>
                 {CANCLE_BUTTON_CAPTION}
               </Button>
             </S.DestroyButtonContainer>

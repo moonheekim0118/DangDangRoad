@@ -14,14 +14,14 @@ const ProfilePicUpload = (
   { initImageUrl }: Props,
   ref: React.Ref<RefType<string[]>>
 ): React.ReactElement => {
-  const [imageUrl, imageUrlChangeHandler] = useHandleImage([initImageUrl]);
+  const [imageUrl, handleUrlChange] = useHandleImage([initImageUrl]);
   useImperativeHandle(ref, () => ({ value: imageUrl }), [imageUrl]);
 
   return (
     <div>
       <ImageUploader
+        onChangeUrl={handleUrlChange}
         imageUrl={imageUrl}
-        imageUrlChangeHandler={imageUrlChangeHandler}
         imageLimit={1}
         type="new">
         <S.AvatarEditor />

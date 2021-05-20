@@ -30,7 +30,7 @@ const PlaceSearch = (): React.ReactElement => {
       placeholder={REVIEW_SEARCH_PLACEHODLER}
       focusTheme="fromBlueToWhite"
       ref={keywordRef}
-      handleSubmit={handleSubmit}
+      onFormSubmit={handleSubmit}
     />
   );
 };

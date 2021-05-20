@@ -20,11 +20,11 @@ const Avatar = dynamic(() => import('components/UI/Avatar'));
 
 const Header = (): React.ReactElement => {
   const router = useRouter();
-  const signOutHandler = useSignOut();
+  const handleSignOut = useSignOut();
   const navRef = useRef<HTMLDivElement>(null);
   const { isLoaded, isLoggedIn, profilePic } = useLoginInfoState();
 
-  const toggleNavigation = useCallback((e: React.MouseEvent) => {
+  const handleNavigation = useCallback((e: React.MouseEvent) => {
     if (navRef.current) {
       navRef.current.setAttribute('aria-expended', 'true');
       const element = e.target as Element;
@@ -49,7 +49,7 @@ const Header = (): React.ReactElement => {
           icon={faList}
           size="large"
           style={S.iconStyle}
-          onClick={toggleNavigation}
+          onClick={handleNavigation}
         />
       </S.MenuToggler>
       <S.MainContainer>
@@ -70,7 +70,7 @@ const Header = (): React.ReactElement => {
                       title: MENU_BOOKMARK_TITLE,
                       href: routes.MYPAGE_BOOKMARK,
                     },
-                    { title: MENU_LOGOUT_TITLE, onClick: signOutHandler },
+                    { title: MENU_LOGOUT_TITLE, onClick: handleSignOut },
                   ]}>
                   <S.UserInfoSummary>
                     <Avatar imageUrl={profilePic} size="small" />

@@ -10,13 +10,13 @@ interface Props {
   /** start index of list */
   startIdx: number;
   /** fucntion to close image carousel */
-  modalHanlder: () => void;
+  onClick: () => void;
 }
 
 const ImageCarousel = ({
   imageList,
   startIdx,
-  modalHanlder,
+  onClick,
 }: Props): React.ReactElement => {
   const data = useSlide({
     initialIndex: startIdx,
@@ -24,12 +24,12 @@ const ImageCarousel = ({
   });
 
   return (
-    <Modal modalHandler={modalHanlder}>
+    <Modal onClick={onClick}>
       <S.Containter>
         <ControllerBtn
-          prevHandler={data.toPrev}
+          onClickPrev={data.toPrev}
           hasPrev={true}
-          nextHandler={data.toNext}
+          onClickNext={data.toNext}
           hasNext={true}
         />
         <S.Image src={imageList[data.index]} alt={REVIEW_IMAGE_ALT} />

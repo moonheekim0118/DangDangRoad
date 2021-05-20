@@ -16,8 +16,8 @@ const SearchResult = () => {
   const [
     reviews,
     hasMore,
-    fetchReviewHandler,
-    removeCacheHandler,
+    handleFetchReview,
+    handleRemoveCache,
     getReviewsStatus,
     getReviewMoreStatus,
     query,
@@ -25,7 +25,7 @@ const SearchResult = () => {
 
   const observerTarget = useIntersectionObserver({
     deps: [hasMore],
-    fetcher: fetchReviewHandler,
+    fetcher: handleFetchReview,
   });
 
   return (
@@ -54,7 +54,7 @@ const SearchResult = () => {
               <PostList
                 searchKeyword={query?.toString()}
                 reviewData={reviews}
-                removeCacheFromDataHandler={removeCacheHandler}
+                handleRemoveCache={handleRemoveCache}
               />
             </>
           ) : (

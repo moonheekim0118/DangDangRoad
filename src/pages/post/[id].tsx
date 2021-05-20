@@ -13,7 +13,7 @@ const singlePost = () => {
   const {
     fetchData,
     singleReview,
-    removeCache,
+    handleRemoveCache,
     singleReviewFetchError,
   } = useSingleReview();
 
@@ -23,7 +23,7 @@ const singlePost = () => {
   }, []);
 
   const removeHandler = useCallback((id: string) => {
-    removeCache(id);
+    handleRemoveCache(id);
     Router.push(routes.SEARCH);
   }, []);
 

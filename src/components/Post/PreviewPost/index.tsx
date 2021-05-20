@@ -23,7 +23,6 @@ const Preview = ({
   commentsLength = 0,
 }: Props): React.ReactElement => {
   const [imageSrc, imageRef] = useLazyLoadImage(thumnail ?? DEFAULT_IMAGE_URL);
-
   return (
     <S.Post onClick={previewClickHanlder}>
       <S.Overlay>

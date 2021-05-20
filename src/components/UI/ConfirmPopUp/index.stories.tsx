@@ -6,8 +6,8 @@ export const Template: Story<Props> = (args) => <ConfirmPopUp {...args} />;
 
 Template.args = {
   contents: 'this is confirm',
-  closeHandler: action('onClick'),
-  submitHandler: action('onClick'),
+  onCloseConfirm: action('onClick'),
+  onSubmitConfirm: action('onClick'),
 };
 
 export default {

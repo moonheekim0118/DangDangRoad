@@ -3,9 +3,9 @@ export interface NavigationInfo {
   /** next Available */
   hasNext: boolean;
   /** goToPrevHandler */
-  prevHandler: () => void;
+  onClickPrev: () => void;
   /** goToNextHandler */
-  nextHandler: () => void;
+  onClickNext: () => void;
   /** Buttons location */
   location?: number;
 }

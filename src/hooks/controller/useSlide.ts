@@ -28,7 +28,7 @@ const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
     index === totalSlide - 1 ? setIndex(0) : setIndex(index + 1);
   }, [index, totalSlide]);
 
-  const changeIndexHandler = useCallback(
+  const handleChangeIndex = useCallback(
     (index: number) => () => {
       setIndex(index);
     },
@@ -40,7 +40,7 @@ const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
     slideRef,
     toPrev,
     toNext,
-    changeIndexHandler,
+    handleChangeIndex,
     setIndex,
   };
 };

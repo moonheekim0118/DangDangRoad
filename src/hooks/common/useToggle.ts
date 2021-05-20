@@ -7,11 +7,11 @@ const useToggle = (initialValue: boolean | undefined = false) => {
     setStatus(initialValue);
   }, []);
 
-  const toggleHandler = useCallback(() => {
+  const handleToggle = useCallback(() => {
     setStatus(!status);
   }, [status]);
 
-  return [status, toggleHandler, setStatus] as const;
+  return [status, handleToggle, setStatus] as const;
 };
 
 export default useToggle;

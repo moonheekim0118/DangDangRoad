@@ -15,11 +15,11 @@ const useModal = (opend: boolean) => {
     }
   }, [showModal]);
 
-  const modalHandler = useCallback(() => {
+  const handleModal = useCallback(() => {
     setShowModal(!showModal);
   }, [showModal]);
 
-  return [showModal, modalHandler] as const;
+  return [showModal, handleModal] as const;
 };
 
 export default useModal;

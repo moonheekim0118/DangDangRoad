@@ -95,15 +95,15 @@ const useComments = (postId: string) => {
     }
   }, [getCommentResult]);
 
-  const getMoreCommentsHandler = useCallback(() => {
+  const handleFetchComments = useCallback(() => {
     hasMore && getCommentFetch({ type: REQUEST, params: [postId, lastKey] });
   }, [lastKey, hasMore, postId]);
 
-  const addCommentHandler = useCallback((newComment: Comment) => {
+  const handleAddComment = useCallback((newComment: Comment) => {
     dispatch({ type: ADD, data: { dataList: [newComment] } });
   }, []);
 
-  const removeCacheHandler = useCallback((id: string) => {
+  const handleRemoveCache = useCallback((id: string) => {
     dispatch({ type: REMOVE, data: { id } });
   }, []);
 
@@ -111,9 +111,9 @@ const useComments = (postId: string) => {
     comments,
     hasMore,
     getCommentResult.type,
-    getMoreCommentsHandler,
-    addCommentHandler,
-    removeCacheHandler,
+    handleFetchComments,
+    handleAddComment,
+    handleRemoveCache,
   ] as const;
 };
 

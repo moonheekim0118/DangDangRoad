@@ -24,8 +24,8 @@ const SignUpTerm = (
   ref: React.Ref<RefType<boolean>>
 ): React.ReactElement => {
   const { id, label, termContents, ...rest } = props;
-  const [checked, checkHanlder] = useToggle();
-  const [showModal, modalHanlder] = useModal(false);
+  const [checked, handleChecked] = useToggle();
+  const [showModal, handleModal] = useModal(false);
 
   useImperativeHandle(
     ref,
@@ -41,7 +41,7 @@ const SignUpTerm = (
       <input
         type="checkbox"
         id={id}
-        onChange={checkHanlder}
+        onChange={handleChecked}
         checked={checked}
         {...rest}
       />
@@ -50,13 +50,13 @@ const SignUpTerm = (
         theme="outlinedInfo"
         size="small"
         width="80px"
-        onClick={modalHanlder}>
+        onClick={handleModal}>
         {SHOW_TERMS_CAPTION}
       </Button>
       {showModal && (
-        <Modal modalHandler={modalHanlder}>
+        <Modal onClick={handleModal}>
           <S.DetailContainer>
-            <CloseBtn onClick={modalHanlder} />
+            <CloseBtn onClick={handleModal} />
             <S.Contents>{termContents}</S.Contents>
           </S.DetailContainer>
         </Modal>

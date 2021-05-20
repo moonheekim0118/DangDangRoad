@@ -23,7 +23,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const Input = (props: Props, ref: React.Ref<InputRef>): React.ReactElement => {
   const { id, required = false, initValue, validator, ...rest } = props;
   const inputRef = useRef<HTMLInputElement>(null);
-  const { value, error, valueChangeHanlder, checkValidation } = useValidation({
+  const { value, error, handleChangeValue, checkValidation } = useValidation({
     initialValue: initValue,
     validator,
   });
@@ -54,7 +54,7 @@ const Input = (props: Props, ref: React.Ref<InputRef>): React.ReactElement => {
         autoCapitalize="off"
         spellCheck="false"
         value={value}
-        onChange={valueChangeHanlder}
+        onChange={handleChangeValue}
         onFocus={checkValidation}
         {...rest}
       />

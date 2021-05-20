@@ -12,7 +12,7 @@ const UpdatePost = dynamic(
 
 const updatePost = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
-  const { fetchData, singleReview, updateCache } = useSingleReview();
+  const { fetchData, singleReview, handleUpdateCache } = useSingleReview();
 
   useWarnUsavedChange(routes.SEARCH);
 
@@ -33,7 +33,7 @@ const updatePost = () => {
     <UpdatePost
       initialData={singleReview}
       userId={user.userId}
-      updateCache={updateCache}
+      updateCache={handleUpdateCache}
     />
   );
 };

@@ -42,26 +42,21 @@ const SinglePost = ({
   const notiDispatch = useNotificationDispatch();
   const { userId } = useLoginInfoState();
 
-  const [
-    removeReviewResult,
-    removeReviewFetch,
-    removeReviewSetDefault,
-  ] = useApiFetch<string>(removeReview);
+  const [result, dispatch] = useApiFetch<string>(removeReview);
 
   useEffect(() => {
-    switch (removeReviewResult.type) {
+    switch (result.type) {
       case SUCCESS:
         removeHandler(data.docId);
-        break;
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(removeReviewResult.error));
-        removeReviewSetDefault();
+        notiDispatch(Action.showError(result.error));
+        return;
     }
-  }, [removeReviewResult]);
+  }, [result]);
 
-  // remove
   const fetchRemoveHanlder = useCallback(() => {
-    removeReviewFetch({ type: REQUEST, params: [data.docId] });
+    dispatch({ type: REQUEST, params: [data.docId] });
   }, [data.docId]);
 
   return (

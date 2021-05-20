@@ -19,11 +19,11 @@ const useSignOut = () => {
   }, [signOutResult]);
 
   // sign out handler
-  const signOutHandler = useCallback(() => {
+  const handleSignOut = useCallback(() => {
     signOutFetch({ type: REQUEST });
   }, []);
 
-  return signOutHandler;
+  return handleSignOut;
 };
 
 export default useSignOut;

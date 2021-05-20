@@ -18,7 +18,7 @@ const PostText = (
   props: Props,
   ref: React.Ref<InputRef>
 ): React.ReactElement => {
-  const { value, error, valueChangeHanlder } = useValidation({
+  const { value, error, handleChangeValue } = useValidation({
     initialValue: props.initValue,
     validator: checkFreeTextLength,
   });
@@ -40,7 +40,7 @@ const PostText = (
       <S.TextArea
         id="description"
         value={value}
-        onChange={valueChangeHanlder}
+        onChange={handleChangeValue}
         {...props}
       />
     </S.Description>

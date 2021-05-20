@@ -8,8 +8,8 @@ import { NavigationInfo } from 'types/Navigation';
 import * as S from './style';
 
 const ControllerBtn = ({
-  prevHandler,
-  nextHandler,
+  onClickPrev,
+  onClickNext,
   hasPrev,
   hasNext,
   location = -50,
@@ -22,7 +22,7 @@ const ControllerBtn = ({
             icon={faChevronLeft}
             size="large"
             style={S.iconStyle}
-            onClick={prevHandler}
+            onClick={onClickPrev}
           />
         </S.Container>
       )}
@@ -32,7 +32,7 @@ const ControllerBtn = ({
             icon={faChevronRight}
             size="large"
             style={S.iconStyle}
-            onClick={nextHandler}
+            onClick={onClickNext}
           />
         </S.Container>
       )}

@@ -107,7 +107,7 @@ const PostEditor = (props: Props): React.ReactElement => {
           <S.MainContainer>
             <S.Label>{WRITE_REVIEW_SELECT_PLACE_TITLE}</S.Label>
             <SearchMap
-              selectPlaceHandler={props.selectPlaceHandler}
+              onClickPlace={props.selectPlaceHandler}
               nowSelectedAddress={props.selectedPlace?.address_name}
               initialCoordX={props.selectedPlace?.x}
               initialCoordY={props.selectedPlace?.y}

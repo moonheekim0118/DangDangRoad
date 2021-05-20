@@ -16,16 +16,16 @@ interface Props {
   /** comment's postId */
   postId: string;
   /** to store new Comment in cache and state */
-  addCommentHandler: (newComments: Comment) => void;
+  handleAddComment: (newComments: Comment) => void;
 }
 
 const WriteComment = ({
   userId,
   postId,
-  addCommentHandler,
+  handleAddComment,
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const { value, error, valueChangeHanlder, setValue } = useValidation({
+  const { value, error, handleChangeValue, setValue } = useValidation({
     validator: checkCommentLength,
   });
 
@@ -36,7 +36,7 @@ const WriteComment = ({
       case SUCCESS:
         const newComment = result.data;
         if (newComment) {
-          addCommentHandler(newComment);
+          handleAddComment(newComment);
         }
         return;
       case FAILURE:
@@ -63,7 +63,7 @@ const WriteComment = ({
         cols={1}
         placeholder={COMMENT_PLACEHOLDER}
         value={value}
-        onChange={valueChangeHanlder}
+        onChange={handleChangeValue}
       />
       <S.ButtonContainer>
         <Button

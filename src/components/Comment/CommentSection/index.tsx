@@ -21,16 +21,16 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
     comments,
     hasMore,
     getCommentResultStatus,
-    getMoreCommentsHandler,
-    addCommentHandler,
-    removeCacheHandler,
+    handleFetchComments,
+    handleAddComment,
+    handleRemoveCache,
   ] = useComments(postId);
   return (
     <S.Container>
       {comments.length > 0 ? (
         <CommentList
-          getMoreCommentsHandler={getMoreCommentsHandler}
-          removeCacheHandler={removeCacheHandler}
+          onClickFetch={handleFetchComments}
+          handleRemoveCache={handleRemoveCache}
           comments={comments}
           userId={userId}
           hasMore={hasMore}
@@ -51,7 +51,7 @@ const CommentSection = ({ userId, postId = '' }: Props): React.ReactElement => {
       )}
       {userId && (
         <WriteComment
-          addCommentHandler={addCommentHandler}
+          handleAddComment={handleAddComment}
           userId={userId}
           postId={postId}
         />

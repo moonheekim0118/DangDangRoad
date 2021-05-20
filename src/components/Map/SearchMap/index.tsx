@@ -20,7 +20,7 @@ let markers: any[] = [];
 
 interface Props {
   /** function to change user select Place to review */
-  selectPlaceHandler: (place: T.PlaceType) => () => void;
+  onClickPlace: (place: T.PlaceType) => () => void;
   /** place name which is selected by user */
   nowSelectedAddress?: string;
   initialCoordX?: string;
@@ -28,7 +28,7 @@ interface Props {
 }
 
 const SearchMap = ({
-  selectPlaceHandler,
+  onClickPlace,
   nowSelectedAddress,
   initialCoordX,
   initialCoordY,
@@ -164,14 +164,14 @@ const SearchMap = ({
         placeholder={MAP_SEARCH_PLACEHOLDER}
         ref={keywordRef}
         initialValue={nowSelectedAddress}
-        handleSubmit={searchHadler}
+        onFormSubmit={searchHadler}
       />
       <S.Map id="map" />
       <S.SearchResult>
         {placeData &&
           placeData.map((v, i) => (
             <S.AddressContainer key={i}>
-              <S.AddressTitle onClick={selectPlaceHandler(v)}>
+              <S.AddressTitle onClick={onClickPlace(v)}>
                 <S.Marker index={i} />
                 <S.PlaceName selected={v.address_name === nowSelectedAddress}>
                   {v.place_name}

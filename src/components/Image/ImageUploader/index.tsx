@@ -15,7 +15,7 @@ interface Props {
   /** image Url list (state)  */
   imageUrl: string[];
   /** image Url change Hanlder */
-  imageUrlChangeHandler: (images: string[]) => void;
+  onChangeUrl: (images: string[]) => void;
   /** uploadable image's number */
   imageLimit: number;
   /** children */
@@ -26,7 +26,7 @@ interface Props {
 
 const ImageUploader = ({
   imageUrl,
-  imageUrlChangeHandler,
+  onChangeUrl,
   imageLimit,
   children,
   type,
@@ -40,8 +40,8 @@ const ImageUploader = ({
       case SUCCESS:
         if (result.data) {
           imageUrl.length + result.data.length <= imageLimit
-            ? imageUrlChangeHandler(imageUrl.concat(result.data))
-            : imageUrlChangeHandler(result.data);
+            ? onChangeUrl(imageUrl.concat(result.data))
+            : onChangeUrl(result.data);
         }
         return;
       case FAILURE:

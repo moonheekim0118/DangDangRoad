@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  InputHTMLAttributes,
-  FormEvent,
-} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { useInput } from 'hooks';
 import { Icon, Button } from 'components/UI';
 import { SEARCH_BUTTON_CAPTION } from 'common/constant/string';
@@ -11,7 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { InputRef } from 'types/Ref';
 import * as S from './style';
 
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   /** input color */
   color: 'blue' | 'white';
@@ -19,8 +14,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   focusTheme?: 'fromBlueToWhite' | 'fromWhiteToBlue';
   /** initial value */
   initialValue?: string;
-  /** submit handler */
-  handleSubmit?: (e: FormEvent<HTMLFormElement>) => void;
+  onFormSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
 const SearchBar = (
@@ -32,21 +26,21 @@ const SearchBar = (
     color,
     focusTheme = 'default',
     initialValue = '',
-    handleSubmit,
+    onFormSubmit,
     ...rest
   } = props;
 
-  const [value, valueChangeHandler] = useInput(initialValue);
+  const [value, handleChangeValue] = useInput(initialValue);
 
   useImperativeHandle(ref, () => ({ value }), [value]);
 
   return (
-    <S.Form onSubmit={handleSubmit}>
+    <S.Form onSubmit={onFormSubmit}>
       <input
         type="search"
         id={id}
         value={value}
-        onChange={valueChangeHandler}
+        onChange={handleChangeValue}
         autoComplete="off"
         autoCorrect="off"
         autoCapitalize="off"

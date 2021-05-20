@@ -17,15 +17,15 @@ const SearchMain = () => {
     reviews,
     hasMore,
     lastKey,
-    fetchReviewHanlder,
-    removeCacheHandler,
+    handleFetchReview,
+    handleRemoveCache,
     getReviewsStatus,
     getReviewsMoreStatus,
   ] = useAllReviews();
 
   const observerTarget = useIntersectionObserver({
     deps: [hasMore, lastKey],
-    fetcher: fetchReviewHanlder,
+    fetcher: handleFetchReview,
   });
 
   return (
@@ -53,7 +53,7 @@ const SearchMain = () => {
             <>
               <PostList
                 reviewData={reviews}
-                removeCacheFromDataHandler={removeCacheHandler}
+                handleRemoveCache={handleRemoveCache}
               />
               <LoaderContainer ref={observerTarget}>
                 {getReviewsMoreStatus === REQUEST && <Loading size="medium" />}

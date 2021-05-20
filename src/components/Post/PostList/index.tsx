@@ -21,21 +21,21 @@ interface Props {
   /** fetched datas to show */
   reviewData: LightReview[];
   /** remove cache Handler */
-  removeCacheFromDataHandler: (id: string) => void;
+  handleRemoveCache: (id: string) => void;
 }
 
 const PostList = ({
   searchKeyword,
   reviewData,
-  removeCacheFromDataHandler,
+  handleRemoveCache,
 }: Props): React.ReactElement => {
   const modalController = useSinglePostModal(reviewData);
 
   const removeHandler = useCallback(
     (id: string) => {
       modalController.closeModal();
-      modalController.removeCache(id);
-      removeCacheFromDataHandler(id);
+      modalController.handleRemoveCache(id);
+      handleRemoveCache(id);
     },
     [modalController.showModal, reviewData]
   );
@@ -63,7 +63,7 @@ const PostList = ({
         </S.ReviewContainer>
       </S.Container>
       {modalController.showModal && (
-        <Modal modalHandler={modalController.closeModal}>
+        <Modal onClick={modalController.closeModal}>
           <Card isModal={true}>
             {!modalController.singleReview ||
             modalController.singleReviewFetchStatus === REQUEST ||
@@ -75,8 +75,8 @@ const PostList = ({
                 NavigationInfo={{
                   hasPrev: modalController.index > 0,
                   hasNext: modalController.index < reviewData.length - 1,
-                  prevHandler: modalController.prevHandler,
-                  nextHandler: modalController.nextHandler,
+                  onClickPrev: modalController.prevHandler,
+                  onClickNext: modalController.nextHandler,
                 }}
                 removeHandler={removeHandler}
               />

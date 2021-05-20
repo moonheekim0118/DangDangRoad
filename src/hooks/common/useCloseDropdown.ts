@@ -9,18 +9,18 @@ const useCloseDropdown = () => {
       const detailElements = detailRef.current;
 
       if (detailElements && !detailElements.contains(targetElement)) {
-        closeDropDownHanlder();
+        handleCloseDropdown();
       }
     };
     document.addEventListener('mousedown', overalyCloseHanlder);
     return () => document.removeEventListener('mousedown', overalyCloseHanlder);
   }, []);
 
-  const closeDropDownHanlder = useCallback(() => {
+  const handleCloseDropdown = useCallback(() => {
     detailRef.current && detailRef.current.removeAttribute('open');
   }, []);
 
-  return [detailRef, closeDropDownHanlder] as const;
+  return [detailRef, handleCloseDropdown] as const;
 };
 
 export default useCloseDropdown;

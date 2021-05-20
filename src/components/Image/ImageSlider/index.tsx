@@ -20,9 +20,9 @@ const ImageSlider = ({ imageList }: Props): React.ReactElement => {
         ))}
       </S.Slide>
       <ControllerBtn
-        prevHandler={controller.toPrev}
+        onClickPrev={controller.toPrev}
         hasPrev={controller.index > 0}
-        nextHandler={controller.toNext}
+        onClickNext={controller.toNext}
         hasNext={controller.index < imageList.length - 1}
         location={0}
       />
@@ -30,7 +30,7 @@ const ImageSlider = ({ imageList }: Props): React.ReactElement => {
         {imageList.map((_, index) => (
           <S.Navigator
             key={index}
-            onClick={controller.changeIndexHandler(index)}
+            onClick={controller.handleChangeIndex(index)}
             current={index === controller.index}
           />
         ))}

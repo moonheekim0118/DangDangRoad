@@ -108,7 +108,7 @@ const useQueryReviews = () => {
     }
   }, [getReviewsMoreResult]);
 
-  const fetchReviewHandler = useCallback(() => {
+  const handleFetchReview = useCallback(() => {
     const fetchStatus = getReviewsResult.type;
     if (
       hasMore &&
@@ -120,15 +120,15 @@ const useQueryReviews = () => {
     }
   }, [hasMore, query, getReviewsResult]);
 
-  const removeCacheHandler = useCallback((id: string) => {
+  const handleRemoveCache = useCallback((id: string) => {
     dispatch({ type: REMOVE, data: { id } });
   }, []);
 
   return [
     reviews,
     hasMore,
-    fetchReviewHandler,
-    removeCacheHandler,
+    handleFetchReview,
+    handleRemoveCache,
     getReviewsResult.type,
     getReviewsMoreResult.type,
     query,

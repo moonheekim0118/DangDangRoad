@@ -25,12 +25,12 @@ const DetailsDropdown = ({
   children,
   menuList,
 }: Props) => {
-  const [detailRef, closeDropDownHanlder] = useCloseDropdown();
+  const [detailRef, handleCloseDropdown] = useCloseDropdown();
 
   const clickHanlder = useCallback(
     (onClick?: (e: React.MouseEvent) => void) => (e: React.MouseEvent) => {
       onClick && onClick(e);
-      closeDropDownHanlder();
+      handleCloseDropdown();
     },
     []
   );
@@ -42,7 +42,7 @@ const DetailsDropdown = ({
         {menuList.map((v, i) => {
           return v.href ? (
             <Link href={v.href} key={i}>
-              <S.Menu onClick={closeDropDownHanlder}>
+              <S.Menu onClick={handleCloseDropdown}>
                 <a>{v.title}</a>
               </S.Menu>
             </Link>

@@ -164,14 +164,14 @@ const useAllReviews = () => {
     }
   }, [getReviewsMoreResult]);
 
-  const fetchReviewHanlder = useCallback(() => {
+  const handleFetchReview = useCallback(() => {
     const fetchStatus = getReviewsResult.type;
     if (hasMore && fetchStatus !== REQUEST && fetchStatus !== SUCCESS) {
       getReviewsMoreFetch({ type: REQUEST, params: [lastKey] });
     }
   }, [hasMore, lastKey, getReviewsResult]);
 
-  const removeCacheHandler = useCallback((id: string) => {
+  const handleRemoveCache = useCallback((id: string) => {
     dispatch({ type: REMOVE, data: { id } });
   }, []);
 
@@ -179,8 +179,8 @@ const useAllReviews = () => {
     reviews,
     hasMore,
     lastKey,
-    fetchReviewHanlder,
-    removeCacheHandler,
+    handleFetchReview,
+    handleRemoveCache,
     getReviewsResult.type,
     getReviewsMoreResult.type,
   ] as const;

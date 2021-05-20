@@ -7,12 +7,12 @@ import routes from 'common/constant/routes';
 const useSinglePostModal = (fullReviews: LightReview[]) => {
   const [originPath, setOriginPath] = useState<string>('');
   const [index, setIndex] = useState<number>(0);
-  const [showModal, modalHandler] = useModal(false);
+  const [showModal, handleModal] = useModal(false);
   const {
     singleReview,
     singleReviewFetchStatus,
     fetchData: fetchSingleReview,
-    removeCache,
+    handleRemoveCache,
   } = useSingleReview();
 
   useEffect(() => {
@@ -28,14 +28,14 @@ const useSinglePostModal = (fullReviews: LightReview[]) => {
       const idx = fullReviews.findIndex((doc) => doc.docId === id);
       setIndex(idx);
       fetchSingleReview(id);
-      modalHandler();
+      handleModal();
     },
     [fullReviews, showModal]
   );
 
   const closeModal = useCallback(() => {
     window.history.replaceState(null, '', originPath);
-    modalHandler();
+    handleModal();
   }, [originPath, showModal]);
 
   const prevHandler = useCallback(() => {
@@ -57,7 +57,7 @@ const useSinglePostModal = (fullReviews: LightReview[]) => {
     singleReviewFetchStatus,
     showModal,
     index,
-    removeCache,
+    handleRemoveCache,
     openModal,
     closeModal,
     prevHandler,

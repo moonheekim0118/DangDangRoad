@@ -15,9 +15,9 @@ import * as S from './style';
 
 interface Props {
   /** fetch more comments handler */
-  getMoreCommentsHandler: () => void;
+  onClickFetch: () => void;
   /** remove comment from list handler */
-  removeCacheHandler: (id: string) => void;
+  handleRemoveCache: (id: string) => void;
   /** comments list to render */
   comments: Comment[];
   /** to check if comment writer and logged-in user is same user  */
@@ -29,8 +29,8 @@ interface Props {
 }
 
 const CommentList = ({
-  getMoreCommentsHandler,
-  removeCacheHandler,
+  onClickFetch,
+  handleRemoveCache,
   comments,
   userId,
   hasMore,
@@ -44,7 +44,7 @@ const CommentList = ({
       case SUCCESS:
         const id = result.data;
         if (id) {
-          removeCacheHandler(id);
+          handleRemoveCache(id);
           setDefault();
           notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
         }
@@ -92,10 +92,7 @@ const CommentList = ({
         ) : (
           <>
             {hasMore && (
-              <Button
-                size="large"
-                width="100%"
-                onClick={getMoreCommentsHandler}>
+              <Button size="large" width="100%" onClick={onClickFetch}>
                 <Icon
                   icon={faPlusCircle}
                   size="large"
