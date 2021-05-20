@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUser, useWarnUsavedChange } from 'hooks';
+import { useUser, useWarnUnsavedChange } from 'hooks';
 import { Loading } from 'components/UI';
 import Head from 'next/head';
 import routes from 'common/constant/routes';
@@ -9,7 +9,7 @@ const WritePost = dynamic(() => import('components/Post/PostUpload/WritePost'));
 
 const Write = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
-  useWarnUsavedChange(routes.SEARCH);
+  useWarnUnsavedChange(routes.SEARCH);
   return user && user.isLoggedIn ? (
     <>
       <Head>

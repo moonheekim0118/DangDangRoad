@@ -27,11 +27,9 @@ const CACHE = new cacheProto<DataType>();
 
 const useComments = (postId: string) => {
   const notiDispatch = useNotificationDispatch();
-  const [
-    getCommentResult,
-    getCommentFetch,
-    getCommentSetDefault,
-  ] = useApiFetch<CommentResult>(getComments);
+  const [getResult, getDispatch, getSetDefault] = useApiFetch<CommentResult>(
+    getComments
+  );
   const { result, dispatch, setDefault } = useInfiniteData<Comment>();
   const { type, dataList: comments, hasMore, lastKey } = result;
 
@@ -50,7 +48,7 @@ const useComments = (postId: string) => {
         });
       }
     } else {
-      getCommentFetch({ type: REQUEST, params: [postId] });
+      getDispatch({ type: REQUEST, params: [postId] });
     }
   }, [postId]);
 
@@ -70,13 +68,10 @@ const useComments = (postId: string) => {
   }, [result, postId]);
 
   useEffect(() => {
-    switch (getCommentResult.type) {
+    switch (getResult.type) {
       case SUCCESS:
-        if (getCommentResult.data) {
-          const {
-            lastKey: newLastKey,
-            comments: newComments,
-          } = getCommentResult.data;
+        if (getResult.data) {
+          const { lastKey: newLastKey, comments: newComments } = getResult.data;
           const newHasMore = newComments.length === COMMENT_DATA_LIMIT;
           dispatch({
             type: UPDATE,
@@ -86,17 +81,18 @@ const useComments = (postId: string) => {
               hasMore: newHasMore,
             },
           });
-          getCommentSetDefault();
-          break;
+          getSetDefault();
+          return;
         }
       case FAILURE:
-        notiDispatch(Action.showError(getCommentResult.error));
-        getCommentSetDefault();
+        notiDispatch(Action.showError(getResult.error));
+        getSetDefault();
+        return;
     }
-  }, [getCommentResult]);
+  }, [getResult]);
 
   const handleFetchComments = useCallback(() => {
-    hasMore && getCommentFetch({ type: REQUEST, params: [postId, lastKey] });
+    hasMore && getDispatch({ type: REQUEST, params: [postId, lastKey] });
   }, [lastKey, hasMore, postId]);
 
   const handleAddComment = useCallback((newComment: Comment) => {
@@ -110,7 +106,7 @@ const useComments = (postId: string) => {
   return [
     comments,
     hasMore,
-    getCommentResult.type,
+    getResult.type,
     handleFetchComments,
     handleAddComment,
     handleRemoveCache,

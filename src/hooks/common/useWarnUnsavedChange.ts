@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { PAGE_LEAVE_WARNING } from 'common/constant/string';
 import { useRouter } from 'next/router';
 
-const useWarnUsavedChange = (exception?: string) => {
+const useWarnUnsavedChange = (exception?: string) => {
   const router = useRouter();
   const leaveConfirm = useRef<boolean>(false);
 
@@ -39,4 +39,4 @@ const useWarnUsavedChange = (exception?: string) => {
   }, []);
 };
 
-export default useWarnUsavedChange;
+export default useWarnUnsavedChange;

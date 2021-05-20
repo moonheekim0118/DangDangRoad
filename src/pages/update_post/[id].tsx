@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useUser } from 'hooks';
-import { useSingleReview, useWarnUsavedChange } from 'hooks';
+import { useSingleReview, useWarnUnsavedChange } from 'hooks';
 import { Loading } from 'components/UI';
 import dynamic from 'next/dynamic';
 import routes from 'common/constant/routes';
@@ -14,7 +14,7 @@ const updatePost = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
   const { fetchData, singleReview, handleUpdateCache } = useSingleReview();
 
-  useWarnUsavedChange(routes.SEARCH);
+  useWarnUnsavedChange(routes.SEARCH);
 
   useEffect(() => {
     const postId = Router.query.id;

@@ -12,7 +12,6 @@ const EmptyState = dynamic(() => import('components/Common/EmptyState'));
 
 const SearchMain = () => {
   const { user } = useUser();
-
   const [
     reviews,
     hasMore,

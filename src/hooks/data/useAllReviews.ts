@@ -33,22 +33,20 @@ const CACHE = new cacheProto<DataType>();
 const useAllReviews = () => {
   const notiDispatch = useNotificationDispatch();
 
+  const [getResult, getDispatch, getSetDefault] = useApiFetch<T.ReviewResult>(
+    getReviews
+  );
+
   const [
-    getReviewsResult,
-    getReviewsFetch,
-    getReviewsSetDefault,
+    getMoreResult,
+    getMoreDispatch,
+    getMoreSetDefault,
   ] = useApiFetch<T.ReviewResult>(getReviews);
 
   const [
-    getReviewsMoreResult,
-    getReviewsMoreFetch,
-    getReviewsMoreSetDefault,
-  ] = useApiFetch<T.ReviewResult>(getReviews);
-
-  const [
-    recentReviewsResult,
-    recentReviewsFetch,
-    getRecentReviewSetDefault,
+    getRecentResult,
+    getRecentDispatch,
+    getRecentSetDefault,
   ] = useApiFetch<T.ReviewResult>(getReviewsFirst);
 
   const router = useRouter();
@@ -68,12 +66,12 @@ const useAllReviews = () => {
           hasMore: cachedData.hasMore,
         },
       });
-      recentReviewsFetch({
+      getRecentDispatch({
         type: REQUEST,
         params: [cachedData.reviews[0].createdAt],
       });
     } else {
-      getReviewsFetch({ type: REQUEST });
+      getDispatch({ type: REQUEST });
     }
   }, []);
 
@@ -93,83 +91,80 @@ const useAllReviews = () => {
   }, [result]);
 
   useEffect(() => {
-    switch (recentReviewsResult.type) {
+    switch (getRecentResult.type) {
       case SUCCESS:
-        if (recentReviewsResult.data?.reviews) {
-          const newReviews = recentReviewsResult.data.reviews;
-          newReviews.length > 0 &&
-            dispatch({
-              type: ADD,
-              data: {
-                dataList: newReviews,
-              },
-            });
-        }
-        getRecentReviewSetDefault();
-        break;
-      case FAILURE:
-        notiDispatch(Action.showError(recentReviewsResult.error));
-        getRecentReviewSetDefault();
-        break;
-    }
-  }, [recentReviewsResult]);
-
-  useEffect(() => {
-    switch (getReviewsResult.type) {
-      case SUCCESS:
-        if (getReviewsResult.data) {
-          const lastKey = getReviewsResult.data.lastKey;
-          const newReviews = getReviewsResult.data.reviews;
-          const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+        getRecentSetDefault();
+        if (!getRecentResult.data?.reviews) return;
+        const newReviews = getRecentResult.data.reviews;
+        newReviews.length > 0 &&
           dispatch({
-            type: UPDATE,
+            type: ADD,
             data: {
               dataList: newReviews,
-              lastKey,
-              hasMore,
             },
           });
-          getReviewsSetDefault();
-        }
-        break;
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(getReviewsResult.error));
-        getReviewsSetDefault();
-        break;
+        notiDispatch(Action.showError(getRecentResult.error));
+        getRecentSetDefault();
+        return;
     }
-  }, [getReviewsResult]);
+  }, [getRecentResult]);
 
   useEffect(() => {
-    switch (getReviewsMoreResult.type) {
+    switch (getResult.type) {
       case SUCCESS:
-        if (getReviewsMoreResult.data) {
-          const lastKey = getReviewsMoreResult.data.lastKey;
-          const newReviews = getReviewsMoreResult.data.reviews;
-          const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
-          dispatch({
-            type: UPDATE,
-            data: {
-              dataList: newReviews,
-              lastKey,
-              hasMore,
-            },
-          });
-        }
-        getReviewsMoreSetDefault();
-        break;
+        getSetDefault();
+        if (!getResult.data) return;
+        const lastKey = getResult.data.lastKey;
+        const newReviews = getResult.data.reviews;
+        const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+        dispatch({
+          type: UPDATE,
+          data: {
+            dataList: newReviews,
+            lastKey,
+            hasMore,
+          },
+        });
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(getReviewsMoreResult.error));
-        getReviewsMoreSetDefault();
-        break;
+        notiDispatch(Action.showError(getResult.error));
+        getSetDefault();
+        return;
     }
-  }, [getReviewsMoreResult]);
+  }, [getResult]);
+
+  useEffect(() => {
+    switch (getMoreResult.type) {
+      case SUCCESS:
+        getMoreSetDefault();
+        if (!getMoreResult.data) return;
+        const lastKey = getMoreResult.data.lastKey;
+        const newReviews = getMoreResult.data.reviews;
+        const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+        dispatch({
+          type: UPDATE,
+          data: {
+            dataList: newReviews,
+            lastKey,
+            hasMore,
+          },
+        });
+        return;
+      case FAILURE:
+        notiDispatch(Action.showError(getMoreResult.error));
+        getMoreSetDefault();
+        return;
+    }
+  }, [getMoreResult]);
 
   const handleFetchReview = useCallback(() => {
-    const fetchStatus = getReviewsResult.type;
+    const fetchStatus = getResult.type;
     if (hasMore && fetchStatus !== REQUEST && fetchStatus !== SUCCESS) {
-      getReviewsMoreFetch({ type: REQUEST, params: [lastKey] });
+      getMoreDispatch({ type: REQUEST, params: [lastKey] });
     }
-  }, [hasMore, lastKey, getReviewsResult]);
+  }, [hasMore, lastKey, getResult]);
 
   const handleRemoveCache = useCallback((id: string) => {
     dispatch({ type: REMOVE, data: { id } });
@@ -181,8 +176,8 @@ const useAllReviews = () => {
     lastKey,
     handleFetchReview,
     handleRemoveCache,
-    getReviewsResult.type,
-    getReviewsMoreResult.type,
+    getResult.type,
+    getMoreResult.type,
   ] as const;
 };
 

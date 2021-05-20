@@ -34,15 +34,13 @@ const useQueryReviews = () => {
   const { result, dispatch } = useInfiniteData<LightReview>();
   const { type, dataList: reviews, hasMore } = result;
 
-  const [getReviewsResult, getReviewsFetch] = useApiFetch<LightReview[]>(
+  const [getResult, getDispatch, getSetDefault] = useApiFetch<LightReview[]>(
     searchByKeyword
   );
 
-  const [
-    getReviewsMoreResult,
-    getReviewsMoreFetch,
-    getReviewsMoreSetDefault,
-  ] = useApiFetch<LightReview[]>(searchByKeyword);
+  const [getMoreResult, getMoreDispatch, getMoreSetDefault] = useApiFetch<
+    LightReview[]
+  >(searchByKeyword);
 
   useEffect(() => {
     dispatch({ type: INIT, data: { dataList: [], hasMore: true } });
@@ -60,7 +58,7 @@ const useQueryReviews = () => {
         },
       });
     } else {
-      getReviewsFetch({ type: REQUEST, params: [query] });
+      getDispatch({ type: REQUEST, params: [query] });
     }
   }, [pathName, query]);
 
@@ -78,47 +76,48 @@ const useQueryReviews = () => {
   }, [result]);
 
   useEffect(() => {
-    switch (getReviewsResult.type) {
+    switch (getResult.type) {
       case SUCCESS:
-        if (getReviewsResult.data) {
-          const newReviews = getReviewsResult.data;
-          const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
-          dispatch({ type: UPDATE, data: { dataList: newReviews, hasMore } });
-        }
-        break;
+        getSetDefault();
+        if (!getResult.data) return;
+        const newReviews = getResult.data;
+        const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+        dispatch({ type: UPDATE, data: { dataList: newReviews, hasMore } });
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(getReviewsResult.error));
-        break;
+        notiDispatch(Action.showError(getResult.error));
+        getSetDefault();
+        return;
     }
-  }, [getReviewsResult]);
+  }, [getResult]);
 
   useEffect(() => {
-    switch (getReviewsMoreResult.type) {
+    switch (getMoreResult.type) {
       case SUCCESS:
-        if (getReviewsMoreResult.data) {
-          const newReviews = getReviewsMoreResult.data;
-          const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
-          dispatch({ type: UPDATE, data: { dataList: newReviews, hasMore } });
-        }
-        getReviewsMoreSetDefault();
-        break;
+        getMoreSetDefault();
+        if (!getMoreResult.data) return;
+        const newReviews = getMoreResult.data;
+        const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+        dispatch({ type: UPDATE, data: { dataList: newReviews, hasMore } });
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(getReviewsMoreResult.error));
-        getReviewsMoreSetDefault();
+        notiDispatch(Action.showError(getMoreResult.error));
+        getMoreSetDefault();
+        return;
     }
-  }, [getReviewsMoreResult]);
+  }, [getMoreResult]);
 
   const handleFetchReview = useCallback(() => {
-    const fetchStatus = getReviewsResult.type;
+    const fetchStatus = getResult.type;
     if (
       hasMore &&
       query &&
       fetchStatus !== REQUEST &&
       fetchStatus !== SUCCESS
     ) {
-      getReviewsMoreFetch({ type: REQUEST, params: [query] });
+      getMoreDispatch({ type: REQUEST, params: [query] });
     }
-  }, [hasMore, query, getReviewsResult]);
+  }, [hasMore, query, getResult]);
 
   const handleRemoveCache = useCallback((id: string) => {
     dispatch({ type: REMOVE, data: { id } });
@@ -129,8 +128,8 @@ const useQueryReviews = () => {
     hasMore,
     handleFetchReview,
     handleRemoveCache,
-    getReviewsResult.type,
-    getReviewsMoreResult.type,
+    getResult.type,
+    getMoreResult.type,
     query,
   ] as const;
 };

@@ -12,28 +12,23 @@ import cacheProto from 'util/cache';
 const CACHE = new cacheProto<FullReview>();
 
 const useSingleReview = () => {
-  const [
-    getReviewResult,
-    getReviewFetch,
-    getReviewSetDefault,
-  ] = useApiFetch<FullReview>(getReviewById);
+  const [result, dispatch, setDefault] = useApiFetch<FullReview>(getReviewById);
 
   const [singleReview, setSingleReview] = useState<FullReview | null>(null);
 
   useEffect(() => {
-    const newReview = getReviewResult.data;
-    if (getReviewResult.type === SUCCESS && newReview) {
-      setSingleReview(newReview);
-      CACHE.set(newReview.docId, newReview, 1); // store in cache
-      getReviewSetDefault();
-    }
-  }, [getReviewResult]);
+    const { data, type } = result;
+    if (type !== SUCCESS || !data) return;
+    setSingleReview(data);
+    CACHE.set(data.docId, data, 1); // store in cache
+    setDefault();
+  }, [result]);
 
   const fetchData = useCallback((postId: string) => {
     if (CACHE.has(postId)) {
       return setSingleReview(CACHE.get(postId));
     }
-    getReviewFetch({ type: REQUEST, params: [postId] });
+    dispatch({ type: REQUEST, params: [postId] });
   }, []);
 
   const handleRemoveCache = useCallback((postId: string) => {
@@ -46,8 +41,8 @@ const useSingleReview = () => {
 
   return {
     singleReview,
-    singleReviewFetchStatus: getReviewResult.type,
-    singleReviewFetchError: getReviewResult.error,
+    singleReviewFetchStatus: result.type,
+    singleReviewFetchError: result.error,
     fetchData,
     handleRemoveCache,
     handleUpdateCache,
