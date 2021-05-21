@@ -42,12 +42,11 @@ const CommentList = ({
   useEffect(() => {
     switch (result.type) {
       case SUCCESS:
+        setDefault();
         const id = result.data;
-        if (id) {
-          handleRemoveCache(id);
-          setDefault();
-          notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
-        }
+        if (!id) return;
+        handleRemoveCache(id);
+        notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
         return;
       case FAILURE:
         notiDispatch(Action.showError(result.error));

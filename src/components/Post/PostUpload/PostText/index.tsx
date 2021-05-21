@@ -1,8 +1,4 @@
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  TextareaHTMLAttributes,
-} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { useValidation } from 'hooks';
 import { checkFreeTextLength } from 'util/reviewTextValidations';
 import { InputRef } from 'types/Ref';
@@ -10,7 +6,7 @@ import { FREE_TEXT_LABEL } from 'common/constant/string';
 import { FREE_TEXT_LIMIT } from 'common/constant/number';
 import * as S from './style';
 
-interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   initValue: string;
 }
 

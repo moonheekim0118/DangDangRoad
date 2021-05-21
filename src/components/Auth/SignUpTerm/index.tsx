@@ -1,8 +1,4 @@
-import React, {
-  forwardRef,
-  InputHTMLAttributes,
-  useImperativeHandle,
-} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { SHOW_TERMS_CAPTION } from 'common/constant/string';
 import { Button, CloseBtn } from 'components/UI';
 import { RefType } from 'types/Ref';
@@ -12,7 +8,7 @@ import * as S from './style';
 
 const Modal = dynamic(() => import('components/UI/Modal'));
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   /** label for checkbox */
   label: string;
   /** term detail contetns to show in Modal*/

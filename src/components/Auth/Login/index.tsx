@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, FormEvent } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -35,7 +35,7 @@ const Login = (): React.ReactElement => {
     }
   }, [result]);
 
-  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;

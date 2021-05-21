@@ -1,15 +1,10 @@
-import React, {
-  useRef,
-  forwardRef,
-  InputHTMLAttributes,
-  useImperativeHandle,
-} from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { useValidation } from 'hooks';
 import { inputId, inputContents } from 'common/constant/input';
 import { InputRef } from 'types/Ref';
 import * as S from './style';
 
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   /** input id */
   id: inputId;
   /** check if Input filed is required */

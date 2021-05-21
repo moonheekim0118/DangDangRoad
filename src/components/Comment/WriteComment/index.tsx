@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { COMMENT_PLACEHOLDER } from 'common/constant/string';
 import { checkCommentLength } from 'util/reviewTextValidations';
@@ -46,7 +46,7 @@ const WriteComment = ({
   }, [result]);
 
   const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch({
         type: REQUEST,

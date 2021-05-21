@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-  FormEvent,
-} from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { SearchBar } from 'components/UI';
 import { useElement } from 'hooks';
 import { InputRef, inputDefaultRef } from 'types/Ref';
@@ -134,7 +128,7 @@ const SearchMap = ({
   );
 
   const searchHadler = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const keyword = keywordRef.current.value;
       if (!keyword.replace(/^\s+|\s+$/g, '')) {

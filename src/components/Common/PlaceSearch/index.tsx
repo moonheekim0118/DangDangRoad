@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, FormEvent } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { SearchBar } from 'components/UI';
 import {
   REVIEW_SEARCH_PLACEHODLER,
@@ -12,7 +12,7 @@ const PlaceSearch = (): React.ReactElement => {
   const keywordRef = useRef<InputRef>(inputDefaultRef());
 
   const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const keyword = keywordRef.current.value;
       if (keyword.length === 0) {

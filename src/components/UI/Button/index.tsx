@@ -1,9 +1,9 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React from 'react';
 import { Loading } from 'components/UI';
 import Link from 'next/link';
 import * as S from './style';
 
-export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** text of button */
   children: string | React.ReactNode;
   /** routing */
