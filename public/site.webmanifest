@@ -1,14 +1,14 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "댕댕로드, 강아지 산책로 리뷰 사이트",
+  "short_name": "강아지 산책로",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/favicon.ico",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/favicon.ico",
       "sizes": "512x512",
       "type": "image/png"
     }
