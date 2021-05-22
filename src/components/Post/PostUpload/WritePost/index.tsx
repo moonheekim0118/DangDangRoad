@@ -32,35 +32,31 @@ const WritePost = ({ userId }: Props): React.ReactElement => {
   const recommendationRef = useRef<InputRef>(inputDefaultRef());
   const imageUrlRef = useRef<RefType<string[]>>(defaultRef<string[]>([]));
 
-  const [
-    createReviewResult,
-    createReviewFetch,
-    createReviewSetDefault,
-  ] = useApiFetch(createReview);
+  const [result, dispatch, setDefault] = useApiFetch(createReview);
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
 
   useEffect(() => {
-    switch (createReviewResult.type) {
+    switch (result.type) {
       case SUCCESS:
         notiDispatch(Action.showSuccess(SAVE_MESSAGE));
         Router.push(routes.SEARCH);
-        break;
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(createReviewResult.error));
-        createReviewSetDefault();
+        notiDispatch(Action.showError(result.error));
+        setDefault();
+        return;
     }
-  }, [createReviewResult]);
+  }, [result]);
 
-  const selectPlaceHandler = useCallback(
+  const handleSelectPlace = useCallback(
     (place: PlaceType) => () => {
       setSelectedPlace(place);
     },
     []
   );
 
-  // sumbit data to DataBase Handler
-  const submitHandler = useCallback(
+  const handleSubmit = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       const { value: freeText } = freeTextRef.current;
@@ -83,7 +79,7 @@ const WritePost = ({ userId }: Props): React.ReactElement => {
             y: selectedPlace.y,
           },
         };
-        createReviewFetch({
+        dispatch({
           type: REQUEST,
           params: [data],
         });
@@ -94,7 +90,7 @@ const WritePost = ({ userId }: Props): React.ReactElement => {
 
   return (
     <PostEditor
-      selectPlaceHandler={selectPlaceHandler}
+      onClickPlace={handleSelectPlace}
       selectedPlace={selectedPlace}
       imageList={[]}
       imageUrlRef={imageUrlRef}
@@ -106,8 +102,8 @@ const WritePost = ({ userId }: Props): React.ReactElement => {
       hasOffLeash={RAIDO_AVAILABLE_DONTKNOW_VALUE}
       recommendationRef={recommendationRef}
       recommendation={RAIDO_RECOMMENDATION_SOSO_VALUE}
-      submitHandler={submitHandler}
-      loading={createReviewResult.type === REQUEST}
+      onSubmit={handleSubmit}
+      loading={result.type === REQUEST}
     />
   );
 };

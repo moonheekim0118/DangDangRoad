@@ -27,24 +27,20 @@ const PostBookMark = ({ postId }: Props) => {
   const [isBookMarked, setIsBookMarked] = useState<boolean>(false);
   /** first check if user bookMakred post or not */
   const [
-    checkBookMarkResult,
-    checkBookMarkFetch,
-    checkBookMarkSetDefault,
+    checkResult,
+    checkDispatch,
+    checkSetDefault,
   ] = useApiFetch<BookMarkResult>(checkBookMark);
 
   /** add BookMark to User */
-  const [
-    addBookMarkResult,
-    addBookMarkFetch,
-    addBookMarkSetDefault,
-  ] = useApiFetch<string>(addBookMarkReview);
+  const [addResult, addDispatch, addSetDefault] = useApiFetch<string>(
+    addBookMarkReview
+  );
 
   /** remove BookMark from user */
-  const [
-    removeBookMarkResult,
-    removeBookMarkFetch,
-    removeBookMarkSetDefault,
-  ] = useApiFetch<string>(removeBookMarkReview);
+  const [removeResult, removeDispatch, removeSetDefault] = useApiFetch<string>(
+    removeBookMarkReview
+  );
 
   useEffect(() => {
     if (userId) {
@@ -56,49 +52,46 @@ const PostBookMark = ({ postId }: Props) => {
         CACHED_USER = userId;
         CACHE.clear();
       }
-      checkBookMarkFetch({ type: REQUEST, params: [userId, postId] });
+      checkDispatch({ type: REQUEST, params: [userId, postId] });
     }
   }, [postId, userId]);
 
-  /** handling check bookmark api fetch result */
   useEffect(() => {
-    const result = checkBookMarkResult.data;
-    if (checkBookMarkResult.type === SUCCESS && result) {
-      setIsBookMarked(result.isBookMarked);
-      CACHE.set(result.postId, result.isBookMarked, 1);
-      return checkBookMarkSetDefault();
-    }
-  }, [checkBookMarkResult]);
+    const { type, data } = checkResult;
+    if (type !== SUCCESS || !data) return;
+    setIsBookMarked(data.isBookMarked);
+    CACHE.set(data.postId, data.isBookMarked, 1);
+    checkSetDefault();
+    return;
+  }, [checkResult]);
 
   /** handling add bookmark api fetch result */
   useEffect(() => {
-    const postId = addBookMarkResult.data;
-    if (addBookMarkResult.type === SUCCESS && postId) {
-      setIsBookMarked(true);
-      CACHE.set(postId, true, 1);
-      return addBookMarkSetDefault();
-    }
-  }, [addBookMarkResult]);
+    const { type, data: postId } = addResult;
+    if (type !== SUCCESS || !postId) return;
+    setIsBookMarked(true);
+    CACHE.set(postId, true, 1);
+    addSetDefault();
+    return;
+  }, [addResult]);
 
   /** handling remove bookmark api fetch result  */
   useEffect(() => {
-    if (removeBookMarkResult.type === SUCCESS) {
-      const postId = removeBookMarkResult.data;
-      if (postId) {
-        setIsBookMarked(false);
-        CACHE.delete(postId);
-      }
-      return removeBookMarkSetDefault();
-    }
-  }, [removeBookMarkResult]);
+    const { type, data: postId } = removeResult;
+    if (type !== SUCCESS || !postId) return;
+    setIsBookMarked(false);
+    CACHE.delete(postId);
+    removeSetDefault();
+    return;
+  }, [removeResult]);
 
   /** Toggle BookMark Button */
   const bookMarkToggleHanlder = useCallback(() => {
     if (!userId) Router.push(routes.LOGIN);
     if (isBookMarked) {
-      return removeBookMarkFetch({ type: REQUEST, params: [userId, postId] });
+      return removeDispatch({ type: REQUEST, params: [userId, postId] });
     }
-    return addBookMarkFetch({ type: REQUEST, params: [userId, postId] });
+    return addDispatch({ type: REQUEST, params: [userId, postId] });
   }, [postId, userId, isBookMarked]);
 
   return (

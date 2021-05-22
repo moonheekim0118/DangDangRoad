@@ -7,7 +7,7 @@ import * as S from './style';
 
 interface Props {
   /** onClick for this component */
-  previewClickHanlder: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   /** thumNail image */
   thumnail: string | null;
   /** place name to be shown in Preview */
@@ -17,14 +17,14 @@ interface Props {
 }
 
 const Preview = ({
-  previewClickHanlder,
+  onClick,
   thumnail,
   placeName,
   commentsLength = 0,
 }: Props): React.ReactElement => {
   const [imageSrc, imageRef] = useLazyLoadImage(thumnail ?? DEFAULT_IMAGE_URL);
   return (
-    <S.Post onClick={previewClickHanlder}>
+    <S.Post onClick={onClick}>
       <S.Overlay>
         <S.Description>
           <S.PlaceName>{placeName}</S.PlaceName>

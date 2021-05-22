@@ -54,7 +54,7 @@ const PostList = ({
           {reviewData.map((v) => (
             <PreviewPost
               key={v.docId}
-              previewClickHanlder={modalController.openModal(v.docId)}
+              onClick={modalController.openModal(v.docId)}
               placeName={v.placeName}
               thumnail={v.thumbNail}
               commentsLength={v.commentsLength}

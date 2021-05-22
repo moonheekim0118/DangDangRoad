@@ -70,20 +70,19 @@ const useComments = (postId: string) => {
   useEffect(() => {
     switch (getResult.type) {
       case SUCCESS:
-        if (getResult.data) {
-          const { lastKey: newLastKey, comments: newComments } = getResult.data;
-          const newHasMore = newComments.length === COMMENT_DATA_LIMIT;
-          dispatch({
-            type: UPDATE,
-            data: {
-              dataList: newComments,
-              lastKey: newLastKey,
-              hasMore: newHasMore,
-            },
-          });
-          getSetDefault();
-          return;
-        }
+        getSetDefault();
+        if (!getResult.data) return;
+        const { lastKey: newLastKey, comments: newComments } = getResult.data;
+        const newHasMore = newComments.length === COMMENT_DATA_LIMIT;
+        dispatch({
+          type: UPDATE,
+          data: {
+            dataList: newComments,
+            lastKey: newLastKey,
+            hasMore: newHasMore,
+          },
+        });
+        return;
       case FAILURE:
         notiDispatch(Action.showError(getResult.error));
         getSetDefault();

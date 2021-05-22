@@ -21,7 +21,7 @@ import { removeReview } from 'api/review';
 import { ImageSlider } from 'components/Image';
 import { BasicMap } from 'components/Map';
 import { useNotificationDispatch } from 'context/Notification';
-import * as Action from 'action';
+import { showError } from 'action';
 import routes from 'common/constant/routes';
 import * as S from './style';
 
@@ -50,7 +50,7 @@ const SinglePost = ({
         removeHandler(data.docId);
         return;
       case FAILURE:
-        notiDispatch(Action.showError(result.error));
+        notiDispatch(showError(result.error));
         return;
     }
   }, [result]);

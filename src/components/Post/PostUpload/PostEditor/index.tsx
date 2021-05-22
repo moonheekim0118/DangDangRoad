@@ -27,7 +27,7 @@ import * as Action from 'action';
 const TOTAL_SLIDES = 3;
 
 interface Props {
-  selectPlaceHandler: (place: PlaceType) => () => void;
+  onClickPlace: (place: PlaceType) => () => void;
   selectedPlace: PlaceType | null;
   imageList: string[];
   imageUrlRef: React.RefObject<RefType<string[]>>;
@@ -40,7 +40,7 @@ interface Props {
   recommendationRef: React.RefObject<InputRef>;
   recommendation: string;
   loading: boolean;
-  submitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const PostEditor = (props: Props): React.ReactElement => {
@@ -69,7 +69,7 @@ const PostEditor = (props: Props): React.ReactElement => {
           }
         }
       }
-      props.submitHandler(e);
+      props.onSubmit(e);
     },
     [props.selectedPlace]
   );
@@ -107,7 +107,7 @@ const PostEditor = (props: Props): React.ReactElement => {
           <S.MainContainer>
             <S.Label>{WRITE_REVIEW_SELECT_PLACE_TITLE}</S.Label>
             <SearchMap
-              onClickPlace={props.selectPlaceHandler}
+              onClickPlace={props.onClickPlace}
               nowSelectedAddress={props.selectedPlace?.address_name}
               initialCoordX={props.selectedPlace?.x}
               initialCoordY={props.selectedPlace?.y}

@@ -2,16 +2,16 @@ import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { updateReview } from 'api/review';
 import { PlaceType } from 'types/Map';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
 import { NO_UPDATE_ERROR, UPDATE_MESSAGE } from 'common/constant/string';
 import { WriteReviewParams } from 'types/API';
 import { FullReview } from 'types/Review';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import { PostEditor } from 'components/Post/PostUpload';
+import useApiFetch, {
+  REQUEST,
+  SUCCESS,
+  FAILURE,
+} from 'hooks/common/useApiFetch';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as Action from 'action';
@@ -45,44 +45,42 @@ const UpdatePost = ({
     defaultRef<string[]>(initialData.imageList ? initialData.imageList : [])
   );
 
-  const [
-    updateReviewResult,
-    updateReviewFetch,
-    updateReviewSetDefault,
-  ] = useApiFetch<WriteReviewParams>(updateReview);
+  const [result, dispatch, setDefault] = useApiFetch<WriteReviewParams>(
+    updateReview
+  );
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType>(
     initialData.placeInfo
   );
 
   useEffect(() => {
-    switch (updateReviewResult.type) {
+    switch (result.type) {
       case SUCCESS:
         notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
-        if (updateReviewResult.data) {
+        if (result.data) {
           const updatedData = {
             ...initialData,
-            ...updateReviewResult.data,
+            ...result.data,
           };
           updateCache(initialData.docId, updatedData);
         }
         Router.push(routes.SEARCH);
-        break;
+        return;
       case FAILURE:
-        notiDispatch(Action.showError(updateReviewResult.error));
-        updateReviewSetDefault();
+        notiDispatch(Action.showError(result.error));
+        setDefault();
+        return;
     }
-  }, [updateReviewResult]);
+  }, [result]);
 
-  const selectPlaceHandler = useCallback(
+  const handleSelectPlace = useCallback(
     (place: PlaceType) => () => {
       setSelectedPlace(place);
     },
     []
   );
 
-  // sumbit data to DataBase Handler
-  const submitHandler = useCallback(
+  const handleSubmit = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       const { value: freeText } = freeTextRef.current;
@@ -115,7 +113,7 @@ const UpdatePost = ({
           y: selectedPlace.y,
         },
       };
-      updateReviewFetch({
+      dispatch({
         type: REQUEST,
         params: [initialData?.docId, data],
       });
@@ -125,7 +123,7 @@ const UpdatePost = ({
 
   return (
     <PostEditor
-      selectPlaceHandler={selectPlaceHandler}
+      onClickPlace={handleSelectPlace}
       selectedPlace={selectedPlace}
       imageList={initialData.imageList || []}
       imageUrlRef={imageUrlRef}
@@ -137,8 +135,8 @@ const UpdatePost = ({
       hasOffLeash={initialData.hasOffLeash}
       recommendationRef={recommendationRef}
       recommendation={initialData.recommendation}
-      loading={updateReviewResult.type === REQUEST}
-      submitHandler={submitHandler}
+      loading={result.type === REQUEST}
+      onSubmit={handleSubmit}
     />
   );
 };
