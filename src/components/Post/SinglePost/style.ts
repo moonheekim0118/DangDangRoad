@@ -21,7 +21,7 @@ export const Container = styled.article`
   }
 `;
 
-export const ContentsContainer = styled.div`
+export const ContentsContainer = styled.section`
   width: calc(100% / 3);
   height: 100%;
   display: flex;

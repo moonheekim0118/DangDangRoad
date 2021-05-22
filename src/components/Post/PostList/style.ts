@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const Container = styled.article`
   width: 100%;
   height: 100%;
   display: flex;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   padding: 3rem;
 `;
 
-export const TagContainer = styled.div`
+export const TagContainer = styled.header`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -16,7 +16,7 @@ export const TagContainer = styled.div`
   align-items: center;
 `;
 
-export const ReviewContainer = styled.article`
+export const ReviewContainer = styled.section`
   margin-top: 50px;
   width: 100%;
   display: grid;
