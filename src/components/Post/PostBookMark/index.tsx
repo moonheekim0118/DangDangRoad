@@ -25,35 +25,32 @@ let CACHED_USER = '';
 const PostBookMark = ({ postId }: Props) => {
   const { userId } = useLoginInfoState();
   const [isBookMarked, setIsBookMarked] = useState<boolean>(false);
-  /** first check if user bookMakred post or not */
+
   const [
     checkResult,
     checkDispatch,
     checkSetDefault,
   ] = useApiFetch<BookMarkResult>(checkBookMark);
 
-  /** add BookMark to User */
   const [addResult, addDispatch, addSetDefault] = useApiFetch<string>(
     addBookMarkReview
   );
 
-  /** remove BookMark from user */
   const [removeResult, removeDispatch, removeSetDefault] = useApiFetch<string>(
     removeBookMarkReview
   );
 
   useEffect(() => {
-    if (userId) {
-      if (CACHED_USER === userId) {
-        if (CACHE.has(postId)) {
-          return setIsBookMarked(CACHE.get(postId) || false);
-        }
-      } else {
-        CACHED_USER = userId;
-        CACHE.clear();
+    if (!userId) return;
+    if (CACHED_USER === userId) {
+      if (CACHE.has(postId)) {
+        return setIsBookMarked(CACHE.get(postId) || false);
       }
-      checkDispatch({ type: REQUEST, params: [userId, postId] });
+    } else {
+      CACHED_USER = userId;
+      CACHE.clear();
     }
+    checkDispatch({ type: REQUEST, params: [userId, postId] });
   }, [postId, userId]);
 
   useEffect(() => {
