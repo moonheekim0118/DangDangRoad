@@ -14,7 +14,7 @@ const PostImage = (
   { initialImageUrl }: Props,
   ref: React.Ref<RefType<string[]>>
 ): React.ReactElement => {
-  const [imageUrl, handleUrlChange, handleImageRemove] = useHandleImage(
+  const [imageUrl, setImageUrl, handleImageRemove] = useHandleImage(
     initialImageUrl
   );
 
@@ -25,7 +25,7 @@ const PostImage = (
       {imageUrl.length <= 0 ? (
         <ImageUploader
           imageUrl={imageUrl}
-          onChangeUrl={handleUrlChange}
+          onChangeUrl={setImageUrl}
           imageLimit={POST_IMAGE_LIMIT}
           type="new">
           <S.UploadImageButton>
@@ -36,7 +36,7 @@ const PostImage = (
       ) : (
         <ImagePreview
           imageList={imageUrl}
-          imageUrlChangeHandler={handleUrlChange}
+          imageUrlChangeHandler={setImageUrl}
           imageRemoveHanlder={handleImageRemove}
         />
       )}

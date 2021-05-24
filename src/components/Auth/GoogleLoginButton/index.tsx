@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import googleLogo from './logo';
 import useApiFetch, {
   REQUEST,
@@ -28,12 +28,8 @@ const GoogleLoginButton = (): React.ReactElement => {
     }
   }, [result]);
 
-  const handleClick = useCallback(() => {
-    dispatch({ type: REQUEST });
-  }, []);
-
   return (
-    <S.Container type="button" onClick={handleClick}>
+    <S.Container type="button" onClick={() => dispatch({ type: REQUEST })}>
       <S.Logo>{googleLogo}</S.Logo>
       <S.Title>{GOOGLE_LOGIN_CAPTION}</S.Title>
     </S.Container>

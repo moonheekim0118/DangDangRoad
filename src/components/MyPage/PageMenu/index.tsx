@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Router from 'next/router';
 import { Link } from 'components/UI';
 import * as S from './style';
@@ -17,12 +17,9 @@ interface Props {
 }
 
 const PageMenu = ({ datas, onClick }: Props): React.ReactElement => {
-  const checkPath = useCallback(
-    (pathname: string): boolean => {
-      return Router.pathname === pathname;
-    },
-    [Router.query.page_name]
-  );
+  const checkPath = (pathname: string): boolean => {
+    return Router.pathname === pathname;
+  };
 
   return (
     <S.Container>

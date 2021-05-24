@@ -37,10 +37,7 @@ const Header = (): React.ReactElement => {
     }
   }, []);
 
-  const checkPath = useCallback(
-    (pathname: string): boolean => pathname === router.pathname,
-    [router.pathname]
-  );
+  const checkPath = (pathname: string): boolean => pathname === router.pathname;
 
   return (
     <S.Container>

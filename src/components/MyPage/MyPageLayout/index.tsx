@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { destroyAccount } from 'api/user';
 import { PageMenu, UserCard } from 'components/MyPage';
 import { Title, Button, Loading } from 'components/UI';
@@ -43,10 +43,6 @@ const MyPage = ({
     }
   }, [result.type]);
 
-  const destroyHandler = useCallback(() => {
-    dispatch({ type: REQUEST, params: [userInfo.userId] });
-  }, []);
-
   return (
     <S.Container>
       <S.SideContainer>
@@ -80,7 +76,9 @@ const MyPage = ({
                 theme="danger"
                 size="large"
                 width="35%"
-                onClick={destroyHandler}>
+                onClick={() =>
+                  dispatch({ type: REQUEST, params: [userInfo.userId] })
+                }>
                 {DESTROY_BUTTON_CAPTION}
               </Button>
               <Button

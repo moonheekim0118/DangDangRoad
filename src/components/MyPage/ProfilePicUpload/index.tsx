@@ -14,13 +14,13 @@ const ProfilePicUpload = (
   { initImageUrl }: Props,
   ref: React.Ref<RefType<string[]>>
 ): React.ReactElement => {
-  const [imageUrl, handleUrlChange] = useHandleImage([initImageUrl]);
+  const [imageUrl, setImageUrl] = useHandleImage([initImageUrl]);
   useImperativeHandle(ref, () => ({ value: imageUrl }), [imageUrl]);
 
   return (
     <div>
       <ImageUploader
-        onChangeUrl={handleUrlChange}
+        onChangeUrl={setImageUrl}
         imageUrl={imageUrl}
         imageLimit={1}
         type="new">

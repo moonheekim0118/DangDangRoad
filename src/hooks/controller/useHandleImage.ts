@@ -3,10 +3,6 @@ import { useCallback, useState } from 'react';
 const useHandleImage = (initialImages: string[]) => {
   const [imageUrl, setImageUrl] = useState<string[]>(initialImages);
 
-  const handleUrlChange = useCallback((urls: string[]) => {
-    setImageUrl(urls);
-  }, []);
-
   const handleImageRemove = useCallback(
     (index: number) => () => {
       const filtered = imageUrl.filter((_, i) => i !== index);
@@ -15,7 +11,7 @@ const useHandleImage = (initialImages: string[]) => {
     [imageUrl]
   );
 
-  return [imageUrl, handleUrlChange, handleImageRemove] as const;
+  return [imageUrl, setImageUrl, handleImageRemove] as const;
 };
 
 export default useHandleImage;
