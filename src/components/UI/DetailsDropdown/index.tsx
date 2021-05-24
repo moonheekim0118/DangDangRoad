@@ -1,14 +1,10 @@
 import React, { useCallback } from 'react';
-import { SerializedStyles } from '@emotion/react';
 import { useCloseDropdown } from 'hooks';
 import Link from 'next/link';
 import * as S from './style';
 
 interface Props {
-  /** detail Container styling */
-  detailStyle?: SerializedStyles;
-  /** menu Container styling */
-  menuStyle?: SerializedStyles;
+  theme: 'primary' | 'secondary';
   /** children for summary */
   children: React.ReactNode;
   /** menu List for dropdown menu */
@@ -19,12 +15,7 @@ interface Props {
   }[];
 }
 
-const DetailsDropdown = ({
-  detailStyle,
-  menuStyle,
-  children,
-  menuList,
-}: Props) => {
+const DetailsDropdown = ({ theme, children, menuList }: Props) => {
   const [detailRef, handleCloseDropdown] = useCloseDropdown();
 
   const clickHanlder = useCallback(
@@ -36,9 +27,9 @@ const DetailsDropdown = ({
   );
 
   return (
-    <details css={detailStyle} ref={detailRef}>
+    <details css={S.detailThemes[theme]} ref={detailRef}>
       {children}
-      <S.Container css={menuStyle}>
+      <S.Container css={S.menuThemes[theme]}>
         {menuList.map((v, i) => {
           return v.href ? (
             <Link href={v.href} key={i}>

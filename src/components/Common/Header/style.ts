@@ -36,17 +36,6 @@ export const HideInMobile = styled.div`
   }
 `;
 
-export const authDetailStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  > * {
-    margin: 0 0.5rem;
-  }
-`;
-
 export const UserInfoSummary = styled.summary`
   display: flex;
   gap: 0.5rem;
@@ -58,12 +47,6 @@ export const UserInfoSummary = styled.summary`
   &&::marker {
     display: none;
   }
-`;
-
-export const detailMenuStyle = css`
-  position: absolute;
-  top: 2.5rem;
-  right: 2.5rem;
 `;
 
 export const MenuToggler = styled.div`

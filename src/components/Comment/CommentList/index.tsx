@@ -6,10 +6,10 @@ import useApiFetch, {
 } from 'hooks/common/useApiFetch';
 import Comment from 'types/Comment';
 import { removeComment } from 'api/comment';
-import { Loading, Author, Button, Icon } from 'components/UI';
+import { Loading, Author, DetailsDropdown, Button, Icon } from 'components/UI';
 import { DELETE_BUTTON_CAPTION, REMOVE_MESSAGE } from 'common/constant/string';
 import { useNotificationDispatch } from 'context/Notification';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import * as Action from 'action';
 import * as S from './style';
 
@@ -67,20 +67,22 @@ const CommentList = ({
       <S.List>
         {comments.map((comment) => (
           <S.CommentCard key={comment.docId}>
-            <Author
-              userData={comment.userData}
-              size="small"
-              menuList={
-                comment.userId === userId
-                  ? [
-                      {
-                        title: DELETE_BUTTON_CAPTION,
-                        onClick: handleRemoveComment(comment.docId),
-                      },
-                    ]
-                  : undefined
-              }
-            />
+            <Author userData={comment.userData} size="small">
+              {comment.userId === userId ? (
+                <DetailsDropdown
+                  theme="primary"
+                  menuList={[
+                    {
+                      title: DELETE_BUTTON_CAPTION,
+                      onClick: handleRemoveComment(comment.docId),
+                    },
+                  ]}>
+                  <summary>
+                    <Icon icon={faEllipsisV} size="small" />
+                  </summary>
+                </DetailsDropdown>
+              ) : undefined}
+            </Author>
             <S.CommentContents>{comment.contents}</S.CommentContents>
           </S.CommentCard>
         ))}

@@ -1,12 +1,8 @@
 import React, { useMemo } from 'react';
 import { Avatar } from 'components/UI';
 import { User } from 'types/User';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import * as S from './style';
-
-const Icon = dynamic(() => import('components/UI/Icon'));
-const DetailsDropdown = dynamic(() => import('components/UI/DetailsDropdown'));
 
 export interface Props {
   /** user data to show */
@@ -15,18 +11,14 @@ export interface Props {
   createdAt?: number;
   /** size of author card */
   size: 'medium' | 'small';
-  /** dropdown menu list */
-  menuList?: {
-    title: string;
-    href?: string;
-    onClick?: (e: React.MouseEvent) => void;
-  }[];
+  /** children */
+  children?: React.ReactElement;
 }
 const Author = ({
   userData,
   createdAt,
   size,
-  menuList,
+  children,
 }: Props): React.ReactElement => {
   const formatDate = useMemo((): string => {
     if (createdAt) {
@@ -49,16 +41,7 @@ const Author = ({
           <S.TimeStamp css={S.timeSizes[size]}>{formatDate} 작성</S.TimeStamp>
         )}
       </S.Info>
-      {menuList && (
-        <DetailsDropdown
-          menuList={menuList}
-          detailStyle={S.detailStyle}
-          menuStyle={S.menuStyle}>
-          <summary>
-            <Icon icon={faEllipsisV} size={size} />
-          </summary>
-        </DetailsDropdown>
-      )}
+      {children}
     </S.Container>
   );
 };

@@ -56,8 +56,7 @@ const Header = (): React.ReactElement => {
             {isLoggedIn ? (
               <S.SideNavigation>
                 <DetailsDropdown
-                  detailStyle={S.authDetailStyle}
-                  menuStyle={S.detailMenuStyle}
+                  theme="secondary"
                   menuList={[
                     {
                       title: MENU_MYPAGE_TITLE,
