@@ -4,7 +4,7 @@ import { CommentSection } from 'components/Comment';
 import { FullReview } from 'types/Review';
 import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Author, ControllerBtn, DetailsDropdown, Icon } from 'components/UI';
+import { Author, ControllerBtn } from 'components/UI';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -25,6 +25,10 @@ import { showError } from 'action';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import routes from 'common/constant/routes';
 import * as S from './style';
+import dynamic from 'next/dynamic';
+
+const DetailsDropdown = dynamic(() => import('components/UI/DetailsDropdown'));
+const Icon = dynamic(() => import('components/UI/Icon'));
 
 interface Props {
   /** single Review Data */

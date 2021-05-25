@@ -6,12 +6,15 @@ import useApiFetch, {
 } from 'hooks/common/useApiFetch';
 import Comment from 'types/Comment';
 import { removeComment } from 'api/comment';
-import { Loading, Author, DetailsDropdown, Button, Icon } from 'components/UI';
+import { Loading, Author, Button, Icon } from 'components/UI';
 import { DELETE_BUTTON_CAPTION, REMOVE_MESSAGE } from 'common/constant/string';
 import { useNotificationDispatch } from 'context/Notification';
 import { faPlusCircle, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import dynamic from 'next/dynamic';
 import * as Action from 'action';
 import * as S from './style';
+
+const DetailsDropdown = dynamic(() => import('components/UI/DetailsDropdown'));
 
 interface Props {
   /** fetch more comments handler */
