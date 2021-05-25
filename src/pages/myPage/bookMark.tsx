@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Loading } from 'components/UI';
 import { useUser } from 'hooks';
 import { useRouter } from 'next/router';
@@ -14,11 +14,8 @@ const BookMark = () => {
   const { user } = useUser({ redirectTo: routes.LOGIN });
   const router = useRouter();
 
-  const pageQuery = useMemo(() => {
-    let pageNum = router.query.page;
-    if (typeof pageNum === 'string') return Number(pageNum);
-    return 1;
-  }, [router.query.page]);
+  const pageQuery =
+    typeof router.query.page === 'string' ? Number(router.query.page) : 1;
 
   return user && user.isLoggedIn ? (
     <MyPageLayout pageName={MYPAGE_NAVIGATOR.bookMark} userInfo={user}>

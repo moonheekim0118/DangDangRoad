@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Avatar } from 'components/UI';
 import { User } from 'types/User';
-import dynamic from 'next/dynamic';
+import formatDate from 'util/formatDate';
 import * as S from './style';
 
 export interface Props {
@@ -20,25 +20,15 @@ const Author = ({
   size,
   children,
 }: Props): React.ReactElement => {
-  const formatDate = useMemo((): string => {
-    if (createdAt) {
-      let parsedDate = new Date(createdAt);
-      const year = parsedDate.getFullYear();
-      const month = parsedDate.getMonth() + 1;
-      const day = parsedDate.getDate();
-
-      return `${year}년 ${month}월 ${day}일`;
-    }
-    return '';
-  }, [createdAt]);
-
   return (
     <S.Container css={S.mainSizes[size]}>
       <Avatar imageUrl={userData.profilePic} size={size} />
       <S.Info css={S.infoSizes[size]}>
         <S.Nickname>{userData.nickname}</S.Nickname>
         {createdAt && (
-          <S.TimeStamp css={S.timeSizes[size]}>{formatDate} 작성</S.TimeStamp>
+          <S.TimeStamp css={S.timeSizes[size]}>
+            {formatDate(createdAt)} 작성
+          </S.TimeStamp>
         )}
       </S.Info>
       {children}

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import {
   WRITE_REVIEW_TITLE,
   RADIO_TITLE_PARKING_LOT,
@@ -49,6 +49,18 @@ const PostEditor = (props: Props): React.ReactElement => {
     totalSlide: TOTAL_SLIDES,
   });
 
+  const NextBtn = (
+    <Button theme="primary" size="large" width="40%" onClick={toNext}>
+      {NEXT_CAPTION}
+    </Button>
+  );
+
+  const PrevBtn = (
+    <Button theme="primary" size="large" width="40%" onClick={toPrev}>
+      {PREV_CAPTION}
+    </Button>
+  );
+
   const validatedSubmitHanlder = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       if (slideRef.current) {
@@ -72,24 +84,6 @@ const PostEditor = (props: Props): React.ReactElement => {
       props.onSubmit(e);
     },
     [props.selectedPlace]
-  );
-
-  const NextBtn = useMemo(
-    (): React.ReactElement => (
-      <Button theme="primary" size="large" width="40%" onClick={toNext}>
-        {NEXT_CAPTION}
-      </Button>
-    ),
-    [index]
-  );
-
-  const PrevBtn = useMemo(
-    (): React.ReactElement => (
-      <Button theme="primary" size="large" width="40%" onClick={toPrev}>
-        {PREV_CAPTION}
-      </Button>
-    ),
-    [index]
   );
 
   return (

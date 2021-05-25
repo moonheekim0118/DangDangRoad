@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import BookMark from 'types/BookMark';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { getBookMarkedReviews, removeBookMarkReview } from 'api/bookmark';
@@ -43,6 +43,8 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
     removeBookMarkReview
   );
 
+  const totalPages = Math.ceil(totalLength / BOOKMARK_DATA_LIMIT);
+
   useEffect(() => {
     if (userId) {
       if (CACHED_USER === userId && CACHE.has(userId)) {
@@ -80,10 +82,6 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
     }
     removeSetDefault();
   }, [removeResult]);
-
-  const totalPages = useMemo(() => {
-    return Math.ceil(totalLength / BOOKMARK_DATA_LIMIT);
-  }, [totalLength]);
 
   const modeToggleHandler = useCallback(() => {
     setIsRemoveMode(!isRemoveMode);
