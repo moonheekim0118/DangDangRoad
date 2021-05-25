@@ -4,8 +4,19 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { NavigationInfo } from 'types/Navigation';
 import * as S from './style';
+
+interface Props {
+  hasPrev: boolean;
+  /** next Available */
+  hasNext: boolean;
+  /** goToPrevHandler */
+  onClickPrev: () => void;
+  /** goToNextHandler */
+  onClickNext: () => void;
+  /** Buttons location */
+  location?: number;
+}
 
 const ControllerBtn = ({
   onClickPrev,
@@ -13,7 +24,7 @@ const ControllerBtn = ({
   hasPrev,
   hasNext,
   location = -50,
-}: NavigationInfo): React.ReactElement => {
+}: Props): React.ReactElement => {
   return (
     <>
       {hasPrev && (
