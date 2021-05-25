@@ -2,9 +2,8 @@ import React, { useEffect, useCallback } from 'react';
 import { PostBookMark } from 'components/Post';
 import { CommentSection } from 'components/Comment';
 import { FullReview } from 'types/Review';
-import { NavigationInfo } from 'types/Navigation';
 import { useLoginInfoState } from 'context/LoginInfo';
-import { Author, ControllerBtn } from 'components/UI';
+import { Author } from 'components/UI';
 import {
   PARKING_LOT_CAPTION,
   OFFLEASH_CAPTION,
@@ -34,14 +33,14 @@ interface Props {
   /** single Review Data */
   data: FullReview;
   /** Navigation info */
-  NavigationInfo?: NavigationInfo;
+  children?: React.ReactElement;
   /** remove Handler */
   removeHandler: (id: string) => void;
 }
 
 const SinglePost = ({
   data,
-  NavigationInfo,
+  children,
   removeHandler,
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
@@ -120,7 +119,7 @@ const SinglePost = ({
           <CommentSection userId={userId} postId={data.docId} />
         </S.ContentsContainer>
       </S.Container>
-      {NavigationInfo && <ControllerBtn {...NavigationInfo} />}
+      {children}
     </>
   );
 };

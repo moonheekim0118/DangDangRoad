@@ -14,6 +14,7 @@ const LoadingSinglePost = dynamic(
   () => import('components/UI/LoadingSinlgePost')
 );
 const SinglePost = dynamic(() => import('components/Post/SinglePost'));
+const ControllerBtn = dynamic(() => import('components/UI/ControllerBtn'));
 
 interface Props {
   /** search keyword */
@@ -72,14 +73,14 @@ const PostList = ({
             ) : (
               <SinglePost
                 data={modalController.singleReview}
-                NavigationInfo={{
-                  hasPrev: modalController.index > 0,
-                  hasNext: modalController.index < reviewData.length - 1,
-                  onClickPrev: modalController.prevHandler,
-                  onClickNext: modalController.nextHandler,
-                }}
-                removeHandler={removeHandler}
-              />
+                removeHandler={removeHandler}>
+                <ControllerBtn
+                  hasPrev={modalController.index > 0}
+                  hasNext={modalController.index < reviewData.length - 1}
+                  onClickPrev={modalController.prevHandler}
+                  onClickNext={modalController.nextHandler}
+                />
+              </SinglePost>
             )}
           </Card>
         </Modal>
