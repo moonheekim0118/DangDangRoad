@@ -31,12 +31,6 @@ Small.args = {
 
 WithDropDown.args = {
   ...Medium.args,
-  menuList: [
-    {
-      title: 'test',
-    },
-    { title: 'test2' },
-  ],
 };
 
 export default {
