@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from 'components/UI';
 import {
   faChevronLeft,
@@ -48,17 +48,14 @@ const Pagination = ({ totalPage, currentPage }: Props) => {
     setPages(elements);
   }, [currentPage, totalPage]);
 
-  const pageNateHandler = useCallback(
-    (id: number) => () => {
-      Router.push({
-        pathname: routes.MYPAGE_BOOKMARK,
-        query: {
-          page: id,
-        },
-      });
-    },
-    []
-  );
+  const pageNateHandler = (id: number) => () => {
+    Router.push({
+      pathname: routes.MYPAGE_BOOKMARK,
+      query: {
+        page: id,
+      },
+    });
+  };
 
   return (
     <S.Container>

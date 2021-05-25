@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef } from 'react';
 import { PlaceSearch } from 'components/Common';
 import { Icon, Logo } from 'components/UI';
 import { useSignOut } from 'hooks';
@@ -24,18 +24,12 @@ const Header = (): React.ReactElement => {
   const navRef = useRef<HTMLDivElement>(null);
   const { isLoaded, isLoggedIn, profilePic } = useLoginInfoState();
 
-  const handleNavigation = useCallback((e: React.MouseEvent) => {
-    if (navRef.current) {
-      navRef.current.setAttribute('aria-expended', 'true');
-      const element = e.target as Element;
-      if (navRef.current.style.display === 'flex') {
-        navRef.current.style.display = 'none';
-        return element.parentElement?.setAttribute('aria-expended', 'false');
-      }
-      navRef.current.style.display = 'flex';
-      element.parentElement?.setAttribute('aria-expended', 'true');
-    }
-  }, []);
+  const handleNavigation = (e: React.MouseEvent) => {
+    if (!navRef.current) return;
+    navRef.current.style.display === 'flex'
+      ? (navRef.current.style.display = 'none')
+      : (navRef.current.style.display = 'flex');
+  };
 
   const checkPath = (pathname: string): boolean => pathname === router.pathname;
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { ImageUploader } from 'components/Image';
 import { useModal } from 'hooks';
 import { Icon } from 'components/UI';
@@ -27,13 +27,10 @@ const ImagePreview = ({
   const [startIndex, setStartIndex] = useState<number>(0);
   const [showModal, handleModal] = useModal(false);
 
-  const handleClick = useCallback(
-    (index: number) => () => {
-      setStartIndex(index);
-      handleModal();
-    },
-    [showModal, startIndex]
-  );
+  const handleClick = (index: number) => () => {
+    setStartIndex(index);
+    handleModal();
+  };
 
   return (
     <S.Container>

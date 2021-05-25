@@ -141,14 +141,11 @@ const SearchMap = ({
     [keywordRef, ps]
   );
 
-  const pageClickHandler = useCallback(
-    (index: number) => () => {
-      if (pagination) {
-        pagination.gotoPage(index);
-      }
-    },
-    [pagination]
-  );
+  const pageClickHandler = (index: number) => () => {
+    if (pagination) {
+      pagination.gotoPage(index);
+    }
+  };
 
   return (
     <S.Container>

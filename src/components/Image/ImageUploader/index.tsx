@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import useApiFetch, {
   REQUEST,
@@ -50,24 +50,21 @@ const ImageUploader = ({
     }
   }, [result]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (imageInput.current) {
       imageInput.current.click();
     }
-  }, []);
+  };
 
-  const handleUploadImage = useCallback(
-    (e) => {
-      const files = e.target.files;
-      const length =
-        type === 'add' ? files.length + imageUrl.length : imageUrl.length;
-      if (length > imageLimit) {
-        return notiDispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
-      }
-      dispatch({ type: REQUEST, params: [files] });
-    },
-    [imageUrl]
-  );
+  const handleUploadImage = (e) => {
+    const files = e.target.files;
+    const length =
+      type === 'add' ? files.length + imageUrl.length : imageUrl.length;
+    if (length > imageLimit) {
+      return notiDispatch(showError(IMAGE_LIMIT_ERROR(imageLimit)));
+    }
+    dispatch({ type: REQUEST, params: [files] });
+  };
 
   return (
     <Container onClick={handleClick}>

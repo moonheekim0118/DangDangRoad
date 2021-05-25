@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookMark from 'types/BookMark';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { getBookMarkedReviews, removeBookMarkReview } from 'api/bookmark';
@@ -83,19 +83,16 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
     removeSetDefault();
   }, [removeResult]);
 
-  const modeToggleHandler = useCallback(() => {
+  const modeToggleHandler = () => {
     setIsRemoveMode(!isRemoveMode);
-  }, [isRemoveMode]);
+  };
 
-  const onClickCard = useCallback(
-    (docId: string) => () => {
-      if (!isRemoveMode) {
-        return Router.push(`${routes.POST}/${docId}`);
-      }
-      removeDispatch({ type: REQUEST, params: [userId, docId] });
-    },
-    [isRemoveMode]
-  );
+  const onClickCard = (docId: string) => () => {
+    if (!isRemoveMode) {
+      return Router.push(`${routes.POST}/${docId}`);
+    }
+    removeDispatch({ type: REQUEST, params: [userId, docId] });
+  };
 
   return (
     <S.Container>
