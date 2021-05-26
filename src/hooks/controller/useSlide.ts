@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface Props {
   initialIndex?: number;
@@ -20,20 +20,17 @@ const useImageSlide = ({ initialIndex = 0, totalSlide }: Props) => {
     }
   }, [index]);
 
-  const toPrev = useCallback(() => {
+  const toPrev = () => {
     index === 0 ? setIndex(totalSlide - 1) : setIndex(index - 1);
-  }, [index, totalSlide]);
+  };
 
-  const toNext = useCallback(() => {
+  const toNext = () => {
     index === totalSlide - 1 ? setIndex(0) : setIndex(index + 1);
-  }, [index, totalSlide]);
+  };
 
-  const handleChangeIndex = useCallback(
-    (index: number) => () => {
-      setIndex(index);
-    },
-    []
-  );
+  const handleChangeIndex = (index: number) => () => {
+    setIndex(index);
+  };
 
   return {
     index,

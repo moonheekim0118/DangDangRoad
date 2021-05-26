@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useApiFetch, usePasswordCheck } from 'hooks';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
@@ -50,7 +50,7 @@ const SignUp = (): React.ReactElement => {
     }
   }, [result]);
 
-  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const {
       value: email,
@@ -101,7 +101,7 @@ const SignUp = (): React.ReactElement => {
     )
       return;
     dispatch({ type: REQUEST, params: [{ email, nickname, password }] });
-  }, []);
+  };
 
   return (
     <S.Form signUp={true} onSubmit={handleSubmit}>

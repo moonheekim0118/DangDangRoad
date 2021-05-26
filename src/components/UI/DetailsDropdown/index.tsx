@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import { useCloseDropdown } from 'hooks';
 import Link from 'next/link';
 import * as S from './style';
@@ -48,4 +48,4 @@ const DetailsDropdown = ({ theme, children, menuList }: Props) => {
   );
 };
 
-export default DetailsDropdown;
+export default memo(DetailsDropdown);

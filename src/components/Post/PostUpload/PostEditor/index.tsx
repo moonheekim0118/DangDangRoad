@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   WRITE_REVIEW_TITLE,
   RADIO_TITLE_PARKING_LOT,
@@ -61,30 +61,27 @@ const PostEditor = (props: Props): React.ReactElement => {
     </Button>
   );
 
-  const validatedSubmitHanlder = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (slideRef.current) {
-        if (!props.selectedPlace) {
-          slideRef.current.style.transform = `translateX(0)`;
-          slideRef.current.style.transition = 'all 0.5s ease-in-out';
-          notiDispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
-          return setIndex(0);
-        }
+  const validatedSubmitHanlder = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (slideRef.current) {
+      if (!props.selectedPlace) {
+        slideRef.current.style.transform = `translateX(0)`;
+        slideRef.current.style.transition = 'all 0.5s ease-in-out';
+        notiDispatch(Action.showError(NOT_SELECT_PLACE_ERROR));
+        return setIndex(0);
+      }
 
-        if (props.freeTextRef.current) {
-          const { value, error } = props.freeTextRef.current;
-          if (value.length <= 0 || error) {
-            slideRef.current.style.transform = `translateX(-100%)`;
-            slideRef.current.style.transition = 'all 0.5s ease-in-out';
-            notiDispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
-            return setIndex(1);
-          }
+      if (props.freeTextRef.current) {
+        const { value, error } = props.freeTextRef.current;
+        if (value.length <= 0 || error) {
+          slideRef.current.style.transform = `translateX(-100%)`;
+          slideRef.current.style.transition = 'all 0.5s ease-in-out';
+          notiDispatch(Action.showError(FREE_TEXT_LIMIT_ERROR));
+          return setIndex(1);
         }
       }
-      props.onSubmit(e);
-    },
-    [props.selectedPlace]
-  );
+    }
+    props.onSubmit(e);
+  };
 
   return (
     <>

@@ -46,7 +46,7 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   }, [result]);
 
   /** sumbit save */
-  const saveHandler = useCallback((e: React.MouseEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { value: nickname, error: nickNameError } = nicknameRef.current;
     const { value: imageUrl } = imageUrlRef.current;
@@ -64,10 +64,10 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
     };
     const data = { id: user.userId, updateContents };
     dispatch({ type: REQUEST, params: [data] });
-  }, []);
+  };
 
   return (
-    <Form onSubmit={saveHandler}>
+    <Form onSubmit={handleSubmit}>
       <div>
         <ProfilePicUpload initImageUrl={user.profilePic} ref={imageUrlRef} />
       </div>

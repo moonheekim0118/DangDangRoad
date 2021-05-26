@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 const useModal = (opend: boolean) => {
   const [showModal, setShowModal] = useState<boolean>(opend);
@@ -15,9 +15,9 @@ const useModal = (opend: boolean) => {
     }
   }, [showModal]);
 
-  const handleModal = useCallback(() => {
+  const handleModal = () => {
     setShowModal(!showModal);
-  }, [showModal]);
+  };
 
   return [showModal, handleModal] as const;
 };

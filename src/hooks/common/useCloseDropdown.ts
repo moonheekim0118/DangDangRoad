@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 
 const useCloseDropdown = () => {
   const detailRef = useRef<HTMLDetailsElement>(null);
@@ -16,9 +16,9 @@ const useCloseDropdown = () => {
     return () => document.removeEventListener('mousedown', overalyCloseHanlder);
   }, []);
 
-  const handleCloseDropdown = useCallback(() => {
+  const handleCloseDropdown = () => {
     detailRef.current && detailRef.current.removeAttribute('open');
-  }, []);
+  };
 
   return [detailRef, handleCloseDropdown] as const;
 };

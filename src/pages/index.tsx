@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import routes from 'common/constant/routes';
@@ -17,13 +17,13 @@ const Index = (): React.ReactElement => {
     ''
   );
 
-  const openExamplePost = useCallback(() => {
+  const openExamplePost = () => {
     setShowPostExample('show');
-  }, []);
+  };
 
-  const closeExamplePost = useCallback(() => {
+  const closeExamplePost = () => {
     setShowPostExample('hide');
-  }, []);
+  };
 
   const examplePostObserverTarget = useIntersectionObserver({
     fetcher: openExamplePost,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoginInfoState } from 'context/LoginInfo';
 import {
   checkBookMark,
@@ -83,20 +83,20 @@ const PostBookMark = ({ postId }: Props) => {
   }, [removeResult]);
 
   /** Toggle BookMark Button */
-  const bookMarkToggleHanlder = useCallback(() => {
+  const handleToggleButton = () => {
     if (!userId) Router.push(routes.LOGIN);
     if (isBookMarked) {
       return removeDispatch({ type: REQUEST, params: [userId, postId] });
     }
     return addDispatch({ type: REQUEST, params: [userId, postId] });
-  }, [postId, userId, isBookMarked]);
+  };
 
   return (
     <S.Container>
       <Button
         size="medium"
         width="100%"
-        onClick={bookMarkToggleHanlder}
+        onClick={handleToggleButton}
         css={S.buttonStyle}>
         <>
           <Icon

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { getReviewById } from 'api/review';
 import { FullReview } from 'types/Review';
@@ -24,20 +24,20 @@ const useSingleReview = () => {
     setDefault();
   }, [result]);
 
-  const fetchData = useCallback((postId: string) => {
+  const fetchData = (postId: string) => {
     if (CACHE.has(postId)) {
       return setSingleReview(CACHE.get(postId));
     }
     dispatch({ type: REQUEST, params: [postId] });
-  }, []);
+  };
 
-  const handleRemoveCache = useCallback((postId: string) => {
+  const handleRemoveCache = (postId: string) => {
     CACHE.delete(postId);
-  }, []);
+  };
 
-  const handleUpdateCache = useCallback((postId: string, data: FullReview) => {
+  const handleUpdateCache = (postId: string, data: FullReview) => {
     CACHE.set(postId, data, 1);
-  }, []);
+  };
 
   return {
     singleReview,

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import useInfiniteData, {
   INIT,
   ADD,
@@ -90,17 +90,17 @@ const useComments = (postId: string) => {
     }
   }, [getResult]);
 
-  const handleFetchComments = useCallback(() => {
+  const handleFetchComments = () => {
     hasMore && getDispatch({ type: REQUEST, params: [postId, lastKey] });
-  }, [lastKey, hasMore, postId]);
+  };
 
-  const handleAddComment = useCallback((newComment: Comment) => {
+  const handleAddComment = (newComment: Comment) => {
     dispatch({ type: ADD, data: { dataList: [newComment] } });
-  }, []);
+  };
 
-  const handleRemoveCache = useCallback((id: string) => {
+  const handleRemoveCache = (id: string) => {
     dispatch({ type: REMOVE, data: { id } });
-  }, []);
+  };
 
   return [
     comments,

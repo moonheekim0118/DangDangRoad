@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { createReview } from 'api/review';
 import { PlaceType } from 'types/Map';
@@ -49,45 +49,38 @@ const WritePost = ({ userId }: Props): React.ReactElement => {
     }
   }, [result]);
 
-  const handleSelectPlace = useCallback(
-    (place: PlaceType) => () => {
-      setSelectedPlace(place);
-    },
-    []
-  );
+  const handleSelectPlace = (place: PlaceType) => () => {
+    setSelectedPlace(place);
+  };
 
-  const handleSubmit = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      const { value: freeText } = freeTextRef.current;
-      const { value: hasParkingLot } = hasParkingLotRef.current;
-      const { value: hasOffLeash } = hasOffLeashRef.current;
-      const { value: recommendation } = recommendationRef.current;
-      const { value: imageUrl } = imageUrlRef.current;
-      if (selectedPlace) {
-        const data = {
-          userId,
-          hasParkingLot,
-          hasOffLeash,
-          recommendation,
-          freeText,
-          imageList: imageUrl,
-          placeInfo: {
-            address_name: selectedPlace.address_name,
-            place_name: selectedPlace.place_name,
-            x: selectedPlace.x,
-            y: selectedPlace.y,
-          },
-        };
-        dispatch({
-          type: REQUEST,
-          params: [data],
-        });
-      }
-    },
-    [selectedPlace]
-  );
-
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const { value: freeText } = freeTextRef.current;
+    const { value: hasParkingLot } = hasParkingLotRef.current;
+    const { value: hasOffLeash } = hasOffLeashRef.current;
+    const { value: recommendation } = recommendationRef.current;
+    const { value: imageUrl } = imageUrlRef.current;
+    if (selectedPlace) {
+      const data = {
+        userId,
+        hasParkingLot,
+        hasOffLeash,
+        recommendation,
+        freeText,
+        imageList: imageUrl,
+        placeInfo: {
+          address_name: selectedPlace.address_name,
+          place_name: selectedPlace.place_name,
+          x: selectedPlace.x,
+          y: selectedPlace.y,
+        },
+      };
+      dispatch({
+        type: REQUEST,
+        params: [data],
+      });
+    }
+  };
   return (
     <PostEditor
       onClickPlace={handleSelectPlace}

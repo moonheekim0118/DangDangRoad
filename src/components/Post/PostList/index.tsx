@@ -32,7 +32,7 @@ const PostList = ({
 }: Props): React.ReactElement => {
   const modalController = useSinglePostModal(reviewData);
 
-  const removeHandler = useCallback(
+  const handleRemove = useCallback(
     (id: string) => {
       modalController.closeModal();
       modalController.handleRemoveCache(id);
@@ -73,7 +73,7 @@ const PostList = ({
             ) : (
               <SinglePost
                 data={modalController.singleReview}
-                removeHandler={removeHandler}>
+                handleRemove={handleRemove}>
                 <ControllerBtn
                   hasPrev={modalController.index > 0}
                   hasNext={modalController.index < reviewData.length - 1}

@@ -35,13 +35,13 @@ interface Props {
   /** Navigation info */
   children?: React.ReactElement;
   /** remove Handler */
-  removeHandler: (id: string) => void;
+  handleRemove: (id: string) => void;
 }
 
 const SinglePost = ({
   data,
   children,
-  removeHandler,
+  handleRemove,
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
   const { userId } = useLoginInfoState();
@@ -51,7 +51,7 @@ const SinglePost = ({
   useEffect(() => {
     switch (result.type) {
       case SUCCESS:
-        removeHandler(data.docId);
+        handleRemove(data.docId);
         return;
       case FAILURE:
         notiDispatch(showError(result.error));

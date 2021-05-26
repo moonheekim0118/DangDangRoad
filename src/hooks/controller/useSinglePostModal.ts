@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useModal, useSingleReview } from 'hooks';
 import { LightReview } from 'types/Review';
 import Router from 'next/router';
@@ -22,35 +22,32 @@ const useSinglePostModal = (fullReviews: LightReview[]) => {
     setOriginPath(pathName);
   }, []);
 
-  const openModal = useCallback(
-    (id: string) => async () => {
-      window.history.replaceState(null, '', `${routes.POST}/${id}`);
-      const idx = fullReviews.findIndex((doc) => doc.docId === id);
-      setIndex(idx);
-      fetchSingleReview(id);
-      handleModal();
-    },
-    [fullReviews, showModal]
-  );
+  const openModal = (id: string) => async () => {
+    window.history.replaceState(null, '', `${routes.POST}/${id}`);
+    const idx = fullReviews.findIndex((doc) => doc.docId === id);
+    setIndex(idx);
+    fetchSingleReview(id);
+    handleModal();
+  };
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     window.history.replaceState(null, '', originPath);
     handleModal();
-  }, [originPath, showModal]);
+  };
 
-  const prevHandler = useCallback(() => {
+  const prevHandler = () => {
     const prevPostId = fullReviews[index - 1].docId;
     fetchSingleReview(prevPostId);
     setIndex(index - 1);
     window.history.replaceState(null, '', `${routes.POST}/${prevPostId}`);
-  }, [fullReviews, index]);
+  };
 
-  const nextHandler = useCallback(() => {
+  const nextHandler = () => {
     const nextPostId = fullReviews[index + 1].docId;
     fetchSingleReview(nextPostId);
     setIndex(index + 1);
     window.history.replaceState(null, '', `${routes.POST}/${nextPostId}`);
-  }, [fullReviews, index]);
+  };
 
   return {
     singleReview,

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { signOut } from 'api/sign';
 import { useLoginInfoDispatch } from 'context/LoginInfo';
@@ -19,9 +19,9 @@ const useSignOut = () => {
   }, [signOutResult]);
 
   // sign out handler
-  const handleSignOut = useCallback(() => {
+  const handleSignOut = () => {
     signOutFetch({ type: REQUEST });
-  }, []);
+  };
 
   return handleSignOut;
 };

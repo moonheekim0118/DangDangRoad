@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { APIResponse } from 'types/API';
 import errorMessage from 'util/errorMessage';
 
@@ -74,7 +74,7 @@ const useApiFetch = <T = null>(
     }
   }, [result, apiRequest]);
 
-  const setDefault = useCallback(() => dispatch({ type: '' }), []);
+  const setDefault = () => dispatch({ type: '' });
 
   return [result, dispatch, setDefault] as const;
 };

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 interface Props {
   /** initla value for input value */
@@ -11,26 +11,23 @@ const useValidation = ({ initialValue = '', validator }: Props = {}) => {
   const [value, setValue] = useState<string>(initialValue);
   const [error, setError] = useState<boolean>(false);
 
-  const handleChangeValue = useCallback(
-    (
-      e:
-        | React.ChangeEvent<HTMLInputElement>
-        | React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-      const target = (e.target as HTMLInputElement | HTMLTextAreaElement).value;
-      setValue(target);
-      if (validator) {
-        !validator(target) ? setError(true) : setError(false);
-      }
-    },
-    [value]
-  );
+  const handleChangeValue = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const target = (e.target as HTMLInputElement | HTMLTextAreaElement).value;
+    setValue(target);
+    if (validator) {
+      !validator(target) ? setError(true) : setError(false);
+    }
+  };
 
-  const checkValidation = useCallback(() => {
+  const checkValidation = () => {
     if (validator) {
       !validator(value) ? setError(true) : setError(false);
     }
-  }, [value]);
+  };
 
   return {
     value,

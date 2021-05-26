@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer } from 'react';
 
 export const INIT = 'INIT';
 export const ADD = 'ADD';
@@ -73,9 +73,9 @@ const useInfiniteData = <T = DefaultProps>() => {
   };
   const [result, dispatch] = useReducer<Reducer<T>>(reducer, initialState);
 
-  const setDefault = useCallback(() => {
+  const setDefault = () => {
     dispatch({ type: '' });
-  }, []);
+  };
 
   return { result, dispatch, setDefault };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { updateReview } from 'api/review';
 import { PlaceType } from 'types/Map';
@@ -73,53 +73,47 @@ const UpdatePost = ({
     }
   }, [result]);
 
-  const handleSelectPlace = useCallback(
-    (place: PlaceType) => () => {
-      setSelectedPlace(place);
-    },
-    []
-  );
+  const handleSelectPlace = (place: PlaceType) => () => {
+    setSelectedPlace(place);
+  };
 
-  const handleSubmit = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      const { value: freeText } = freeTextRef.current;
-      const { value: hasParkingLot } = hasParkingLotRef.current;
-      const { value: hasOffLeash } = hasOffLeashRef.current;
-      const { value: recommendation } = recommendationRef.current;
-      const { value: imageUrl } = imageUrlRef.current;
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const { value: freeText } = freeTextRef.current;
+    const { value: hasParkingLot } = hasParkingLotRef.current;
+    const { value: hasOffLeash } = hasOffLeashRef.current;
+    const { value: recommendation } = recommendationRef.current;
+    const { value: imageUrl } = imageUrlRef.current;
 
-      if (
-        freeText === initialData.freeText &&
-        hasParkingLot === initialData.hasParkingLot &&
-        hasOffLeash === initialData.hasOffLeash &&
-        recommendation === initialData.recommendation &&
-        imageUrl === initialData.imageList &&
-        selectedPlace === initialData.placeInfo
-      ) {
-        return notiDispatch(Action.showError(NO_UPDATE_ERROR));
-      }
-      const data = {
-        userId,
-        hasParkingLot,
-        hasOffLeash,
-        recommendation,
-        freeText,
-        imageList: imageUrl,
-        placeInfo: {
-          address_name: selectedPlace.address_name,
-          place_name: selectedPlace.place_name,
-          x: selectedPlace.x,
-          y: selectedPlace.y,
-        },
-      };
-      dispatch({
-        type: REQUEST,
-        params: [initialData?.docId, data],
-      });
-    },
-    [selectedPlace]
-  );
+    if (
+      freeText === initialData.freeText &&
+      hasParkingLot === initialData.hasParkingLot &&
+      hasOffLeash === initialData.hasOffLeash &&
+      recommendation === initialData.recommendation &&
+      imageUrl === initialData.imageList &&
+      selectedPlace === initialData.placeInfo
+    ) {
+      return notiDispatch(Action.showError(NO_UPDATE_ERROR));
+    }
+    const data = {
+      userId,
+      hasParkingLot,
+      hasOffLeash,
+      recommendation,
+      freeText,
+      imageList: imageUrl,
+      placeInfo: {
+        address_name: selectedPlace.address_name,
+        place_name: selectedPlace.place_name,
+        x: selectedPlace.x,
+        y: selectedPlace.y,
+      },
+    };
+    dispatch({
+      type: REQUEST,
+      params: [initialData?.docId, data],
+    });
+  };
 
   return (
     <PostEditor

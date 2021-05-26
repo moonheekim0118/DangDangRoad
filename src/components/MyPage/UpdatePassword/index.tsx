@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -42,7 +42,7 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
     }
   }, [result]);
 
-  const SubmitHanlder = useCallback((e: React.MouseEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     const {
       value: password,
@@ -71,10 +71,10 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
       type: REQUEST,
       params: [{ id: userId, password }],
     });
-  }, []);
+  };
 
   return (
-    <Form onSubmit={SubmitHanlder}>
+    <Form onSubmit={handleSubmit}>
       <Input
         type="password"
         id={inputId['NEWPASSWORD']}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -35,7 +35,7 @@ const Login = (): React.ReactElement => {
     }
   }, [result]);
 
-  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -43,7 +43,7 @@ const Login = (): React.ReactElement => {
       return notiDispatch(showError(NOT_FULL_INFO_ERROR));
     }
     dispatch({ type: REQUEST, params: [{ email, password }] });
-  }, []);
+  };
 
   return (
     <S.Form onSubmit={handleSubmit}>

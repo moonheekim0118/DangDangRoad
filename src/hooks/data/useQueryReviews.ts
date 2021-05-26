@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import useInfiniteData, {
   INIT,
   UPDATE,
@@ -107,7 +107,7 @@ const useQueryReviews = () => {
     }
   }, [getMoreResult]);
 
-  const handleFetchReview = useCallback(() => {
+  const handleFetchReview = () => {
     const fetchStatus = getResult.type;
     if (
       hasMore &&
@@ -117,11 +117,11 @@ const useQueryReviews = () => {
     ) {
       getMoreDispatch({ type: REQUEST, params: [query] });
     }
-  }, [hasMore, query, getResult]);
+  };
 
-  const handleRemoveCache = useCallback((id: string) => {
+  const handleRemoveCache = (id: string) => {
     dispatch({ type: REMOVE, data: { id } });
-  }, []);
+  };
 
   return [
     reviews,

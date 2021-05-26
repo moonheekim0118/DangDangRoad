@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
 const useToggle = (initialValue: boolean | undefined = false) => {
   const [status, setStatus] = useState<boolean>(initialValue);
@@ -7,9 +7,9 @@ const useToggle = (initialValue: boolean | undefined = false) => {
     setStatus(initialValue);
   }, []);
 
-  const handleToggle = useCallback(() => {
+  const handleToggle = () => {
     setStatus(!status);
-  }, [status]);
+  };
 
   return [status, handleToggle, setStatus] as const;
 };

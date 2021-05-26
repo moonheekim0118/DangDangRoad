@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { getReviewsFirst, getReviews } from 'api/review';
 import useInfiniteData, {
   INIT,
@@ -159,16 +159,16 @@ const useAllReviews = () => {
     }
   }, [getMoreResult]);
 
-  const handleFetchReview = useCallback(() => {
+  const handleFetchReview = () => {
     const fetchStatus = getResult.type;
     if (hasMore && fetchStatus !== REQUEST && fetchStatus !== SUCCESS) {
       getMoreDispatch({ type: REQUEST, params: [lastKey] });
     }
-  }, [hasMore, lastKey, getResult]);
+  };
 
-  const handleRemoveCache = useCallback((id: string) => {
+  const handleRemoveCache = (id: string) => {
     dispatch({ type: REMOVE, data: { id } });
-  }, []);
+  };
 
   return [
     reviews,
