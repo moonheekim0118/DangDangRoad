@@ -1,4 +1,4 @@
-import React, { useCallback, memo } from 'react';
+import React from 'react';
 import { useCloseDropdown } from 'hooks';
 import Link from 'next/link';
 import * as S from './style';
@@ -18,13 +18,12 @@ interface Props {
 const DetailsDropdown = ({ theme, children, menuList }: Props) => {
   const [detailRef, handleCloseDropdown] = useCloseDropdown();
 
-  const clickHanlder = useCallback(
-    (onClick?: (e: React.MouseEvent) => void) => (e: React.MouseEvent) => {
-      onClick && onClick(e);
-      handleCloseDropdown();
-    },
-    []
-  );
+  const clickHanlder = (onClick?: (e: React.MouseEvent) => void) => (
+    e: React.MouseEvent
+  ) => {
+    onClick && onClick(e);
+    handleCloseDropdown();
+  };
 
   return (
     <details css={S.detailThemes[theme]} ref={detailRef}>
@@ -48,4 +47,4 @@ const DetailsDropdown = ({ theme, children, menuList }: Props) => {
   );
 };
 
-export default memo(DetailsDropdown);
+export default DetailsDropdown;

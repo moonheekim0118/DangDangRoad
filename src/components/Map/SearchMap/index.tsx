@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { SearchBar } from 'components/UI';
 import { useElement } from 'hooks';
 import { InputRef, inputDefaultRef } from 'types/Ref';
@@ -50,96 +50,80 @@ const SearchMap = ({
     }
   }, [container]);
 
-  const displayInfoWindow = useCallback(
-    (marker, title) => {
-      if (infoWindow) {
-        let content =
-          '<div style="padding:5px;z-index:5000">' + title + '</div>';
-        infoWindow.setContent(content);
-        infoWindow.open(map, marker);
-      }
-    },
-    [map, infoWindow, initialCoordX, initialCoordY]
-  );
+  const displayInfoWindow = (marker, title) => {
+    if (infoWindow) {
+      let content = '<div style="padding:5px;z-index:5000">' + title + '</div>';
+      infoWindow.setContent(content);
+      infoWindow.open(map, marker);
+    }
+  };
 
-  const addMarkers = useCallback(
-    (position, idx) => {
-      if (map) {
-        let imageSrc = MARKER_URL,
-          imageSize = new window.kakao.maps.Size(36, 37),
-          imgOptions = {
-            spriteSize: new window.kakao.maps.Size(36, 691),
-            spriteOrigin: new window.kakao.maps.Point(0, idx * 46 + 10),
-            offset: new window.kakao.maps.Point(13, 37),
-          },
-          markerImage = new window.kakao.maps.MarkerImage(
-            imageSrc,
-            imageSize,
-            imgOptions
-          ),
-          marker = new window.kakao.maps.Marker({
-            position: position,
-            image: markerImage,
+  const addMarkers = (position, idx) => {
+    if (map) {
+      let imageSrc = MARKER_URL,
+        imageSize = new window.kakao.maps.Size(36, 37),
+        imgOptions = {
+          spriteSize: new window.kakao.maps.Size(36, 691),
+          spriteOrigin: new window.kakao.maps.Point(0, idx * 46 + 10),
+          offset: new window.kakao.maps.Point(13, 37),
+        },
+        markerImage = new window.kakao.maps.MarkerImage(
+          imageSrc,
+          imageSize,
+          imgOptions
+        ),
+        marker = new window.kakao.maps.Marker({
+          position: position,
+          image: markerImage,
+        });
+      marker.setMap(map);
+      markers.push(marker);
+      return marker;
+    }
+  };
+
+  const drawMap = (data) => {
+    if (map) {
+      let placePosition = null;
+      let bounds = new window.kakao.maps.LatLngBounds();
+      for (let i = 0; i < data.length; i++) {
+        placePosition = new window.kakao.maps.LatLng(data[i].y, data[i].x);
+        let marker = addMarkers(placePosition, i);
+        bounds.extend(placePosition);
+
+        (function (marker, title) {
+          window.kakao.maps.event.addListener(marker, 'mouseover', () => {
+            displayInfoWindow(marker, title);
           });
-        marker.setMap(map);
-        markers.push(marker);
-        return marker;
+          window.kakao.maps.event.addListener(marker, 'mouseout', () => {
+            infoWindow.close();
+          });
+        })(marker, data[i].place_name);
       }
-    },
-    [container, map]
-  );
+      map.setBounds(bounds);
+      setMap(map);
+    }
+  };
 
-  const drawMap = useCallback(
-    (data) => {
-      if (map) {
-        let placePosition = null;
-        let bounds = new window.kakao.maps.LatLngBounds();
-        for (let i = 0; i < data.length; i++) {
-          placePosition = new window.kakao.maps.LatLng(data[i].y, data[i].x);
-          let marker = addMarkers(placePosition, i);
-          bounds.extend(placePosition);
+  const placeSearchCB = (data, _, pagination) => {
+    if (data.length === 0) {
+      return alert(NO_SEARCH_RESULT_ERROR);
+    }
+    setPlacesData(data); // update Data States
+    setPagination(pagination); // update Pagination State
+    drawMap(data);
+  };
 
-          (function (marker, title) {
-            window.kakao.maps.event.addListener(marker, 'mouseover', () => {
-              displayInfoWindow(marker, title);
-            });
-            window.kakao.maps.event.addListener(marker, 'mouseout', () => {
-              infoWindow.close();
-            });
-          })(marker, data[i].place_name);
-        }
-        map.setBounds(bounds);
-        setMap(map);
-      }
-    },
-    [container, map, infoWindow]
-  );
-
-  const placeSearchCB = useCallback(
-    (data, _, pagination) => {
-      if (data.length === 0) {
-        return alert(NO_SEARCH_RESULT_ERROR);
-      }
-      setPlacesData(data); // update Data States
-      setPagination(pagination); // update Pagination State
-      drawMap(data);
-    },
-    [map, infoWindow]
-  );
-
-  const searchHadler = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const keyword = keywordRef.current.value;
-      if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        return alert(NO_KEYWORD_ERROR);
-      }
-      if (ps) {
-        ps.keywordSearch(keyword, placeSearchCB);
-      }
-    },
-    [keywordRef, ps]
-  );
+  const searchHadler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const keyword = keywordRef.current.value;
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+      return alert(NO_KEYWORD_ERROR);
+    }
+    if (ps) {
+      ps.keywordSearch(keyword, placeSearchCB);
+    }
+  };
 
   const pageClickHandler = (index: number) => () => {
     if (pagination) {

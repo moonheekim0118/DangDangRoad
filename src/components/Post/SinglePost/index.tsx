@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { PostBookMark } from 'components/Post';
 import { CommentSection } from 'components/Comment';
 import { FullReview } from 'types/Review';
@@ -59,9 +59,9 @@ const SinglePost = ({
     }
   }, [result]);
 
-  const fetchRemoveHanlder = useCallback(() => {
+  const fetchRemoveHanlder = () => {
     dispatch({ type: REQUEST, params: [data.docId] });
-  }, [data.docId]);
+  };
 
   return (
     <>

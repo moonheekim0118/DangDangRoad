@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { PreviewPost } from 'components/Post';
 import { LightReview } from 'types/Review';
 import { DEFAULT_KEYWORD } from 'common/constant/string';
@@ -32,14 +32,11 @@ const PostList = ({
 }: Props): React.ReactElement => {
   const modalController = useSinglePostModal(reviewData);
 
-  const handleRemove = useCallback(
-    (id: string) => {
-      modalController.closeModal();
-      modalController.handleRemoveCache(id);
-      handleRemoveCache(id);
-    },
-    [modalController.showModal, reviewData]
-  );
+  const handleRemove = (id: string) => {
+    modalController.closeModal();
+    modalController.handleRemoveCache(id);
+    handleRemoveCache(id);
+  };
 
   return (
     <>

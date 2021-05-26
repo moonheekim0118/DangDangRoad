@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import useApiFetch, {
   REQUEST,
   SUCCESS,
@@ -58,12 +58,9 @@ const CommentList = ({
     }
   }, [result, comments]);
 
-  const handleRemoveComment = useCallback(
-    (id: string) => () => {
-      dispatch({ type: REQUEST, params: [id] });
-    },
-    []
-  );
+  const handleRemoveComment = (id: string) => () => {
+    dispatch({ type: REQUEST, params: [id] });
+  };
 
   return (
     <S.Container>

@@ -69,4 +69,4 @@ const SearchBar = (
   );
 };
 
-export default forwardRef(SearchBar);
+export default memo(forwardRef(SearchBar));
