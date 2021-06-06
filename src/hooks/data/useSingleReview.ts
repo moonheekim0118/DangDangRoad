@@ -13,7 +13,6 @@ const CACHE = new cacheProto<FullReview>();
 
 const useSingleReview = () => {
   const [result, dispatch, setDefault] = useApiFetch<FullReview>(getReviewById);
-
   const [singleReview, setSingleReview] = useState<FullReview | null>(null);
 
   useEffect(() => {
