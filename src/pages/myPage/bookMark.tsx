@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loading } from 'components/UI';
 import { useUser } from 'hooks';
 import { useRouter } from 'next/router';

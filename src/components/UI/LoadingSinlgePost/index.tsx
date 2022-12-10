@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loading } from 'components/UI';
 import ContentLoader from 'react-content-loader';
 import * as S from './style';

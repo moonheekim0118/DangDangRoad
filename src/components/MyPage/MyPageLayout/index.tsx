@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { destroyAccount } from 'api/user';
 import { PageMenu, UserCard } from 'components/MyPage';
 import { Title, Button, Loading } from 'components/UI';

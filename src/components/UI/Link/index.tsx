@@ -1,4 +1,3 @@
-import React from 'react';
 import { SerializedStyles } from '@emotion/react';
 import Link from 'next/link';
 import * as S from './style';

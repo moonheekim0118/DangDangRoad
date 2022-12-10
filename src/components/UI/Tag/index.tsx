@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { sizes } from 'components/UI/Button/style';
 import * as S from './style';
 

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { SerializedStyles } from '@emotion/react';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import * as S from './style';

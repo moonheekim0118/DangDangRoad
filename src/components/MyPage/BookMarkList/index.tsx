@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import BookMark from 'types/BookMark';
 import useApiFetch, { REQUEST, SUCCESS } from 'hooks/common/useApiFetch';
 import { getBookMarkedReviews, removeBookMarkReview } from 'api/bookmark';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Head from 'next/head';
 import { useUser, useQueryReviews, useIntersectionObserver } from 'hooks';
 import { REQUEST } from 'hooks/common/useApiFetch';

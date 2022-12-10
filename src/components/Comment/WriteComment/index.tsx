@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
 import { COMMENT_PLACEHOLDER } from 'common/constant/string';
 import { checkCommentLength } from 'util/reviewTextValidations';

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import useApiFetch, {
   REQUEST,

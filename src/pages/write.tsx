@@ -1,4 +1,3 @@
-import React from 'react';
 import { useUser, useWarnUnsavedChange } from 'hooks';
 import { Loading } from 'components/UI';
 import Head from 'next/head';

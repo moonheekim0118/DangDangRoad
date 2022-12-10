@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   FOOTER_CONTENTS,
   FOOTER_DESC,

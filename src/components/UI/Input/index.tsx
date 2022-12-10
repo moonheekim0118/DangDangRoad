@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
+import { useRef, forwardRef, useImperativeHandle } from 'react';
 import { useValidation } from 'hooks';
 import { inputId, inputContents } from 'common/constant/input';
 import { InputRef } from 'types/Ref';

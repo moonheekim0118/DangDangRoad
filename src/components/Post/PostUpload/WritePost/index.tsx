@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { createReview } from 'api/review';
 import { PlaceType } from 'types/Map';

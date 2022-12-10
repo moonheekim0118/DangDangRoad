@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Button, Input } from 'components/UI';
 import { inputId } from 'common/constant/input';
 import { User, UserInfo, MutateType } from 'types/User';

@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { Icon, Avatar } from 'components/UI';
 import { useHandleImage } from 'hooks';
 import { ImageUploader } from 'components/Image';

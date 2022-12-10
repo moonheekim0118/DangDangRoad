@@ -1,4 +1,3 @@
-import React from 'react';
 import { REQUEST } from 'hooks/common/useApiFetch';
 import { useUser, useAllReviews, useIntersectionObserver } from 'hooks';
 import { Loading } from 'components/UI';

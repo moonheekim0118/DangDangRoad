@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { useValidation } from 'hooks';
 import { checkFreeTextLength } from 'util/reviewTextValidations';
 import { InputRef } from 'types/Ref';

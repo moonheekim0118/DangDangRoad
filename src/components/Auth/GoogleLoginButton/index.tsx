@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import googleLogo from './logo';
 import useApiFetch, {
   REQUEST,

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Icon } from 'components/UI';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as S from './style';

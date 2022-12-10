@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { SHOW_TERMS_CAPTION } from 'common/constant/string';
 import { Button, CloseBtn } from 'components/UI';
 import { RefType } from 'types/Ref';

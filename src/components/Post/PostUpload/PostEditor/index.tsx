@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   WRITE_REVIEW_TITLE,
   RADIO_TITLE_PARKING_LOT,

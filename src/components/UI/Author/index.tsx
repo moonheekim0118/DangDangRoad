@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar } from 'components/UI';
 import { User } from 'types/User';
 import formatDate from 'util/formatDate';
