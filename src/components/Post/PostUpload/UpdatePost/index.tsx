@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { updateReview } from 'api/review';
 import { PlaceType } from 'types/Map';
@@ -7,11 +7,7 @@ import { WriteReviewParams } from 'types/API';
 import { FullReview } from 'types/Review';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
 import { PostEditor } from 'components/Post/PostUpload';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import routes from 'common/constant/routes';
 import Router from 'next/router';
 import * as Action from 'action';
@@ -46,32 +42,29 @@ const UpdatePost = ({
   );
 
   const [result, dispatch, setDefault] = useApiFetch<WriteReviewParams>(
-    updateReview
+    updateReview,
+    {
+      onSuccess: (response) => {
+        notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
+        if (response.data) {
+          const updatedData = {
+            ...initialData,
+            ...response.data,
+          };
+          updateCache(initialData.docId, updatedData);
+        }
+        Router.push(routes.SEARCH);
+      },
+      onFailure: (response) => {
+        notiDispatch(Action.showError(response.error));
+        setDefault();
+      },
+    }
   );
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType>(
     initialData.placeInfo
   );
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
-        if (result.data) {
-          const updatedData = {
-            ...initialData,
-            ...result.data,
-          };
-          updateCache(initialData.docId, updatedData);
-        }
-        Router.push(routes.SEARCH);
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(result.error));
-        setDefault();
-        return;
-    }
-  }, [result]);
 
   const handleSelectPlace = (place: PlaceType) => () => {
     setSelectedPlace(place);

@@ -1,10 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import { Loading } from 'components/UI';
 import { uploadImage } from 'api/storage';
 import { showError } from 'action';
@@ -32,23 +28,18 @@ const ImageUploader = ({
   type,
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [result, dispatch] = useApiFetch<string[]>(uploadImage);
+  const [result, dispatch] = useApiFetch<string[]>(uploadImage, {
+    onSuccess: (response) => {
+      if (!response.data) return;
+      imageUrl.length + response.data.length <= imageLimit
+        ? onChangeUrl(imageUrl.concat(response.data))
+        : onChangeUrl(response.data);
+    },
+    onFailure: (response) => {
+      notiDispatch(showError(response.error));
+    },
+  });
   const imageInput = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        if (result.data) {
-          imageUrl.length + result.data.length <= imageLimit
-            ? onChangeUrl(imageUrl.concat(result.data))
-            : onChangeUrl(result.data);
-        }
-        return;
-      case FAILURE:
-        notiDispatch(showError(result.error));
-        return;
-    }
-  }, [result]);
 
   const handleClick = () => {
     if (imageInput.current) {

@@ -6,11 +6,7 @@ import useInfiniteData, {
   UPDATE,
   REMOVE,
 } from 'hooks/data/useInfiniteData';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import { REVIEW_DATA_LIMIT } from 'common/constant/number';
 import { useNotificationDispatch } from 'context/Notification';
 import { useRouter } from 'next/router';
@@ -34,20 +30,79 @@ const useAllReviews = () => {
   const notiDispatch = useNotificationDispatch();
 
   const [getResult, getDispatch, getSetDefault] = useApiFetch<T.ReviewResult>(
-    getReviews
+    getReviews,
+    {
+      onSuccess: (response) => {
+        getSetDefault();
+        if (!response.data) return;
+        const lastKey = response.data.lastKey;
+        const newReviews = response.data.reviews;
+        const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+        dispatch({
+          type: UPDATE,
+          data: {
+            dataList: newReviews,
+            lastKey,
+            hasMore,
+          },
+        });
+      },
+      onFailure: (response) => {
+        notiDispatch(Action.showError(response.error));
+        getSetDefault();
+      },
+    }
   );
 
   const [
     getMoreResult,
     getMoreDispatch,
     getMoreSetDefault,
-  ] = useApiFetch<T.ReviewResult>(getReviews);
+  ] = useApiFetch<T.ReviewResult>(getReviews, {
+    onSuccess: (response) => {
+      getMoreSetDefault();
+      if (!response.data) return;
+      const lastKey = response.data.lastKey;
+      const newReviews = response.data.reviews;
+      const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
+      dispatch({
+        type: UPDATE,
+        data: {
+          dataList: newReviews,
+          lastKey,
+          hasMore,
+        },
+      });
+    },
+    onFailure: (response) => {
+      notiDispatch(Action.showError(response.error));
+      getMoreSetDefault();
+    },
+  });
 
   const [
     getRecentResult,
     getRecentDispatch,
     getRecentSetDefault,
-  ] = useApiFetch<T.ReviewResult>(getReviewsFirst);
+  ] = useApiFetch<T.ReviewResult>(getReviewsFirst, {
+    onSuccess: (response) => {
+      getRecentSetDefault();
+      if (!response.data?.reviews) return;
+      const newReviews = response.data.reviews;
+      newReviews.length > 0 &&
+        dispatch({
+          type: ADD,
+          data: {
+            dataList: newReviews,
+          },
+        });
+    },
+    onFailure: (response) => {
+      notiDispatch(Action.showError(response.error));
+      getRecentSetDefault();
+      return;
+    },
+  });
 
   const router = useRouter();
   const pathName = router.asPath;
@@ -90,78 +145,9 @@ const useAllReviews = () => {
     }
   }, [result]);
 
-  useEffect(() => {
-    switch (getRecentResult.type) {
-      case SUCCESS:
-        getRecentSetDefault();
-        if (!getRecentResult.data?.reviews) return;
-        const newReviews = getRecentResult.data.reviews;
-        newReviews.length > 0 &&
-          dispatch({
-            type: ADD,
-            data: {
-              dataList: newReviews,
-            },
-          });
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(getRecentResult.error));
-        getRecentSetDefault();
-        return;
-    }
-  }, [getRecentResult]);
-
-  useEffect(() => {
-    switch (getResult.type) {
-      case SUCCESS:
-        getSetDefault();
-        if (!getResult.data) return;
-        const lastKey = getResult.data.lastKey;
-        const newReviews = getResult.data.reviews;
-        const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
-        dispatch({
-          type: UPDATE,
-          data: {
-            dataList: newReviews,
-            lastKey,
-            hasMore,
-          },
-        });
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(getResult.error));
-        getSetDefault();
-        return;
-    }
-  }, [getResult]);
-
-  useEffect(() => {
-    switch (getMoreResult.type) {
-      case SUCCESS:
-        getMoreSetDefault();
-        if (!getMoreResult.data) return;
-        const lastKey = getMoreResult.data.lastKey;
-        const newReviews = getMoreResult.data.reviews;
-        const hasMore = newReviews.length === REVIEW_DATA_LIMIT;
-        dispatch({
-          type: UPDATE,
-          data: {
-            dataList: newReviews,
-            lastKey,
-            hasMore,
-          },
-        });
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(getMoreResult.error));
-        getMoreSetDefault();
-        return;
-    }
-  }, [getMoreResult]);
-
   const handleFetchReview = () => {
     const fetchStatus = getResult.type;
-    if (hasMore && fetchStatus !== REQUEST && fetchStatus !== SUCCESS) {
+    if (hasMore && fetchStatus !== REQUEST) {
       getMoreDispatch({ type: REQUEST, params: [lastKey] });
     }
   };

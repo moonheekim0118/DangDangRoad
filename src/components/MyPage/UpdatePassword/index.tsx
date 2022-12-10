@@ -1,9 +1,4 @@
-import { useEffect } from 'react';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import { Input, Button } from 'components/UI';
 import { usePasswordCheck } from 'hooks';
 import { useNotificationDispatch } from 'context/Notification';
@@ -27,20 +22,16 @@ const UpdatePassword = ({ userId }: Props): React.ReactElement => {
     passwordCheckRef,
     passwordCheckValidator,
   ] = usePasswordCheck();
-  const [result, dispatch, setDefault] = useApiFetch(updatePassword);
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
-        setDefault();
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(result.error));
-        setDefault();
-        return;
-    }
-  }, [result]);
+  const [result, dispatch, setDefault] = useApiFetch(updatePassword, {
+    onSuccess: () => {
+      notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
+      setDefault();
+    },
+    onFailure: (response) => {
+      notiDispatch(Action.showError(response.error));
+      setDefault();
+    },
+  });
 
   const handleSubmit = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();

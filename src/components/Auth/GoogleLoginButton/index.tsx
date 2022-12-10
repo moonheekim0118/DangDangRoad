@@ -1,10 +1,5 @@
-import { useEffect } from 'react';
 import googleLogo from './logo';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { GOOGLE_LOGIN_CAPTION } from 'common/constant/string';
 import { googleSignIn } from 'api/sign';
@@ -15,18 +10,14 @@ import * as S from './style';
 
 const GoogleLoginButton = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [result, dispatch] = useApiFetch(googleSignIn);
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        Router.push(routes.HOME);
-        return;
-      case FAILURE:
-        result.error && notiDispatch(showError(result.error));
-        return;
-    }
-  }, [result]);
+  const [result, dispatch] = useApiFetch(googleSignIn, {
+    onSuccess: () => {
+      Router.push(routes.HOME);
+    },
+    onFailure: (response) => {
+      notiDispatch(showError(response.error));
+    },
+  });
 
   return (
     <S.Container type="button" onClick={() => dispatch({ type: REQUEST })}>

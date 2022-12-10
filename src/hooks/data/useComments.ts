@@ -5,11 +5,7 @@ import useInfiniteData, {
   UPDATE,
   REMOVE,
 } from 'hooks/data/useInfiniteData';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import { CommentResult } from 'types/API';
 import { getComments } from 'api/comment';
 import { COMMENT_DATA_LIMIT } from 'common/constant/number';
@@ -28,7 +24,27 @@ const CACHE = new cacheProto<DataType>();
 const useComments = (postId: string) => {
   const notiDispatch = useNotificationDispatch();
   const [getResult, getDispatch, getSetDefault] = useApiFetch<CommentResult>(
-    getComments
+    getComments,
+    {
+      onSuccess: (response) => {
+        getSetDefault();
+        if (!response.data) return;
+        const { lastKey: newLastKey, comments: newComments } = response.data;
+        const newHasMore = newComments.length === COMMENT_DATA_LIMIT;
+        dispatch({
+          type: UPDATE,
+          data: {
+            dataList: newComments,
+            lastKey: newLastKey,
+            hasMore: newHasMore,
+          },
+        });
+      },
+      onFailure: (response) => {
+        notiDispatch(Action.showError(response.error));
+        getSetDefault();
+      },
+    }
   );
   const { result, dispatch, setDefault } = useInfiniteData<Comment>();
   const { type, dataList: comments, hasMore, lastKey } = result;
@@ -66,29 +82,6 @@ const useComments = (postId: string) => {
       setDefault();
     }
   }, [result, postId]);
-
-  useEffect(() => {
-    switch (getResult.type) {
-      case SUCCESS:
-        getSetDefault();
-        if (!getResult.data) return;
-        const { lastKey: newLastKey, comments: newComments } = getResult.data;
-        const newHasMore = newComments.length === COMMENT_DATA_LIMIT;
-        dispatch({
-          type: UPDATE,
-          data: {
-            dataList: newComments,
-            lastKey: newLastKey,
-            hasMore: newHasMore,
-          },
-        });
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(getResult.error));
-        getSetDefault();
-        return;
-    }
-  }, [getResult]);
 
   const handleFetchComments = () => {
     hasMore && getDispatch({ type: REQUEST, params: [postId, lastKey] });

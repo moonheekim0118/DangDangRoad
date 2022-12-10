@@ -46,19 +46,18 @@ const BookMarkList = ({ userId, pageNum }: Props) => {
   const totalPages = Math.ceil(totalLength / BOOKMARK_DATA_LIMIT);
 
   useEffect(() => {
-    if (userId) {
-      if (CACHED_USER === userId && CACHE.has(userId)) {
-        const cachedData = CACHE.get(userId);
-        if (cachedData) {
-          setReviewList(parseList(cachedData, pageNum));
-          setTotalLength(cachedData.length);
-        }
-      } else {
-        CACHED_USER = userId;
-        CACHE.clear();
-        getDispatch({ type: REQUEST, params: [userId] });
-      }
+    if (!userId) return;
+
+    if (CACHED_USER === userId && CACHE.has(userId)) {
+      const cachedData = CACHE.get(userId);
+      if (!cachedData) return;
+      setReviewList(parseList(cachedData, pageNum));
+      setTotalLength(cachedData.length);
+      return;
     }
+    CACHED_USER = userId;
+    CACHE.clear();
+    getDispatch({ type: REQUEST, params: [userId] });
   }, [userId, pageNum]);
 
   useEffect(() => {

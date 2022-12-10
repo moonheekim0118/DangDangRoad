@@ -42,11 +42,11 @@ const PostBookMark = ({ postId }: Props) => {
 
   useEffect(() => {
     if (!userId) return;
+    if (CACHED_USER === userId && CACHE.has(postId)) {
+      setIsBookMarked(CACHE.get(postId) || false);
+      return;
+    }
     if (CACHED_USER === userId) {
-      if (CACHE.has(postId)) {
-        return setIsBookMarked(CACHE.get(postId) || false);
-      }
-    } else {
       CACHED_USER = userId;
       CACHE.clear();
     }
@@ -59,7 +59,6 @@ const PostBookMark = ({ postId }: Props) => {
     setIsBookMarked(data.isBookMarked);
     CACHE.set(data.postId, data.isBookMarked, 1);
     checkSetDefault();
-    return;
   }, [checkResult]);
 
   /** handling add bookmark api fetch result */
@@ -69,7 +68,6 @@ const PostBookMark = ({ postId }: Props) => {
     setIsBookMarked(true);
     CACHE.set(postId, true, 1);
     addSetDefault();
-    return;
   }, [addResult]);
 
   /** handling remove bookmark api fetch result  */
@@ -79,16 +77,16 @@ const PostBookMark = ({ postId }: Props) => {
     setIsBookMarked(false);
     CACHE.delete(postId);
     removeSetDefault();
-    return;
   }, [removeResult]);
 
   /** Toggle BookMark Button */
   const handleToggleButton = () => {
     if (!userId) Router.push(routes.LOGIN);
     if (isBookMarked) {
-      return removeDispatch({ type: REQUEST, params: [userId, postId] });
+      removeDispatch({ type: REQUEST, params: [userId, postId] });
+      return;
     }
-    return addDispatch({ type: REQUEST, params: [userId, postId] });
+    addDispatch({ type: REQUEST, params: [userId, postId] });
   };
 
   return (

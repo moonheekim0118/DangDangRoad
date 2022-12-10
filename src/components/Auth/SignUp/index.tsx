@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useApiFetch, usePasswordCheck } from 'hooks';
-import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
+import { REQUEST } from 'hooks/common/useApiFetch';
 import { useNotificationDispatch } from 'context/Notification';
 import { showError } from 'action';
 import { signUp } from 'api/sign';
@@ -28,7 +28,14 @@ import {
 
 const SignUp = (): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [result, dispatch] = useApiFetch(signUp);
+  const [result, dispatch] = useApiFetch(signUp, {
+    onSuccess: () => {
+      Router.push(routes.SIGNUP_PROCESS);
+    },
+    onFailure: (response) => {
+      notiDispatch(showError(response.error));
+    },
+  });
   const emailRef = useRef<InputRef>(inputDefaultRef());
   const nicknameRef = useRef<InputRef>(inputDefaultRef());
   const [
@@ -38,17 +45,6 @@ const SignUp = (): React.ReactElement => {
   ] = usePasswordCheck();
   const serviceTermCheckRef = useRef<RefType<boolean>>(defaultRef(false));
   const privacyTermCheckRef = useRef<RefType<boolean>>(defaultRef(false));
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        Router.push(routes.SIGNUP_PROCESS);
-        break;
-      case FAILURE:
-        notiDispatch(showError(result.error));
-        break;
-    }
-  }, [result]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

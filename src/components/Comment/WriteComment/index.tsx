@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { REQUEST, SUCCESS, FAILURE } from 'hooks/common/useApiFetch';
+import { REQUEST } from 'hooks/common/useApiFetch';
 import { COMMENT_PLACEHOLDER } from 'common/constant/string';
 import { checkCommentLength } from 'util/reviewTextValidations';
 import { useValidation, useApiFetch } from 'hooks';
@@ -29,21 +28,15 @@ const WriteComment = ({
     validator: checkCommentLength,
   });
 
-  const [result, dispatch] = useApiFetch<Comment>(createComment);
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        const newComment = result.data;
-        if (newComment) {
-          handleAddComment(newComment);
-        }
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(result.error));
-        return;
-    }
-  }, [result]);
+  const [result, dispatch] = useApiFetch<Comment>(createComment, {
+    onSuccess: (response) => {
+      const newComment = response.data;
+      newComment && handleAddComment(newComment);
+    },
+    onFailure: (response) => {
+      notiDispatch(Action.showError(response.error));
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
