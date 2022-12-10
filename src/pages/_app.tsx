@@ -1,4 +1,3 @@
-import React from 'react';
 import Head from 'next/head';
 import GlobalStyle from 'common/style/globalStyle';
 import fetcher from 'libs/fetcher';

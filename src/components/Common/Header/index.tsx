@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { PlaceSearch } from 'components/Common';
 import { Icon, Logo } from 'components/UI';
 import { useSignOut } from 'hooks';

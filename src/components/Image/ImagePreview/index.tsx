@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ImageUploader } from 'components/Image';
 import { useModal } from 'hooks';
 import { Icon } from 'components/UI';

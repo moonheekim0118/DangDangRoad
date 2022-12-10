@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { useHandleImage } from 'hooks';
 import { ImageUploader, ImagePreview } from 'components/Image';
 import { IMAGE_UPLOAD_LABEL, IMAGE_UPLOAD_DESC } from 'common/constant/string';

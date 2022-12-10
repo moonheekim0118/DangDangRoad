@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { useInput } from 'hooks';
 import { InputRef } from 'types/Ref';
 import * as S from './style';

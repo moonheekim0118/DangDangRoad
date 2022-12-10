@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Button, Input } from 'components/UI';
 import { inputId } from 'common/constant/input';
 import { User, UserInfo, MutateType } from 'types/User';
@@ -6,11 +6,7 @@ import { SAVE_CAPTION, UPDATE_MESSAGE } from 'common/constant/string';
 import { nicknameValidatorForUpdate } from 'util/validations';
 import { useNotificationDispatch } from 'context/Notification';
 import { RefType, defaultRef, InputRef, inputDefaultRef } from 'types/Ref';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import { ProfilePicUpload } from 'components/MyPage';
 import { updateProfile } from 'api/user';
 import Form from '../style';
@@ -29,21 +25,17 @@ const UpdateProfile = ({ user, mutate }: Props): React.ReactElement => {
   const imageUrlRef = useRef<RefType<string[]>>(
     defaultRef<string[]>([user.profilePic])
   );
-  const [result, dispatch, setDefault] = useApiFetch<User>(updateProfile);
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        mutate({ ...user, ...result.data }, false).then(() => {
-          notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
-          setDefault();
-        });
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(result.error));
-        return;
-    }
-  }, [result]);
+  const [result, dispatch, setDefault] = useApiFetch<User>(updateProfile, {
+    onSuccess: (response) => {
+      mutate({ ...user, ...response.data }, false).then(() => {
+        notiDispatch(Action.showSuccess(UPDATE_MESSAGE));
+        setDefault();
+      });
+    },
+    onFailure: (response) => {
+      notiDispatch(Action.showError(response.error));
+    },
+  });
 
   /** sumbit save */
   const handleSubmit = (e: React.MouseEvent<HTMLFormElement>) => {

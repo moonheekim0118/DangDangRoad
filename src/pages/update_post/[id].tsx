@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useUser } from 'hooks';
 import { useSingleReview, useWarnUnsavedChange } from 'hooks';
 import { Loading } from 'components/UI';

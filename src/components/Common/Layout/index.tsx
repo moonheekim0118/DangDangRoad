@@ -1,4 +1,3 @@
-import React from 'react';
 import { Header, Footer } from 'components/Common';
 import { useNotificationState } from 'context/Notification';
 import dynamic from 'next/dynamic';

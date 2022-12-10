@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   CLOSE_BUTTON_CAPTION,
   KEEP_BUTTON_CAPTION,

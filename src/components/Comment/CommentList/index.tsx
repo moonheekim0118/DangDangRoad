@@ -1,9 +1,4 @@
-import React, { useEffect } from 'react';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import Comment from 'types/Comment';
 import { removeComment } from 'api/comment';
 import { Loading, Author, Button, Icon } from 'components/UI';
@@ -40,23 +35,20 @@ const CommentList = ({
   isLoading,
 }: Props): React.ReactElement => {
   const notiDispatch = useNotificationDispatch();
-  const [result, dispatch, setDefault] = useApiFetch<string>(removeComment);
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        setDefault();
-        const id = result.data;
-        if (!id) return;
-        handleRemoveCache(id);
-        notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(result.error));
-        setDefault();
-        return;
-    }
-  }, [result, comments]);
+  const [result, dispatch, setDefault] = useApiFetch<string>(removeComment, {
+    onSuccess: (response) => {
+      setDefault();
+      const id = response.data;
+      if (!id) return;
+      handleRemoveCache(id);
+      notiDispatch(Action.showSuccess(REMOVE_MESSAGE));
+      return;
+    },
+    onFailure: (response) => {
+      notiDispatch(Action.showError(response.error));
+      setDefault();
+    },
+  });
 
   const handleRemoveComment = (id: string) => () => {
     dispatch({ type: REQUEST, params: [id] });

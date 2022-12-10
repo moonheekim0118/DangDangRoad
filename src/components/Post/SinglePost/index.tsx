@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { PostBookMark } from 'components/Post';
 import { CommentSection } from 'components/Comment';
 import { FullReview } from 'types/Review';

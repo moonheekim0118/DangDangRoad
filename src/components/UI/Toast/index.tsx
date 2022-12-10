@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from './style';
 import { Icon } from 'components/UI';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';

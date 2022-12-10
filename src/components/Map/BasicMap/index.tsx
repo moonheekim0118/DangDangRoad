@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as S from './style';
 
 interface Props {
@@ -17,7 +17,7 @@ const Map = ({ coordX, coordY }: Props): React.ReactElement => {
     new window.kakao.maps.Map(mapElement, options);
   }, [coordX, coordY]);
 
-  return <S.Container id="map"></S.Container>;
+  return <S.Container id="map" />;
 };
 
 export default Map;

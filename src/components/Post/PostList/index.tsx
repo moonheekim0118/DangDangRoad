@@ -1,4 +1,3 @@
-import React from 'react';
 import { PreviewPost } from 'components/Post';
 import { LightReview } from 'types/Review';
 import { DEFAULT_KEYWORD } from 'common/constant/string';

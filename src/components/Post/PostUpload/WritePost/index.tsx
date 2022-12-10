@@ -1,12 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNotificationDispatch } from 'context/Notification';
 import { createReview } from 'api/review';
 import { PlaceType } from 'types/Map';
-import useApiFetch, {
-  REQUEST,
-  SUCCESS,
-  FAILURE,
-} from 'hooks/common/useApiFetch';
+import useApiFetch, { REQUEST } from 'hooks/common/useApiFetch';
 import {
   RAIDO_HAS_DONTKNOW_VALUE,
   RAIDO_AVAILABLE_DONTKNOW_VALUE,
@@ -32,22 +28,18 @@ const WritePost = ({ userId }: Props): React.ReactElement => {
   const recommendationRef = useRef<InputRef>(inputDefaultRef());
   const imageUrlRef = useRef<RefType<string[]>>(defaultRef<string[]>([]));
 
-  const [result, dispatch, setDefault] = useApiFetch(createReview);
+  const [result, dispatch, setDefault] = useApiFetch(createReview, {
+    onSuccess: () => {
+      notiDispatch(Action.showSuccess(SAVE_MESSAGE));
+      Router.push(routes.SEARCH);
+    },
+    onFailure: (response) => {
+      notiDispatch(Action.showError(response.error));
+      setDefault();
+    },
+  });
 
   const [selectedPlace, setSelectedPlace] = useState<PlaceType | null>(null);
-
-  useEffect(() => {
-    switch (result.type) {
-      case SUCCESS:
-        notiDispatch(Action.showSuccess(SAVE_MESSAGE));
-        Router.push(routes.SEARCH);
-        return;
-      case FAILURE:
-        notiDispatch(Action.showError(result.error));
-        setDefault();
-        return;
-    }
-  }, [result]);
 
   const handleSelectPlace = (place: PlaceType) => () => {
     setSelectedPlace(place);

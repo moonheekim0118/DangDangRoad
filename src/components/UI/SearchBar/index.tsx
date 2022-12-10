@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, memo } from 'react';
+import { forwardRef, useImperativeHandle, memo } from 'react';
 import { useInput } from 'hooks';
 import { Icon, Button } from 'components/UI';
 import { SEARCH_BUTTON_CAPTION } from 'common/constant/string';

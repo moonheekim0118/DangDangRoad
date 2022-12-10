@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loading } from 'components/UI';
 import Link from 'next/link';
 import * as S from './style';

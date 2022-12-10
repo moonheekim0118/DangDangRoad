@@ -17,6 +17,11 @@ interface Result<T> {
   params?: any[];
 }
 
+interface Props<T> {
+  onSuccess?: (response: Result<T>) => void;
+  onFailure?: (response: Result<T>) => void;
+}
+
 const reducer = <T>(result: Result<T>, action: Result<T>) => {
   const { type, params } = action;
   switch (action.type) {
@@ -50,7 +55,8 @@ const fetchData = async <T>(
 };
 
 const useApiFetch = <T = null>(
-  apiRequest: (...args: any[]) => APIResponse<T>
+  apiRequest: (...args: any[]) => APIResponse<T>,
+  { onSuccess, onFailure }: Props<T> = {}
 ) => {
   const initialState: Result<T> = {
     type: '',
@@ -73,6 +79,16 @@ const useApiFetch = <T = null>(
       fetched.current = false;
     }
   }, [result, apiRequest]);
+
+  useEffect(() => {
+    if (result.type === SUCCESS) {
+      onSuccess && onSuccess(result);
+      return;
+    }
+    if (result.type === FAILURE) {
+      onFailure && onFailure(result);
+    }
+  }, [result, onSuccess, onFailure]);
 
   const setDefault = () => dispatch({ type: '' });
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Loading } from 'components/UI';
 import { SignUp } from 'components/Auth';
 import { useUser } from 'hooks';
